@@ -1,4 +1,5 @@
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { useEffect } from 'react'
+import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { ThemeProvider, ProgressProvider } from './lib/appContext'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
@@ -29,11 +30,20 @@ function NotFound() {
   )
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
+
 export default function App() {
   return (
     <ThemeProvider>
       <ProgressProvider>
         <HashRouter>
+          <ScrollToTop />
           <Routes>
             <Route element={<Layout />}>
               <Route index element={<HomePage />} />

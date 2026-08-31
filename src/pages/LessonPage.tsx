@@ -73,10 +73,6 @@ export default function LessonPage() {
   )
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [unitId, lessonId])
-
-  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null
       if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return
