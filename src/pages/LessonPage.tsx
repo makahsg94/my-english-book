@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getUnit, nav } from '../content/book'
 import { useProgress } from '../lib/appContext'
@@ -6,17 +6,75 @@ import Blocks from '../components/Blocks'
 import PrevNext from '../components/PrevNext'
 import { IconChevronRight, IconHome, IconList, IconTarget, IconVideo, IconVolume } from '../components/Icons'
 
+function ReadingProgress() {
+  const [pct, setPct] = useState(0)
+  useEffect(() => {
+    const onScroll = () => {
+      const el = document.documentElement
+      const h = el.scrollHeight - el.clientHeight
+      setPct(h > 0 ? Math.min(100, (el.scrollTop / h) * 100) : 0)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return <div className="reading-progress" style={{ width: `${pct}%` }} />
+}
+
+function TableOfContents({ lesson }: { lesson: { blocks: { type: string; title?: string }[] } }) {
+  const sections = lesson.blocks
+    .map((b, i) => {
+      const label =
+        b.title ||
+        (b.type === 'exercise'
+          ? 'Practice'
+          : b.type === 'audio'
+            ? 'Listen'
+            : b.type === 'video'
+              ? 'Watch'
+              : b.type === 'pages'
+                ? 'Book Pages'
+                : null)
+      if (!label || b.type === 'pages') return null
+      return { i, label, type: b.type }
+    })
+    .filter(Boolean) as { i: number; label: string; type: string }[]
+
+  if (sections.length < 3) return null
+
+  return (
+    <nav className="mb-6 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3">
+      <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">On this page</p>
+      <div className="flex flex-wrap gap-1.5">
+        {sections.map((s) => (
+          <a
+            key={s.i}
+            href={`#section-${s.i}`}
+            className="rounded-full border border-[var(--line)] bg-[var(--bg)] px-2.5 py-1 text-[12px] font-medium text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
+          >
+            {s.label}
+          </a>
+        ))}
+      </div>
+    </nav>
+  )
+}
+
 export default function LessonPage() {
   const { unitId, lessonId } = useParams()
   const unit = unitId ? getUnit(unitId) : undefined
   const lesson = unit?.lessons.find((l) => l.id === lessonId)
   const progress = useProgress()
   const navigate = useNavigate()
+  const mainRef = useRef<HTMLDivElement>(null)
 
   const navData = useMemo(
     () => (unitId && lesson ? nav(unitId, lesson.id) : { prev: undefined, next: undefined }),
     [unitId, lesson],
   )
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [unitId, lessonId])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -51,7 +109,9 @@ export default function LessonPage() {
   const hasAudio = lesson.blocks.some((b) => b.type === 'audio')
 
   return (
-    <div className="fade-up mx-auto max-w-3xl">
+    <div ref={mainRef} className="fade-up mx-auto max-w-3xl">
+      <ReadingProgress />
+
       <nav className="mb-4 flex flex-wrap items-center gap-1 text-sm text-[var(--ink-faint)]">
         <Link to="/" className="inline-flex items-center gap-1 hover:text-[var(--ink)]">
           <IconHome size={14} /> Home
@@ -64,46 +124,74 @@ export default function LessonPage() {
         <span className="text-[var(--ink)]">{lesson.code}</span>
       </nav>
 
-      <header className="mb-6">
-        <p className="text-xs font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-300">
-          {unitLabel} {'\u00b7'} {unit.title}
-        </p>
-        <h1 className="mt-1 flex flex-wrap items-center gap-3 text-3xl font-bold">
+      <header className="mb-8 border-b border-[var(--line)] pb-6">
+        <div className="flex items-center gap-2">
           {lesson.code !== 'Review' && (
-            <span className="rounded-lg bg-brand-600 px-2.5 py-0.5 text-lg font-bold text-white">{lesson.code}</span>
+            <span className="rounded-lg bg-brand-600 px-3 py-1 text-base font-bold text-white">{lesson.code}</span>
           )}
-          {lesson.title}
-        </h1>
+          <p className="text-xs font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-300">
+            {unitLabel}
+          </p>
+        </div>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight lg:text-4xl">{lesson.title}</h1>
+        <p className="mt-1 text-sm text-[var(--ink-soft)]">
+          {unit.title} {'\u00b7'} Pages {lesson.pages[0]}{'\u2013'}{lesson.pages[1]}
+        </p>
+
         {lesson.labels && (
-          <div className="mt-3 flex flex-wrap gap-2 text-[13px]">
+          <div className="mt-4 flex flex-wrap gap-2">
             {lesson.labels.grammar && (
-              <span className="rounded-full bg-[var(--line)] px-3 py-1 text-[var(--ink-soft)]">{lesson.labels.grammar}</span>
+              <span className="section-label bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-300">
+                <IconTarget size={12} />
+                {lesson.labels.grammar}
+              </span>
             )}
             {lesson.labels.vocabulary && (
-              <span className="rounded-full bg-[var(--line)] px-3 py-1 text-[var(--ink-soft)]">{lesson.labels.vocabulary}</span>
+              <span className="section-label bg-accent-100 text-accent-700 dark:bg-accent-900 dark:text-accent-300">
+                <IconList size={12} />
+                {lesson.labels.vocabulary}
+              </span>
             )}
             {lesson.labels.pronunciation && (
-              <span className="rounded-full bg-[var(--line)] px-3 py-1 text-[var(--ink-soft)]">{lesson.labels.pronunciation}</span>
+              <span className="section-label bg-warm-100 text-warm-700 dark:bg-warm-900 dark:text-warm-100">
+                <IconVolume size={12} />
+                {lesson.labels.pronunciation}
+              </span>
             )}
             {lesson.labels.skills && (
-              <span className="rounded-full bg-accent-50 px-3 py-1 text-accent-700 dark:bg-accent-950 dark:text-accent-300">
+              <span className="section-label bg-sky-100 text-sky-700 dark:bg-sky-900 dark:text-sky-100">
+                <IconVideo size={12} />
                 {lesson.labels.skills}
               </span>
             )}
           </div>
         )}
-        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-[var(--ink-faint)]">
-          <span>
-            Pages {lesson.pages[0]}{'\u2013'}{lesson.pages[1]}
-          </span>
+
+        {lesson.objectives && lesson.objectives.length > 0 && (
+          <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3">
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">What you{'\u2019'}ll learn</p>
+            <ul className="space-y-1 text-sm">
+              {lesson.objectives.map((o, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-brand-100 text-[10px] font-bold text-brand-700 dark:bg-brand-900 dark:text-brand-300">
+                    {i + 1}
+                  </span>
+                  <span className="text-[var(--ink-soft)]">{o}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-[var(--ink-faint)]">
           {hasAudio && (
             <span className="inline-flex items-center gap-1">
-              <IconVolume size={13} /> audio
+              <IconVolume size={13} /> Audio
             </span>
           )}
           {hasVideo && (
             <span className="inline-flex items-center gap-1">
-              <IconVideo size={13} /> video
+              <IconVideo size={13} /> Video
             </span>
           )}
           <button
@@ -120,27 +208,14 @@ export default function LessonPage() {
         </div>
       </header>
 
+      <TableOfContents lesson={lesson} />
+
       <Blocks blocks={lesson.blocks} />
 
-      {lesson.objectives && lesson.objectives.length > 0 && (
-        <section className="mt-6 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4">
-          <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
-            <IconTarget size={14} />
-            Lesson aims
-          </h3>
-          <ul className="space-y-1 text-sm">
-            {lesson.objectives.map((o, i) => (
-              <li key={i} className="flex items-start gap-2">
-                <IconList size={14} className="mt-1 shrink-0 text-brand-600" />
-                <span>{o}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
       <PrevNext unitId={unit.id} lessonId={lesson.id} />
-      <p className="mt-3 text-center text-[11px] text-[var(--ink-faint)]">Tip: use the {'\u2190'} and {'\u2192'} arrow keys to move between lessons</p>
+      <p className="mt-3 text-center text-[11px] text-[var(--ink-faint)]">
+        Tip: use the {'\u2190'} and {'\u2192'} arrow keys to move between lessons
+      </p>
     </div>
   )
 }

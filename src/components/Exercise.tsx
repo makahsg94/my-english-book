@@ -161,8 +161,8 @@ function QuestionRow({
       const chosenWrong = checked && sel >= 0 && !question.options[sel]?.correct
       return (
         <div>
-          <p className="mb-2 text-sm font-medium">{index + 1}. {question.prompt}</p>
-          <div className="flex flex-wrap gap-2">
+          <p className="mb-3 text-sm font-medium leading-relaxed">{index + 1}. {question.prompt}</p>
+          <div className="space-y-2">
             {question.options.map((opt, oi) => {
               const isSel = sel === oi
               const reveal = checked && opt.correct
@@ -172,30 +172,42 @@ function QuestionRow({
                   key={oi}
                   type="button"
                   onClick={() => onAnswer(question.id, oi)}
-                  className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm transition-colors ${
+                  className={`flex w-full items-center gap-3 rounded-xl border px-4 py-2.5 text-left text-sm transition-all ${
                     reveal
-                      ? 'border-brand-600 bg-brand-50 text-brand-800 dark:bg-brand-950 dark:text-brand-200'
+                      ? 'border-brand-500 bg-brand-50 text-brand-800 shadow-sm dark:bg-brand-950 dark:text-brand-200'
                       : wrong
-                        ? 'border-red-400 bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300'
+                        ? 'border-rose-400 bg-rose-50 text-rose-700 dark:bg-rose-950 dark:text-rose-300'
                         : isSel
-                          ? 'border-brand-600 bg-[var(--surface)] text-[var(--ink)]'
-                          : 'border-[var(--line-strong)] bg-[var(--surface)] text-[var(--ink-soft)] hover:border-brand-400'
+                          ? 'border-brand-500 bg-brand-50/50 text-[var(--ink)] shadow-sm dark:bg-brand-950/30'
+                          : 'border-[var(--line)] bg-[var(--surface)] text-[var(--ink-soft)] hover:border-brand-300 hover:bg-brand-50/30'
                   }`}
                 >
-                  {checked && (reveal ? <IconCheck size={14} /> : wrong ? <IconCross size={14} /> : null)}
+                  <span
+                    className={`flex size-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold ${
+                      reveal
+                        ? 'bg-brand-600 text-white'
+                        : wrong
+                          ? 'bg-rose-500 text-white'
+                          : isSel
+                            ? 'bg-brand-600 text-white'
+                            : 'bg-[var(--line)] text-[var(--ink-faint)]'
+                    }`}
+                  >
+                    {reveal ? <IconCheck size={12} /> : wrong ? <IconCross size={12} /> : LETTERS[oi]}
+                  </span>
                   <span>{opt.label}</span>
                 </button>
               )
             })}
           </div>
           {checked && chosenWrong && (
-            <p className="mt-1.5 text-sm text-[var(--ink-soft)]">
-              Correct answer: <span className="font-medium text-brand-700 dark:text-brand-300">{correctLabel}</span>
+            <p className="mt-2 rounded-lg bg-brand-50 px-3 py-1.5 text-sm text-brand-700 dark:bg-brand-950 dark:text-brand-300">
+              Correct answer: <span className="font-semibold">{correctLabel}</span>
             </p>
           )}
           {checked && sel === -1 && (
-            <p className="mt-1.5 text-sm text-[var(--ink-soft)]">
-              Correct answer: <span className="font-medium text-brand-700 dark:text-brand-300">{correctLabel}</span>
+            <p className="mt-2 rounded-lg bg-brand-50 px-3 py-1.5 text-sm text-brand-700 dark:bg-brand-950 dark:text-brand-300">
+              Correct answer: <span className="font-semibold">{correctLabel}</span>
             </p>
           )}
         </div>

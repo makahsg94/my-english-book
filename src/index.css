@@ -29,6 +29,28 @@
   --color-accent-800: #4d1ab6;
   --color-accent-900: #411895;
   --color-accent-950: #270d65;
+
+  --color-warm-50: #fef7ee;
+  --color-warm-100: #fdeadb;
+  --color-warm-200: #fad1b4;
+  --color-warm-500: #e97a22;
+  --color-warm-600: #d0641a;
+  --color-warm-700: #a44d16;
+  --color-warm-900: #5a2808;
+
+  --color-sky-50: #f0f7ff;
+  --color-sky-100: #dceeff;
+  --color-sky-500: #2d7dd2;
+  --color-sky-600: #1a5fa8;
+  --color-sky-700: #154a83;
+  --color-sky-900: #0c2745;
+
+  --color-rose-50: #fff1f2;
+  --color-rose-100: #ffe1e3;
+  --color-rose-500: #e84057;
+  --color-rose-600: #cc2e45;
+  --color-rose-700: #a32337;
+  --color-rose-900: #5c101e;
 }
 
 :root {
@@ -75,35 +97,164 @@ h1, h2, h3, h4 {
   letter-spacing: -0.015em;
 }
 
+/* ---------- Editorial prose ---------- */
 .prose-book {
   color: var(--ink);
+  max-width: 65ch;
 }
 .prose-book p {
   margin: 0.9rem 0;
-  line-height: 1.75;
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+.prose-book p + p {
+  text-indent: 1.5em;
 }
 .prose-book strong {
   font-weight: 650;
+  color: var(--ink);
 }
 .prose-book em {
   color: var(--ink-soft);
+  font-style: italic;
 }
 
-::selection {
-  background: color-mix(in srgb, var(--color-brand-500) 25%, transparent);
+/* ---------- Drop-cap first paragraph ---------- */
+.drop-cap > p:first-of-type::first-letter {
+  float: left;
+  font-size: 2.8em;
+  line-height: 0.85;
+  font-weight: 700;
+  margin-right: 0.08em;
+  margin-top: 0.05em;
+  color: var(--color-brand-600);
+  font-family: var(--font-serif);
 }
 
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-[tabindex]:focus-visible {
-  outline: 2px solid var(--color-brand-500);
-  outline-offset: 2px;
-  border-radius: 4px;
+/* ---------- Section labels ---------- */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  line-height: 1;
 }
 
+/* ---------- Callout tone palette ---------- */
+.callout-info {
+  border-color: var(--color-brand-300);
+  background: var(--color-brand-50);
+}
+.dark .callout-info {
+  border-color: var(--color-brand-800);
+  background: color-mix(in srgb, var(--color-brand-950) 50%, transparent);
+}
+.callout-tip {
+  border-color: var(--color-accent-300);
+  background: var(--color-accent-50);
+}
+.dark .callout-tip {
+  border-color: var(--color-accent-800);
+  background: color-mix(in srgb, var(--color-accent-950) 50%, transparent);
+}
+.callout-note {
+  border-color: var(--color-warm-200);
+  background: var(--color-warm-50);
+}
+.dark .callout-note {
+  border-color: var(--color-warm-900);
+  background: color-mix(in srgb, var(--color-warm-900) 40%, transparent);
+}
+.callout-warning {
+  border-color: var(--color-rose-100);
+  background: var(--color-rose-50);
+}
+.dark .callout-warning {
+  border-color: var(--color-rose-900);
+  background: color-mix(in srgb, var(--color-rose-900) 40%, transparent);
+}
+
+/* ---------- Content tables ---------- */
+.content-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.875rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+}
+.content-table th {
+  background: var(--color-brand-600);
+  color: white;
+  padding: 0.625rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.dark .content-table th {
+  background: color-mix(in srgb, var(--color-brand-700) 80%, #000);
+}
+.content-table td {
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--line);
+}
+.content-table tbody tr:nth-child(odd) td {
+  background: color-mix(in srgb, var(--color-brand-50) 40%, var(--surface));
+}
+.dark .content-table tbody tr:nth-child(odd) td {
+  background: color-mix(in srgb, var(--color-brand-950) 30%, transparent);
+}
+.content-table tbody tr:hover td {
+  background: color-mix(in srgb, var(--color-brand-100) 30%, var(--surface));
+}
+.dark .content-table tbody tr:hover td {
+  background: color-mix(in srgb, var(--color-brand-950) 50%, transparent);
+}
+
+/* ---------- Reading progress ---------- */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-brand-400), var(--color-accent-500));
+  border-radius: 0 2px 2px 0;
+  z-index: 50;
+  transition: width 100ms ease;
+}
+
+/* ---------- Section divider ---------- */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 2rem 0 1.5rem;
+}
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line-strong);
+}
+.section-divider span {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+/* ---------- Scrollbar ---------- */
 .scrollbar-thin::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -113,6 +264,7 @@ textarea:focus-visible,
   border-radius: 8px;
 }
 
+/* ---------- Animations ---------- */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -127,7 +279,12 @@ textarea:focus-visible,
   animation: fadeUp 0.3s ease both;
 }
 
-/* Mini player equalizer bars */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---------- Mini player equalizer bars ---------- */
 .eq {
   display: inline-flex;
   align-items: flex-end;
@@ -163,6 +320,7 @@ textarea:focus-visible,
   }
 }
 
+/* ---------- Range input ---------- */
 input[type='range'] {
   height: 6px;
   appearance: none;
@@ -186,6 +344,22 @@ input[type='range']::-moz-range-thumb {
   background: var(--color-brand-600);
   border: 2px solid var(--surface);
   cursor: pointer;
+}
+
+/* ---------- Selection + Focus ---------- */
+::selection {
+  background: color-mix(in srgb, var(--color-brand-500) 25%, transparent);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
