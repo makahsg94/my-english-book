@@ -21,5 +21,5 @@ export const BUNDLED_VIDEOS: ReadonlySet<string> = new Set([
 ])
 
 export function videoSrc(file: string): string {
-  return `/videos/${encodeURI(file)}`
+  return `${import.meta.env.BASE_URL}videos/${encodeURI(file)}`
 }

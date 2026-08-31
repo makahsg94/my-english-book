@@ -41,7 +41,7 @@ export default function MiniPlayer() {
 
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold leading-tight">{ph.label}</p>
-          <p className="truncate font-mono text-[11px] text-[var(--ink-faint)]">{ph.file.replace(/^\/audio\//, '')}</p>
+          <p className="truncate font-mono text-[11px] text-[var(--ink-faint)]">{ph.file.split('/audio/').pop()}</p>
         </div>
 
         <button

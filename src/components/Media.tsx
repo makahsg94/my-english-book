@@ -63,7 +63,7 @@ export function AudioPlayer({ tracks, title }: { tracks: AudioTrack[]; title?: s
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm font-medium">{t.label}</span>
-                  <span className="block truncate font-mono text-xs text-[var(--ink-faint)]">{t.file.replace(/^\/audio\//, '')}</span>
+                  <span className="block truncate font-mono text-xs text-[var(--ink-faint)]">{t.file.split('/audio/').pop()}</span>
                 </span>
                 {t.page && <span className="shrink-0 text-xs text-[var(--ink-faint)]">page {t.page}</span>}
               </button>

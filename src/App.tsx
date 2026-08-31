@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import { ThemeProvider, ProgressProvider } from './lib/appContext'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
@@ -33,7 +33,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <ProgressProvider>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route element={<Layout />}>
               <Route index element={<HomePage />} />
@@ -42,10 +42,10 @@ export default function App() {
               <Route path="unit/:unitId/lesson/:lessonId" element={<LessonPage />} />
               <Route path="page/:pdf" element={<PageView />} />
               <Route path="bank/:bankId" element={<BankPage />} />
-              <Route path="*" element={<NotFound />} />
             </Route>
-          </Routes>
-        </BrowserRouter>
+            <Route path="*" element={<NotFound />} />
+            </Routes>
+          </HashRouter>
       </ProgressProvider>
     </ThemeProvider>
   )
