@@ -157,6 +157,8 @@ function QuestionRow({
   switch (question.kind) {
     case 'mcq': {
       const sel = (answered[question.id] ?? -1) as number
+      const correctLabel = question.options.find((o) => o.correct)?.label
+      const chosenWrong = checked && sel >= 0 && !question.options[sel]?.correct
       return (
         <div>
           <p className="mb-2 text-sm font-medium">{index + 1}. {question.prompt}</p>
@@ -186,6 +188,16 @@ function QuestionRow({
               )
             })}
           </div>
+          {checked && chosenWrong && (
+            <p className="mt-1.5 text-sm text-[var(--ink-soft)]">
+              Correct answer: <span className="font-medium text-brand-700 dark:text-brand-300">{correctLabel}</span>
+            </p>
+          )}
+          {checked && sel === -1 && (
+            <p className="mt-1.5 text-sm text-[var(--ink-soft)]">
+              Correct answer: <span className="font-medium text-brand-700 dark:text-brand-300">{correctLabel}</span>
+            </p>
+          )}
         </div>
       )
     }
@@ -230,8 +242,12 @@ function QuestionRow({
 
     case 'fill-blank': {
       const guess = String(answered[question.id] ?? '')
-      const good = checked && guess.trim().toLowerCase() === question.answer.toLowerCase()
-      const bad = checked && guess.trim().toLowerCase() !== question.answer.toLowerCase()
+      const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '')
+      const ok =
+        guess.trim() !== '' &&
+        (norm(guess) === norm(question.answer) || (question.accept ?? []).some((a) => norm(guess) === norm(a)))
+      const good = checked && ok
+      const bad = checked && !ok
       return (
         <div>
           <p className="mb-2 text-sm font-medium">
@@ -244,13 +260,18 @@ function QuestionRow({
               value={guess}
               onChange={(e) => onAnswer(question.id, e.target.value)}
               placeholder={'Type your answer\u2026'}
+              autoComplete="off"
+              autoCapitalize="off"
+              autoCorrect="off"
+              spellCheck={false}
               className={`rounded-lg border bg-[var(--surface)] px-3 py-1.5 text-sm ${
                 good ? 'border-brand-600' : bad ? 'border-red-400' : 'border-[var(--line-strong)] text-[var(--ink)]'
               }`}
             />
-            {checked && (
-              <span className={`text-sm ${good ? 'text-brand-700' : 'text-red-600'}`}>
-                {good ? 'Correct!' : `Answer: ${question.answer}`}
+            {checked && good && <span className="text-sm text-brand-700">Correct!</span>}
+            {checked && bad && (
+              <span className="text-sm text-red-600">
+                Answer: <span className="font-medium">{question.answer}</span>
               </span>
             )}
           </div>
@@ -284,6 +305,9 @@ function QuestionRow({
                     >
                       {checked && (good ? <IconCheck size={14} /> : bad ? <IconCross size={14} /> : null)}
                       {pair.left}
+                      {bad && (
+                        <span className="ml-auto text-xs font-medium text-red-600 dark:text-red-300">{'\u2192'} {pair.right}</span>
+                      )}
                     </span>
                   </div>
                 )
@@ -295,30 +319,36 @@ function QuestionRow({
                 const li = chosenLeft ? question.pairs.findIndex((p) => p.left === chosenLeft) : -1
                 const good = checked && li >= 0 && rightOptions[ri] === question.pairs[li].right
                 return (
-                  <select
-                    key={pair.right}
-                    aria-label={`right item ${ri + 1}: ${pair.right}`}
-                    value={chosenLeft ?? ''}
-                    onChange={(e) => {
-                      const next = { ...sel }
-                      if (e.target.value) next[e.target.value] = ri
-                      onAnswer(question.id, next)
-                    }}
-                    className={`w-full rounded-lg border bg-[var(--surface)] px-3 py-1.5 text-sm ${
-                      good
-                        ? 'border-brand-600'
-                        : checked
-                          ? 'border-red-300'
-                          : 'border-[var(--line-strong)]'
-                    }`}
-                  >
-                    <option value="">{'\u2026'} choose {'\u2192'} {pair.right}</option>
-                    {question.pairs.map((p, li) => (
-                      <option key={p.left} value={p.left}>
-                        {LETTERS[li]}. {p.left}
-                      </option>
-                    ))}
-                  </select>
+                  <div key={pair.right} className="w-full">
+                    <select
+                      aria-label={`right item ${ri + 1}: ${pair.right}`}
+                      value={chosenLeft ?? ''}
+                      onChange={(e) => {
+                        const next = { ...sel }
+                        if (e.target.value) next[e.target.value] = ri
+                        onAnswer(question.id, next)
+                      }}
+                      className={`w-full rounded-lg border bg-[var(--surface)] px-3 py-1.5 text-sm ${
+                        good
+                          ? 'border-brand-600'
+                          : checked
+                            ? 'border-red-300'
+                            : 'border-[var(--line-strong)]'
+                      }`}
+                    >
+                      <option value="">{'\u2026'} choose {'\u2192'} {pair.right}</option>
+                      {question.pairs.map((p, li) => (
+                        <option key={p.left} value={p.left}>
+                          {LETTERS[li]}. {p.left}
+                        </option>
+                      ))}
+                    </select>
+                    {checked && !good && (
+                      <p className="mt-1 text-xs text-[var(--ink-soft)]">
+                        Correct answer: <span className="font-medium text-brand-700 dark:text-brand-300">{LETTERS[ri]}. {question.pairs[ri].left}</span>
+                      </p>
+                    )}
+                  </div>
                 )
               })}
             </div>

@@ -329,6 +329,17 @@ export const unit06: Unit = {
           title: 'How to ... give directions',
           explanation:
             'Give directions step by step: walk/go + direction + place, then turn left/right, go straight on, cross or go past a place.',
+          table: {
+            headers: ['Step', 'Phrase'],
+            rows: [
+              { values: ['ask the way', 'How do I get ... from here?'] },
+              { values: ['go on foot', 'Walk up/down + street'] },
+              { values: ['keep going', 'Go straight on at the crossroads.'] },
+              { values: ['change direction', 'Turn left/right at + landmark.'] },
+              { values: ['pass a place', 'Go past + place.'] },
+              { values: ['cross', 'Cross the bridge / square.'] },
+            ],
+          },
           examples: [
             'How do I get from here?',
             'Walk up Cork Hill.',

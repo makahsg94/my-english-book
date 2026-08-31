@@ -268,6 +268,14 @@ export const unit05: Unit = {
           title: 'How to ... apologise and make excuses',
           explanation:
             'Apologise with I\u2019m (really / so) sorry. Accept an apology with That\u2019s all right, It\u2019s OK or No problem.',
+          table: {
+            headers: ['Function', 'Say this'],
+            rows: [
+              { values: ['apologise', 'I\u2019m (really / so) sorry.'] },
+              { values: ['give a reason', 'I\u2019m really sorry. My train was late.'] },
+              { values: ['accept an apology', 'That\u2019s all right. / It\u2019s OK. / No problem.'] },
+            ],
+          },
           examples: [
             'I\u2019m so sorry I\u2019m late.',
             'I\u2019m really sorry. My train was late.',
@@ -345,6 +353,15 @@ title: 'BBC Street Interviews: How was your weekend?',
           explanation:
             'Use modifiers before adjectives to make them stronger or weaker: really, very (strong) · quite (medium) · a bit (weak). Too means "more than good".',
           rule: 'modifier + adjective: My weekend was very nice. It was quite good. It was a bit crowded. It was too much.',
+          table: {
+            headers: ['Modifier', 'Strength', 'Example'],
+            rows: [
+              { values: ['really, very', 'strong', 'My weekend was very nice.'] },
+              { values: ['quite', 'medium', 'It was quite good.'] },
+              { values: ['a bit', 'weak', 'It was a bit crowded.'] },
+              { values: ['too', '\u201cmore than good\u201d', 'It was too much.'] },
+            ],
+          },
           examples: [
             'My weekend was very nice.',
             'It was quite good.',

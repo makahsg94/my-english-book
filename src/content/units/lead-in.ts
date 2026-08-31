@@ -71,6 +71,18 @@ export const leadIn: Unit = {
           title: 'review: subject pronouns and be; object pronouns and possessive adjectives',
           explanation:
             'Review I/you/he/she/it/we/they with am/is/are, and me/you/him/her + my/your/his/her.',
+          table: {
+            headers: ['Subject', 'Object', 'Possessive adjective'],
+            rows: [
+              { label: 'I', values: ['me', 'my'] },
+              { label: 'you', values: ['you', 'your'] },
+              { label: 'he', values: ['him', 'his'] },
+              { label: 'she', values: ['her', 'her'] },
+              { label: 'it', values: ['it', 'its'] },
+              { label: 'we', values: ['us', 'our'] },
+              { label: 'they', values: ['them', 'their'] },
+            ],
+          },
           examples: [
             'My sister is a singer. She\u2019s a singer.',
             'Greta is from Germany. Her name\u2019s Greta.',

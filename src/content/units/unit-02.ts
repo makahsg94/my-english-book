@@ -337,6 +337,16 @@ export const unit02: Unit = {
           explanation:
             'Use can, could and would like / I\u2019d like to make requests in a restaurant. Could is a little more polite than can.',
           rule: 'Use some for requests with plural and uncountable nouns (not any). Use the to order something on the menu. Answer requests with a phrase, not just yes/no.',
+          table: {
+            headers: ['When?', 'Useful phrase'],
+            rows: [
+              { values: ['to ask politely', 'Could I / Can we + verb ...?'] },
+              { values: ['to order from the menu', 'I\u2019d like the + dish, please.'] },
+              { values: ['an amount, not specified', 'some + noun (not any)'] },
+              { values: ['a specific menu item', 'the + dish'] },
+              { values: ['to ask for the bill', 'Could we have the bill, please?'] },
+            ],
+          },
           examples: [
             'Could I have the soup, please?',
             'Can we have a table near the window?',

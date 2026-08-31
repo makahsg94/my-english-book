@@ -315,6 +315,15 @@ export const unit01: Unit = {
           explanation:
             'Use these phrases to make a suggestion: Let\u2019s + infinitive, Can we + infinitive, Would you like to + infinitive, How about / What about + noun or time.',
           rule: 'Respond positively with OK, Sure, Sure that\u2019s fine, Good idea, Perfect! or I\u2019d love to. Respond negatively with I\u2019m sorry, I can\u2019t or Sorry, I\u2019m busy then.',
+          table: {
+            headers: ['Making a suggestion', 'Responding'],
+            rows: [
+              { values: ['Let\u2019s + infinitive', 'OK. / Sure, that\u2019s fine.'] },
+              { values: ['Can we + infinitive?', 'Good idea! / Perfect!'] },
+              { values: ['Would you like to + infinitive?', 'I\u2019d love to.'] },
+              { values: ['How about / What about + noun/time?', 'I\u2019m sorry, I can\u2019t. / Sorry, I\u2019m busy then.'] },
+            ],
+          },
           examples: [
             'Let\u2019s meet at the cinema.',
             'Can we meet at half past seven?',

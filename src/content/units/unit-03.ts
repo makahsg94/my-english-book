@@ -296,6 +296,15 @@ export const unit03: Unit = {
           explanation:
             'Use Would you like to + infinitive to make an invitation. Accept with I\u2019d love to; decline politely with I\u2019m sorry, I can\u2019t.',
           rule: 'Make offers with Can I ...?, Shall I ...? and Let me ... + verb.',
+          table: {
+            headers: ['Function', 'Phrase'],
+            rows: [
+              { values: ['make an invitation', 'Would you like to + infinitive?'] },
+              { values: ['accept', 'I\u2019d love to.'] },
+              { values: ['decline politely', 'I\u2019m sorry, I can\u2019t.'] },
+              { values: ['make an offer', 'Can I / Shall I / Let me + verb'] },
+            ],
+          },
           examples: [
             'Would you like to come for dinner on Friday?',
             'I\u2019d love to come.',

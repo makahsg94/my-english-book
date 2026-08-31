@@ -308,6 +308,15 @@ export const unit08: Unit = {
           title: 'How to ... make requests and offers in a hotel',
           explanation:
             'Make requests with can/could and offers with will/shall. The receptionist offers to do things for the guest.',
+          table: {
+            headers: ['Situation', 'Language'],
+            rows: [
+              { values: ['make a request', 'Can I / Could I + verb ...?'] },
+              { values: ['future offer (I will)', 'I\u2019ll give / send / book + noun'] },
+              { values: ['polite offer', 'Would you like to + verb ...?'] },
+              { values: ['unable to help', 'I\u2019m sorry, that\u2019s not possible.'] },
+            ],
+          },
           examples: [
             'G: Can I have another key card? \u2013 R: Of course, I\u2019ll give you another one.',
             'G: The lamp is broken. \u2013 R: I\u2019m sorry to hear that, I\u2019ll send someone up.',

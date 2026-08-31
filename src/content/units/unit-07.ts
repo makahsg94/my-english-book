@@ -290,6 +290,16 @@ export const unit07: Unit = {
           title: 'How to ... phone for information',
           explanation:
             'Start the call with Hello, this is ... / How can I help you? Use Sorry, could you hold on a minute? to ask the caller to wait. End with Thank you for calling.',
+          table: {
+            headers: ['Part of the call', 'Say this'],
+            rows: [
+              { values: ['answer the phone', 'Hello, this is ... / How can I help you?'] },
+              { values: ['ask the caller to wait', 'Sorry, could you hold on a minute?'] },
+              { values: ['come back after holding', 'Sorry about that. Thank you for waiting.'] },
+              { values: ['check if anything else', 'Can I help you with anything else?'] },
+              { values: ['end the call', 'Thank you for calling.'] },
+            ],
+          },
           examples: [
             'Hello, this is Mills Leisure Centre.',
             'You\u2019re speaking to Simon. How can I help?',

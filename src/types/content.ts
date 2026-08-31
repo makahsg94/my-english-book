@@ -72,6 +72,8 @@ export type ExerciseQuestion =
       before: string
       /** the correct answer word(s) */
       answer: string
+      /** other accepted spellings/alternatives (checked case-insensitively) */
+      accept?: string[]
       /** sentence after the blank */
       after: string
     }

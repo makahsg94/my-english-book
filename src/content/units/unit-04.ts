@@ -195,6 +195,17 @@ export const unit04: Unit = {
           explanation:
             "Use How much + uncountable noun and How many + plural countable noun. With an adjective use How far (distance), How long (time/size), How big (size), How often (frequency).",
           rule: "How much + uncountable (How much water ...?) · How many + plural (How many slices ...?) · How far / How long / How big / How often + present simple",
+          table: {
+            headers: ['Question word', 'Use', 'Example'],
+            rows: [
+              { values: ['How much', 'uncountable nouns', 'How much water ...?'] },
+              { values: ['How many', 'plural countable nouns', 'How many slices ...?'] },
+              { values: ['How far', 'distance', 'How far do you walk?'] },
+              { values: ['How long', 'time or size', 'How long do you wait?'] },
+              { values: ['How big', 'size', 'How big is it?'] },
+              { values: ['How often', 'frequency', 'How often do you check your phone?'] },
+            ],
+          },
           examples: [
             'How much water do we use to make a pair of jeans?',
             'How many slices do they eat a day?',
@@ -306,6 +317,66 @@ export const unit04: Unit = {
           },
         },
         {
+          type: 'exercise',
+          exercise: {
+            id: 'u4-4b-spell',
+            title: 'Write the numbers in English',
+            kind: 'fill-blank',
+            instructions: 'Type each number in English words, e.g. 96 \u2192 ninety-six.',
+            page: 40,
+            verified: true,
+            questions: [
+              {
+                id: 'q1',
+                kind: 'fill-blank',
+                before: '96',
+                answer: 'ninety-six',
+                after: '',
+              },
+              {
+                id: 'q2',
+                kind: 'fill-blank',
+                before: '171',
+                answer: 'one hundred and seventy-one',
+                accept: ['one hundred seventy-one'],
+                after: '',
+              },
+              {
+                id: 'q3',
+                kind: 'fill-blank',
+                before: '350',
+                answer: 'three hundred and fifty',
+                accept: ['three hundred fifty'],
+                after: '',
+              },
+              {
+                id: 'q4',
+                kind: 'fill-blank',
+                before: '100',
+                answer: 'a hundred',
+                accept: ['one hundred'],
+                after: '',
+              },
+              {
+                id: 'q5',
+                kind: 'fill-blank',
+                before: '7,500',
+                answer: 'seven thousand five hundred',
+                accept: ['seven thousand, five hundred'],
+                after: '',
+              },
+              {
+                id: 'q6',
+                kind: 'fill-blank',
+                before: '148,000',
+                answer: 'one hundred and forty-eight thousand',
+                accept: ['one hundred forty-eight thousand'],
+                after: '',
+              },
+            ],
+          },
+        },
+        {
           type: 'audio',
           title: 'Pronunciation: intonation to check understanding',
           tracks: au(['4.03']),
@@ -347,6 +418,17 @@ export const unit04: Unit = {
           explanation:
             'Use polite questions with Can I / Could I and Excuse me to ask for help and information in shops.',
           rule: 'Excuse me + Could you ...? · Can I / Could I ...? · How much is it? · Can I pay by phone/card? · Could I have a receipt?',
+          table: {
+            headers: ['You want to ...', 'Say this'],
+            rows: [
+              { values: ['get attention', 'Excuse me, could you help me?'] },
+              { values: ['ask if they sell something', 'Do you sell phone chargers?'] },
+              { values: ['try clothes on', 'Can I try it on?'] },
+              { values: ['find the fitting rooms', 'Where are the changing rooms?'] },
+              { values: ['ask about a different colour', 'Have you got it in a different colour?'] },
+              { values: ['ask the price / pay', 'How much is it? / Can I pay by card?'] },
+            ],
+          },
           examples: [
             'Excuse me, could you help me?',
             'Do you sell phone chargers for this phone?',
@@ -485,6 +567,14 @@ export const unit04: Unit = {
           explanation:
             'Use should + verb for something that is necessary or a good idea, and shouldn\u2019t + verb for something that is a bad idea. Use the imperative (the base form) for instructions.',
           rule: 'You should + verb (advice) · you shouldn\u2019t + verb (warning) · base verb (instruction): Go out early!',
+          table: {
+            headers: ['Use', 'Pattern', 'Example'],
+            rows: [
+              { values: ['advice', 'You should + verb', 'You should stay for a week or two.'] },
+              { values: ['warning', 'You shouldn\u2019t + verb', 'You shouldn\u2019t start the day too late.'] },
+              { values: ['instruction', 'base verb', 'Go out early and find a good place to sit.'] },
+            ],
+          },
           examples: [
             'You should stay for a week or two.',
             'You shouldn\u2019t start the day too late.',
