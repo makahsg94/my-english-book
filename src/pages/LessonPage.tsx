@@ -5,8 +5,10 @@ import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import { useToast } from '../lib/toast'
 import { checkMilestones } from '../lib/milestones'
+import { burstConfetti } from '../lib/confetti'
 import Blocks from '../components/Blocks'
 import PrevNext from '../components/PrevNext'
+import AnimatedBar from '../components/AnimatedBar'
 import { IconChevronLeft, IconChevronRight, IconHome, IconList, IconTarget, IconVideo, IconVolume } from '../components/Icons'
 import type { ContentBlock } from '../types/content'
 
@@ -152,6 +154,8 @@ export default function LessonPage() {
       return
     }
     progress.markLessonComplete(lesson.id)
+    const unitDoneNow = unit.lessons.every((l) => progress.isLessonComplete(l.id))
+    if (unitDoneNow) burstConfetti()
     for (const m of checkMilestones(progress.state)) showToast(m)
   }
 
@@ -268,10 +272,11 @@ export default function LessonPage() {
                 {exercisesDone}
                 <span className="text-sm font-medium text-[var(--ink-faint)]"> / {exercises.length} done</span>
               </p>
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[var(--line)]">
-                <div
-                  className="h-full rounded-full bg-brand-500 transition-all"
-                  style={{ width: `${exercises.length > 0 ? Math.round((exercisesDone / exercises.length) * 100) : 0}%` }}
+              <div className="mt-2">
+                <AnimatedBar
+                  value={exercises.length > 0 ? Math.round((exercisesDone / exercises.length) * 100) : 0}
+                  className="h-1.5"
+                  bar="bg-brand-500"
                 />
               </div>
             </div>

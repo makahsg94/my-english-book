@@ -4,6 +4,7 @@ import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import { PageFigure } from '../components/PageFigure'
 import Reveal from '../components/Reveal'
+import AnimatedBar from '../components/AnimatedBar'
 import { IconChevronRight, IconVideo, IconHome, IconCheck, IconList, IconTarget } from '../components/Icons'
 
 export default function UnitPage() {
@@ -66,12 +67,7 @@ export default function UnitPage() {
                 {done}/{unit.lessons.length} ({pct}%)
               </span>
             </div>
-            <div className="h-2.5 overflow-hidden rounded-full bg-[var(--line)]">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-brand-500 to-accent-500 transition-all"
-                style={{ width: `${pct}%` }}
-              />
-            </div>
+            <AnimatedBar value={pct} className="h-2.5" bar="bg-gradient-to-r from-brand-500 to-accent-500" />
           </div>
         </div>
         <PageFigure image={{ pdf: unit.overviewPage + 2, bookPage: unit.overviewPage }} />
@@ -124,7 +120,7 @@ export default function UnitPage() {
                 <Reveal delay={i * 45}>
                   <Link
                     to={`/unit/${unit.id}/lesson/${lesson.id}`}
-                    className="group flex items-center gap-3 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3 transition-all hover:border-brand-300 hover:shadow-sm dark:hover:border-brand-700"
+                    className="group flex items-center gap-3 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lg dark:hover:border-brand-700"
                   >
                     <span
                       className={`relative grid size-10 shrink-0 place-items-center rounded-xl text-sm font-bold transition-all ${

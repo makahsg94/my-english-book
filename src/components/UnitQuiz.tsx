@@ -4,6 +4,7 @@ import { getLesson } from '../content/book'
 import { useProgress } from '../lib/appContext'
 import { useToast } from '../lib/toast'
 import { checkMilestones } from '../lib/milestones'
+import { burstConfetti } from '../lib/confetti'
 import {
   IconCheck,
   IconChevronLeft,
@@ -166,7 +167,9 @@ export function UnitQuiz({ quiz, unitLabel }: { quiz: UnitQuiz; unitLabel: strin
     setGraded(next)
     const correct = next.filter((g) => g.correct).length
     const pct = correct / Math.max(1, total)
-    setNewBest(pct > prevPct)
+    const isBest = pct > prevPct
+    setNewBest(isBest)
+    if (isBest) burstConfetti()
     const categories: Record<string, { correct: number; total: number }> = {}
     for (const g of next) {
       const c = categories[g.category] ?? { correct: 0, total: 0 }

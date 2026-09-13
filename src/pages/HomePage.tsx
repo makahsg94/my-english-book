@@ -4,6 +4,7 @@ import { getUnitQuiz } from '../content/quizzes'
 import { pageImageUrl } from '../lib/images'
 import { useProgress } from '../lib/appContext'
 import Reveal from '../components/Reveal'
+import AnimatedBar from '../components/AnimatedBar'
 import { IconBook, IconCheck, IconClock, IconGrid, IconTarget } from '../components/Icons'
 
 export default function HomePage() {
@@ -65,9 +66,7 @@ export default function HomePage() {
                 {doneCount} / {lessons.length} ({pct}%)
               </span>
             </div>
-            <div className="h-2.5 overflow-hidden rounded-full bg-[var(--line)]">
-              <div className="h-full rounded-full bg-gradient-to-r from-brand-500 to-accent-500 transition-all" style={{ width: `${pct}%` }} />
-            </div>
+            <AnimatedBar value={pct} className="h-2.5" bar="bg-gradient-to-r from-brand-500 to-accent-500" />
           </div>
         </div>
         <div className="flex items-start justify-center">
@@ -125,14 +124,18 @@ export default function HomePage() {
               <Reveal key={unit.id} delay={i * 60}>
                 <Link
                   to={`/unit/${unit.id}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] transition-all hover:border-brand-300 hover:shadow-md dark:hover:border-brand-700"
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] transition-all duration-200 hover:-translate-y-1 hover:border-brand-300 hover:shadow-lg dark:hover:border-brand-700"
                 >
                   <div className="relative overflow-hidden">
                     <img
                       src={pageImageUrl(unit.overviewPage + 2)}
                       alt={`Unit ${unit.number} opener`}
                       loading="lazy"
-                      className="h-28 w-full border-b border-[var(--line)] object-cover object-top transition-transform group-hover:scale-105"
+                      className="h-28 w-full border-b border-[var(--line)] object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/70 to-transparent transition-transform duration-700 group-hover:translate-x-full dark:via-white/10"
                     />
                     {unitPct === 100 && (
                       <span className="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full bg-brand-600 text-white shadow-sm">
@@ -153,9 +156,7 @@ export default function HomePage() {
                         <span>{unitDone}/{unit.lessons.length} lessons</span>
                         <span>{unitPct}%</span>
                       </div>
-                      <div className="h-1.5 overflow-hidden rounded-full bg-[var(--line)]">
-                        <div className="h-full rounded-full bg-brand-500 transition-all" style={{ width: `${unitPct}%` }} />
-                      </div>
+                      <AnimatedBar value={unitPct} className="h-1.5" bar="bg-brand-500" />
                     </div>
                   </div>
                 </Link>

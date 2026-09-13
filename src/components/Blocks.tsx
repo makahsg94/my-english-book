@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { ContentBlock } from '../types/content'
 import { Quiz } from './Exercise'
 import { AudioPlayer } from './Media'
@@ -121,67 +122,7 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
             )
 
           case 'vocab':
-            return (
-              <section key={i} id={id}>
-                {block.title && (
-                  <div className="mb-3 mt-8 flex items-center gap-2.5">
-                    <h2 className="flex items-center gap-2 text-xl font-bold">
-                      <span className="h-6 w-1 rounded-full bg-gradient-to-b from-accent-500 to-brand-500" />
-                      {block.title}
-                    </h2>
-                  </div>
-                )}
-                <div className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)]">
-                  <div className="hidden border-b border-[var(--line)] bg-[var(--line)]/50 px-4 py-2 sm:grid sm:grid-cols-[1fr_1fr_2fr] sm:gap-4">
-                    <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Word</span>
-                    <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Meaning</span>
-                    <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Example / Note</span>
-                  </div>
-                  <div className="divide-y divide-[var(--line)]">
-                    {(block.items ?? []).map((item, j) => (
-                      <div
-                        key={j}
-                        className="group grid gap-1 px-4 py-3 transition-colors hover:bg-[var(--line)]/30 sm:grid-cols-[1fr_1fr_2fr] sm:items-start sm:gap-4"
-                      >
-                        <div className="min-w-0">
-                          <span className="text-[15px] font-semibold text-brand-800 dark:text-brand-200">{item.word}</span>
-                          {item.opposite && (
-                            <span className="ml-2 text-xs text-[var(--ink-faint)]">
-                              opp.{' '}
-                              <span className="font-medium text-accent-600 dark:text-accent-400">{item.opposite}</span>
-                            </span>
-                          )}
-                          {item.pronunciation && (
-                            <span className="ml-1.5 text-[11px] italic text-[var(--ink-faint)]">/{item.pronunciation}/</span>
-                          )}
-                        </div>
-                        <div className="min-w-0 text-sm text-[var(--ink-soft)]">
-                          {item.meaning || '\u2014'}
-                        </div>
-                        <div className="min-w-0 space-y-1">
-                          {item.example && (
-                            <p className="text-[13px] italic text-[var(--ink-faint)]">
-                              {'\u201c'}{item.example}{'\u201d'}
-                            </p>
-                          )}
-                          {item.response && (
-                            <p className="inline-flex items-center gap-1 rounded-md border border-accent-200 bg-accent-50 px-2 py-0.5 text-[12px] text-accent-800 dark:border-accent-800 dark:bg-accent-950 dark:text-accent-200">
-                              {'\u2192'} {item.response}
-                            </p>
-                          )}
-                          {item.note && (
-                            <p className="text-[12px] text-[var(--ink-faint)]">{item.note}</p>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                {block.source && (
-                  <p className="mt-2 text-[12px] text-[var(--ink-faint)]">{block.source}</p>
-                )}
-              </section>
-            )
+            return <VocabSection key={i} id={id} block={block} />
 
           case 'grammar':
             return (
@@ -360,5 +301,174 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
         }
       })}
     </div>
+  )
+}
+
+function VocabSection({
+  id,
+  block,
+}: {
+  id: string
+  block: Extract<ContentBlock, { type: 'vocab' }>
+}) {
+  const [practice, setPractice] = useState(false)
+  const [revealed, setRevealed] = useState<Set<number>>(new Set())
+  const items = block.items ?? []
+  const known = revealed.size
+
+  const togglePractice = () => {
+    setRevealed(new Set())
+    setPractice((p) => !p)
+  }
+
+  const toggleReveal = (j: number) => {
+    setRevealed((prev) => {
+      const next = new Set(prev)
+      if (next.has(j)) next.delete(j)
+      else next.add(j)
+      return next
+    })
+  }
+
+  return (
+    <section id={id}>
+      <div className="mb-3 mt-8 flex flex-wrap items-center gap-2.5">
+        <h2 className="flex items-center gap-2 text-xl font-bold">
+          <span className="h-6 w-1 rounded-full bg-gradient-to-b from-accent-500 to-brand-500" />
+          {block.title}
+        </h2>
+        <button
+          type="button"
+          onClick={togglePractice}
+          aria-pressed={practice}
+          className={`ml-auto inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
+            practice
+              ? 'border-brand-500 bg-brand-600 text-white'
+              : 'border-[var(--line-strong)] text-[var(--ink-soft)] hover:border-brand-400'
+          }`}
+        >
+          {practice ? 'Exit practice' : 'Practice: hide meanings'}
+        </button>
+      </div>
+
+      {!practice ? (
+        <div className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)]">
+          <div className="hidden border-b border-[var(--line)] bg-[var(--line)]/50 px-4 py-2 sm:grid sm:grid-cols-[1fr_1fr_2fr] sm:gap-4">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Word</span>
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Meaning</span>
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Example / Note</span>
+          </div>
+          <div className="divide-y divide-[var(--line)]">
+            {items.map((item, j) => (
+              <div
+                key={j}
+                className="group grid gap-1 px-4 py-3 transition-colors hover:bg-[var(--line)]/30 sm:grid-cols-[1fr_1fr_2fr] sm:items-start sm:gap-4"
+              >
+                <div className="min-w-0">
+                  <span className="text-[15px] font-semibold text-brand-800 dark:text-brand-200">{item.word}</span>
+                  {item.opposite && (
+                    <span className="ml-2 text-xs text-[var(--ink-faint)]">
+                      opp.{' '}
+                      <span className="font-medium text-accent-600 dark:text-accent-400">{item.opposite}</span>
+                    </span>
+                  )}
+                  {item.pronunciation && (
+                    <span className="ml-1.5 text-[11px] italic text-[var(--ink-faint)]">/{item.pronunciation}/</span>
+                  )}
+                </div>
+                <div className="min-w-0 text-sm text-[var(--ink-soft)]">
+                  {item.meaning || '\u2014'}
+                </div>
+                <div className="min-w-0 space-y-1">
+                  {item.example && (
+                    <p className="text-[13px] italic text-[var(--ink-faint)]">
+                      {'\u201c'}{item.example}{'\u201d'}
+                    </p>
+                  )}
+                  {item.response && (
+                    <p className="inline-flex items-center gap-1 rounded-md border border-accent-200 bg-accent-50 px-2 py-0.5 text-[12px] text-accent-800 dark:border-accent-800 dark:bg-accent-950 dark:text-accent-200">
+                      {'\u2192'} {item.response}
+                    </p>
+                  )}
+                  {item.note && (
+                    <p className="text-[12px] text-[var(--ink-faint)]">{item.note}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-3">
+          <p className="mb-3 flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--ink-faint)]">
+            <span>Tap a card to reveal its meaning. Try to remember it first!</span>
+            <span
+              className={`rounded-full px-2.5 py-0.5 font-semibold ${
+                known === items.length && items.length > 0
+                  ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300'
+                  : 'bg-[var(--line)]'
+              }`}
+            >
+              {known}/{items.length} revealed{known === items.length && items.length > 0 ? ' \u2713' : ''}
+            </span>
+          </p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {items.map((item, j) => {
+              const isOpen = revealed.has(j)
+              return (
+                <button
+                  key={j}
+                  type="button"
+                  onClick={() => toggleReveal(j)}
+                  aria-pressed={isOpen}
+                  className={`rounded-xl border p-3 text-left transition-colors ${
+                    isOpen
+                      ? 'border-brand-400 bg-brand-50/60 dark:bg-brand-950/30'
+                      : 'border-[var(--line)] bg-[var(--surface)] hover:border-brand-300'
+                  }`}
+                >
+                  <span className="flex flex-wrap items-baseline gap-1.5">
+                    <span className="text-[15px] font-semibold text-brand-800 dark:text-brand-200">{item.word}</span>
+                    {item.pronunciation && (
+                      <span className="text-[11px] italic text-[var(--ink-faint)]">/{item.pronunciation}/</span>
+                    )}
+                  </span>
+                  {isOpen ? (
+                    <span className="pop mt-2 block text-[13px] leading-snug text-[var(--ink-soft)]">
+                      <span className="font-medium text-[var(--ink)]">{item.meaning || '\u2014'}</span>
+                      {item.opposite && (
+                        <span className="mt-1 block text-xs text-[var(--ink-faint)]">
+                          opp.{' '}
+                          <span className="font-medium text-accent-600 dark:text-accent-400">{item.opposite}</span>
+                        </span>
+                      )}
+                      {item.example && (
+                        <span className="mt-1 block italic text-[var(--ink-faint)]">
+                          {'\u201c'}{item.example}{'\u201d'}
+                        </span>
+                      )}
+                      {item.response && (
+                        <span className="mt-1 block rounded-md border border-accent-200 bg-accent-50 px-2 py-0.5 text-[12px] text-accent-800 dark:border-accent-800 dark:bg-accent-950 dark:text-accent-200">
+                          {'\u2192'} {item.response}
+                        </span>
+                      )}
+                      {item.note && (
+                        <span className="mt-1 block text-[12px] text-[var(--ink-faint)]">{item.note}</span>
+                      )}
+                    </span>
+                  ) : (
+                    <span aria-hidden className="mt-1 block text-[13px] tracking-[0.3em] text-[var(--ink-faint)]">
+                      {'\u00b7'} {'\u00b7'} {'\u00b7'}
+                    </span>
+                  )}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {block.source && <p className="mt-2 text-[12px] text-[var(--ink-faint)]">{block.source}</p>}
+    </section>
   )
 }

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { ThemeProvider, ProgressProvider } from './lib/appContext'
 import { ToastProvider } from './lib/toast'
+import { ConfettiHost } from './lib/confetti'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import BookPage from './pages/BookPage'
@@ -45,6 +46,7 @@ export default function App() {
     <ThemeProvider>
       <ProgressProvider>
         <ToastProvider>
+          <ConfettiHost />
           <HashRouter>
             <ScrollToTop />
             <Routes>

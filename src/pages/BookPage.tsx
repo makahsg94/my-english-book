@@ -24,7 +24,7 @@ export default function BookPage() {
             <Reveal key={unit.id} delay={i * 70}>
               <Link
                 to={`/unit/${unit.id}`}
-                className="group flex h-full items-center gap-4 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3 transition-shadow hover:shadow-md"
+                className="group flex h-full items-center gap-4 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lg"
               >
                 <img
                   src={pageImageUrl(unit.overviewPage + 2)}
@@ -56,7 +56,7 @@ export default function BookPage() {
             <Reveal key={bank.id} delay={i * 70}>
               <Link
                 to={`/bank/${bank.id}`}
-                className="flex h-full flex-col rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4 transition-shadow hover:shadow-md"
+                className="flex h-full flex-col rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lg"
               >
                 <h3 className="font-semibold">{bank.title}</h3>
                 <p className="mt-1 text-sm text-[var(--ink-soft)]">{bank.description}</p>
