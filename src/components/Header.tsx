@@ -1,39 +1,33 @@
 import { Link } from 'react-router-dom'
 import { useTheme } from '../lib/appContext'
 import SearchBox from './SearchBox'
-import BookProgress from './BookProgress'
-import { IconBook, IconMenu, IconMoon, IconSun } from './Icons'
+import { IconBook, IconList, IconMoon, IconSun } from './Icons'
 
-export default function Header({ onMenu }: { onMenu: () => void }) {
+export default function Header({ onContents }: { onContents: () => void }) {
   const { theme, toggle } = useTheme()
 
   return (
-    <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[var(--bg)]/85 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2.5">
+    <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[var(--bg)]/90 backdrop-blur">
+      <div className="mx-auto grid max-w-4xl grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-2.5 sm:px-6">
         <button
           type="button"
-          onClick={onMenu}
-          aria-label="Open menu"
-          className="grid size-9 place-items-center rounded-lg border border-[var(--line-strong)] text-[var(--ink-soft)] lg:hidden"
+          onClick={onContents}
+          aria-label="Open contents"
+          className="inline-flex items-center gap-2 rounded-lg border border-[var(--line-strong)] px-2.5 py-2 text-sm font-medium text-[var(--ink-soft)] transition-colors hover:bg-[var(--line)]"
         >
-          <IconMenu size={18} />
+          <IconList size={16} />
+          <span className="hidden sm:inline">Contents</span>
         </button>
 
-        <Link to="/" className="flex items-center gap-2.5">
-          <span className="grid size-9 place-items-center rounded-lg bg-brand-600 text-white">
-            <IconBook size={18} />
-          </span>
-          <span className="hidden flex-col leading-tight sm:flex">
-            <span className="font-display text-lg font-semibold leading-none tracking-tight">Speakout</span>
-            <span className="mt-1 text-[11px] font-normal tracking-wide text-[var(--ink-faint)]">
-              {'3rd edition \u00b7 A2 Student\u2019s Book'}
-            </span>
+        <Link to="/" className="flex min-w-0 items-baseline justify-center gap-2 truncate">
+          <span className="font-display text-sm font-bold uppercase tracking-[0.22em]">Speakout</span>
+          <span className="hidden text-[10px] tracking-widest text-[var(--ink-faint)] md:inline">
+            A2 {'\u00b7'} 3rd edition
           </span>
         </Link>
 
-        <div className="ml-auto flex min-w-0 items-center gap-2">
-          <BookProgress compact />
-          <div className="w-36 sm:w-56 md:w-72">
+        <div className="flex min-w-0 items-center justify-self-end gap-2">
+          <div className="hidden w-48 lg:block">
             <SearchBox />
           </div>
           <button

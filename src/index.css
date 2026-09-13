@@ -644,6 +644,126 @@ a:active {
   opacity: 1;
 }
 
+/* ---------- THE DIGITAL BOOK: paper, running heads, TOC, page corners ---------- */
+.book-page {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow:
+    0 2px 3px rgb(0 0 0 / 0.04),
+    0 34px 70px -38px rgb(0 0 0 / 0.4),
+    inset 1px 0 0 rgb(255 255 255 / 0.5);
+}
+/* spine hint along the binding edge */
+.book-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 8px;
+  border-radius: 4px 0 0 4px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-brand-900) 12%, transparent),
+    transparent 80%
+  );
+  pointer-events: none;
+}
+.book-page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  background: linear-gradient(
+    270deg,
+    color-mix(in srgb, var(--color-brand-900) 10%, transparent),
+    transparent 85%
+  );
+  border-radius: 0 4px 4px 0;
+  pointer-events: none;
+}
+
+/* running head – like a printed page header line */
+.running-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.6rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--line-strong);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.running-head .rh-right {
+  font-weight: 600;
+  color: var(--ink-faint);
+}
+
+/* dotted-leader TOC rows – true table-of-contents typography */
+.toc-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  color: var(--ink);
+}
+.toc-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--line-strong);
+  transform: translateY(-4px);
+  min-width: 1rem;
+}
+.toc-page {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+  font-size: 0.8rem;
+}
+
+/* title page – the book's opening spread */
+.title-page {
+  text-align: center;
+}
+
+/* big page-turn corners for primary navigation */
+.page-turn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink-soft);
+  border-radius: 8px;
+  padding: 0.65rem 1.1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.page-turn:hover {
+  color: var(--color-brand-700);
+  border-color: var(--color-brand-400);
+  box-shadow: 0 10px 26px -18px rgb(0 0 0 / 0.35);
+}
+.dark .page-turn:hover {
+  color: var(--color-brand-300);
+}
+.page-turn:active {
+  transform: translateY(1px) scale(0.99);
+}
+[data-theme='reading'] .book-page {
+  box-shadow:
+    0 2px 3px rgb(0 0 0 / 0.04),
+    0 30px 60px -38px rgb(0 0 0 / 0.35);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

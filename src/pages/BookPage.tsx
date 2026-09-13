@@ -1,82 +1,115 @@
 import { Link } from 'react-router-dom'
 import { BOOK } from '../content/book'
-import { pageImageUrl } from '../lib/images'
+import { useProgress } from '../lib/appContext'
 import Reveal from '../components/Reveal'
-import { IconChevronRight, IconLayers } from '../components/Icons'
+import { IconCheck, IconLayers } from '../components/Icons'
 
 export default function BookPage() {
+  const progress = useProgress()
+
   return (
-    <div className="fade-up space-y-12">
-      <header>
-        <p className="page-number mb-2">{BOOK.edition} {'\u00b7'} A2</p>
-        <h1 className="display text-4xl tracking-tight sm:text-5xl">
-          {BOOK.title}
-        </h1>
-        <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[var(--ink-soft)]">
-          {BOOK.authors.join(' \u2022 ')} {'\u00b7'} Level {BOOK.level} {'\u00b7'} One course companion for every lesson, review and bank.
+    <div className="fade-up book-page px-6 py-8 sm:px-10">
+      <div className="running-head">
+        <span>
+          {BOOK.title} {'\u00b7'} Level {BOOK.level}
+        </span>
+        <span className="rh-right">Contents of the book</span>
+      </div>
+
+      <header className="title-page mx-auto max-w-xl pb-8">
+        <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[var(--ink-faint)]">
+          {BOOK.edition} {'\u00b7'} A2
+        </p>
+        <h1 className="display mt-3 text-4xl tracking-tight sm:text-5xl">{BOOK.title}</h1>
+        <p className="mt-3 text-sm leading-relaxed text-[var(--ink-soft)]">
+          {BOOK.authors.join(' \u2022 ')} {'\u00b7'} One course companion for every lesson, review and bank.
         </p>
       </header>
 
-      <section>
-        <div className="mb-5 flex items-baseline gap-3">
-          <h2 className="display text-3xl tracking-tight">Units</h2>
-          <span className="section-label">{BOOK.units.length} chapters</span>
-        </div>
-        <ol className="grid gap-3 md:grid-cols-2">
-          {BOOK.units.map((unit, i) => (
-            <Reveal key={unit.id} delay={i * 70}>
-              <li>
-                <Link
-                  to={`/unit/${unit.id}`}
-                  className="group flex h-full items-center gap-4 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lg"
-                >
-                  <img
-                    src={pageImageUrl(unit.overviewPage + 2)}
-                    alt=""
-                    loading="lazy"
-                    className="h-20 w-14 shrink-0 rounded-md border border-[var(--line)] object-cover object-top"
-                  />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-700 dark:text-brand-300">
+      <ol className="space-y-5">
+        {BOOK.units.map((unit, i) => {
+          const unitDone = unit.lessons.filter((l) => progress.isLessonComplete(l.id)).length
+          const unitPct = Math.round((unitDone / Math.max(1, unit.lessons.length)) * 100)
+          return (
+            <Reveal key={unit.id} delay={i * 30}>
+              <li className="border-b border-[var(--line)] pb-4">
+                <Link to={`/unit/${unit.id}`} className="group flex items-baseline gap-4 py-1">
+                  <span className="chapter-num font-display text-4xl leading-none">
+                    {unit.number === 0 ? '0' : String(unit.number)}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[10px] font-bold uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300">
                       {unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`}
-                    </p>
-                    <h3 className="mt-0.5 truncate font-display text-lg font-semibold tracking-tight">
+                    </span>
+                    <span className="mt-0.5 block truncate font-display text-lg font-semibold tracking-tight group-hover:text-brand-700 dark:group-hover:text-brand-300">
                       {unit.phrase ?? unit.title}
-                    </h3>
-                    <p className="mt-1 line-clamp-2 text-xs text-[var(--ink-soft)]">{unit.intro}</p>
-                  </div>
-                  <IconChevronRight size={16} className="shrink-0 text-[var(--ink-faint)] transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </span>
+                  <span className="hidden text-xs text-[var(--ink-faint)] sm:inline">
+                    {unitDone}/{unit.lessons.length} {'\u00b7'} {unitPct}%
+                  </span>
+                  <span className="toc-page">{unit.pages[0]}</span>
                 </Link>
+
+                <ul className="mt-1.5 space-y-0.5 border-l border-[var(--line)] pl-4">
+                  {unit.lessons.map((lesson) => {
+                    const isDone = progress.isLessonComplete(lesson.id)
+                    return (
+                      <li key={lesson.id}>
+                        <Link
+                          to={`/unit/${unit.id}/lesson/${lesson.id}`}
+                          className="toc-row text-[13px]"
+                        >
+                          <span className="w-3 shrink-0 text-center text-[10px] leading-none">
+                            {isDone ? (
+                              <IconCheck size={10} className="text-brand-600" />
+                            ) : (
+                              <span className="text-[var(--ink-faint)]">○</span>
+                            )}
+                          </span>
+                          <span className="min-w-0 truncate transition-colors group-hover:text-brand-700 dark:group-hover:text-brand-300">
+                            {lesson.code !== 'Review' ? `${lesson.code} ` : ''}
+                            {lesson.title}
+                          </span>
+                          <span className="toc-dots" aria-hidden />
+                          <span className="toc-page shrink-0">{lesson.pages[0]}</span>
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ul>
               </li>
             </Reveal>
-          ))}
-        </ol>
-      </section>
+          )
+        })}
+      </ol>
 
-      <section>
-        <div className="mb-5 flex items-baseline gap-3">
-          <h2 className="display flex items-center gap-2 text-3xl tracking-tight">
-            Reference banks
-          </h2>
-          <span className="section-label bg-accent-100 text-accent-700 dark:bg-accent-900 dark:text-accent-300">
-            <IconLayers size={12} />
-            {BOOK.banks.length} references
-          </span>
+      <section className="mt-8 border-t border-[var(--line)] pt-5">
+        <div className="flex items-baseline gap-3">
+          <IconLayers size={14} className="shrink-0 self-center text-[var(--ink-faint)]" />
+          <h2 className="font-display text-lg font-semibold tracking-tight">Reference banks</h2>
+          <span className="toc-dots" aria-hidden />
+          <span className="toc-page">back of the book</span>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-2">
-          {BOOK.banks.map((bank, i) => (
-            <Reveal key={bank.id} delay={i * 70}>
+        <ul className="mt-2 space-y-0.5">
+          {BOOK.banks.map((bank) => (
+            <li key={bank.id}>
               <Link
                 to={`/bank/${bank.id}`}
-                className="flex h-full flex-col rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lg"
+                className="toc-row group text-[13px]"
               >
-                <h3 className="font-display text-lg font-semibold tracking-tight">{bank.title}</h3>
-                <p className="mt-1 text-sm text-[var(--ink-soft)]">{bank.description}</p>
-                <span className="page-number mt-3">pages {bank.pages[0]}{'\u2013'}{bank.pages[1]}</span>
+                <span className="w-3 shrink-0 text-center text-[10px] text-[var(--ink-faint)]">▲</span>
+                <span className="min-w-0 truncate transition-colors group-hover:text-brand-700 dark:group-hover:text-brand-300">
+                  {bank.title}
+                </span>
+                <span className="toc-dots" aria-hidden />
+                <span className="toc-page shrink-0">
+                  {bank.pages[0]}{'\u2013'}{bank.pages[1]}
+                </span>
               </Link>
-            </Reveal>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
     </div>
   )

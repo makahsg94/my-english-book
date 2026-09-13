@@ -87,7 +87,14 @@ export default function UnitPage() {
   const previewLesson = previewId ? unit.lessons.find((l) => l.id === previewId) : undefined
 
   return (
-    <div className="fade-up mx-auto max-w-3xl space-y-8">
+    <div className="fade-up book-page mx-auto w-full max-w-4xl space-y-10 px-6 py-8 sm:px-10">
+      <div className="running-head">
+        <span>
+          {unitLabel} {'\u00b7'} {unit.title}
+        </span>
+        <span className="rh-right">pages {unit.pages[0]}{'\u2013'}{unit.pages[1]}</span>
+      </div>
+
       <nav className="flex items-center gap-1 text-sm text-[var(--ink-faint)]">
         <Link to="/" className="inline-flex items-center gap-1 hover:text-[var(--ink)]">
           <IconHome size={14} /> Home
@@ -96,7 +103,7 @@ export default function UnitPage() {
         <span className="text-[var(--ink)]">{unitLabel}</span>
       </nav>
 
-      <header className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_240px]">
+      <header className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_220px]">
         <div>
           <div className="flex items-center gap-4">
             <span className="chapter-num text-6xl lg:text-7xl" aria-hidden>
@@ -141,7 +148,7 @@ export default function UnitPage() {
             <AnimatedBar value={pct} className="h-2.5" bar="bg-gradient-to-r from-brand-500 to-accent-500" />
           </div>
         </div>
-        <div className="w-56 lg:justify-self-end">
+        <div className="w-full lg:justify-self-end">
           <Parallax strength={18}>
             <PageFigure image={{ pdf: unit.overviewPage + 2, bookPage: unit.overviewPage }} />
           </Parallax>
@@ -151,7 +158,7 @@ export default function UnitPage() {
       <div className="section-divider">
         <span>
           <IconList size={12} className="mr-1 inline" />
-          Lessons
+          In this chapter
         </span>
       </div>
 
@@ -186,7 +193,7 @@ export default function UnitPage() {
       )}
 
       <section>
-        <ol className="space-y-2">
+        <ol className="space-y-1">
           {unit.lessons.map((lesson, i) => {
             const isDone = progress.isLessonComplete(lesson.id)
             const started = !isDone && !!progress.state.lessons[lesson.id]?.lastVisit
@@ -199,42 +206,30 @@ export default function UnitPage() {
                     onMouseLeave={() => setPreviewId(null)}
                     onFocus={() => setPreviewId(lesson.id)}
                     onBlur={() => setPreviewId(null)}
-                    className="group flex items-center gap-3 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lg dark:hover:border-brand-700"
+                    className="group flex w-full items-baseline gap-3 rounded-lg px-2 py-1.5 text-[15px] transition-colors hover:bg-[var(--line)]"
                   >
-                    <span
-                      className={`relative grid size-10 shrink-0 place-items-center rounded-xl text-sm font-bold transition-all ${
-                        isDone
-                          ? 'bg-brand-600 text-white shadow-sm'
-                          : started
-                            ? 'bg-warm-100 text-warm-700 dark:bg-warm-900 dark:text-warm-100'
-                            : lesson.code === 'Review'
-                              ? 'bg-accent-100 text-accent-700 dark:bg-accent-950 dark:text-accent-300'
-                              : 'bg-[var(--line)] text-[var(--ink-soft)] group-hover:bg-brand-100 group-hover:text-brand-700 dark:group-hover:bg-brand-900'
-                      }`}
-                    >
-                      {isDone ? <IconCheck size={18} /> : lesson.code !== 'Review' ? lesson.code : '\u2605'}
+                    <span className="w-4 shrink-0 text-center text-[11px] leading-none">
+                      {isDone ? (
+                        <IconCheck size={12} className="text-brand-600" />
+                      ) : started ? (
+                        <span className="text-accent-600">●</span>
+                      ) : lesson.code === 'Review' ? (
+                        <span className="text-accent-500">★</span>
+                      ) : (
+                        <span className="text-[var(--ink-faint)]">○</span>
+                      )}
                     </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate font-semibold">{lesson.title}</span>
-                      <span className="mt-0.5 flex items-center gap-2 truncate text-xs text-[var(--ink-faint)]">
-                        {lesson.labels?.grammar || lesson.labels?.skills || 'Review'}
-                        {lesson.blocks.some((b) => b.type === 'video') && (
-                          <span className="inline-flex items-center gap-0.5 text-accent-600">
-                            <IconVideo size={12} /> video
-                          </span>
-                        )}
-                        {lesson.blocks.some((b) => b.type === 'audio') && (
-                          <span className="inline-flex items-center gap-0.5">audio</span>
-                        )}
+                    <span className="min-w-0 flex-1 truncate">
+                      <span className="font-semibold transition-colors group-hover:text-brand-700 dark:group-hover:text-brand-300">
+                        {lesson.code !== 'Review' ? `${lesson.code} ` : ''}
+                        {lesson.title}
                       </span>
+                      {lesson.labels?.grammar && (
+                        <span className="ml-2 text-xs text-[var(--ink-faint)]">{lesson.labels.grammar}</span>
+                      )}
                     </span>
-                    <span className="shrink-0 rounded-md bg-[var(--line)] px-2 py-0.5 text-[11px] font-medium text-[var(--ink-faint)]">
-                      p{lesson.pages[0]}
-                    </span>
-                    <IconChevronRight
-                      size={16}
-                      className="shrink-0 text-[var(--ink-faint)] transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600"
-                    />
+                    <span className="toc-dots" aria-hidden />
+                    <span className="toc-page shrink-0">{lesson.pages[0]}</span>
                   </Link>
                 </Reveal>
               </li>

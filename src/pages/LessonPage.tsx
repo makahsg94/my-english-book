@@ -202,8 +202,15 @@ export default function LessonPage() {
   }
 
   return (
-    <div ref={mainRef} className="fade-up mx-auto max-w-3xl">
+    <div ref={mainRef} className="fade-up book-page mx-auto w-full max-w-4xl px-5 pb-14 pt-3 sm:px-9">
       <ReadingProgress />
+
+      <div className="running-head">
+        <span>
+          {unitLabel} {'\u00b7'} {lesson.title}
+        </span>
+        <span className="rh-right">pages {lesson.pages[0]}{'\u2013'}{lesson.pages[1]}</span>
+      </div>
 
       <nav className="mb-4 flex flex-wrap items-center gap-1 text-sm text-[var(--ink-faint)]">
         <Link to="/" className="inline-flex items-center gap-1 hover:text-[var(--ink)]">
@@ -387,10 +394,17 @@ export default function LessonPage() {
         </div>
       </section>
 
+      <div className="running-head mt-12 border-t-0 pt-0">
+        <span>{lesson.title}</span>
+        <span className="rh-right">
+          {unitLabel} {'\u00b7'} {lesson.pages[0]}
+        </span>
+      </div>
+
       <div className="mt-8 text-center">
         <Link
           to={`/unit/${unit.id}`}
-          className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line-strong)] px-4 py-1.5 text-sm font-medium text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
+          className="page-turn"
         >
           <IconChevronLeft size={14} /> Back to {unitLabel}
         </Link>
