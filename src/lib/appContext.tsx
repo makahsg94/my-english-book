@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 import type { ReactNode } from 'react'
 import { progress } from './progress'
 import type { ProgressApi } from './progress'
-import { applyTheme, getSavedTheme } from './theme'
+import { applyTheme, getSavedTheme, toggleTheme } from './theme'
 import type { Theme } from './theme'
 
 // ---------------------------------------------------------------------------
@@ -22,7 +22,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [theme])
 
   const toggle = useCallback(() => {
-    setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
+    setTheme((t) => toggleTheme(t))
   }, [])
 
   return <ThemeContext.Provider value={{ theme, toggle }}>{children}</ThemeContext.Provider>

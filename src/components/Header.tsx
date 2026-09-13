@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useTheme } from '../lib/appContext'
 import SearchBox from './SearchBox'
+import BookProgress from './BookProgress'
 import { IconBook, IconMenu, IconMoon, IconSun } from './Icons'
 
 export default function Header({ onMenu }: { onMenu: () => void }) {
@@ -28,17 +29,18 @@ export default function Header({ onMenu }: { onMenu: () => void }) {
           </span>
         </Link>
 
-        <div className="ml-auto flex items-center gap-2">
-          <div className="w-0 sm:w-56 md:w-72">
+        <div className="ml-auto flex min-w-0 items-center gap-2">
+          <BookProgress compact />
+          <div className="w-36 sm:w-56 md:w-72">
             <SearchBox />
           </div>
           <button
             type="button"
             onClick={toggle}
-            aria-label="Toggle theme"
+            aria-label={`Switch theme. Current theme: ${theme}`}
             className="grid size-9 place-items-center rounded-lg border border-[var(--line-strong)] text-[var(--ink-soft)] transition-colors hover:bg-[var(--line)]"
           >
-            {theme === 'dark' ? <IconSun size={17} /> : <IconMoon size={17} />}
+            {theme === 'dark' ? <IconSun size={17} /> : theme === 'reading' ? <IconBook size={17} /> : <IconMoon size={17} />}
           </button>
         </div>
       </div>

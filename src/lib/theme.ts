@@ -1,13 +1,13 @@
-// Theme preference (light / dark), persisted in localStorage.
+// Theme preference (light / dark / reading), persisted in localStorage.
 
-export type Theme = 'light' | 'dark'
+export type Theme = 'light' | 'dark' | 'reading'
 
 const KEY = 'speakout-a2.theme'
 
 export function getSavedTheme(): Theme {
   try {
     const raw = localStorage.getItem(KEY)
-    if (raw === 'light' || raw === 'dark') return raw
+    if (raw === 'light' || raw === 'dark' || raw === 'reading') return raw
   } catch {
     /* ignore */
   }
@@ -19,8 +19,9 @@ export function getSavedTheme(): Theme {
 
 export function applyTheme(theme: Theme) {
   const root = document.documentElement
+  root.classList.remove('dark', 'reading')
   if (theme === 'dark') root.classList.add('dark')
-  else root.classList.remove('dark')
+  if (theme === 'reading') root.classList.add('reading')
   try {
     localStorage.setItem(KEY, theme)
   } catch {
@@ -29,6 +30,6 @@ export function applyTheme(theme: Theme) {
 }
 
 export function toggleTheme(current: Theme): Theme {
-  const next: Theme = current === 'dark' ? 'light' : 'dark'
+  const next: Theme = current === 'light' ? 'dark' : current === 'dark' ? 'reading' : 'light'
   return next
 }

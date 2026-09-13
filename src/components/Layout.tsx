@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import MiniPlayer from './MiniPlayer'
+import BackToTop from './BackToTop'
 import { LightboxProvider } from './Media'
 import { IconClose } from './Icons'
 
@@ -47,6 +48,7 @@ export default function Layout() {
       </div>
 
       <MiniPlayer />
+      <BackToTop />
 
       <footer className="border-t border-[var(--line)] py-6 text-center text-xs text-[var(--ink-faint)]">
         Speakout 3rd Edition A2 {'\u00b7'} course companion {'\u2013'} for studying with your class

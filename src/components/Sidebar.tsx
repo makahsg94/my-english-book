@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { BOOK } from '../content/book'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
+import BookProgress from './BookProgress'
 import { IconBook, IconCheck, IconTarget } from './Icons'
 
 type Status = 'done' | 'started' | 'todo'
@@ -11,6 +12,10 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <nav className="px-3 py-4">
+      <div className="mb-4">
+        <BookProgress />
+      </div>
+
       <NavLink
         to="/book"
         onClick={onNavigate}

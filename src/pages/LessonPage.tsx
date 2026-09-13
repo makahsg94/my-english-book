@@ -9,8 +9,44 @@ import { burstConfetti } from '../lib/confetti'
 import Blocks from '../components/Blocks'
 import PrevNext from '../components/PrevNext'
 import AnimatedBar from '../components/AnimatedBar'
-import { IconChevronLeft, IconChevronRight, IconHome, IconList, IconTarget, IconVideo, IconVolume } from '../components/Icons'
+import { IconCheck, IconChevronLeft, IconChevronRight, IconHome, IconList, IconTarget, IconVideo, IconVolume } from '../components/Icons'
 import type { ContentBlock } from '../types/content'
+
+function wordCount(text: string) {
+  return text.trim().split(/\s+/).filter(Boolean).length
+}
+
+function blockText(block: ContentBlock): string {
+  switch (block.type) {
+    case 'text':
+      return [block.title, ...block.paragraphs].filter(Boolean).join(' ')
+    case 'callout':
+      return [block.title, block.text].filter(Boolean).join(' ')
+    case 'vocab':
+      return [block.title, ...block.items.flatMap((item) => [item.word, item.meaning, item.example, item.note, item.opposite, item.response])]
+        .filter(Boolean)
+        .join(' ')
+    case 'grammar':
+      return [block.title, block.explanation, block.rule, ...(block.examples ?? [])].filter(Boolean).join(' ')
+    case 'examples':
+      return [block.title, ...block.items].filter(Boolean).join(' ')
+    case 'exercise':
+      return [block.exercise.title, block.exercise.instructions].filter(Boolean).join(' ')
+    case 'audio':
+      return [block.title, ...block.tracks.map((track) => track.label)].filter(Boolean).join(' ')
+    case 'video':
+      return [block.title, ...block.videos.map((video) => video.title)].filter(Boolean).join(' ')
+    case 'review':
+      return [block.title, block.text].filter(Boolean).join(' ')
+    case 'pages':
+      return block.images.map((image) => image.caption ?? image.alt ?? '').join(' ')
+  }
+}
+
+function estimatedReadingMinutes(blocks: ContentBlock[]) {
+  const words = blocks.reduce((sum, block) => sum + wordCount(blockText(block)), 0)
+  return Math.max(1, Math.ceil(words / 180))
+}
 
 function ReadingProgress() {
   const [pct, setPct] = useState(0)
@@ -109,6 +145,10 @@ export default function LessonPage() {
   const mainRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (unitId && lessonId) progress.recordVisit(unitId, lessonId)
+  }, [unitId, lessonId]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
     const navData = unitId && lessonId ? nav(unitId, lessonId) : { prev: undefined, next: undefined }
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null
@@ -140,11 +180,13 @@ export default function LessonPage() {
   const complete = progress.isLessonComplete(lesson.id)
   const hasVideo = lesson.blocks.some((b) => b.type === 'video')
   const hasAudio = lesson.blocks.some((b) => b.type === 'audio')
+  const readingMinutes = estimatedReadingMinutes(lesson.blocks)
 
   const exercises = lesson.blocks.filter((b): b is Extract<ContentBlock, { type: 'exercise' }> => b.type === 'exercise')
   const exercisesDone = exercises.filter((b) => progress.bestQuiz(b.exercise.id)).length
   const unitQuiz = getUnitQuiz(unit.id)
   const isUnitLastLesson = unit.lessons[unit.lessons.length - 1]?.id === lesson.id
+  const navData = nav(unit.id, lesson.id)
 
   const showStudyCard = exercises.length > 0 || (unitQuiz && isUnitLastLesson)
 
@@ -245,6 +287,9 @@ export default function LessonPage() {
               <IconVideo size={13} /> Video
             </span>
           )}
+          <span className="inline-flex items-center gap-1 rounded-full border border-[var(--line)] px-2 py-0.5">
+            {readingMinutes} min read
+          </span>
           <button
             type="button"
             onClick={onToggleDone}
@@ -295,6 +340,45 @@ export default function LessonPage() {
           )}
         </section>
       )}
+
+      <section className="mt-8 overflow-hidden rounded-2xl border border-brand-200 bg-gradient-to-br from-brand-50 to-accent-50 p-5 dark:border-brand-800 dark:from-brand-950/70 dark:to-accent-950/60">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-widest text-brand-700 dark:text-brand-300">
+              Chapter checkpoint
+            </p>
+            <h2 className="mt-1 text-xl font-bold">
+              {complete ? 'Chapter completed' : 'Ready to finish this chapter?'}
+            </h2>
+            <p className="mt-1 text-sm text-[var(--ink-soft)]">
+              {complete ? 'Your progress has been saved on this device.' : 'Mark it complete when you feel confident with this lesson.'}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {complete ? (
+              <span className="pop inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-bold text-white">
+                <IconCheck size={15} /> Completed
+              </span>
+            ) : (
+              <button
+                type="button"
+                onClick={onToggleDone}
+                className="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md"
+              >
+                <IconCheck size={15} /> Mark complete
+              </button>
+            )}
+            {navData.next?.unitId && navData.next.lessonId && (
+              <Link
+                to={`/unit/${navData.next.unitId}/lesson/${navData.next.lessonId}`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-brand-300 bg-white px-4 py-2 text-sm font-semibold text-brand-700 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-brand-600 hover:text-white dark:border-brand-800 dark:bg-brand-950 dark:text-brand-200 dark:hover:bg-brand-700"
+              >
+                Continue <IconChevronRight size={15} />
+              </Link>
+            )}
+          </div>
+        </div>
+      </section>
 
       <div className="mt-8 text-center">
         <Link

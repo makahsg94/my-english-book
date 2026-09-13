@@ -7,18 +7,18 @@ import { openLightbox } from './Media'
 export function PageFigure({ image }: { image: PageImage }) {
   const src = pageImageUrl(image.pdf)
   return (
-    <figure className="overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)]">
+    <figure className="overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
       <button
         type="button"
         onClick={() => openLightbox(src)}
-        className="group relative block w-full cursor-zoom-in"
+          className="group relative block w-full cursor-zoom-in"
         aria-label={`View page ${image.bookPage} full size`}
       >
         <img
           src={src}
           alt={image.alt ?? `Book page ${image.bookPage}`}
           loading="lazy"
-          className="h-auto w-full bg-white"
+          className="h-auto w-full bg-white transition-transform duration-500 group-hover:scale-[1.015]"
         />
         <span className="absolute right-2 top-2 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5 text-xs font-semibold text-white opacity-90 backdrop-blur transition-opacity group-hover:opacity-100">
           <IconZoomIn size={15} />
@@ -39,7 +39,7 @@ export function PageThumb({ pdf, label }: { pdf: number; label?: string }) {
   return (
     <Link
       to={`/page/${pdf}`}
-      className="block overflow-hidden rounded-lg border border-[var(--line)] bg-white transition-shadow hover:shadow-md"
+      className="block overflow-hidden rounded-lg border border-[var(--line)] bg-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
     >
       <img src={src} alt={label ?? `PDF page ${pdf}`} loading="lazy" className="aspect-[3/4] w-full object-cover object-top" />
       {label && (

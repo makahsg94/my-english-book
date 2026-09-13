@@ -75,6 +75,17 @@
   color-scheme: dark;
 }
 
+.reading {
+  --bg: #f7f0df;
+  --surface: #fff8e8;
+  --ink: #2b2117;
+  --ink-soft: #6a5744;
+  --ink-faint: #9a836a;
+  --line: #e5d7bd;
+  --line-strong: #d2bd97;
+  color-scheme: light;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -89,6 +100,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.reading body {
+  background:
+    radial-gradient(circle at top left, rgb(233 122 34 / 0.08), transparent 28rem),
+    var(--bg);
+}
+
+.reading .prose-book p {
+  font-size: 1rem;
 }
 
 h1, h2, h3, h4 {
@@ -129,6 +150,15 @@ h1, h2, h3, h4 {
   margin-top: 0.05em;
   color: var(--color-brand-600);
   font-family: var(--font-serif);
+}
+
+.book-cover {
+  transform-style: preserve-3d;
+  transition: transform 0.45s ease, filter 0.45s ease;
+}
+.book-cover:hover {
+  filter: saturate(1.05);
+  transform: perspective(900px) rotateY(-5deg) translateY(-3px);
 }
 
 /* ---------- Section labels ---------- */

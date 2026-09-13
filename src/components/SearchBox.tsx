@@ -33,7 +33,8 @@ export default function SearchBox({ onOpenChange }: { onOpenChange?: (open: bool
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return
+      const opensSearch = e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')
+      if (!opensSearch || e.altKey) return
       const t = e.target as HTMLElement | null
       if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return
       e.preventDefault()
@@ -76,8 +77,8 @@ export default function SearchBox({ onOpenChange }: { onOpenChange?: (open: bool
             if (!e.target.value) setHits([])
           }}
           onFocus={() => setOpen(true)}
-          placeholder={'Search the book\u2026'}
-          className="w-full rounded-full border border-[var(--line-strong)] bg-[var(--surface)] py-2 pl-9 pr-12 text-sm text-[var(--ink)] placeholder:text-[var(--ink-faint)] focus:border-brand-500"
+          placeholder={'Search\u2026'}
+          className="w-full rounded-full border border-[var(--line-strong)] bg-[var(--surface)] py-2 pl-9 pr-3 text-sm text-[var(--ink)] placeholder:text-[var(--ink-faint)] focus:border-brand-500 sm:pr-16"
         />
         {query ? (
           <button
@@ -93,7 +94,7 @@ export default function SearchBox({ onOpenChange }: { onOpenChange?: (open: bool
           </button>
         ) : (
           <kbd className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 rounded border border-[var(--line-strong)] bg-[var(--line)] px-1.5 text-[11px] font-semibold text-[var(--ink-faint)] sm:inline-block">
-            /
+            Ctrl K
           </kbd>
         )}
       </div>

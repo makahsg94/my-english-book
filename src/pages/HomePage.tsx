@@ -24,6 +24,8 @@ export default function HomePage() {
     progress.state.lastUnit && progress.state.lastLesson
       ? `/unit/${progress.state.lastUnit}/lesson/${progress.state.lastLesson}`
       : null
+  const firstLesson = lessons[0]
+  const startTarget = continueTarget ?? (firstLesson ? `/unit/${firstLesson.unit.id}/lesson/${firstLesson.lesson.id}` : '/book')
 
   return (
     <div className="space-y-10 fade-up">
@@ -43,21 +45,19 @@ export default function HomePage() {
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link
-              to="/book"
+              to={startTarget}
               className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md"
             >
               <IconBook size={17} />
-              Browse the book
+              {continueTarget ? 'Continue reading' : 'Start reading'}
             </Link>
-            {continueTarget && (
-              <Link
-                to={continueTarget}
-                className="inline-flex items-center gap-2 rounded-xl border border-[var(--line-strong)] px-5 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--line)]"
-              >
-                <IconClock size={16} />
-                Continue where you stopped
-              </Link>
-            )}
+            <Link
+              to="/book"
+              className="inline-flex items-center gap-2 rounded-xl border border-[var(--line-strong)] px-5 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--line)]"
+            >
+              <IconGrid size={16} />
+              Explore chapters
+            </Link>
           </div>
           <div className="mt-8 max-w-sm">
             <div className="mb-1.5 flex items-center justify-between text-xs text-[var(--ink-faint)]">
@@ -70,11 +70,17 @@ export default function HomePage() {
           </div>
         </div>
         <div className="flex items-start justify-center">
-          <img
-            src={pageImageUrl(BOOK.coverPage)}
-            alt="Speakout A2 Student's Book cover"
-            className="w-56 rounded-2xl border border-[var(--line)] shadow-xl sm:w-64"
-          />
+          <div className="book-cover group relative">
+            <img
+              src={pageImageUrl(BOOK.coverPage)}
+              alt="Speakout A2 Student's Book cover"
+              className="w-56 rounded-2xl border border-[var(--line)] shadow-xl sm:w-64"
+            />
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent via-white/35 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            />
+          </div>
         </div>
       </section>
 

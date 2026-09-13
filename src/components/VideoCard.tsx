@@ -6,12 +6,13 @@ export function VideoCard({ video }: { video: VideoRef }) {
   const bundled = BUNDLED_VIDEOS.has(video.file)
 
   return (
-    <div className="overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)]">
+    <div className="group overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)] transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-300 hover:shadow-lg">
       {bundled ? (
         <video
           src={videoSrc(video.file)}
           controls
-          preload="metadata"
+          preload="none"
+          playsInline
           className="aspect-video w-full bg-black"
           aria-label={video.title}
         />
@@ -34,6 +35,7 @@ export function VideoCard({ video }: { video: VideoRef }) {
           <div className="mt-1 flex flex-wrap gap-3 text-xs text-[var(--ink-faint)]">
             <span className="font-mono">{video.file}</span>
             {video.page && <span>Book page {video.page}</span>}
+            <span>No autoplay</span>
           </div>
         </div>
       )}
