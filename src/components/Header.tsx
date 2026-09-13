@@ -9,7 +9,7 @@ export default function Header({ onMenu }: { onMenu: () => void }) {
 
   return (
     <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[var(--bg)]/85 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
+      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2.5">
         <button
           type="button"
           onClick={onMenu}
@@ -19,13 +19,15 @@ export default function Header({ onMenu }: { onMenu: () => void }) {
           <IconMenu size={18} />
         </button>
 
-        <Link to="/" className="flex items-center gap-2.5 font-semibold">
+        <Link to="/" className="flex items-center gap-2.5">
           <span className="grid size-9 place-items-center rounded-lg bg-brand-600 text-white">
             <IconBook size={18} />
           </span>
           <span className="hidden flex-col leading-tight sm:flex">
-            <span className="text-sm">Speakout</span>
-            <span className="text-[11px] font-normal text-[var(--ink-faint)]">{'3rd edition \u00b7 A2 Student\u2019s Book'}</span>
+            <span className="font-display text-lg font-semibold leading-none tracking-tight">Speakout</span>
+            <span className="mt-1 text-[11px] font-normal tracking-wide text-[var(--ink-faint)]">
+              {'3rd edition \u00b7 A2 Student\u2019s Book'}
+            </span>
           </span>
         </Link>
 

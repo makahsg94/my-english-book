@@ -5,6 +5,7 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-serif: "Lora", ui-serif, Georgia, "Times New Roman", serif;
+  --font-display: "Ewert", "DM Serif Display", "Libre Baskerville", ui-serif, Georgia, "Times New Roman", serif;
 
   --color-brand-50: #f0f7f6;
   --color-brand-100: #d9edea;
@@ -118,15 +119,23 @@ h1, h2, h3, h4 {
   letter-spacing: -0.015em;
 }
 
+/* Editorial display headings – serif feel reserved for hero moments */
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
 /* ---------- Editorial prose ---------- */
 .prose-book {
   color: var(--ink);
-  max-width: 65ch;
+  max-width: 66ch;
 }
 .prose-book p {
-  margin: 0.9rem 0;
-  line-height: 1.8;
-  font-size: 0.95rem;
+  margin: 1.05rem 0;
+  line-height: 1.85;
+  font-size: 1rem;
 }
 .prose-book p + p {
   text-indent: 1.5em;
@@ -143,13 +152,33 @@ h1, h2, h3, h4 {
 /* ---------- Drop-cap first paragraph ---------- */
 .drop-cap > p:first-of-type::first-letter {
   float: left;
-  font-size: 2.8em;
-  line-height: 0.85;
+  font-size: 3.2em;
+  line-height: 0.82;
   font-weight: 700;
-  margin-right: 0.08em;
-  margin-top: 0.05em;
+  margin-right: 0.12em;
+  margin-top: 0.06em;
   color: var(--color-brand-600);
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
+  padding-right: 0.04em;
+}
+
+/* Book page marker – small running index in the margin */
+.page-number {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.page-number::before {
+  content: '';
+  width: 1.4rem;
+  height: 2px;
+  background: var(--color-brand-400);
+  display: inline-block;
 }
 
 .book-cover {
@@ -173,6 +202,11 @@ h1, h2, h3, h4 {
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
   line-height: 1;
+  background: color-mix(in srgb, var(--color-brand-600) 10%, transparent);
+  color: var(--color-brand-700);
+}
+.dark .section-label {
+  color: var(--color-brand-300);
 }
 
 /* ---------- Callout tone palette ---------- */
@@ -448,6 +482,71 @@ a:active {
 .reveal.is-visible {
   opacity: 1;
   transform: none;
+}
+
+/* Page-turn sweep – a light passes across as the page settles in */
+@keyframes pageSweep {
+  0% {
+    transform: translateX(-120%) skewX(-8deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-8deg);
+  }
+}
+.page-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.page-sweep::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-brand-200) 45%, transparent) 50%,
+    transparent
+  );
+  transform: translateX(-120%) skewX(-8deg);
+  pointer-events: none;
+}
+.page-sweep.is-visible::after {
+  animation: pageSweep 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Book cover glow on hover */
+.book-cover-sheen {
+  position: relative;
+}
+.book-cover-sheen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 30% 20%,
+    color-mix(in srgb, white 35%, transparent),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.book-cover-sheen:hover::before {
+  opacity: 1;
+}
+
+/* Chapter number – oversized editorial figure */
+.chapter-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: transparent;
+  background: linear-gradient(160deg, var(--color-brand-500), var(--color-brand-700));
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 @media (prefers-reduced-motion: reduce) {

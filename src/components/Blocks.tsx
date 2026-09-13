@@ -57,6 +57,16 @@ function SectionLabel({ children, className = '' }: { children: React.ReactNode;
   )
 }
 
+/* Editorial rule under a section headline */
+function Rule({ className = '' }: { className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={`my-4 block h-px w-16 bg-gradient-to-r from-brand-500 to-transparent ${className}`}
+    />
+  )
+}
+
 function calloutIcon(tone?: string) {
   switch (tone) {
     case 'warning':
@@ -91,12 +101,14 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
         switch (block.type) {
           case 'text':
             return (
-              <section key={i} id={id} className="fade-up prose-book drop-cap">
+              <section key={i} id={id} className={`fade-up prose-book ${i === 0 ? 'drop-cap' : ''}`}>
                 {block.title && (
-                  <h2 className="mb-3 mt-8 flex items-center gap-2.5 text-xl font-bold">
-                    <span className="h-6 w-1 rounded-full bg-gradient-to-b from-brand-500 to-accent-500" />
-                    {block.title}
-                  </h2>
+                  <>
+                    <h2 className="display mb-1 mt-8 text-2xl tracking-tight">
+                      {block.title}
+                    </h2>
+                    <Rule />
+                  </>
                 )}
                 {block.paragraphs.map((p, j) => (
                   <p key={j}>{p}</p>

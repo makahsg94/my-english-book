@@ -5,7 +5,7 @@ import { pageImageUrl } from '../lib/images'
 import { useProgress } from '../lib/appContext'
 import Reveal from '../components/Reveal'
 import AnimatedBar from '../components/AnimatedBar'
-import { IconBook, IconCheck, IconClock, IconGrid, IconTarget } from '../components/Icons'
+import { IconBook, IconCheck, IconChevronRight, IconClock, IconGrid, IconTarget } from '../components/Icons'
 
 export default function HomePage() {
   const progress = useProgress()
@@ -28,38 +28,39 @@ export default function HomePage() {
   const startTarget = continueTarget ?? (firstLesson ? `/unit/${firstLesson.unit.id}/lesson/${firstLesson.lesson.id}` : '/book')
 
   return (
-    <div className="space-y-10 fade-up">
-      <section className="grid gap-8 lg:grid-cols-[1fr_300px]">
+    <div className="fade-up space-y-14">
+      <section className="grid items-center gap-10 lg:grid-cols-[1.25fr_1fr]">
         <div className="flex flex-col justify-center">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-300">
+          <p className="mb-3 inline-flex w-fit items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-700 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-300">
+            <span aria-hidden className="size-1.5 rounded-full bg-brand-500" />
             {BOOK.edition} {'\u00b7'} Level {BOOK.level}
           </p>
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+          <h1 className="display text-5xl sm:text-6xl lg:text-7xl">
             {BOOK.title}
-            <span className="mt-1 block text-2xl text-[var(--ink-soft)] sm:text-3xl">
+            <span className="mt-2 block text-2xl font-medium text-[var(--ink-soft)] sm:text-3xl">
               {BOOK.subtitle}
             </span>
           </h1>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--ink-soft)]">
+          <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[var(--ink-soft)]">
             {BOOK.description}
           </p>
-          <div className="mt-6 flex flex-wrap items-center gap-3">
+          <div className="mt-7 flex flex-wrap items-center gap-3">
             <Link
               to={startTarget}
-              className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md"
+              className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-brand-600/20 transition-all hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-lg"
             >
               <IconBook size={17} />
               {continueTarget ? 'Continue reading' : 'Start reading'}
             </Link>
             <Link
               to="/book"
-              className="inline-flex items-center gap-2 rounded-xl border border-[var(--line-strong)] px-5 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--line)]"
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--line-strong)] px-6 py-3 text-sm font-medium transition-colors hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
             >
               <IconGrid size={16} />
               Explore chapters
             </Link>
           </div>
-          <div className="mt-8 max-w-sm">
+          <div className="mt-9 max-w-sm">
             <div className="mb-1.5 flex items-center justify-between text-xs text-[var(--ink-faint)]">
               <span className="font-medium">Lessons completed</span>
               <span className="font-semibold text-brand-700 dark:text-brand-300">
@@ -69,16 +70,12 @@ export default function HomePage() {
             <AnimatedBar value={pct} className="h-2.5" bar="bg-gradient-to-r from-brand-500 to-accent-500" />
           </div>
         </div>
-        <div className="flex items-start justify-center">
-          <div className="book-cover group relative">
+        <div className="flex items-start justify-center lg:justify-end">
+          <div className="book-cover book-cover-sheen group relative">
             <img
               src={pageImageUrl(BOOK.coverPage)}
               alt="Speakout A2 Student's Book cover"
-              className="w-56 rounded-2xl border border-[var(--line)] shadow-xl sm:w-64"
-            />
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent via-white/35 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              className="w-64 rounded-2xl border border-[var(--line)] shadow-2xl sm:w-72"
             />
           </div>
         </div>
@@ -86,7 +83,7 @@ export default function HomePage() {
 
       {lastUnit && lastLesson && (
         <Reveal delay={80}>
-          <section className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5">
+          <section className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="flex items-center gap-2 text-lg font-bold">
                 <IconClock size={18} className="text-brand-600" />
@@ -99,14 +96,14 @@ export default function HomePage() {
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <Link
                 to={continueTarget ?? `/unit/${lastUnit.id}`}
-                className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-md"
               >
                 {lastUnit.lessons[lastUnit.lessons.length - 1]?.id === lastLesson.id ? 'Review this lesson' : 'Go to lesson'}
               </Link>
               {lastUnitQuiz && (
                 <Link
                   to={`/unit/${lastUnit.id}/quiz`}
-                  className="inline-flex items-center gap-2 rounded-xl border border-brand-300 px-4 py-2 text-sm font-medium text-brand-700 transition-colors hover:bg-brand-50 dark:border-brand-800 dark:text-brand-300 dark:hover:bg-brand-950"
+                  className="inline-flex items-center gap-2 rounded-full border border-brand-300 px-5 py-2.5 text-sm font-medium text-brand-700 transition-colors hover:bg-brand-50 dark:border-brand-800 dark:text-brand-300 dark:hover:bg-brand-950"
                 >
                   <IconTarget size={15} />
                   Unit quiz
@@ -118,11 +115,17 @@ export default function HomePage() {
       )}
 
       <section>
-        <h2 className="mb-4 flex items-center gap-2 text-xl font-bold">
-          <IconGrid size={18} className="text-brand-600" />
-          Units
-        </h2>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-5 flex items-end justify-between">
+          <h2 className="display text-3xl">Chapters</h2>
+          <Link to="/book" className="group inline-flex items-center gap-1 text-sm font-medium text-brand-700 dark:text-brand-300">
+            Book map
+            <IconChevronRight
+              size={15}
+              className="transition-transform group-hover:translate-x-0.5"
+            />
+          </Link>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {BOOK.units.map((unit, i) => {
             const unitDone = unit.lessons.filter((l) => progress.isLessonComplete(l.id)).length
             const unitPct = Math.round((unitDone / Math.max(1, unit.lessons.length)) * 100)
@@ -130,33 +133,36 @@ export default function HomePage() {
               <Reveal key={unit.id} delay={i * 60}>
                 <Link
                   to={`/unit/${unit.id}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] transition-all duration-200 hover:-translate-y-1 hover:border-brand-300 hover:shadow-lg dark:hover:border-brand-700"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] transition-all duration-200 hover:-translate-y-1 hover:border-brand-300 hover:shadow-lg dark:border-[var(--line)] dark:hover:border-brand-700"
                 >
                   <div className="relative overflow-hidden">
                     <img
                       src={pageImageUrl(unit.overviewPage + 2)}
                       alt={`Unit ${unit.number} opener`}
                       loading="lazy"
-                      className="h-28 w-full border-b border-[var(--line)] object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      className="h-32 w-full border-b border-[var(--line)] object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     />
                     <span
                       aria-hidden
-                      className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/70 to-transparent transition-transform duration-700 group-hover:translate-x-full dark:via-white/10"
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"
                     />
+                    <span className="absolute left-4 top-3 font-display text-5xl font-bold text-white drop-shadow-md">
+                      {unit.number === 0 ? '0' : String(unit.number)}
+                    </span>
                     {unitPct === 100 && (
-                      <span className="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full bg-brand-600 text-white shadow-sm">
+                      <span className="absolute right-3 top-3 grid size-6 place-items-center rounded-full bg-brand-600 text-white shadow-sm">
                         <IconCheck size={14} />
                       </span>
                     )}
                   </div>
-                  <div className="p-4">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-brand-700 dark:text-brand-300">
+                  <div className="p-5">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-700 dark:text-brand-300">
                       {unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`}
                     </p>
-                    <h3 className="mt-0.5 truncate text-base font-bold">
+                    <h3 className="mt-1 line-clamp-1 font-display text-lg font-semibold tracking-tight">
                       {unit.phrase ?? unit.title}
                     </h3>
-                    <p className="mt-1 line-clamp-2 text-xs text-[var(--ink-soft)]">{unit.intro}</p>
+                    <p className="mt-1.5 line-clamp-2 text-xs text-[var(--ink-soft)]">{unit.intro}</p>
                     <div className="mt-3">
                       <div className="mb-1 flex justify-between text-[11px] text-[var(--ink-faint)]">
                         <span>{unitDone}/{unit.lessons.length} lessons</span>
@@ -189,7 +195,7 @@ export default function HomePage() {
                 <Link
                   key={bank.id}
                   to={`/bank/${bank.id}`}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-brand-300 bg-white px-4 py-2 text-sm font-semibold text-brand-700 shadow-sm transition-all hover:bg-brand-600 hover:text-white dark:border-brand-700 dark:bg-brand-950 dark:text-brand-200 dark:hover:bg-brand-700"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-brand-300 bg-white px-4 py-2 text-sm font-semibold text-brand-700 shadow-sm transition-all hover:bg-brand-600 hover:text-white dark:border-brand-700 dark:bg-brand-950 dark:text-brand-200 dark:hover:bg-brand-700"
                 >
                   {bank.title}
                 </Link>

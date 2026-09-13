@@ -217,19 +217,22 @@ export default function LessonPage() {
         <span className="text-[var(--ink)]">{lesson.title}</span>
       </nav>
 
-      <header className="mb-8 border-b border-[var(--line)] pb-6">
-        <div className="flex items-center gap-2">
+      <header className="mb-8 border-b border-[var(--line)] pb-7">
+        <div className="mb-3 flex items-center gap-3">
           {lesson.code !== 'Review' && (
-            <span className="rounded-lg bg-brand-600 px-3 py-1 text-base font-bold text-white">{lesson.code}</span>
+            <span className="grid size-11 place-items-center rounded-xl bg-brand-600 font-display text-lg font-bold text-white shadow-sm">
+              {lesson.code}
+            </span>
           )}
-          <p className="text-xs font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-300">
-            {unitLabel}
-          </p>
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-700 dark:text-brand-300">
+              {unitLabel}
+            </p>
+            <p className="page-number mt-0.5">Pages {lesson.pages[0]}{'\u2013'}{lesson.pages[1]}</p>
+          </div>
         </div>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight lg:text-4xl">{lesson.title}</h1>
-        <p className="mt-1 text-sm text-[var(--ink-soft)]">
-          {unit.title} {'\u00b7'} Pages {lesson.pages[0]}{'\u2013'}{lesson.pages[1]}
-        </p>
+        <h1 className="display mt-1 text-4xl tracking-tight lg:text-5xl">{lesson.title}</h1>
+        <p className="mt-2 text-sm text-[var(--ink-soft)]">{unit.title}</p>
 
         {lesson.labels && (
           <div className="mt-4 flex flex-wrap gap-2">
@@ -261,15 +264,18 @@ export default function LessonPage() {
         )}
 
         {lesson.objectives && lesson.objectives.length > 0 && (
-          <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3">
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">What you{'\u2019'}ll learn</p>
-            <ul className="space-y-1 text-sm">
+          <div className="mt-5 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5">
+            <p className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--ink-faint)]">
+              <span aria-hidden className="size-1.5 rounded-full bg-brand-500" />
+              What you{'\u2019'}ll learn
+            </p>
+            <ul className="space-y-2.5">
               {lesson.objectives.map((o, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-brand-100 text-[10px] font-bold text-brand-700 dark:bg-brand-900 dark:text-brand-300">
+                <li key={i} className="flex items-start gap-3">
+                  <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full border border-brand-200 bg-brand-50 text-[11px] font-bold text-brand-700 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-300">
                     {i + 1}
                   </span>
-                  <span className="text-[var(--ink-soft)]">{o}</span>
+                  <span className="text-[15px] text-[var(--ink-soft)]">{o}</span>
                 </li>
               ))}
             </ul>
@@ -341,16 +347,17 @@ export default function LessonPage() {
         </section>
       )}
 
-      <section className="mt-8 overflow-hidden rounded-2xl border border-brand-200 bg-gradient-to-br from-brand-50 to-accent-50 p-5 dark:border-brand-800 dark:from-brand-950/70 dark:to-accent-950/60">
+      <section className="mt-8 overflow-hidden rounded-2xl border border-brand-200 bg-gradient-to-br from-brand-50 to-accent-50 p-6 dark:border-brand-800 dark:from-brand-950/70 dark:to-accent-950/60">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-widest text-brand-700 dark:text-brand-300">
+            <p className="mb-1.5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-700 dark:text-brand-300">
+              <span aria-hidden className="size-1.5 rounded-full bg-brand-500" />
               Chapter checkpoint
             </p>
-            <h2 className="mt-1 text-xl font-bold">
+            <h2 className="display mt-1 text-2xl tracking-tight">
               {complete ? 'Chapter completed' : 'Ready to finish this chapter?'}
             </h2>
-            <p className="mt-1 text-sm text-[var(--ink-soft)]">
+            <p className="mt-1.5 text-sm text-[var(--ink-soft)]">
               {complete ? 'Your progress has been saved on this device.' : 'Mark it complete when you feel confident with this lesson.'}
             </p>
           </div>

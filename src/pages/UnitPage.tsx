@@ -33,34 +33,42 @@ export default function UnitPage() {
         <span className="text-[var(--ink)]">{unitLabel}</span>
       </nav>
 
-      <header className="grid items-start gap-5 sm:grid-cols-[1fr_220px]">
+      <header className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_240px]">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-widest text-brand-700 dark:text-brand-300">
-            {unitLabel}
-          </p>
-          <h1 className="mt-1 text-4xl font-bold tracking-tight">{unit.phrase ?? unit.title}</h1>
-          {unit.intro && <p className="mt-3 text-[15px] leading-relaxed text-[var(--ink-soft)]">{unit.intro}</p>}
+          <div className="flex items-center gap-4">
+            <span className="chapter-num text-6xl lg:text-7xl" aria-hidden>
+              {unit.number === 0 ? '0' : String(unit.number)}
+            </span>
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-700 dark:text-brand-300">
+                {unitLabel}
+              </p>
+              <p className="page-number mt-1">{unit.title}</p>
+            </div>
+          </div>
+          <h1 className="display mt-3 text-4xl tracking-tight lg:text-5xl">{unit.phrase ?? unit.title}</h1>
+          {unit.intro && <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--ink-soft)]">{unit.intro}</p>}
 
           {unit.objectives && unit.objectives.length > 0 && (
-            <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3">
-              <p className="mb-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">
-                <IconTarget size={12} />
+            <div className="mt-5 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5">
+              <p className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--ink-faint)]">
+                <span aria-hidden className="size-1.5 rounded-full bg-brand-500" />
                 Unit objectives
               </p>
-              <ul className="space-y-1">
+              <ul className="space-y-2">
                 {unit.objectives.map((o, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-[var(--ink-soft)]">
-                    <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-brand-100 text-[10px] font-bold text-brand-700 dark:bg-brand-900 dark:text-brand-300">
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full border border-brand-200 bg-brand-50 text-[11px] font-bold text-brand-700 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-300">
                       {i + 1}
                     </span>
-                    {o}
+                    <span className="text-sm text-[var(--ink-soft)]">{o}</span>
                   </li>
                 ))}
               </ul>
             </div>
           )}
 
-          <div className="mt-4 max-w-xs">
+          <div className="mt-5 max-w-xs">
             <div className="mb-1.5 flex justify-between text-xs text-[var(--ink-faint)]">
               <span className="font-medium">Progress</span>
               <span className="font-semibold text-brand-700 dark:text-brand-300">
@@ -70,7 +78,9 @@ export default function UnitPage() {
             <AnimatedBar value={pct} className="h-2.5" bar="bg-gradient-to-r from-brand-500 to-accent-500" />
           </div>
         </div>
-        <PageFigure image={{ pdf: unit.overviewPage + 2, bookPage: unit.overviewPage }} />
+        <div className="lg:justify-self-end">
+          <PageFigure image={{ pdf: unit.overviewPage + 2, bookPage: unit.overviewPage }} />
+        </div>
       </header>
 
       <div className="section-divider">
