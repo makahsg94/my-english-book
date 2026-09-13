@@ -11,7 +11,7 @@ import {
   subscribePlayhead,
   toggleTrack,
 } from '../lib/audio'
-import { IconClose, IconForward, IconPause, IconPlay, IconRewind, IconZoomIn, IconZoomOut } from './Icons'
+import { IconClose, IconForward, IconPlay, IconRewind, IconZoomIn, IconZoomOut } from './Icons'
 
 export function AudioPlayer({ tracks, title }: { tracks: AudioTrack[]; title?: string }) {
   const [instance] = useState(() => nextInstance())
@@ -45,6 +45,7 @@ export function AudioPlayer({ tracks, title }: { tracks: AudioTrack[]; title?: s
           const active = !!t.file && isTrackActive(t.file)
           const mine = active && getPlayhead()?.instance === instance
           const ph = getPlayhead()
+          const loading = mine && !(ph && ph.duration > 0)
           const max = ph?.duration && ph.duration > 0 ? ph.duration : 1
           return t.file ? (
             <div key={t.label}>
@@ -59,11 +60,25 @@ export function AudioPlayer({ tracks, title }: { tracks: AudioTrack[]; title?: s
                     active ? 'bg-accent-600' : 'bg-brand-600'
                   }`}
                 >
-                  {active ? <IconPause size={16} /> : <IconPlay size={16} className="ml-0.5" />}
+                  {active ? (
+                    <span className="eq eq-on" aria-hidden="true">
+                      <i />
+                      <i />
+                      <i />
+                      <i />
+                    </span>
+                  ) : (
+                    <IconPlay size={16} className="ml-0.5" />
+                  )}
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm font-medium">{t.label}</span>
-                  <span className="block truncate font-mono text-xs text-[var(--ink-faint)]">{t.file.split('/audio/').pop()}</span>
+                  <span className="block truncate font-mono text-xs text-[var(--ink-faint)]">
+                    {t.file.split('/audio/').pop()}
+                    {loading && (
+                      <span className="ml-2 animate-pulse italic text-[var(--ink-soft)]">loading{'\u2026'}</span>
+                    )}
+                  </span>
                 </span>
                 {t.page && <span className="shrink-0 text-xs text-[var(--ink-faint)]">page {t.page}</span>}
               </button>
@@ -73,7 +88,7 @@ export function AudioPlayer({ tracks, title }: { tracks: AudioTrack[]; title?: s
                   <button
                     type="button"
                     onClick={() => stepAudio(-10)}
-                    className="flex flex-col items-center rounded-md px-1.5 py-0.5 text-brand-700 transition-colors hover:bg-[var(--line)] dark:text-brand-300"
+                    className="flex min-h-9 min-w-9 flex-col items-center justify-center rounded-md px-2 py-1 text-brand-700 transition-colors hover:bg-[var(--line)] dark:text-brand-300"
                     title="Back 10 seconds"
                   >
                     <IconRewind size={16} />
@@ -102,7 +117,7 @@ export function AudioPlayer({ tracks, title }: { tracks: AudioTrack[]; title?: s
                   <button
                     type="button"
                     onClick={() => stepAudio(10)}
-                    className="flex flex-col items-center rounded-md px-1.5 py-0.5 text-brand-700 transition-colors hover:bg-[var(--line)] dark:text-brand-300"
+                    className="flex min-h-9 min-w-9 flex-col items-center justify-center rounded-md px-2 py-1 text-brand-700 transition-colors hover:bg-[var(--line)] dark:text-brand-300"
                     title="Forward 10 seconds"
                   >
                     <IconForward size={16} />

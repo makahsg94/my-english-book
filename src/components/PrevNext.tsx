@@ -20,11 +20,11 @@ export default function PrevNext({ unitId, lessonId }: { unitId: string; lessonI
         <span className="flex items-center gap-1 text-[11px] uppercase tracking-wide text-[var(--ink-faint)]">
           {dir === 'next' ? (
             <>
-              Next <IconChevronRight size={12} />
+              Next <IconChevronRight size={12} className="transition-transform group-hover:translate-x-0.5" />
             </>
           ) : (
             <>
-              <IconChevronLeft size={12} /> Previous
+              <IconChevronLeft size={12} className="transition-transform group-hover:-translate-x-0.5" /> Previous
             </>
           )}
         </span>

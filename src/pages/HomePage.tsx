@@ -3,6 +3,7 @@ import { BOOK, flattenLessons, getUnit } from '../content/book'
 import { getUnitQuiz } from '../content/quizzes'
 import { pageImageUrl } from '../lib/images'
 import { useProgress } from '../lib/appContext'
+import Reveal from '../components/Reveal'
 import { IconBook, IconCheck, IconClock, IconGrid, IconTarget } from '../components/Icons'
 
 export default function HomePage() {
@@ -79,34 +80,36 @@ export default function HomePage() {
       </section>
 
       {lastUnit && lastLesson && (
-        <section className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="flex items-center gap-2 text-lg font-bold">
-              <IconClock size={18} className="text-brand-600" />
-              Continue learning
-            </h2>
-            <span className="rounded-full border border-[var(--line)] px-3 py-1 text-xs text-[var(--ink-soft)]">
-              {lastUnit.number === 0 ? 'Lead-in' : `Unit ${lastUnit.number}`} · {lastLesson.title}
-            </span>
-          </div>
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <Link
-              to={continueTarget ?? `/unit/${lastUnit.id}`}
-              className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md"
-            >
-              {lastUnit.lessons[lastUnit.lessons.length - 1]?.id === lastLesson.id ? 'Review this lesson' : 'Go to lesson'}
-            </Link>
-            {lastUnitQuiz && (
+        <Reveal delay={80}>
+          <section className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="flex items-center gap-2 text-lg font-bold">
+                <IconClock size={18} className="text-brand-600" />
+                Continue learning
+              </h2>
+              <span className="rounded-full border border-[var(--line)] px-3 py-1 text-xs text-[var(--ink-soft)]">
+                {lastUnit.number === 0 ? 'Lead-in' : `Unit ${lastUnit.number}`} · {lastLesson.title}
+              </span>
+            </div>
+            <div className="mt-4 flex flex-wrap items-center gap-3">
               <Link
-                to={`/unit/${lastUnit.id}/quiz`}
-                className="inline-flex items-center gap-2 rounded-xl border border-brand-300 px-4 py-2 text-sm font-medium text-brand-700 transition-colors hover:bg-brand-50 dark:border-brand-800 dark:text-brand-300 dark:hover:bg-brand-950"
+                to={continueTarget ?? `/unit/${lastUnit.id}`}
+                className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md"
               >
-                <IconTarget size={15} />
-                Unit quiz
+                {lastUnit.lessons[lastUnit.lessons.length - 1]?.id === lastLesson.id ? 'Review this lesson' : 'Go to lesson'}
               </Link>
-            )}
-          </div>
-        </section>
+              {lastUnitQuiz && (
+                <Link
+                  to={`/unit/${lastUnit.id}/quiz`}
+                  className="inline-flex items-center gap-2 rounded-xl border border-brand-300 px-4 py-2 text-sm font-medium text-brand-700 transition-colors hover:bg-brand-50 dark:border-brand-800 dark:text-brand-300 dark:hover:bg-brand-950"
+                >
+                  <IconTarget size={15} />
+                  Unit quiz
+                </Link>
+              )}
+            </div>
+          </section>
+        </Reveal>
       )}
 
       <section>
@@ -115,76 +118,79 @@ export default function HomePage() {
           Units
         </h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {BOOK.units.map((unit) => {
+          {BOOK.units.map((unit, i) => {
             const unitDone = unit.lessons.filter((l) => progress.isLessonComplete(l.id)).length
             const unitPct = Math.round((unitDone / Math.max(1, unit.lessons.length)) * 100)
             return (
-              <Link
-                key={unit.id}
-                to={`/unit/${unit.id}`}
-                className="group overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] transition-all hover:border-brand-300 hover:shadow-md dark:hover:border-brand-700"
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={pageImageUrl(unit.overviewPage + 2)}
-                    alt={`Unit ${unit.number} opener`}
-                    loading="lazy"
-                    className="h-28 w-full border-b border-[var(--line)] object-cover object-top transition-transform group-hover:scale-105"
-                  />
-                  {unitPct === 100 && (
-                    <span className="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full bg-brand-600 text-white shadow-sm">
-                      <IconCheck size={14} />
-                    </span>
-                  )}
-                </div>
-                <div className="p-4">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-brand-700 dark:text-brand-300">
-                    {unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`}
-                  </p>
-                  <h3 className="mt-0.5 truncate text-base font-bold">
-                    {unit.phrase ?? unit.title}
-                  </h3>
-                  <p className="mt-1 line-clamp-2 text-xs text-[var(--ink-soft)]">{unit.intro}</p>
-                  <div className="mt-3">
-                    <div className="mb-1 flex justify-between text-[11px] text-[var(--ink-faint)]">
-                      <span>{unitDone}/{unit.lessons.length} lessons</span>
-                      <span>{unitPct}%</span>
-                    </div>
-                    <div className="h-1.5 overflow-hidden rounded-full bg-[var(--line)]">
-                      <div className="h-full rounded-full bg-brand-500 transition-all" style={{ width: `${unitPct}%` }} />
+              <Reveal key={unit.id} delay={i * 60}>
+                <Link
+                  to={`/unit/${unit.id}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] transition-all hover:border-brand-300 hover:shadow-md dark:hover:border-brand-700"
+                >
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={pageImageUrl(unit.overviewPage + 2)}
+                      alt={`Unit ${unit.number} opener`}
+                      loading="lazy"
+                      className="h-28 w-full border-b border-[var(--line)] object-cover object-top transition-transform group-hover:scale-105"
+                    />
+                    {unitPct === 100 && (
+                      <span className="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full bg-brand-600 text-white shadow-sm">
+                        <IconCheck size={14} />
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-brand-700 dark:text-brand-300">
+                      {unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`}
+                    </p>
+                    <h3 className="mt-0.5 truncate text-base font-bold">
+                      {unit.phrase ?? unit.title}
+                    </h3>
+                    <p className="mt-1 line-clamp-2 text-xs text-[var(--ink-soft)]">{unit.intro}</p>
+                    <div className="mt-3">
+                      <div className="mb-1 flex justify-between text-[11px] text-[var(--ink-faint)]">
+                        <span>{unitDone}/{unit.lessons.length} lessons</span>
+                        <span>{unitPct}%</span>
+                      </div>
+                      <div className="h-1.5 overflow-hidden rounded-full bg-[var(--line)]">
+                        <div className="h-full rounded-full bg-brand-500 transition-all" style={{ width: `${unitPct}%` }} />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </Reveal>
             )
           })}
         </div>
       </section>
 
-      <section className="rounded-2xl border border-brand-200 bg-gradient-to-br from-brand-50 to-accent-50 p-6 dark:border-brand-800 dark:from-brand-950/60 dark:to-accent-950/60">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h2 className="flex items-center gap-2 text-lg font-bold text-brand-800 dark:text-brand-200">
-              <IconCheck size={18} />
-              Your study plan
-            </h2>
-            <p className="mt-1 text-sm text-[var(--ink-soft)]">
-              Work through units in order, or jump straight to a bank.
-            </p>
+      <Reveal delay={120}>
+        <section className="rounded-2xl border border-brand-200 bg-gradient-to-br from-brand-50 to-accent-50 p-6 dark:border-brand-800 dark:from-brand-950/60 dark:to-accent-950/60">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 className="flex items-center gap-2 text-lg font-bold text-brand-800 dark:text-brand-200">
+                <IconCheck size={18} />
+                Your study plan
+              </h2>
+              <p className="mt-1 text-sm text-[var(--ink-soft)]">
+                Work through units in order, or jump straight to a bank.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {BOOK.banks.map((bank) => (
+                <Link
+                  key={bank.id}
+                  to={`/bank/${bank.id}`}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-brand-300 bg-white px-4 py-2 text-sm font-semibold text-brand-700 shadow-sm transition-all hover:bg-brand-600 hover:text-white dark:border-brand-700 dark:bg-brand-950 dark:text-brand-200 dark:hover:bg-brand-700"
+                >
+                  {bank.title}
+                </Link>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {BOOK.banks.map((bank) => (
-              <Link
-                key={bank.id}
-                to={`/bank/${bank.id}`}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-brand-300 bg-white px-4 py-2 text-sm font-semibold text-brand-700 shadow-sm transition-all hover:bg-brand-600 hover:text-white dark:border-brand-700 dark:bg-brand-950 dark:text-brand-200 dark:hover:bg-brand-700"
-              >
-                {bank.title}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      </Reveal>
     </div>
   )
 }

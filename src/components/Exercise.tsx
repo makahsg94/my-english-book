@@ -1,7 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { Exercise, ExerciseQuestion } from '../types/content'
 import { useProgress } from '../lib/appContext'
+import { useToast } from '../lib/toast'
+import { checkMilestones } from '../lib/milestones'
 import { IconCheck, IconCross, IconEye, IconEyeOff, IconRotate, IconTarget } from './Icons'
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] as const
@@ -17,12 +19,17 @@ function shuffle<T>(arr: T[]): T[] {
 
 export function Quiz({ exercise }: { exercise: Exercise }) {
   const progress = useProgress()
+  const showToast = useToast()
   const [answered, setAnswered] = useState<Record<string, unknown>>({})
   const [checked, setChecked] = useState(false)
+  const [checking, setChecking] = useState(false)
   const [score, setScore] = useState<{ correct: number; total: number } | null>(null)
   const [revealIds, setRevealIds] = useState<Set<string>>(new Set())
+  const checkTimer = useRef(0)
 
   const best = progress.bestQuiz(exercise.id)
+
+  useEffect(() => () => window.clearTimeout(checkTimer.current), [])
 
   const onAnswer = (id: string, value: unknown) => {
     setAnswered((prev) => ({ ...prev, [id]: value }))
@@ -96,12 +103,23 @@ export function Quiz({ exercise }: { exercise: Exercise }) {
   })
 
   const check = () => {
-    setChecked(true)
-    setScore({ correct: stats.correct, total: stats.total })
-    progress.recordQuiz(exercise.id, stats.correct, stats.total)
+    if (checking) return
+    setChecking(true)
+    window.clearTimeout(checkTimer.current)
+    checkTimer.current = window.setTimeout(() => {
+      setChecked(true)
+      setScore({ correct: stats.correct, total: stats.total })
+      progress.recordQuiz(exercise.id, stats.correct, stats.total)
+      setChecking(false)
+      for (const m of checkMilestones(progress.state)) showToast(m)
+    }, 600)
   }
 
+  const allPassed = !!score && score.total > 0 && score.correct === score.total
+
   const reset = () => {
+    window.clearTimeout(checkTimer.current)
+    setChecking(false)
     setAnswered({})
     setChecked(false)
     setScore(null)
@@ -154,14 +172,38 @@ export function Quiz({ exercise }: { exercise: Exercise }) {
         <button
           type="button"
           onClick={check}
-          disabled={!allAnswered}
+          disabled={!allAnswered || checking || (checked && allPassed)}
           className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-40"
         >
-          <IconTarget size={16} />
-          Check answers
+          {checking ? (
+            <>
+              <IconRotate size={16} className="animate-spin" />
+              Checking{'\u2026'}
+            </>
+          ) : checked && score ? (
+            allPassed ? (
+              <>
+                <IconCheck size={16} /> Correct!
+              </>
+            ) : (
+              <>
+                <IconCross size={16} /> Not quite {'\u2014'} adjust & retry
+              </>
+            )
+          ) : (
+            <>
+              <IconTarget size={16} /> Check answers
+            </>
+          )}
         </button>
         {score && checked && (
-          <span className="text-sm font-medium" data-score>
+          <span
+            key={score.correct + '-' + score.total}
+            data-score
+            className={`pop text-sm font-medium ${
+              allPassed ? 'text-brand-700 dark:text-brand-300' : 'text-[var(--ink-soft)]'
+            }`}
+          >
             Score: {score.correct} / {score.total} ({Math.round((score.correct / Math.max(1, score.total)) * 100)}%)
           </span>
         )}

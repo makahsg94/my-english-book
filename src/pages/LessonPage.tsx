@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getUnit, nav } from '../content/book'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
+import { useToast } from '../lib/toast'
+import { checkMilestones } from '../lib/milestones'
 import Blocks from '../components/Blocks'
 import PrevNext from '../components/PrevNext'
 import { IconChevronLeft, IconChevronRight, IconHome, IconList, IconTarget, IconVideo, IconVolume } from '../components/Icons'
@@ -100,6 +102,7 @@ export default function LessonPage() {
   const unit = unitId ? getUnit(unitId) : undefined
   const lesson = unit?.lessons.find((l) => l.id === lessonId)
   const progress = useProgress()
+  const showToast = useToast()
   const navigate = useNavigate()
   const mainRef = useRef<HTMLDivElement>(null)
 
@@ -142,6 +145,15 @@ export default function LessonPage() {
   const isUnitLastLesson = unit.lessons[unit.lessons.length - 1]?.id === lesson.id
 
   const showStudyCard = exercises.length > 0 || (unitQuiz && isUnitLastLesson)
+
+  const onToggleDone = () => {
+    if (complete) {
+      progress.toggleLessonComplete(lesson.id)
+      return
+    }
+    progress.markLessonComplete(lesson.id)
+    for (const m of checkMilestones(progress.state)) showToast(m)
+  }
 
   return (
     <div ref={mainRef} className="fade-up mx-auto max-w-3xl">
@@ -231,10 +243,10 @@ export default function LessonPage() {
           )}
           <button
             type="button"
-            onClick={() => (complete ? progress.toggleLessonComplete(lesson.id) : progress.markLessonComplete(lesson.id))}
+            onClick={onToggleDone}
             className={`ml-auto inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-medium transition-colors ${
               complete
-                ? 'border-brand-600 bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300'
+                ? 'pop border-brand-600 bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300'
                 : 'border-[var(--line-strong)] text-[var(--ink-soft)] hover:border-brand-400'
             }`}
           >

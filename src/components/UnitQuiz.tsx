@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react'
 import type { QuizCategory, UnitQuiz, UnitQuizItem } from '../types/content'
 import { getLesson } from '../content/book'
 import { useProgress } from '../lib/appContext'
+import { useToast } from '../lib/toast'
+import { checkMilestones } from '../lib/milestones'
 import {
   IconCheck,
   IconChevronLeft,
@@ -102,11 +104,13 @@ function countFor(quiz: UnitQuiz, category: QuizCategory): number {
 
 export function UnitQuiz({ quiz, unitLabel }: { quiz: UnitQuiz; unitLabel: string }) {
   const progress = useProgress()
+  const showToast = useToast()
 
   const [phase, setPhase] = useState<Phase>('intro')
   const [current, setCurrent] = useState(0)
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({})
   const [graded, setGraded] = useState<GradedItem[]>([])
+  const [newBest, setNewBest] = useState(false)
 
   const total = quiz.questions.length
   const attempts = (progress.state.quizzes[quiz.id] ?? []).length
@@ -149,6 +153,8 @@ export function UnitQuiz({ quiz, unitLabel }: { quiz: UnitQuiz; unitLabel: strin
   const answerCount = Object.values(answers).filter((a) => a !== undefined && a !== '').length
 
   const submit = () => {
+    const prevBest = progress.bestQuiz(quiz.id)
+    const prevPct = prevBest ? prevBest.correct / Math.max(1, prevBest.total) : -1
     const next: GradedItem[] = quiz.questions.map((item, i) => {
       const answer = answers[i]
       return {
@@ -159,6 +165,8 @@ export function UnitQuiz({ quiz, unitLabel }: { quiz: UnitQuiz; unitLabel: strin
     })
     setGraded(next)
     const correct = next.filter((g) => g.correct).length
+    const pct = correct / Math.max(1, total)
+    setNewBest(pct > prevPct)
     const categories: Record<string, { correct: number; total: number }> = {}
     for (const g of next) {
       const c = categories[g.category] ?? { correct: 0, total: 0 }
@@ -170,6 +178,7 @@ export function UnitQuiz({ quiz, unitLabel }: { quiz: UnitQuiz; unitLabel: strin
       categories,
       wrong: next.filter((g) => !g.correct).map((g) => g.id),
     })
+    for (const m of checkMilestones(progress.state)) showToast(m)
     setPhase('results')
   }
 
@@ -289,7 +298,14 @@ export function UnitQuiz({ quiz, unitLabel }: { quiz: UnitQuiz; unitLabel: strin
             </div>
             <div>
               <p className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Result</p>
-              <h2 className="mt-1 text-2xl font-bold tracking-tight">{headline}</h2>
+              <div className="mt-1 flex flex-wrap items-center gap-2">
+                <h2 className="text-2xl font-bold tracking-tight">{headline}</h2>
+                {newBest && (
+                  <span className="pop inline-flex items-center gap-1 rounded-full bg-brand-600 px-2.5 py-0.5 text-xs font-bold text-white">
+                    <IconSpark size={12} /> New best!
+                  </span>
+                )}
+              </div>
               <div className="mt-2 flex flex-wrap gap-2">
                 <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
                   <IconCheck size={12} /> {correctCount} correct
