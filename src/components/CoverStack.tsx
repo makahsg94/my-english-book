@@ -22,11 +22,23 @@ function useCompact() {
   return compact
 }
 
+function useHoverCapable() {
+  const [hoverable, setHoverable] = useState(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches)
+  useEffect(() => {
+    const m = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const handler = () => setHoverable(m.matches)
+    m.addEventListener('change', handler)
+    return () => m.removeEventListener('change', handler)
+  }, [])
+  return hoverable
+}
+
 export default function CoverStack({ covers }: { covers: StackCover[] }) {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [flipping, setFlipping] = useState<string | null>(null)
   const compact = useCompact()
+  const hoverable = useHoverCapable()
 
   if (covers.length === 0) return null
 
@@ -64,7 +76,7 @@ export default function CoverStack({ covers }: { covers: StackCover[] }) {
     <div className="flex w-full flex-col items-center gap-3">
       <div
         className="stack-deck relative h-52 w-full sm:h-56"
-        onMouseEnter={() => setOpen(true)}
+        onMouseEnter={() => hoverable && setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >
         {covers.map((cover, k) => {

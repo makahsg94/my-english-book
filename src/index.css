@@ -89,6 +89,8 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -100,6 +102,9 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
@@ -552,6 +557,7 @@ a:active {
 /* ---------- Interactive cover deck ---------- */
 .stack-deck {
   perspective: 1400px;
+  overflow-x: clip;
 }
 .stack-card {
   position: absolute;
