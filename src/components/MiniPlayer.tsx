@@ -21,7 +21,10 @@ export default function MiniPlayer() {
   const max = ph.duration > 0 ? ph.duration : 1
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-4 z-40 flex justify-center px-4">
+    <div
+      className="pointer-events-none fixed inset-x-0 z-40 flex justify-center px-4"
+      style={{ bottom: 'max(1rem, env(safe-area-inset-bottom))' }}
+    >
       <div className="pointer-events-auto flex w-full max-w-xl items-center gap-3 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)]/95 px-3 py-2 text-[var(--ink)] shadow-2xl shadow-black/20 backdrop-blur">
         <button
           type="button"

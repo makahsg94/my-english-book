@@ -89,8 +89,6 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  overflow-x: clip;
 }
 
 body {
@@ -102,10 +100,17 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  overflow-x: clip;
   overscroll-behavior-x: none;
   transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Clip horizontal overflow here (NOT on html/body, which would break
+   position: fixed / sticky on mobile browsers and hide floating UI).
+   `clip` creates no scroll container, so fixed children stay viewport-anchored. */
+#root {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .reading body {
