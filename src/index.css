@@ -549,6 +549,101 @@ a:active {
   background-clip: text;
 }
 
+/* ---------- Interactive cover deck ---------- */
+.stack-deck {
+  perspective: 1400px;
+}
+.stack-card {
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease, box-shadow 0.3s ease;
+  transform: var(--t, none);
+  transform-origin: 50% 120%;
+  will-change: transform;
+}
+.stack-card:hover {
+  transform: var(--t, none) translateY(-7px);
+}
+.stack-card:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+.stack-card .stack-caption {
+  transition: opacity 0.3s ease;
+}
+.stack-deck:hover .stack-card .stack-caption {
+  opacity: 0.9;
+}
+
+/* Page-enter transition – simulated page turn on route change */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.page-enter {
+  position: relative;
+  animation: pageEnter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.page-enter::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-brand-200) 38%, transparent) 50%,
+    transparent
+  );
+  transform: translateX(-120%);
+  animation: pageSweep 0.7s ease 0.12s both;
+}
+
+/* Parallax – motion driven by a --parallax CSS variable */
+[data-parallax] {
+  will-change: transform;
+}
+[data-parallax] > * {
+  transform: translateY(var(--parallax, 0px));
+  will-change: transform;
+}
+
+/* Tactile press – springy buttons */
+.tactile {
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.tactile:active {
+  transform: translateY(2px) scale(0.985);
+  box-shadow: none;
+}
+
+/* Page corner fold hint on prev/next navigation */
+.page-corner {
+  position: relative;
+  overflow: hidden;
+}
+.page-corner::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(225deg, transparent 50%, color-mix(in srgb, var(--color-brand-400) 55%, transparent) 50%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.page-corner:hover::after {
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -563,6 +658,15 @@ a:active {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+  [data-parallax] > * {
+    transform: none !important;
+  }
+  .stack-card:hover {
+    transform: var(--t, none) !important;
+  }
+  .stack-deck:hover .stack-card .stack-caption {
+    opacity: 1;
   }
   html {
     scroll-behavior: auto;

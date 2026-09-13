@@ -1,11 +1,20 @@
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import MiniPlayer from './MiniPlayer'
 import BackToTop from './BackToTop'
 import { LightboxProvider } from './Media'
 import { IconClose } from './Icons'
+
+function AnimatedMain() {
+  const { pathname } = useLocation()
+  return (
+    <main key={pathname} className="page-enter min-w-0 flex-1 px-4 pb-28 pt-6 sm:px-6 lg:px-8">
+      <Outlet />
+    </main>
+  )
+}
 
 export default function Layout() {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -42,9 +51,7 @@ export default function Layout() {
           </div>
         )}
 
-        <main className="min-w-0 flex-1 px-4 pb-28 pt-6 sm:px-6 lg:px-8">
-          <Outlet />
-        </main>
+        <AnimatedMain />
       </div>
 
       <MiniPlayer />

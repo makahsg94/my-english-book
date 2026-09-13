@@ -5,6 +5,8 @@ import { pageImageUrl } from '../lib/images'
 import { useProgress } from '../lib/appContext'
 import Reveal from '../components/Reveal'
 import AnimatedBar from '../components/AnimatedBar'
+import CoverStack from '../components/CoverStack'
+import Parallax from '../components/Parallax'
 import { IconBook, IconCheck, IconChevronRight, IconClock, IconGrid, IconTarget } from '../components/Icons'
 
 export default function HomePage() {
@@ -27,9 +29,18 @@ export default function HomePage() {
   const firstLesson = lessons[0]
   const startTarget = continueTarget ?? (firstLesson ? `/unit/${firstLesson.unit.id}/lesson/${firstLesson.lesson.id}` : '/book')
 
+  const deckCovers = BOOK.units.map((unit) => ({
+    unitId: unit.id,
+    number: unit.number,
+    title: unit.phrase ?? unit.title,
+    subtitle: unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`,
+    img: pageImageUrl(unit.overviewPage + 2),
+    done: unit.lessons.every((l) => progress.isLessonComplete(l.id)),
+  }))
+
   return (
     <div className="fade-up space-y-14">
-      <section className="grid items-center gap-10 lg:grid-cols-[1.25fr_1fr]">
+      <section className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_420px]">
         <div className="flex flex-col justify-center">
           <p className="mb-3 inline-flex w-fit items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-700 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-300">
             <span aria-hidden className="size-1.5 rounded-full bg-brand-500" />
@@ -47,14 +58,14 @@ export default function HomePage() {
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Link
               to={startTarget}
-              className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-brand-600/20 transition-all hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-lg"
+              className="tactile inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-brand-600/20 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-lg"
             >
               <IconBook size={17} />
               {continueTarget ? 'Continue reading' : 'Start reading'}
             </Link>
             <Link
               to="/book"
-              className="inline-flex items-center gap-2 rounded-full border border-[var(--line-strong)] px-6 py-3 text-sm font-medium transition-colors hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
+              className="tactile inline-flex items-center gap-2 rounded-full border border-[var(--line-strong)] px-6 py-3 text-sm font-medium transition-colors hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
             >
               <IconGrid size={16} />
               Explore chapters
@@ -70,14 +81,8 @@ export default function HomePage() {
             <AnimatedBar value={pct} className="h-2.5" bar="bg-gradient-to-r from-brand-500 to-accent-500" />
           </div>
         </div>
-        <div className="flex items-start justify-center lg:justify-end">
-          <div className="book-cover book-cover-sheen group relative">
-            <img
-              src={pageImageUrl(BOOK.coverPage)}
-              alt="Speakout A2 Student's Book cover"
-              className="w-64 rounded-2xl border border-[var(--line)] shadow-2xl sm:w-72"
-            />
-          </div>
+        <div className="flex items-center justify-center lg:justify-end">
+          <CoverStack covers={deckCovers} />
         </div>
       </section>
 
@@ -136,12 +141,14 @@ export default function HomePage() {
                   className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] transition-all duration-200 hover:-translate-y-1 hover:border-brand-300 hover:shadow-lg dark:border-[var(--line)] dark:hover:border-brand-700"
                 >
                   <div className="relative overflow-hidden">
-                    <img
-                      src={pageImageUrl(unit.overviewPage + 2)}
-                      alt={`Unit ${unit.number} opener`}
-                      loading="lazy"
-                      className="h-32 w-full border-b border-[var(--line)] object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <Parallax strength={20} className="h-32">
+                      <img
+                        src={pageImageUrl(unit.overviewPage + 2)}
+                        alt={`Unit ${unit.number} opener`}
+                        loading="lazy"
+                        className="absolute inset-x-0 -top-5 -bottom-5 h-[calc(100%+2.5rem)] w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </Parallax>
                     <span
                       aria-hidden
                       className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"

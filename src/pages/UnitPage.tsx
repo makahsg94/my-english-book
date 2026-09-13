@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { BOOK, getUnit } from '../content/book'
 import { getUnitQuiz } from '../content/quizzes'
@@ -5,12 +6,72 @@ import { useProgress } from '../lib/appContext'
 import { PageFigure } from '../components/PageFigure'
 import Reveal from '../components/Reveal'
 import AnimatedBar from '../components/AnimatedBar'
-import { IconChevronRight, IconVideo, IconHome, IconCheck, IconList, IconTarget } from '../components/Icons'
+import Parallax from '../components/Parallax'
+import { IconChevronRight, IconVideo, IconHome, IconCheck, IconList, IconTarget, IconVolume, IconSpark } from '../components/Icons'
+
+function LessonPreview({ lesson }: { lesson: { title: string; pages: [number, number]; labels?: { grammar?: string; vocabulary?: string; pronunciation?: string; skills?: string }; objectives?: string[]; blocks: { type: string; title?: string; exercise?: { title?: string }; videos?: unknown[]; tracks?: unknown[] }[] } }) {
+  const exercises = lesson.blocks.filter((b) => b.type === 'exercise').length
+  const videos = lesson.blocks.filter((b) => b.type === 'video').reduce((n, b) => n + (b.videos?.length ?? 0), 0)
+  const audio = lesson.blocks.filter((b) => b.type === 'audio').reduce((n, b) => n + (b.tracks?.length ?? 0), 0)
+  return (
+    <div className="rise rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4 shadow-2xl">
+      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--ink-faint)]">Lesson preview</p>
+      <h3 className="mt-1 text-lg font-bold">{lesson.title}</h3>
+      <p className="page-number mt-1">Pages {lesson.pages[0]}{'\u2013'}{lesson.pages[1]}</p>
+      {lesson.labels && (
+        <p className="mt-2 flex flex-wrap gap-1.5">
+          {lesson.labels.grammar && (
+            <span className="rounded-full bg-brand-100 px-2 py-0.5 text-[11px] font-semibold text-brand-700 dark:bg-brand-900 dark:text-brand-300">
+              {lesson.labels.grammar}
+            </span>
+          )}
+          {lesson.labels.vocabulary && (
+            <span className="rounded-full bg-accent-100 px-2 py-0.5 text-[11px] font-semibold text-accent-700 dark:bg-accent-900 dark:text-accent-300">
+              {lesson.labels.vocabulary}
+            </span>
+          )}
+          {lesson.labels.skills && (
+            <span className="rounded-full bg-sky-100 px-2 py-0.5 text-[11px] font-semibold text-sky-700 dark:bg-sky-900 dark:text-sky-100">
+              {lesson.labels.skills}
+            </span>
+          )}
+        </p>
+      )}
+      {lesson.objectives && lesson.objectives.length > 0 && (
+        <ul className="mt-2 space-y-1">
+          {lesson.objectives.slice(0, 3).map((o, i) => (
+            <li key={i} className="flex items-start gap-2 text-[12px] text-[var(--ink-soft)]">
+              <IconSpark size={11} className="mt-0.5 shrink-0 text-brand-500" />
+              <span>{o}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-[var(--ink-faint)]">
+        {exercises > 0 && <span>{exercises} exercise{exercises > 1 ? 's' : ''}</span>}
+        {audio > 0 && (
+          <span className="inline-flex items-center gap-1">
+            <IconVolume size={11} /> {audio} track{audio > 1 ? 's' : ''}
+          </span>
+        )}
+        {videos > 0 && (
+          <span className="inline-flex items-center gap-1 text-accent-600">
+            <IconVideo size={11} /> {videos} video{videos > 1 ? 's' : ''}
+          </span>
+        )}
+      </div>
+      <p className="mt-3 border-t border-[var(--line)] pt-2 text-[11px] text-brand-700 dark:text-brand-300">
+        Hover to peek {'\u00b7'} Enter to open {'\u2192'}
+      </p>
+    </div>
+  )
+}
 
 export default function UnitPage() {
   const { unitId } = useParams()
   const unit = unitId ? getUnit(unitId) : undefined
   const progress = useProgress()
+  const [previewId, setPreviewId] = useState<string | null>(null)
 
   if (!unit) return null
 
@@ -22,6 +83,8 @@ export default function UnitPage() {
   const pct = Math.round((done / Math.max(1, unit.lessons.length)) * 100)
   const quiz = getUnitQuiz(unit.id)
   const quizBest = quiz ? progress.bestQuiz(quiz.id) : undefined
+
+  const previewLesson = previewId ? unit.lessons.find((l) => l.id === previewId) : undefined
 
   return (
     <div className="fade-up mx-auto max-w-3xl space-y-8">
@@ -78,8 +141,10 @@ export default function UnitPage() {
             <AnimatedBar value={pct} className="h-2.5" bar="bg-gradient-to-r from-brand-500 to-accent-500" />
           </div>
         </div>
-        <div className="lg:justify-self-end">
-          <PageFigure image={{ pdf: unit.overviewPage + 2, bookPage: unit.overviewPage }} />
+        <div className="w-56 lg:justify-self-end">
+          <Parallax strength={18}>
+            <PageFigure image={{ pdf: unit.overviewPage + 2, bookPage: unit.overviewPage }} />
+          </Parallax>
         </div>
       </header>
 
@@ -130,6 +195,10 @@ export default function UnitPage() {
                 <Reveal delay={i * 45}>
                   <Link
                     to={`/unit/${unit.id}/lesson/${lesson.id}`}
+                    onMouseEnter={() => setPreviewId(lesson.id)}
+                    onMouseLeave={() => setPreviewId(null)}
+                    onFocus={() => setPreviewId(lesson.id)}
+                    onBlur={() => setPreviewId(null)}
                     className="group flex items-center gap-3 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lg dark:hover:border-brand-700"
                   >
                     <span
@@ -178,7 +247,7 @@ export default function UnitPage() {
         <Reveal delay={80}>
           <Link
             to={`/unit/${nextUnit.id}`}
-            className="group flex items-center gap-4 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-4 transition-all hover:border-brand-400 hover:shadow-sm"
+            className="page-corner tactile group flex items-center gap-4 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-4 transition-all hover:border-brand-400 hover:shadow-sm"
           >
             <span className="min-w-0 flex-1">
               <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Next unit</span>
@@ -192,6 +261,12 @@ export default function UnitPage() {
             />
           </Link>
         </Reveal>
+      )}
+
+      {previewLesson && previewId && (
+        <div className="pointer-events-none fixed right-6 top-1/2 z-40 hidden w-80 -translate-y-1/2 xl:block">
+          <LessonPreview lesson={previewLesson} />
+        </div>
       )}
     </div>
   )
