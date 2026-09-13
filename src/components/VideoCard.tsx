@@ -11,7 +11,7 @@ export function VideoCard({ video }: { video: VideoRef }) {
         <video
           src={videoSrc(video.file)}
           controls
-          preload="none"
+          preload="metadata"
           playsInline
           className="aspect-video w-full bg-black"
           aria-label={video.title}
