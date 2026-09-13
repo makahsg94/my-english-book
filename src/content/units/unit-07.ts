@@ -556,7 +556,7 @@ title: 'BBC Vlogs: what do you do?',
               {
                 id: 'q5',
                 kind: 'mcq',
-                prompt: '\u201cWhat did you deliver a van / are you good ___ money and people?\u201d',
+                prompt: '\u201cAre you good ___ money and people?\u201d',
                 options: [
                   { label: 'good with', correct: true },
                   { label: 'good at', correct: false },

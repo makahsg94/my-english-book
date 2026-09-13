@@ -69,8 +69,8 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       progress.recordVisit(unitId, lessonId)
       bump()
     },
-    recordQuiz: (id, correct, total) => {
-      progress.recordQuiz(id, correct, total)
+    recordQuiz: (id, correct, total, meta) => {
+      progress.recordQuiz(id, correct, total, meta)
       bump()
     },
     resetAll: () => {

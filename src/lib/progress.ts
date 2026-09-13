@@ -12,6 +12,10 @@ export interface QuizResult {
   correct: number
   total: number
   at: number
+  /** optional analytics: correct/total per category (e.g. { grammar: [7, 12] }) */
+  categories?: Record<string, { correct: number; total: number }>
+  /** optional analytics: ids of the questions answered incorrectly */
+  wrong?: string[]
 }
 
 export interface ProgressState {
@@ -97,8 +101,16 @@ export function createProgressApi(store: IProgressStore = progressStore) {
     emit()
   }
 
-  function recordQuiz(quizId: string, correct: number, total: number) {
-    state.quizzes[quizId] = [...(state.quizzes[quizId] ?? []), { correct, total, at: Date.now() }]
+  function recordQuiz(
+    quizId: string,
+    correct: number,
+    total: number,
+    meta?: { categories?: Record<string, { correct: number; total: number }>; wrong?: string[] },
+  ) {
+    state.quizzes[quizId] = [
+      ...(state.quizzes[quizId] ?? []),
+      { correct, total, at: Date.now(), ...meta },
+    ]
     emit()
   }
 

@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { getUnit } from '../content/book'
+import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import { PageFigure } from '../components/PageFigure'
 import { IconChevronRight, IconVideo, IconHome, IconCheck, IconList, IconTarget } from '../components/Icons'
@@ -14,6 +15,8 @@ export default function UnitPage() {
   const unitLabel = unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`
   const done = unit.lessons.filter((l) => progress.isLessonComplete(l.id)).length
   const pct = Math.round((done / Math.max(1, unit.lessons.length)) * 100)
+  const quiz = getUnitQuiz(unit.id)
+  const quizBest = quiz ? progress.bestQuiz(quiz.id) : undefined
 
   return (
     <div className="fade-up mx-auto max-w-3xl space-y-8">
@@ -76,6 +79,34 @@ export default function UnitPage() {
           Lessons
         </span>
       </div>
+
+      {quiz && (
+        <Link
+          to={`/unit/${unit.id}/quiz`}
+          className="group flex items-center gap-4 rounded-2xl border border-brand-200 bg-gradient-to-r from-brand-50 to-accent-50 p-4 transition-all hover:border-brand-400 hover:shadow-sm dark:border-brand-800 dark:from-brand-950/70 dark:to-accent-950/70 dark:hover:border-brand-600"
+        >
+          <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-brand-600 text-white shadow-sm transition-transform group-hover:scale-105">
+            <IconTarget size={22} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="flex items-center gap-2">
+              <span className="font-semibold">Take the {unitLabel} Quiz</span>
+              {quizBest && (
+                <span className="rounded-full bg-brand-600 px-2 py-0.5 text-[11px] font-bold text-white">
+                  best {Math.round((quizBest.correct / Math.max(1, quizBest.total)) * 100)}%
+                </span>
+              )}
+            </span>
+            <span className="mt-0.5 block truncate text-sm text-[var(--ink-soft)]">
+              {quiz.questions.length} questions {quiz.skills.slice(0, 3).join(' \u00b7 ')}
+            </span>
+          </span>
+          <IconChevronRight
+            size={18}
+            className="shrink-0 text-brand-600 transition-transform group-hover:translate-x-0.5"
+          />
+        </Link>
+      )}
 
       <section>
         <ol className="space-y-2">

@@ -242,3 +242,68 @@ export interface Book {
   banks: { id: string; title: string; description: string; pages: [number, number] }[]
   searchablePages: { pdf: number; bookPage: number; label: string; text: string }[]
 }
+
+// ---------------------------------------------------------------------------
+// Unit quizzes
+// ---------------------------------------------------------------------------
+
+/**
+ * Assessment category. Only categories actually supported by the material are
+ * used (grammar / vocabulary / reading / communication).
+ */
+export type QuizCategory = 'grammar' | 'vocabulary' | 'reading' | 'communication'
+
+/** Per-question difficulty, used to balance every unit quiz. */
+export type QuizDifficulty = 'easy' | 'medium' | 'hard'
+
+export type UnitQuizQuestion =
+  | {
+      kind: 'mcq'
+      prompt: string
+      /** the source sentence shown when the item is a gap-fill */
+      options: McqOption[]
+    }
+  | {
+      kind: 'true-false'
+      statement: string
+      correct: boolean
+    }
+  | {
+      kind: 'fill-blank'
+      /** sentence before the blank.  Include the base verb in brackets when the
+       *  learner must conjugate, e.g. "Last year I (go)" -> answer "went". */
+      before: string
+      /** the correct answer word(s) */
+      answer: string
+      /** other accepted spellings/alternatives (checked case-insensitively) */
+      accept?: string[]
+      /** sentence after the blank (may be empty) */
+      after: string
+    }
+
+export interface UnitQuizItem {
+  id: string
+  /** unit id, e.g. "unit-2" (must match a Unit in BOOK) */
+  unitId: string
+  /** lesson the item is based on, e.g. "2b" (used for review links) */
+  lessonId: string
+  category: QuizCategory
+  difficulty: QuizDifficulty
+  /** short skill label shown in the UI, e.g. "present simple" */
+  skill: string
+  /** printed page the grammar/vocabulary comes from */
+  page?: number
+  question: UnitQuizQuestion
+  /** learner-facing explanation shown after the quiz */
+  explanation: string
+}
+
+export interface UnitQuiz {
+  id: string
+  unitId: string
+  title: string
+  /** one-line overview shown on the intro screen */
+  description: string
+  skills: string[]
+  questions: UnitQuizItem[]
+}

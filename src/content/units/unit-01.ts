@@ -504,7 +504,7 @@ export const unit01: Unit = {
               {
                 id: 'q6',
                 kind: 'mcq',
-                prompt: 'The end of the film / __ is sad.',
+                prompt: 'Complete the sentence: \u201c___ is sad.\u201d',
                 options: [
                   { label: 'The end of the film', correct: true },
                   { label: "film's end", correct: false },

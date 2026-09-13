@@ -5,6 +5,7 @@ import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import BookPage from './pages/BookPage'
 import UnitPage from './pages/UnitPage'
+import UnitQuizPage from './pages/UnitQuizPage'
 import LessonPage from './pages/LessonPage'
 import PageView from './pages/PageView'
 import BankPage from './pages/BankPage'
@@ -49,6 +50,7 @@ export default function App() {
               <Route index element={<HomePage />} />
               <Route path="book" element={<BookPage />} />
               <Route path="unit/:unitId" element={<UnitPage />} />
+              <Route path="unit/:unitId/quiz" element={<UnitQuizPage />} />
               <Route path="unit/:unitId/lesson/:lessonId" element={<LessonPage />} />
               <Route path="page/:pdf" element={<PageView />} />
               <Route path="bank/:bankId" element={<BankPage />} />
