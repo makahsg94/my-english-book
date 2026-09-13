@@ -22,7 +22,7 @@ export default function Header({ onContents }: { onContents: () => void }) {
         <Link to="/" className="flex min-w-0 items-baseline justify-center gap-2 truncate">
           <span className="font-display text-sm font-bold uppercase tracking-[0.22em]">Speakout</span>
           <span className="hidden text-[10px] tracking-widest text-[var(--ink-faint)] md:inline">
-            A2 {'\u00b7'} 3rd edition
+            the line {'\u00b7'} A2 {'\u00b7'} 3rd edition
           </span>
         </Link>
 

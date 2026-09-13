@@ -3,8 +3,7 @@ import { BOOK, flattenLessons } from '../content/book'
 import { useProgress } from '../lib/appContext'
 import Reveal from '../components/Reveal'
 import AnimatedBar from '../components/AnimatedBar'
-import CoverStack from '../components/CoverStack'
-import { pageImageUrl } from '../lib/images'
+import LineMap from '../components/LineMap'
 import { IconBook, IconCheck, IconLayers } from '../components/Icons'
 
 export default function HomePage() {
@@ -19,15 +18,6 @@ export default function HomePage() {
       : null
   const firstLesson = lessons[0]
   const startTarget = continueTarget ?? (firstLesson ? `/unit/${firstLesson.unit.id}/lesson/${firstLesson.lesson.id}` : '/book')
-
-  const deckCovers = BOOK.units.map((unit) => ({
-    unitId: unit.id,
-    number: unit.number,
-    title: unit.phrase ?? unit.title,
-    subtitle: unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`,
-    img: pageImageUrl(unit.overviewPage + 2),
-    done: unit.lessons.every((l) => progress.isLessonComplete(l.id)),
-  }))
 
   return (
     <div className="fade-up space-y-16">
@@ -68,12 +58,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ---- 2. The book itself: flip through the chapters ---- */}
-      <section className="flex flex-col items-center gap-4">
-        <CoverStack covers={deckCovers} />
-        <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--ink-faint)]">
-          Hover to fan the chapters {'\u00b7'} click a cover to open it
-        </p>
+      {/* ---- 2. The line: the whole course as one ride ---- */}
+      <section>
+        <LineMap />
       </section>
 
       {/* ---- 3. Printed contents ---- */}

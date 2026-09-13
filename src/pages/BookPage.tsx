@@ -1,11 +1,22 @@
 import { Link } from 'react-router-dom'
 import { BOOK } from '../content/book'
+import { pageImageUrl } from '../lib/images'
 import { useProgress } from '../lib/appContext'
 import Reveal from '../components/Reveal'
+import CoverStack from '../components/CoverStack'
 import { IconCheck, IconLayers } from '../components/Icons'
 
 export default function BookPage() {
   const progress = useProgress()
+
+  const deckCovers = BOOK.units.map((unit) => ({
+    unitId: unit.id,
+    number: unit.number,
+    title: unit.phrase ?? unit.title,
+    subtitle: unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`,
+    img: pageImageUrl(unit.overviewPage + 2),
+    done: unit.lessons.every((l) => progress.isLessonComplete(l.id)),
+  }))
 
   return (
     <div className="fade-up book-page px-6 py-8 sm:px-10">
@@ -25,6 +36,13 @@ export default function BookPage() {
           {BOOK.authors.join(' \u2022 ')} {'\u00b7'} One course companion for every lesson, review and bank.
         </p>
       </header>
+
+      <section className="flex flex-col items-center gap-3 py-8">
+        <CoverStack covers={deckCovers} />
+        <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--ink-faint)]">
+          Hover to fan the chapters {'\u00b7'} click a cover to open it
+        </p>
+      </section>
 
       <ol className="space-y-5">
         {BOOK.units.map((unit, i) => {

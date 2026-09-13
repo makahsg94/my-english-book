@@ -90,7 +90,7 @@ export default function UnitPage() {
     <div className="fade-up book-page mx-auto w-full max-w-4xl space-y-10 px-6 py-8 sm:px-10">
       <div className="running-head">
         <span>
-          {unitLabel} {'\u00b7'} {unit.title}
+          Station {unitLabel} {'\u00b7'} {unit.title}
         </span>
         <span className="rh-right">pages {unit.pages[0]}{'\u2013'}{unit.pages[1]}</span>
       </div>

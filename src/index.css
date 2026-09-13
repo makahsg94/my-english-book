@@ -764,6 +764,109 @@ a:active {
     0 30px 60px -38px rgb(0 0 0 / 0.35);
 }
 
+/* ---------- THE SPEAKOUT LINE: a metro map as the course ---------- */
+.line-track {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+.line-track-dash {
+  fill: none;
+  stroke: var(--ink-faint);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 2 12;
+  opacity: 0.4;
+  animation: line-dash 22s linear infinite;
+}
+@keyframes line-dash {
+  to {
+    stroke-dashoffset: -560;
+  }
+}
+.line-traveled {
+  fill: none;
+  stroke: var(--color-brand-600);
+  stroke-width: 7;
+  stroke-linecap: round;
+  filter: drop-shadow(0 5px 14px color-mix(in srgb, var(--color-brand-600) 45%, transparent));
+  animation: line-glow 3.2s ease-in-out infinite;
+}
+@keyframes line-glow {
+  0%, 100% {
+    filter: drop-shadow(0 5px 10px color-mix(in srgb, var(--color-brand-600) 35%, transparent));
+  }
+  50% {
+    filter: drop-shadow(0 5px 18px color-mix(in srgb, var(--color-brand-600) 60%, transparent));
+  }
+}
+.station-dot {
+  cursor: pointer;
+}
+.station-dot .dot {
+  transition: transform 0.25s ease, fill 0.25s ease, stroke 0.25s ease;
+}
+.station-dot:hover .dot {
+  transform: scale(1.18);
+}
+.station-dot .label {
+  fill: var(--ink-soft);
+}
+.station-dot:hover .label {
+  fill: var(--color-brand-700);
+}
+.dark .station-dot:hover .label {
+  fill: var(--color-brand-300);
+}
+.station-dot .num {
+  font-weight: 800;
+}
+.station-pulse {
+  animation: station-pulse 2.6s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes station-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  70% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+.train-body .tm {
+  fill: var(--color-brand-700);
+}
+.dark .train-body .tm {
+  fill: var(--color-brand-400);
+}
+.train-body .tnose {
+  fill: var(--color-brand-500);
+}
+.dark .train-body .tnose {
+  fill: var(--color-brand-300);
+}
+.train-body .twin {
+  fill: #fff;
+  opacity: 0.92;
+}
+.train-glow {
+  filter: drop-shadow(0 4px 12px color-mix(in srgb, var(--color-brand-600) 55%, transparent));
+}
+.line-card {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px -40px rgb(0 0 0 / 0.35);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

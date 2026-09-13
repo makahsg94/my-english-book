@@ -207,7 +207,7 @@ export default function LessonPage() {
 
       <div className="running-head">
         <span>
-          {unitLabel} {'\u00b7'} {lesson.title}
+          Station {unitLabel} {'\u00b7'} {lesson.title}
         </span>
         <span className="rh-right">pages {lesson.pages[0]}{'\u2013'}{lesson.pages[1]}</span>
       </div>
