@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getUnit } from '../content/book'
@@ -6,8 +6,9 @@ import { getWritingTask } from '../content/writing'
 import { useProgress } from '../lib/appContext'
 import { checkWriting } from '../lib/writeCheck'
 import type { WritingCheck } from '../lib/writeCheck'
+import { levelProgress } from '../lib/progress'
 import { burstConfetti } from '../lib/confetti'
-import { IconAward, IconCheck, IconChevronLeft, IconChevronRight, IconHome, IconPen } from '../components/Icons'
+import { IconAward, IconCheck, IconChevronLeft, IconChevronRight, IconFlame, IconHome, IconPen } from '../components/Icons'
 
 function wordCount(text: string) {
   return text.split(/\s+/).filter((w) => w.trim().length > 0).length
@@ -15,6 +16,74 @@ function wordCount(text: string) {
 
 function sentenceCount(text: string) {
   return text.split(/[.!?]+[\s$]/).map((s) => s.trim()).filter((s) => s.length > 0).length
+}
+
+function gradeColor(score: number) {
+  if (score >= 85) return 'var(--color-emerald-500)'
+  if (score >= 70) return 'var(--color-brand-500)'
+  if (score >= 55) return 'var(--color-amber-500)'
+  return 'var(--ink-faint)'
+}
+
+function LiveGauge({ score, label }: { score: number; label?: string }) {
+  const [off, setOff] = useState(150)
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setOff(150 - (score / 100) * 150))
+    return () => cancelAnimationFrame(id)
+  }, [score])
+  const color = gradeColor(score)
+  return (
+    <svg viewBox="0 0 60 60" className="size-20" aria-hidden>
+      <circle cx="30" cy="30" r="24" fill="none" stroke="var(--line)" strokeWidth="6" />
+      <circle
+        cx="30"
+        cy="30"
+        r="24"
+        fill="none"
+        stroke={color}
+        strokeWidth="6"
+        strokeLinecap="round"
+        strokeDasharray="151"
+        strokeDashoffset={off}
+        transform="rotate(-90 30 30)"
+        style={{ transition: 'stroke-dashoffset 0.6s cubic-bezier(0.22,1,0.36,1), stroke 0.3s ease' }}
+      />
+      <text x="30" y="37" textAnchor="middle" fontSize="15" fontWeight="800" fill="var(--ink)">
+        {label ?? score}
+      </text>
+    </svg>
+  )
+}
+
+function CountUp({ value }: { value: number }) {
+  const [n, setN] = useState(0)
+  useEffect(() => {
+    let raf = 0
+    const start = performance.now()
+    const dur = 800
+    const step = (t: number) => {
+      const p = Math.min(1, (t - start) / dur)
+      setN(Math.round(value * (1 - Math.pow(1 - p, 3))))
+      if (p < 1) raf = requestAnimationFrame(step)
+    }
+    raf = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(raf)
+  }, [value])
+  return <>{n}</>
+}
+
+function coachLine(words: number, minWords: number, used: number, missing: string[], sentences: number, mechanics: number): { text: string; emoji: string } {
+  if (words === 0) return { text: 'Start writing \u2013 every word counts!', emoji: '\u270D\uFE0F' }
+  if (words < minWords) {
+    const left = minWords - words
+    return { text: `${left} more word${left === 1 ? '' : 's'} to reach the goal`, emoji: '\u{1F4AA}' }
+  }
+  if (used < 2) {
+    return { text: `Try a unit word${missing.length > 0 ? ` like \u201c${missing[0]}\u201d` : ''}`, emoji: '\u2728' }
+  }
+  if (sentences < 3) return { text: 'Add one more sentence to tell the story', emoji: '\u{1F4DD}' }
+  if (mechanics > 0) return { text: 'Fix capitals and ending dots \u2013 you\u2019re almost there', emoji: '\u{1F9F9}' }
+  return { text: 'You are ready \u2013 press Check my writing!', emoji: '\u{1F389}' }
 }
 
 export default function WritingPage() {
@@ -33,6 +102,8 @@ export default function WritingPage() {
   })
   const [result, setResult] = useState<WritingCheck | null>(null)
   const [checkedAt, setCheckedAt] = useState<number>(0)
+  const [live, setLive] = useState<WritingCheck | null>(null)
+  const debounceRef = useRef<number>(0)
 
   useEffect(() => {
     if (unitId) progress.recordVisit(unitId)
@@ -47,9 +118,22 @@ export default function WritingPage() {
     }
   }, [draft, draftKey])
 
+  useEffect(() => {
+    window.clearTimeout(debounceRef.current)
+    if (!task || wordCount(draft) === 0) {
+      setLive(null)
+      return
+    }
+    debounceRef.current = window.setTimeout(() => {
+      setLive(checkWriting(draft, { minWords: task.minWords, targets: task.targets }))
+    }, 220)
+    return () => window.clearTimeout(debounceRef.current)
+  }, [draft, task])
+
   const words = useMemo(() => wordCount(draft), [draft])
   const sentences = useMemo(() => sentenceCount(draft), [draft])
   const best = task ? progress.bestWriting(task.id) : undefined
+  const lp = levelProgress(progress.state.xp)
 
   if (!unit || !task) {
     return (
@@ -80,12 +164,15 @@ export default function WritingPage() {
     setResult(null)
   }
 
-  const checklist = [
-    `Write at least ${task.minWords} words`,
-    'Use 2 words or phrases from this unit',
-    'End every sentence with . ! or ?',
-    'Start each sentence with a capital letter',
-  ]
+  const liveUsed = live?.targetsUsed ?? []
+  const liveMissing = (live?.targetsMissing ?? []).slice(0, 3)
+  const liveScore = live?.score ?? 0
+  const coach = coachLine(words, task.minWords, liveUsed.length, liveMissing, sentences, live?.issues.length ?? 0)
+
+  const noMechanics = live ? live.issues.every((i) => i.kind !== 'mechanics') : false
+  const noSentenceIssues = live
+    ? live.issues.every((i) => i.kind !== 'mechanics' && i.kind !== 'sentences')
+    : false
 
   return (
     <div className="fade-up book-page mx-auto w-full max-w-4xl px-5 pb-14 pt-3 sm:px-9">
@@ -93,7 +180,12 @@ export default function WritingPage() {
         <span>
           Station {unitLabel} {'\u00b7'} Writing desk
         </span>
-        <span className="rh-right">writing bank {'\u00b7'} pages 94{'\u2013'}95</span>
+        <span className="rh-right">
+          <span className="inline-flex items-center gap-1">
+            <IconFlame size={12} className="text-orange-500" /> {progress.state.streak}
+          </span>
+          {'\u00a0\u00a0\u00b7\u00a0\u00a0'} Level {lp.level} {'\u00b7'} {progress.state.xp} XP
+        </span>
       </div>
 
       <nav className="mb-5 flex flex-wrap items-center gap-1 text-sm text-[var(--ink-faint)]">
@@ -132,7 +224,7 @@ export default function WritingPage() {
         <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[var(--ink-soft)]">{task.prompt}</p>
       </header>
 
-      <div className="mb-6 grid gap-4 gap-y-6 lg:grid-cols-[minmax(0,1fr)_260px]">
+      <div className="mb-6 grid gap-4 gap-y-6 lg:grid-cols-[minmax(0,1fr)_280px]">
         <div>
           <label htmlFor="writing-editor" className="sr-only">
             Your writing
@@ -143,7 +235,7 @@ export default function WritingPage() {
             onChange={onChange}
             placeholder={'Start writing here\u2026'}
             spellCheck
-            className="min-h-[240px] w-full rounded-xl border border-[var(--line-strong)] bg-[var(--bg)] p-4 text-[15px] leading-relaxed text-[var(--ink)] placeholder:text-[var(--ink-faint)] focus:border-brand-400 focus:outline-none"
+            className="min-h-[260px] w-full rounded-xl border border-[var(--line-strong)] bg-[var(--bg)] p-4 text-[15px] leading-relaxed text-[var(--ink)] placeholder:text-[var(--ink-faint)] focus:border-brand-400 focus:outline-none"
           />
           <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--ink-faint)]">
             <span>
@@ -171,23 +263,61 @@ export default function WritingPage() {
               )}
             </div>
           </div>
+
+          <div
+            key={coach.text}
+            className="rise mt-3 flex items-center gap-2.5 rounded-xl border border-brand-200 bg-brand-50/70 px-3.5 py-2.5 dark:border-brand-900 dark:bg-brand-950/50"
+          >
+            <span className="text-xl" aria-hidden>
+              {coach.emoji}
+            </span>
+            <p className="text-sm font-medium text-brand-800 dark:text-brand-200">{coach.text}</p>
+          </div>
         </div>
 
-        <aside>
-          <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">
-            Before you check
-          </p>
-          <ul className="space-y-2">
-            {checklist.map((item) => (
-              <li key={item} className="flex items-start gap-2 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-[13px] text-[var(--ink-soft)]">
-                <span aria-hidden className="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full bg-brand-100 text-[10px] font-bold text-brand-700 dark:bg-brand-900 dark:text-brand-300">
-                  {'\u2713'}
-                </span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-4">
+        <aside className="space-y-4">
+          <div className="flex items-center gap-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4">
+            <LiveGauge score={liveScore} />
+            <div className="min-w-0">
+              <p className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Live score</p>
+              <p className="mt-0.5 text-2xl font-bold tabular-nums">
+                {live ? liveScore : 0}
+                <span className="text-sm font-medium text-[var(--ink-faint)]">/100</span>
+              </p>
+              <p className="mt-0.5 truncate text-[11px] text-[var(--ink-faint)]">
+                {words}/{task.minWords} words {'\u00b7'} {liveUsed.length}/2 unit words used
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4">
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">
+              Unit words
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {task.targets.slice(0, 10).map((w) => {
+                const used = liveUsed.includes(w)
+                return (
+                  <span
+                    key={w}
+                    className={`pop rounded-full border px-2.5 py-1 text-[12px] transition-all ${
+                      used
+                        ? 'border-brand-500 bg-brand-600 font-semibold text-white shadow-sm'
+                        : 'border-[var(--line-strong)] bg-[var(--bg)] text-[var(--ink-soft)]'
+                    }`}
+                  >
+                    {used ? '\u2713 ' : ''}
+                    {w}
+                  </span>
+                )
+              })}
+            </div>
+            <p className="mt-2 text-[11px] text-[var(--ink-faint)]">
+              Watch them light up as you type.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4">
             <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">
               Sentence starters
             </p>
@@ -197,7 +327,7 @@ export default function WritingPage() {
                   <button
                     type="button"
                     onClick={() => setDraft((d) => (d.trim() ? `${d.replace(/\s*$/, '')} ${s} ` : `${s} `))}
-                    className="rounded-md border border-[var(--line)] bg-[var(--surface)] px-2.5 py-1.5 text-[13px] text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
+                    className="w-full rounded-md border border-[var(--line)] bg-[var(--bg)] px-2.5 py-1.5 text-left text-[13px] text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
                   >
                     {s}
                   </button>
@@ -205,44 +335,61 @@ export default function WritingPage() {
               ))}
             </ul>
           </div>
-          <div className="mt-4">
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">
-              Try unit words
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {task.targets.slice(0, 8).map((w) => (
-                <span key={w} className="rounded-full bg-[var(--line)] px-2.5 py-1 text-[12px] text-[var(--ink-soft)]">
-                  {w}
-                </span>
-              ))}
-            </div>
-          </div>
         </aside>
       </div>
 
-      {result && (
-        <section key={checkedAt} className="rise rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-6">
-          <div className="flex flex-wrap items-center gap-4">
-            <span className="grid size-14 place-items-center rounded-full border-2 border-brand-300 bg-brand-50 text-2xl dark:border-brand-700 dark:bg-brand-950">
-              {result.emoji}
+      <div className="grid gap-3 sm:grid-cols-2">
+        {[
+          { label: `Write at least ${task.minWords} words`, done: words >= task.minWords },
+          { label: 'Use 2 words or phrases from this unit', done: liveUsed.length >= 2 },
+          { label: 'End every sentence with . ! or ?', done: noSentenceIssues },
+          { label: 'Start each sentence with a capital letter', done: noMechanics },
+        ].map((item) => (
+          <div
+            key={item.label}
+            className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-[13px] transition-colors ${
+              item.done
+                ? 'border-emerald-300 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200'
+                : 'border-[var(--line)] bg-[var(--surface)] text-[var(--ink-soft)]'
+            }`}
+          >
+            <span
+              className={`grid size-5 shrink-0 place-items-center rounded-full text-[11px] font-bold ${
+                item.done ? 'bg-emerald-600 text-white' : 'bg-[var(--line)] text-[var(--ink-faint)]'
+              }`}
+            >
+              {'\u2713'}
             </span>
-            <div>
-              <p className="flex items-center gap-2 text-lg font-bold">
-                Grade {result.grade} {'\u00b7'} {result.score}%
-              </p>
-              <p className="text-sm text-[var(--ink-soft)]">{result.gradeLabel}</p>
+            {item.label}
+          </div>
+        ))}
+      </div>
+
+      {result && (
+        <section key={checkedAt} className="rise mt-6 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-6">
+          <div className="flex flex-wrap items-center gap-5">
+            <div className="size-24">
+              <LiveGauge score={result.score} />
             </div>
-            <div className="ml-auto w-full max-w-[220px]">
-              <div className="mb-1 flex justify-between text-[11px] text-[var(--ink-faint)]">
-                <span>Score</span>
-                <span className="font-semibold text-brand-700 dark:text-brand-300">{result.score}%</span>
-              </div>
-              <div className="h-2.5 overflow-hidden rounded-full bg-[var(--line)]">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-brand-500 to-accent-500 transition-all duration-700"
-                  style={{ width: `${result.score}%` }}
-                />
-              </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">
+                Checked, graded, saved
+              </p>
+              <p className="flex items-center gap-2 text-2xl font-bold">
+                Grade {result.grade} {'\u00b7'} <CountUp value={result.score} />
+                <span className="text-base font-medium text-[var(--ink-faint)]">%</span>
+              </p>
+              <p className="mt-0.5 text-sm text-[var(--ink-soft)]">{result.gradeLabel}</p>
+            </div>
+            <div className="flex flex-col items-end gap-1.5">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-3 py-1 text-xs font-bold text-white">
+                +{result.grade === 'A' ? 30 : 10} XP
+              </span>
+              {result.grade === 'A' && (
+                <span className="rise inline-flex items-center gap-1.5 rounded-full bg-warm-500 px-3 py-1 text-xs font-bold text-white">
+                  Star writer bonus {'\u2B50'}
+                </span>
+              )}
             </div>
           </div>
 
@@ -303,10 +450,7 @@ export default function WritingPage() {
               >
                 <IconPen size={14} /> Edit and try again
               </button>
-              <Link
-                to={`/unit/${unit.id}`}
-                className="page-turn py-2"
-              >
+              <Link to={`/unit/${unit.id}`} className="page-turn py-2">
                 <IconChevronLeft size={14} /> Back to {unitLabel}
               </Link>
             </div>

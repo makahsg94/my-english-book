@@ -25,12 +25,30 @@ export interface WritingResult {
   at: number
 }
 
+export interface XpEntry {
+  at: number
+  amount: number
+  reason: string
+}
+
 export interface ProgressState {
   lessons: Record<string, LessonProgress>
   quizzes: Record<string, QuizResult[]>
   writing: Record<string, WritingResult[]>
+  xp: number
+  xpLog: XpEntry[]
+  streak: number
+  lastActiveDate?: string
   lastUnit?: string
   lastLesson?: string
+}
+
+export interface Achievement {
+  id: string
+  title: string
+  desc: string
+  emoji: string
+  earned: boolean
 }
 
 export interface IProgressStore {
@@ -44,17 +62,21 @@ class LocalStore implements IProgressStore {
   load(): ProgressState {
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
-      if (!raw) return { lessons: {}, quizzes: {}, writing: {} }
+      if (!raw) return { lessons: {}, quizzes: {}, writing: {}, xp: 0, xpLog: [], streak: 0 }
       const parsed = JSON.parse(raw) as ProgressState
       return {
         lessons: parsed.lessons ?? {},
         quizzes: parsed.quizzes ?? {},
         writing: parsed.writing ?? {},
+        xp: parsed.xp ?? 0,
+        xpLog: parsed.xpLog ?? [],
+        streak: parsed.streak ?? 0,
+        lastActiveDate: parsed.lastActiveDate,
         lastUnit: parsed.lastUnit,
         lastLesson: parsed.lastLesson,
       }
     } catch {
-      return { lessons: {}, quizzes: {}, writing: {} }
+      return { lessons: {}, quizzes: {}, writing: {}, xp: 0, xpLog: [], streak: 0 }
     }
   }
   save(state: ProgressState): void {
@@ -75,29 +97,48 @@ export function createProgressApi(store: IProgressStore = progressStore) {
     store.save(state)
   }
 
+  function awardXp(amount: number, reason: string) {
+    state.xp += amount
+    state.xpLog = [...state.xpLog.slice(-49), { at: Date.now(), amount, reason }]
+    const today = new Date().toDateString()
+    const yesterday = new Date(Date.now() - 864e5).toDateString()
+    if (state.lastActiveDate === today) {
+      // already counted today
+    } else if (state.lastActiveDate === yesterday) {
+      state.streak += 1
+    } else {
+      state.streak = 1
+    }
+    state.lastActiveDate = today
+    emit()
+  }
+
   function markLessonComplete(lessonId: string) {
     const prev = state.lessons[lessonId]
+    const wasComplete = prev?.completed ?? false
     state.lessons[lessonId] = {
       ...prev,
       completed: true,
       completedAt: prev?.completedAt ?? Date.now(),
       lastVisit: Date.now(),
     }
-    emit()
+    if (!wasComplete) awardXp(10, 'lesson')
+    else emit()
   }
 
   function toggleLessonComplete(lessonId: string) {
     const cur = state.lessons[lessonId]
     if (cur?.completed) {
       state.lessons[lessonId] = { completed: false }
+      emit()
     } else {
       state.lessons[lessonId] = {
         completed: true,
         completedAt: Date.now(),
         lastVisit: Date.now(),
       }
+      awardXp(10, 'lesson')
     }
-    emit()
   }
 
   function recordVisit(unitId: string, lessonId?: string) {
@@ -120,7 +161,7 @@ export function createProgressApi(store: IProgressStore = progressStore) {
       ...(state.quizzes[quizId] ?? []),
       { correct, total, at: Date.now(), ...meta },
     ]
-    emit()
+    awardXp(15, `quiz:${quizId}`)
   }
 
   function bestQuiz(quizId: string): QuizResult | undefined {
@@ -134,7 +175,8 @@ export function createProgressApi(store: IProgressStore = progressStore) {
 
   function recordWriting(taskId: string, score: number, grade: string, words: number) {
     state.writing[taskId] = [...(state.writing[taskId] ?? []), { score, grade, words, at: Date.now() }]
-    emit()
+    awardXp(10, `writing:${taskId}`)
+    if (grade === 'A') awardXp(20, `writing-a:${taskId}`)
   }
 
   function bestWriting(taskId: string): WritingResult | undefined {
@@ -150,6 +192,10 @@ export function createProgressApi(store: IProgressStore = progressStore) {
     state.lessons = {}
     state.quizzes = {}
     state.writing = {}
+    state.xp = 0
+    state.xpLog = []
+    state.streak = 0
+    state.lastActiveDate = undefined
     emit()
   }
 
@@ -167,6 +213,55 @@ export function createProgressApi(store: IProgressStore = progressStore) {
     isLessonComplete,
     resetAll,
   }
+}
+
+const XP_PER_LEVEL = 100
+
+export function levelForXp(xp: number) {
+  return Math.floor(xp / XP_PER_LEVEL) + 1
+}
+
+export function levelProgress(xp: number) {
+  const current = xp % XP_PER_LEVEL
+  return { level: levelForXp(xp), current, target: XP_PER_LEVEL, pct: Math.round((current / XP_PER_LEVEL) * 100) }
+}
+
+const ACHIEVEMENTS: Omit<Achievement, 'earned'>[] = [
+  { id: 'first-lesson', title: 'First steps', desc: 'Complete your first lesson', emoji: '\u{1F3AF}' },
+  { id: 'five-lessons', title: 'Reader', desc: 'Complete 5 lessons', emoji: '\u{1F4DA}' },
+  { id: 'ten-lessons', title: 'Bookworm', desc: 'Complete 10 lessons', emoji: '\u{1F9E0}' },
+  { id: 'all-course', title: 'Full journey', desc: 'Complete every lesson in the course', emoji: '\u{1F3C1}' },
+  { id: 'first-quiz', title: 'Quizzer', desc: 'Finish your first unit quiz', emoji: '\u{1F3AE}' },
+  { id: 'perfect-quiz', title: 'Perfect score', desc: 'Get 100% on a quiz', emoji: '\u{1F4AF}' },
+  { id: 'first-write', title: 'Writer', desc: 'Check your first piece of writing', emoji: '\u{270D}\uFE0F' },
+  { id: 'star-writer', title: 'Star writer', desc: 'Get grade A on a writing task', emoji: '\u2B50' },
+  { id: 'day-streak', title: 'On fire', desc: 'Study 3 days in a row', emoji: '\u{1F525}' },
+  { id: 'week-streak', title: 'Unstoppable', desc: 'Study 7 days in a row', emoji: '\u{1F680}' },
+]
+
+export function achievementsFor(state: ProgressState, totalLessons: number): Achievement[] {
+  const lessonsDone = Object.values(state.lessons).filter((l) => l.completed).length
+  const quizzesDone = Object.values(state.quizzes).flat().length
+  const perfect = Object.values(state.quizzes)
+    .flat()
+    .some((r) => r.total > 0 && r.correct === r.total)
+  const writesDone = Object.values(state.writing).flat().length
+  const starWrite = Object.values(state.writing)
+    .flat()
+    .some((r) => r.grade === 'A' && r.score >= 85)
+  const flags: Record<string, boolean> = {
+    'first-lesson': lessonsDone >= 1,
+    'five-lessons': lessonsDone >= 5,
+    'ten-lessons': lessonsDone >= 10,
+    'all-course': totalLessons > 0 && lessonsDone >= totalLessons,
+    'first-quiz': quizzesDone >= 1,
+    'perfect-quiz': perfect,
+    'first-write': writesDone >= 1,
+    'star-writer': starWrite,
+    'day-streak': state.streak >= 3,
+    'week-streak': state.streak >= 7,
+  }
+  return ACHIEVEMENTS.map((a) => ({ ...a, earned: flags[a.id] ?? false }))
 }
 
 export type ProgressApi = ReturnType<typeof createProgressApi>

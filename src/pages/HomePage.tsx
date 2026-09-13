@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import { BOOK, flattenLessons } from '../content/book'
 import { useProgress } from '../lib/appContext'
+import { levelProgress, achievementsFor } from '../lib/progress'
 import Reveal from '../components/Reveal'
 import AnimatedBar from '../components/AnimatedBar'
 import LineMap from '../components/LineMap'
-import { IconBook, IconCheck, IconLayers } from '../components/Icons'
+import { IconBook, IconCheck, IconFlame, IconLayers } from '../components/Icons'
 
 export default function HomePage() {
   const progress = useProgress()
@@ -18,6 +19,10 @@ export default function HomePage() {
       : null
   const firstLesson = lessons[0]
   const startTarget = continueTarget ?? (firstLesson ? `/unit/${firstLesson.unit.id}/lesson/${firstLesson.lesson.id}` : '/book')
+
+  const lp = levelProgress(progress.state.xp)
+  const achievements = achievementsFor(progress.state, lessons.length)
+  const earnedCount = achievements.filter((a) => a.earned).length
 
   return (
     <div className="fade-up space-y-16">
@@ -47,20 +52,65 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="mx-auto mt-9 max-w-sm">
-          <div className="mb-1.5 flex items-center justify-between text-xs text-[var(--ink-faint)]">
-            <span className="font-medium">Reading progress</span>
-            <span className="font-semibold text-brand-700 dark:text-brand-300">
-              {doneCount} / {lessons.length} ({pct}%)
-            </span>
+        <div className="mx-auto mt-9 max-w-md">
+          <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4 shadow-sm">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-2.5 py-1 font-bold text-brand-700 dark:bg-brand-950 dark:text-brand-300">
+                Level {lp.level}
+              </span>
+              <span className="inline-flex items-center gap-1.5 font-semibold text-[var(--ink-soft)]">
+                <IconFlame size={14} className="text-orange-500" />
+                {progress.state.streak} day{progress.state.streak === 1 ? '' : 's'} streak
+              </span>
+            </div>
+            <p className="mt-3 flex items-center justify-between text-xs text-[var(--ink-faint)]">
+              <span className="font-medium">{progress.state.xp} XP</span>
+              <span>
+                {lp.current}/{lp.target} to level {lp.level + 1}
+              </span>
+            </p>
+            <div className="mt-1.5">
+              <AnimatedBar value={lp.pct} className="h-2.5" bar="bg-gradient-to-r from-brand-500 via-accent-500 to-warm-500" />
+            </div>
+            <p className="mt-3 text-[11px] text-[var(--ink-faint)]">
+              {doneCount} of {lessons.length} lessons {'\u00b7'} {pct}% of the course
+            </p>
           </div>
-          <AnimatedBar value={pct} className="h-2.5" bar="bg-gradient-to-r from-brand-500 to-accent-500" />
         </div>
       </section>
 
       {/* ---- 2. The line: the whole course as one ride ---- */}
       <section>
         <LineMap />
+      </section>
+
+      {/* ---- 3. Achievements ---- */}
+      <section>
+        <div className="mb-4 flex items-baseline justify-between">
+          <h2 className="display text-2xl tracking-tight">Achievements</h2>
+          <span className="section-label">{earnedCount}/{achievements.length} unlocked</span>
+        </div>
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
+          {achievements.map((a, i) => (
+            <Reveal key={a.id} delay={i * 30}>
+              <div
+                className={`flex h-full flex-col items-center gap-1 rounded-2xl border p-3 text-center transition-all ${
+                  a.earned
+                    ? 'border-brand-300 bg-brand-50 dark:border-brand-800 dark:bg-brand-950'
+                    : 'border-dashed border-[var(--line-strong)] bg-[var(--surface)] opacity-60'
+                }`}
+              >
+                <span className={`text-2xl ${a.earned ? 'pop' : 'opacity-40 grayscale'}`} aria-hidden>
+                  {a.emoji}
+                </span>
+                <span className={`text-[12px] font-bold ${a.earned ? 'text-brand-800 dark:text-brand-200' : 'text-[var(--ink-faint)]'}`}>
+                  {a.title}
+                </span>
+                <span className="text-[10px] leading-tight text-[var(--ink-faint)]">{a.desc}</span>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
       {/* ---- 3. Printed contents ---- */}
