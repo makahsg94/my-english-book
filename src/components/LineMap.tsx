@@ -74,9 +74,10 @@ export default function LineMap() {
           const above = p.y > H * 0.62
           const labelY = above ? p.y - 40 : p.y + 46
           return (
-            <g key={unit.id} className="station-dot" onClick={() => navigate(`/unit/${unit.id}`)}>
+            <g key={unit.id} className={`station-dot${done ? ' reached' : ''}`} onClick={() => navigate(`/unit/${unit.id}`)}>
               {current && !reduce && <circle cx={p.x} cy={p.y} r={22} className="station-pulse" fill="var(--color-accent-500)" />}
               <circle className="dot" cx={p.x} cy={p.y} r={current ? 22 : 16} fill={fill} stroke={stroke} strokeWidth={2.5} />
+              {done && <circle className="dot-ring" cx={p.x} cy={p.y} r={current ? 28 : 21} />}
               {done ? (
                 <IconCheck
                   size={current ? 18 : 14}

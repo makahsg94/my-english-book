@@ -266,4 +266,18 @@ export function achievementsFor(state: ProgressState, totalLessons: number): Ach
 
 export type ProgressApi = ReturnType<typeof createProgressApi>
 
+/** Activities recorded for the current calendar day – used by the share card. */
+export function todayCounts(state: ProgressState) {
+  const day = new Date().toDateString()
+  let xpToday = 0
+  for (const e of state.xpLog) {
+    if (new Date(e.at).toDateString() === day) xpToday += e.amount
+  }
+  let lessonsToday = 0
+  for (const l of Object.values(state.lessons)) {
+    if (l.completedAt && new Date(l.completedAt).toDateString() === day) lessonsToday += 1
+  }
+  return { xpToday, lessonsToday }
+}
+
 export const progress = createProgressApi()

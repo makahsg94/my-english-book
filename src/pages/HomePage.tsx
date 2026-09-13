@@ -1,14 +1,18 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BOOK, flattenLessons } from '../content/book'
 import { useProgress } from '../lib/appContext'
 import { levelProgress, achievementsFor } from '../lib/progress'
+import { shareCardBlob } from '../lib/shareCard'
+import { playSound } from '../lib/sounds'
 import Reveal from '../components/Reveal'
 import AnimatedBar from '../components/AnimatedBar'
 import LineMap from '../components/LineMap'
-import { IconBook, IconCheck, IconFlame, IconLayers } from '../components/Icons'
+import { IconBook, IconCheck, IconFlame, IconLayers, IconShare } from '../components/Icons'
 
 export default function HomePage() {
   const progress = useProgress()
+  const [sharing, setSharing] = useState(false)
   const lessons = flattenLessons()
   const doneCount = lessons.filter((f) => progress.isLessonComplete(f.lesson.id)).length
   const pct = Math.round((doneCount / Math.max(1, lessons.length)) * 100)
@@ -23,6 +27,37 @@ export default function HomePage() {
   const lp = levelProgress(progress.state.xp)
   const achievements = achievementsFor(progress.state, lessons.length)
   const earnedCount = achievements.filter((a) => a.earned).length
+
+  const shareToday = async () => {
+    if (sharing) return
+    setSharing(true)
+    try {
+      const blob = await shareCardBlob(progress.state, lessons.length)
+      const fileName = `speakout-${new Date().toISOString().slice(0, 10)}.jpg`
+      const file = new File([blob], fileName, { type: 'image/jpeg' })
+      const nav = navigator as Navigator & { canShare?: (data: { files: File[] }) => boolean }
+      if (nav.canShare && nav.canShare({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], text: 'My day on the Speakout line!' })
+          playSound('star')
+          return
+        } catch {
+          /* fall through to download */
+        }
+      }
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = fileName
+      a.click()
+      window.setTimeout(() => URL.revokeObjectURL(url), 4000)
+      playSound('star')
+    } catch {
+      /* card failed – ignore */
+    } finally {
+      setSharing(false)
+    }
+  }
 
   return (
     <div className="fade-up space-y-16">
@@ -75,6 +110,15 @@ export default function HomePage() {
             <p className="mt-3 text-[11px] text-[var(--ink-faint)]">
               {doneCount} of {lessons.length} lessons {'\u00b7'} {pct}% of the course
             </p>
+            <button
+              type="button"
+              onClick={shareToday}
+              disabled={sharing}
+              className="tactile mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-brand-300 bg-brand-50 px-3 py-2 text-xs font-bold text-brand-800 transition-colors hover:bg-brand-100 disabled:opacity-60 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-200 dark:hover:bg-brand-900"
+            >
+              <IconShare size={14} />
+              {sharing ? 'Preparing your card\u2026' : 'Share today\u2019s card'}
+            </button>
           </div>
         </div>
       </section>

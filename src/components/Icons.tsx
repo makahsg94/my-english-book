@@ -261,3 +261,33 @@ export const IconFlame = (p: IconProps) => (
     <path d="M12 22c-1.8 0-3-1.3-3-3.2 0-2 1.7-2.8 3.4-3.8 1.5 1 3.8 2 3.8 4.3 0 1.6-1.7 2.7-4.2 2.7Z" />
   </svg>
 )
+
+export const IconVolumeOff = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor" stroke="none" />
+    <path d="m16.5 9.5 5 5M21.5 9.5l-5 5" />
+  </svg>
+)
+
+export const IconMic = (p: IconProps) => (
+  <svg {...base(p)}>
+    <rect x="9" y="3" width="6" height="11" rx="3" />
+    <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" />
+  </svg>
+)
+
+export const IconShare = (p: IconProps) => (
+  <svg {...base(p)}>
+    <circle cx="6" cy="12" r="2.5" />
+    <circle cx="17.5" cy="5.5" r="2.5" />
+    <circle cx="17.5" cy="18.5" r="2.5" />
+    <path d="m8.5 11 6.5-4M8.5 13l6.5 4" />
+  </svg>
+)
+
+export const IconEar = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M6.5 8.5v4a5.5 5.5 0 0 0 11 0v-1.2a2.8 2.8 0 0 0-2.8-2.8h-1.7a3.5 3.5 0 0 0-3.5 3.5v1.5" />
+    <path d="M6.5 8.5a4 4 0 0 1 4-3.9c2.2 0 4 .5 4 2.6" />
+  </svg>
+)

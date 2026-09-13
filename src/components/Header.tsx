@@ -1,10 +1,20 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../lib/appContext'
 import SearchBox from './SearchBox'
-import { IconBook, IconList, IconMoon, IconSun } from './Icons'
+import { playSound, setSoundEnabled, soundEnabled } from '../lib/sounds'
+import { IconBook, IconList, IconMoon, IconSun, IconVolume, IconVolumeOff } from './Icons'
 
 export default function Header({ onContents }: { onContents: () => void }) {
   const { theme, toggle } = useTheme()
+  const [soundOn, setSoundOn] = useState(() => soundEnabled())
+
+  const toggleSound = () => {
+    const next = !soundOn
+    setSoundEnabled(next)
+    setSoundOn(next)
+    if (next) playSound('tap')
+  }
 
   return (
     <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[var(--bg)]/90 backdrop-blur">
@@ -30,6 +40,19 @@ export default function Header({ onContents }: { onContents: () => void }) {
           <div className="hidden w-48 lg:block">
             <SearchBox />
           </div>
+          <button
+            type="button"
+            onClick={toggleSound}
+            aria-label={`Sound effects ${soundOn ? 'on' : 'off'}. Toggle sound`}
+            aria-pressed={soundOn}
+            className={`grid size-9 place-items-center rounded-lg border transition-colors ${
+              soundOn
+                ? 'border-[var(--line-strong)] text-[var(--ink-soft)] hover:bg-[var(--line)] hover:text-brand-700 dark:hover:text-brand-300'
+                : 'border-transparent text-[var(--ink-faint)] hover:bg-[var(--line)]'
+            }`}
+          >
+            {soundOn ? <IconVolume size={17} /> : <IconVolumeOff size={17} />}
+          </button>
           <button
             type="button"
             onClick={toggle}

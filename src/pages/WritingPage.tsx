@@ -8,6 +8,7 @@ import { checkWriting } from '../lib/writeCheck'
 import type { WritingCheck } from '../lib/writeCheck'
 import { levelProgress } from '../lib/progress'
 import { burstConfetti } from '../lib/confetti'
+import { playSound } from '../lib/sounds'
 import { IconAward, IconCheck, IconChevronLeft, IconChevronRight, IconFlame, IconHome, IconPen } from '../components/Icons'
 
 function wordCount(text: string) {
@@ -156,7 +157,12 @@ export default function WritingPage() {
     progress.recordWriting(task.id, res.score, res.grade, res.stats.words)
     setResult(res)
     setCheckedAt(Date.now())
-    if (res.score >= 85) burstConfetti()
+    if (res.score >= 85) {
+      burstConfetti()
+      playSound('star')
+    } else {
+      playSound('write')
+    }
   }
 
   const onClear = () => {

@@ -4,6 +4,7 @@ import { Quiz } from './Exercise'
 import { AudioPlayer } from './Media'
 import { VideoCard } from './VideoCard'
 import { PageFigure } from './PageFigure'
+import EchoLab from './EchoLab'
 import {
   IconChevronRight,
   IconChat,
@@ -241,6 +242,7 @@ function ReadingPanel({
         <p className="study-tip">
           Study tip: read it once for the main idea, then again for the details
         </p>
+        <EchoLab sentences={sentences} />
       </div>
     </section>
   )

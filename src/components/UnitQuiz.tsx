@@ -5,6 +5,7 @@ import { useProgress } from '../lib/appContext'
 import { useToast } from '../lib/toast'
 import { checkMilestones } from '../lib/milestones'
 import { burstConfetti } from '../lib/confetti'
+import { playSound } from '../lib/sounds'
 import {
   IconCheck,
   IconChevronLeft,
@@ -169,7 +170,13 @@ export function UnitQuiz({ quiz, unitLabel }: { quiz: UnitQuiz; unitLabel: strin
     const pct = correct / Math.max(1, total)
     const isBest = pct > prevPct
     setNewBest(isBest)
-    if (isBest) burstConfetti()
+    if (isBest) {
+      burstConfetti()
+      if (pct === 1) playSound('star')
+      else playSound('correct')
+    } else {
+      playSound(pct >= 0.5 ? 'correct' : 'wrong')
+    }
     const categories: Record<string, { correct: number; total: number }> = {}
     for (const g of next) {
       const c = categories[g.category] ?? { correct: 0, total: 0 }

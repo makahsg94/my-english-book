@@ -904,6 +904,27 @@ a:active {
 .dark .station-dot:hover .label {
   fill: var(--color-brand-300);
 }
+
+/* Reached (completed) stations light up the line */
+.station-dot.reached .dot {
+  fill: var(--color-brand-600);
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--color-brand-500) 70%, transparent))
+    drop-shadow(0 0 14px color-mix(in srgb, var(--color-brand-500) 40%, transparent));
+}
+.station-dot.reached .dot-ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-brand-500) 55%, transparent);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+  opacity: 0.7;
+}
+.station-dot.reached .label {
+  fill: var(--color-brand-700);
+  font-weight: 600;
+}
+.dark .station-dot.reached .label {
+  fill: var(--color-brand-300);
+}
 .station-dot .num {
   font-weight: 800;
 }

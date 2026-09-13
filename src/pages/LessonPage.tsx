@@ -6,6 +6,8 @@ import { useProgress } from '../lib/appContext'
 import { useToast } from '../lib/toast'
 import { checkMilestones } from '../lib/milestones'
 import { burstConfetti } from '../lib/confetti'
+import { levelProgress } from '../lib/progress'
+import { playSound } from '../lib/sounds'
 import Blocks from '../components/Blocks'
 import PrevNext from '../components/PrevNext'
 import AnimatedBar from '../components/AnimatedBar'
@@ -196,6 +198,10 @@ export default function LessonPage() {
       return
     }
     progress.markLessonComplete(lesson.id)
+    playSound('xp')
+    if (levelProgress(progress.state.xp).level > levelProgress(progress.state.xp - 10).level) {
+      playSound('levelup')
+    }
     const unitDoneNow = unit.lessons.every((l) => progress.isLessonComplete(l.id))
     if (unitDoneNow) burstConfetti()
     for (const m of checkMilestones(progress.state)) showToast(m)

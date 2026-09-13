@@ -5,6 +5,7 @@ import { useProgress } from '../lib/appContext'
 import { useToast } from '../lib/toast'
 import { checkMilestones } from '../lib/milestones'
 import { burstConfetti } from '../lib/confetti'
+import { playSound } from '../lib/sounds'
 import { IconCheck, IconCross, IconEye, IconEyeOff, IconRotate, IconTarget } from './Icons'
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] as const
@@ -112,6 +113,9 @@ export function Quiz({ exercise }: { exercise: Exercise }) {
       setScore({ correct: stats.correct, total: stats.total })
       progress.recordQuiz(exercise.id, stats.correct, stats.total)
       setChecking(false)
+      if (stats.total > 0 && stats.correct === stats.total) playSound('star')
+      else if (stats.correct / Math.max(1, stats.total) >= 0.6) playSound('correct')
+      else playSound('wrong')
       const wasPerfect = !!best && best.correct === best.total
       if (stats.total > 0 && stats.correct === stats.total && !wasPerfect) burstConfetti()
       for (const m of checkMilestones(progress.state)) showToast(m)
