@@ -99,7 +99,43 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
       {blocks.map((block, i) => {
         const id = `section-${i}`
         switch (block.type) {
-          case 'text':
+          case 'text': {
+            const paras = block.paragraphs
+            const total = paras.join(' ').split(/\s+/).filter((w) => w.length > 0).length
+            const isReading = total >= 110
+            if (isReading) {
+              return (
+                <section key={i} id={id} className="reading-panel fade-up">
+                  <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 sm:p-7">
+                    <header className="mb-5 flex flex-wrap items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <SectionLabel className="bg-accent-100 text-accent-700 dark:bg-accent-900/60 dark:text-accent-300">
+                          <IconBook size={12} />
+                          Reading
+                        </SectionLabel>
+                        <h2 className="display mt-2.5 text-2xl tracking-tight sm:text-[1.7rem]">
+                          {block.title ?? 'Reading passage'}
+                        </h2>
+                      </div>
+                      <span className="shrink-0 rounded-full border border-[var(--line)] bg-[var(--bg)] px-2.5 py-1 text-[11px] font-medium tabular-nums text-[var(--ink-faint)]">
+                        {'\u2248'} {total} words
+                      </span>
+                    </header>
+                    <div className="reading-body">
+                      {paras.map((p, j) => (
+                        <p key={j} className={j === 0 ? 'reading-lead' : undefined}>
+                          {p}
+                        </p>
+                      ))}
+                    </div>
+                    <span className="reading-rule" aria-hidden />
+                    <p className="study-tip">
+                      Study tip: read it once for the main idea, then again for the details
+                    </p>
+                  </div>
+                </section>
+              )
+            }
             return (
               <section key={i} id={id} className={`fade-up prose-book ${i === 0 ? 'drop-cap' : ''}`}>
                 {block.title && (
@@ -110,11 +146,12 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
                     <Rule />
                   </>
                 )}
-                {block.paragraphs.map((p, j) => (
+                {paras.map((p, j) => (
                   <p key={j}>{p}</p>
                 ))}
               </section>
             )
+          }
 
           case 'callout':
             return (

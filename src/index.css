@@ -146,6 +146,7 @@ h1, h2, h3, h4 {
   margin: 1.05rem 0;
   line-height: 1.85;
   font-size: 1rem;
+  text-wrap: pretty;
 }
 .prose-book p + p {
   text-indent: 1.5em;
@@ -157,6 +158,62 @@ h1, h2, h3, h4 {
 .prose-book em {
   color: var(--ink-soft);
   font-style: italic;
+}
+
+/* ---------- Reading panels (long written passages) ---------- */
+.reading-panel {
+  max-width: 100%;
+}
+.reading-body {
+  color: var(--ink);
+}
+.reading-body p {
+  margin: 1.15rem 0;
+  font-size: 1.03rem;
+  line-height: 1.92;
+  letter-spacing: 0.002em;
+  text-wrap: pretty;
+}
+.reading-body p:first-child {
+  margin-top: 0;
+}
+.reading-body p:last-child {
+  margin-bottom: 0;
+}
+.reading-body .reading-lead {
+  font-size: 1.07rem;
+  color: var(--ink);
+}
+.reading-body strong {
+  color: var(--color-brand-700);
+  font-weight: 650;
+}
+.dark .reading-body strong {
+  color: var(--color-brand-300);
+}
+.reading-rule {
+  display: block;
+  margin: 1.4rem 0 0.4rem;
+  height: 1px;
+  width: 5rem;
+  background: linear-gradient(90deg, var(--color-accent-500), transparent);
+}
+.study-tip {
+  margin-top: 0.7rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--ink-faint);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.study-tip::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background: var(--color-accent-500);
 }
 
 /* ---------- Drop-cap first paragraph ---------- */
