@@ -1,14 +1,22 @@
 import { Link } from 'react-router-dom'
-import { BOOK, flattenLessons } from '../content/book'
+import { BOOK, flattenLessons, getUnit } from '../content/book'
+import { getUnitQuiz } from '../content/quizzes'
 import { pageImageUrl } from '../lib/images'
 import { useProgress } from '../lib/appContext'
-import { IconBook, IconCheck, IconClock, IconGrid } from '../components/Icons'
+import { IconBook, IconCheck, IconClock, IconGrid, IconTarget } from '../components/Icons'
 
 export default function HomePage() {
   const progress = useProgress()
   const lessons = flattenLessons()
   const doneCount = lessons.filter((f) => progress.isLessonComplete(f.lesson.id)).length
   const pct = Math.round((doneCount / Math.max(1, lessons.length)) * 100)
+
+  const lastUnit = progress.state.lastUnit ? getUnit(progress.state.lastUnit) : undefined
+  const lastLesson =
+    lastUnit && progress.state.lastLesson
+      ? lastUnit.lessons.find((l) => l.id === progress.state.lastLesson)
+      : undefined
+  const lastUnitQuiz = lastUnit && progress.state.lastUnit ? getUnitQuiz(progress.state.lastUnit) : undefined
 
   const continueTarget =
     progress.state.lastUnit && progress.state.lastLesson
@@ -70,6 +78,37 @@ export default function HomePage() {
         </div>
       </section>
 
+      {lastUnit && lastLesson && (
+        <section className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="flex items-center gap-2 text-lg font-bold">
+              <IconClock size={18} className="text-brand-600" />
+              Continue learning
+            </h2>
+            <span className="rounded-full border border-[var(--line)] px-3 py-1 text-xs text-[var(--ink-soft)]">
+              {lastUnit.number === 0 ? 'Lead-in' : `Unit ${lastUnit.number}`} · {lastLesson.title}
+            </span>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <Link
+              to={continueTarget ?? `/unit/${lastUnit.id}`}
+              className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md"
+            >
+              {lastUnit.lessons[lastUnit.lessons.length - 1]?.id === lastLesson.id ? 'Review this lesson' : 'Go to lesson'}
+            </Link>
+            {lastUnitQuiz && (
+              <Link
+                to={`/unit/${lastUnit.id}/quiz`}
+                className="inline-flex items-center gap-2 rounded-xl border border-brand-300 px-4 py-2 text-sm font-medium text-brand-700 transition-colors hover:bg-brand-50 dark:border-brand-800 dark:text-brand-300 dark:hover:bg-brand-950"
+              >
+                <IconTarget size={15} />
+                Unit quiz
+              </Link>
+            )}
+          </div>
+        </section>
+      )}
+
       <section>
         <h2 className="mb-4 flex items-center gap-2 text-xl font-bold">
           <IconGrid size={18} className="text-brand-600" />
@@ -130,15 +169,20 @@ export default function HomePage() {
               Your study plan
             </h2>
             <p className="mt-1 text-sm text-[var(--ink-soft)]">
-              Work through units in order, or jump straight to a grammar or vocabulary bank.
+              Work through units in order, or jump straight to a bank.
             </p>
           </div>
-          <Link
-            to="/bank/grammar"
-            className="inline-flex items-center gap-1.5 rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md"
-          >
-            Open the Grammar Bank
-          </Link>
+          <div className="flex flex-wrap gap-2">
+            {BOOK.banks.map((bank) => (
+              <Link
+                key={bank.id}
+                to={`/bank/${bank.id}`}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-brand-300 bg-white px-4 py-2 text-sm font-semibold text-brand-700 shadow-sm transition-all hover:bg-brand-600 hover:text-white dark:border-brand-700 dark:bg-brand-950 dark:text-brand-200 dark:hover:bg-brand-700"
+              >
+                {bank.title}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
     </div>

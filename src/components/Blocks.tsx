@@ -86,10 +86,11 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
   return (
     <div className="space-y-8">
       {blocks.map((block, i) => {
+        const id = `section-${i}`
         switch (block.type) {
           case 'text':
             return (
-              <section key={i} className="fade-up prose-book drop-cap">
+              <section key={i} id={id} className="fade-up prose-book drop-cap">
                 {block.title && (
                   <h2 className="mb-3 mt-8 flex items-center gap-2.5 text-xl font-bold">
                     <span className="h-6 w-1 rounded-full bg-gradient-to-b from-brand-500 to-accent-500" />
@@ -106,6 +107,7 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
             return (
               <aside
                 key={i}
+                id={id}
                 className={`rounded-xl border-l-4 p-4 ${calloutToneClasses(block.tone)}`}
               >
                 {block.title && (
@@ -120,7 +122,7 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
 
           case 'vocab':
             return (
-              <section key={i}>
+              <section key={i} id={id}>
                 {block.title && (
                   <div className="mb-3 mt-8 flex items-center gap-2.5">
                     <h2 className="flex items-center gap-2 text-xl font-bold">
@@ -185,6 +187,7 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
             return (
               <section
                 key={i}
+                id={id}
                 className="overflow-hidden rounded-2xl border border-brand-200 bg-[var(--surface)] shadow-sm dark:border-brand-800"
               >
                 <header className="flex items-center gap-2 bg-gradient-to-r from-brand-50 to-accent-50 px-4 py-2.5 dark:from-brand-950/70 dark:to-accent-950/70">
@@ -265,7 +268,7 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
 
           case 'examples':
             return (
-              <section key={i} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4">
+              <section key={i} id={id} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4">
                 {block.title && (
                   <div className="mb-2 flex items-center gap-2">
                     <SectionLabel>
@@ -291,14 +294,22 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
             )
 
           case 'exercise':
-            return <Quiz key={i} exercise={block.exercise} />
+            return (
+              <div key={i} id={id}>
+                <Quiz exercise={block.exercise} />
+              </div>
+            )
 
           case 'audio':
-            return <AudioPlayer key={i} tracks={block.tracks} title={block.title} />
+            return (
+              <div key={i} id={id}>
+                <AudioPlayer tracks={block.tracks} title={block.title} />
+              </div>
+            )
 
           case 'video':
             return (
-              <section key={i}>
+              <section key={i} id={id}>
                 {block.title && (
                   <div className="mb-3 mt-6 flex items-center gap-2.5">
                     <SectionLabel className="bg-accent-100 text-accent-700 dark:bg-accent-900 dark:text-accent-300">
@@ -317,7 +328,7 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
 
           case 'pages':
             return (
-              <section key={i}>
+              <section key={i} id={id}>
                 <div className="section-divider">
                   <span>Book Pages</span>
                 </div>
@@ -331,7 +342,7 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
 
           case 'review':
             return (
-              <section key={i} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4">
+              <section key={i} id={id} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4">
                 {block.title && (
                   <div className="mb-2 flex items-center gap-2">
                     <SectionLabel>

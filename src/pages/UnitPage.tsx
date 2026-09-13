@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { getUnit } from '../content/book'
+import { BOOK, getUnit } from '../content/book'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import { PageFigure } from '../components/PageFigure'
@@ -11,6 +11,9 @@ export default function UnitPage() {
   const progress = useProgress()
 
   if (!unit) return null
+
+  const unitIndex = BOOK.units.findIndex((u) => u.id === unit.id)
+  const nextUnit = unitIndex >= 0 ? BOOK.units[unitIndex + 1] : undefined
 
   const unitLabel = unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`
   const done = unit.lessons.filter((l) => progress.isLessonComplete(l.id)).length
@@ -112,6 +115,7 @@ export default function UnitPage() {
         <ol className="space-y-2">
           {unit.lessons.map((lesson) => {
             const isDone = progress.isLessonComplete(lesson.id)
+            const started = !isDone && !!progress.state.lessons[lesson.id]?.lastVisit
             return (
               <li key={lesson.id}>
                 <Link
@@ -119,12 +123,14 @@ export default function UnitPage() {
                   className="group flex items-center gap-3 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3 transition-all hover:border-brand-300 hover:shadow-sm dark:hover:border-brand-700"
                 >
                   <span
-                    className={`grid size-10 shrink-0 place-items-center rounded-xl text-sm font-bold transition-all ${
+                    className={`relative grid size-10 shrink-0 place-items-center rounded-xl text-sm font-bold transition-all ${
                       isDone
                         ? 'bg-brand-600 text-white shadow-sm'
-                        : lesson.code === 'Review'
-                          ? 'bg-accent-100 text-accent-700 dark:bg-accent-950 dark:text-accent-300'
-                          : 'bg-[var(--line)] text-[var(--ink-soft)] group-hover:bg-brand-100 group-hover:text-brand-700 dark:group-hover:bg-brand-900'
+                        : started
+                          ? 'bg-warm-100 text-warm-700 dark:bg-warm-900 dark:text-warm-100'
+                          : lesson.code === 'Review'
+                            ? 'bg-accent-100 text-accent-700 dark:bg-accent-950 dark:text-accent-300'
+                            : 'bg-[var(--line)] text-[var(--ink-soft)] group-hover:bg-brand-100 group-hover:text-brand-700 dark:group-hover:bg-brand-900'
                     }`}
                   >
                     {isDone ? <IconCheck size={18} /> : lesson.code !== 'Review' ? lesson.code : '\u2605'}
@@ -156,6 +162,24 @@ export default function UnitPage() {
           })}
         </ol>
       </section>
+
+      {nextUnit && (
+        <Link
+          to={`/unit/${nextUnit.id}`}
+          className="group flex items-center gap-4 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-4 transition-all hover:border-brand-400 hover:shadow-sm"
+        >
+          <span className="min-w-0 flex-1">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Next unit</span>
+            <span className="mt-0.5 block truncate font-semibold">
+              {nextUnit.number === 0 ? 'Lead-in' : `Unit ${nextUnit.number}`}: {nextUnit.phrase ?? nextUnit.title}
+            </span>
+          </span>
+          <IconChevronRight
+            size={18}
+            className="shrink-0 text-brand-600 transition-transform group-hover:translate-x-0.5"
+          />
+        </Link>
+      )}
     </div>
   )
 }

@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getUnit, nav } from '../content/book'
+import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import Blocks from '../components/Blocks'
 import PrevNext from '../components/PrevNext'
-import { IconChevronRight, IconHome, IconList, IconTarget, IconVideo, IconVolume } from '../components/Icons'
+import { IconChevronLeft, IconChevronRight, IconHome, IconList, IconTarget, IconVideo, IconVolume } from '../components/Icons'
+import type { ContentBlock } from '../types/content'
 
 function ReadingProgress() {
   const [pct, setPct] = useState(0)
@@ -21,38 +23,72 @@ function ReadingProgress() {
 }
 
 function TableOfContents({ lesson }: { lesson: { blocks: { type: string; title?: string }[] } }) {
-  const sections = lesson.blocks
-    .map((b, i) => {
-      const label =
-        b.title ||
-        (b.type === 'exercise'
-          ? 'Practice'
-          : b.type === 'audio'
-            ? 'Listen'
-            : b.type === 'video'
-              ? 'Watch'
-              : b.type === 'pages'
-                ? 'Book Pages'
-                : null)
-      if (!label || b.type === 'pages') return null
-      return { i, label, type: b.type }
-    })
-    .filter(Boolean) as { i: number; label: string; type: string }[]
+  const sections = useMemo(() => {
+    return lesson.blocks
+      .map((b, i) => {
+        const label =
+          b.title ||
+          (b.type === 'exercise'
+            ? 'Practice'
+            : b.type === 'audio'
+              ? 'Listen'
+              : b.type === 'video'
+                ? 'Watch'
+                : b.type === 'pages'
+                  ? 'Book Pages'
+                  : null)
+        if (!label || b.type === 'pages') return null
+        return { i, label, type: b.type }
+      })
+      .filter(Boolean) as { i: number; label: string; type: string }[]
+  }, [lesson])
+
+  const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    if (sections.length === 0) return
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            const idx = Number((e.target as HTMLElement).id.split('-')[1])
+            if (Number.isFinite(idx)) setActive(idx)
+          }
+        }
+      },
+      { rootMargin: '-15% 0px -65% 0px' },
+    )
+    for (const s of sections) {
+      const el = document.getElementById(`section-${s.i}`)
+      if (el) obs.observe(el)
+    }
+    return () => obs.disconnect()
+  }, [sections])
 
   if (sections.length < 3) return null
 
+  const jump = (i: number) => {
+    document.getElementById(`section-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
-    <nav className="mb-6 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3">
+    <nav className="sticky top-16 z-20 mb-6 rounded-xl border border-[var(--line)] bg-[var(--surface)]/90 p-3 backdrop-blur">
       <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">On this page</p>
       <div className="flex flex-wrap gap-1.5">
         {sections.map((s) => (
-          <a
+          <button
             key={s.i}
-            href={`#section-${s.i}`}
-            className="rounded-full border border-[var(--line)] bg-[var(--bg)] px-2.5 py-1 text-[12px] font-medium text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
+            type="button"
+            onClick={() => jump(s.i)}
+            aria-pressed={active === s.i}
+            className={`rounded-full border px-2.5 py-1 text-[12px] font-medium transition-colors ${
+              active === s.i
+                ? 'border-brand-500 bg-brand-600 text-white shadow-sm'
+                : 'border-[var(--line)] bg-[var(--bg)] text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300'
+            }`}
           >
             {s.label}
-          </a>
+          </button>
         ))}
       </div>
     </nav>
@@ -67,12 +103,8 @@ export default function LessonPage() {
   const navigate = useNavigate()
   const mainRef = useRef<HTMLDivElement>(null)
 
-  const navData = useMemo(
-    () => (unitId && lesson ? nav(unitId, lesson.id) : { prev: undefined, next: undefined }),
-    [unitId, lesson],
-  )
-
   useEffect(() => {
+    const navData = unitId && lessonId ? nav(unitId, lessonId) : { prev: undefined, next: undefined }
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null
       if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return
@@ -86,7 +118,7 @@ export default function LessonPage() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [navigate, navData])
+  }, [navigate, unitId, lessonId])
 
   if (!unit || !lesson || !unitId) {
     return (
@@ -104,6 +136,13 @@ export default function LessonPage() {
   const hasVideo = lesson.blocks.some((b) => b.type === 'video')
   const hasAudio = lesson.blocks.some((b) => b.type === 'audio')
 
+  const exercises = lesson.blocks.filter((b): b is Extract<ContentBlock, { type: 'exercise' }> => b.type === 'exercise')
+  const exercisesDone = exercises.filter((b) => progress.bestQuiz(b.exercise.id)).length
+  const unitQuiz = getUnitQuiz(unit.id)
+  const isUnitLastLesson = unit.lessons[unit.lessons.length - 1]?.id === lesson.id
+
+  const showStudyCard = exercises.length > 0 || (unitQuiz && isUnitLastLesson)
+
   return (
     <div ref={mainRef} className="fade-up mx-auto max-w-3xl">
       <ReadingProgress />
@@ -117,7 +156,7 @@ export default function LessonPage() {
           {unitLabel}
         </Link>
         <IconChevronRight size={13} />
-        <span className="text-[var(--ink)]">{lesson.code}</span>
+        <span className="text-[var(--ink)]">{lesson.title}</span>
       </nav>
 
       <header className="mb-8 border-b border-[var(--line)] pb-6">
@@ -207,6 +246,47 @@ export default function LessonPage() {
       <TableOfContents lesson={lesson} />
 
       <Blocks blocks={lesson.blocks} />
+
+      {showStudyCard && (
+        <section className="mt-8 grid gap-3 sm:grid-cols-2">
+          {exercises.length > 0 && (
+            <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4">
+              <p className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Exercises</p>
+              <p className="mt-1 text-2xl font-bold tabular-nums">
+                {exercisesDone}
+                <span className="text-sm font-medium text-[var(--ink-faint)]"> / {exercises.length} done</span>
+              </p>
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[var(--line)]">
+                <div
+                  className="h-full rounded-full bg-brand-500 transition-all"
+                  style={{ width: `${exercises.length > 0 ? Math.round((exercisesDone / exercises.length) * 100) : 0}%` }}
+                />
+              </div>
+            </div>
+          )}
+          {unitQuiz && isUnitLastLesson && (
+            <Link
+              to={`/unit/${unit.id}/quiz`}
+              className="group flex flex-col justify-center gap-1.5 rounded-2xl border border-brand-300 bg-brand-50 p-4 transition-all hover:border-brand-500 hover:shadow-sm dark:border-brand-800 dark:bg-brand-950"
+            >
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-brand-700 dark:text-brand-300">
+                <IconTarget size={12} /> {unitLabel} quiz
+              </span>
+              <span className="font-semibold">Finished this unit? Test yourself.</span>
+              <span className="text-sm font-medium text-brand-700 dark:text-brand-300">Start the quiz {'\u2192'}</span>
+            </Link>
+          )}
+        </section>
+      )}
+
+      <div className="mt-8 text-center">
+        <Link
+          to={`/unit/${unit.id}`}
+          className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line-strong)] px-4 py-1.5 text-sm font-medium text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
+        >
+          <IconChevronLeft size={14} /> Back to {unitLabel}
+        </Link>
+      </div>
 
       <PrevNext unitId={unit.id} lessonId={lesson.id} />
       <p className="mt-3 text-center text-[11px] text-[var(--ink-faint)]">

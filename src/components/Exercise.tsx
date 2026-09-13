@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
+import type { ReactNode } from 'react'
 import type { Exercise, ExerciseQuestion } from '../types/content'
 import { useProgress } from '../lib/appContext'
-import { IconCheck, IconCross, IconRotate, IconTarget } from './Icons'
+import { IconCheck, IconCross, IconEye, IconEyeOff, IconRotate, IconTarget } from './Icons'
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] as const
 
@@ -19,11 +20,29 @@ export function Quiz({ exercise }: { exercise: Exercise }) {
   const [answered, setAnswered] = useState<Record<string, unknown>>({})
   const [checked, setChecked] = useState(false)
   const [score, setScore] = useState<{ correct: number; total: number } | null>(null)
+  const [revealIds, setRevealIds] = useState<Set<string>>(new Set())
+
+  const best = progress.bestQuiz(exercise.id)
 
   const onAnswer = (id: string, value: unknown) => {
     setAnswered((prev) => ({ ...prev, [id]: value }))
     setChecked(false)
     setScore(null)
+    setRevealIds((prev) => {
+      if (!prev.has(id)) return prev
+      const next = new Set(prev)
+      next.delete(id)
+      return next
+    })
+  }
+
+  const onReveal = (id: string) => {
+    setRevealIds((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
   }
 
   const stats = useMemo(() => {
@@ -86,6 +105,7 @@ export function Quiz({ exercise }: { exercise: Exercise }) {
     setAnswered({})
     setChecked(false)
     setScore(null)
+    setRevealIds(new Set())
   }
 
   return (
@@ -99,6 +119,14 @@ export function Quiz({ exercise }: { exercise: Exercise }) {
           {exercise.page && (
             <span className="rounded-full bg-[var(--line)] px-2.5 py-0.5 text-xs text-[var(--ink-soft)]">page {exercise.page}</span>
           )}
+          {best && (
+            <span
+              data-best
+              className="rounded-full bg-accent-100 px-2.5 py-0.5 text-xs font-semibold text-accent-700 dark:bg-accent-900 dark:text-accent-300"
+            >
+              Best: {Math.round((best.correct / Math.max(1, best.total)) * 100)}%
+            </span>
+          )}
           {exercise.verified && (
             <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs text-brand-700 dark:bg-brand-950 dark:text-brand-300">
               answers verified
@@ -109,7 +137,16 @@ export function Quiz({ exercise }: { exercise: Exercise }) {
 
       <div className="space-y-5">
         {exercise.questions.map((q, i) => (
-          <QuestionRow key={q.id} question={q} index={i} answered={answered} onAnswer={onAnswer} checked={checked} />
+          <QuestionRow
+            key={q.id}
+            question={q}
+            index={i}
+            answered={answered}
+            onAnswer={onAnswer}
+            checked={checked}
+            revealed={revealIds.has(q.id)}
+            onReveal={onReveal}
+          />
         ))}
       </div>
 
@@ -147,25 +184,30 @@ function QuestionRow({
   answered,
   onAnswer,
   checked,
+  revealed,
+  onReveal,
 }: {
   question: ExerciseQuestion
   index: number
   answered: Record<string, unknown>
   onAnswer: (id: string, value: unknown) => void
   checked: boolean
+  revealed: boolean
+  onReveal: (id: string) => void
 }) {
+  let content: ReactNode
   switch (question.kind) {
     case 'mcq': {
       const sel = (answered[question.id] ?? -1) as number
       const correctLabel = question.options.find((o) => o.correct)?.label
       const chosenWrong = checked && sel >= 0 && !question.options[sel]?.correct
-      return (
+      content = (
         <div>
           <p className="mb-3 text-sm font-medium leading-relaxed">{index + 1}. {question.prompt}</p>
           <div className="space-y-2">
             {question.options.map((opt, oi) => {
               const isSel = sel === oi
-              const reveal = checked && opt.correct
+              const reveal = (checked || revealed) && opt.correct
               const wrong = checked && isSel && !opt.correct
               return (
                 <button
@@ -200,30 +242,28 @@ function QuestionRow({
               )
             })}
           </div>
-          {checked && chosenWrong && (
-            <p className="mt-2 rounded-lg bg-brand-50 px-3 py-1.5 text-sm text-brand-700 dark:bg-brand-950 dark:text-brand-300">
-              Correct answer: <span className="font-semibold">{correctLabel}</span>
-            </p>
-          )}
-          {checked && sel === -1 && (
+          {(chosenWrong || revealed || (checked && sel === -1)) && (
             <p className="mt-2 rounded-lg bg-brand-50 px-3 py-1.5 text-sm text-brand-700 dark:bg-brand-950 dark:text-brand-300">
               Correct answer: <span className="font-semibold">{correctLabel}</span>
             </p>
           )}
         </div>
       )
+      break
     }
 
     case 'true-false': {
       const sel = answered[question.id]
-      return (
+      content = (
         <div>
           <p className="mb-2 text-sm font-medium">{index + 1}. {question.statement}</p>
           <div className="flex gap-2">
             {([true, false] as const).map((val) => {
               const isSel = sel === val
-              const good = checked && isSel && val === question.correct
-              const bad = checked && isSel && val !== question.correct
+              const isCorrectOpt = val === question.correct
+              const good = checked && isSel && isCorrectOpt
+              const bad = checked && isSel && !isCorrectOpt
+              const revealOpt = revealed && isCorrectOpt
               return (
                 <button
                   key={String(val)}
@@ -234,9 +274,11 @@ function QuestionRow({
                       ? 'border-brand-600 bg-brand-50 text-brand-800 dark:bg-brand-950 dark:text-brand-200'
                       : bad
                         ? 'border-red-400 bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300'
-                        : isSel
-                          ? 'border-brand-600 bg-[var(--surface)] text-[var(--ink)]'
-                          : 'border-[var(--line-strong)] bg-[var(--surface)] text-[var(--ink-soft)] hover:border-brand-400'
+                        : revealOpt
+                          ? 'border-brand-500 bg-brand-50 text-brand-800 dark:bg-brand-950 dark:text-brand-200'
+                          : isSel
+                            ? 'border-brand-600 bg-[var(--surface)] text-[var(--ink)]'
+                            : 'border-[var(--line-strong)] bg-[var(--surface)] text-[var(--ink-soft)] hover:border-brand-400'
                   }`}
                 >
                   {checked && (good ? <IconCheck size={14} /> : bad ? <IconCross size={14} /> : null)}
@@ -244,12 +286,15 @@ function QuestionRow({
                 </button>
               )
             })}
-            {checked && !sel && (
-              <span className="self-center text-xs text-[var(--ink-faint)]">Answer: {question.correct ? 'True' : 'False'}</span>
-            )}
+            {revealed || (checked && !sel) ? (
+              <span className="self-center text-xs text-[var(--ink-faint)]">
+                Answer: {question.correct ? 'True' : 'False'}
+              </span>
+            ) : null}
           </div>
         </div>
       )
+      break
     }
 
     case 'fill-blank': {
@@ -260,7 +305,7 @@ function QuestionRow({
         (norm(guess) === norm(question.answer) || (question.accept ?? []).some((a) => norm(guess) === norm(a)))
       const good = checked && ok
       const bad = checked && !ok
-      return (
+      content = (
         <div>
           <p className="mb-2 text-sm font-medium">
             {index + 1}. {question.before} <span className="mx-0.5 rounded-md bg-[var(--line)] px-1.5 py-0.5">___</span>{' '}
@@ -281,41 +326,44 @@ function QuestionRow({
               }`}
             />
             {checked && good && <span className="text-sm text-brand-700">Correct!</span>}
-            {checked && bad && (
-              <span className="text-sm text-red-600">
+            {(revealed || bad) && !(checked && good) && (
+              <span className="text-sm text-brand-700 dark:text-brand-300">
                 Answer: <span className="font-medium">{question.answer}</span>
               </span>
             )}
           </div>
         </div>
       )
+      break
     }
 
     case 'matching': {
       const sel = (answered[question.id] ?? {}) as Record<string, number>
       const rightOptions = question.pairs.map((p) => p.right)
-      return (
+      content = (
         <div>
           <p className="mb-2 text-sm font-medium">{index + 1}. Match the pairs</p>
           <div className="grid gap-2 sm:grid-cols-2">
             <div className="space-y-1.5">
               {question.pairs.map((pair, li) => {
                 const chosen = sel[pair.left]
+                const correctPair = pair.right === rightOptions[li]
                 const good = checked && chosen !== undefined && rightOptions[chosen] === pair.right
                 const bad = checked && chosen !== undefined && rightOptions[chosen] !== pair.right
+                const showGood = revealed && !checked && correctPair
                 return (
                   <div key={pair.left} className="flex items-center gap-2">
                     <span className="w-5 text-xs font-semibold text-[var(--ink-faint)]">{LETTERS[li]}.</span>
                     <span
                       className={`flex-1 rounded-lg border px-3 py-1.5 text-sm ${
-                        good
+                        good || showGood
                           ? 'flex items-center gap-2 border-brand-600 bg-brand-50 text-brand-800 dark:bg-brand-950 dark:text-brand-200'
                           : bad
                             ? 'flex items-center gap-2 border-red-400 bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300'
                             : 'border-[var(--line-strong)]'
                       }`}
                     >
-                      {checked && (good ? <IconCheck size={14} /> : bad ? <IconCross size={14} /> : null)}
+                      {(checked || revealed) && (good || showGood) ? <IconCheck size={14} /> : bad ? <IconCross size={14} /> : null}
                       {pair.left}
                       {bad && (
                         <span className="ml-auto text-xs font-medium text-red-600 dark:text-red-300">{'\u2192'} {pair.right}</span>
@@ -330,6 +378,7 @@ function QuestionRow({
                 const chosenLeft = Object.entries(sel).find(([, v]) => v === ri)?.[0]
                 const li = chosenLeft ? question.pairs.findIndex((p) => p.left === chosenLeft) : -1
                 const good = checked && li >= 0 && rightOptions[ri] === question.pairs[li].right
+                const showGood = revealed && !checked && rightOptions[ri] === question.pairs[ri].right
                 return (
                   <div key={pair.right} className="w-full">
                     <select
@@ -341,7 +390,7 @@ function QuestionRow({
                         onAnswer(question.id, next)
                       }}
                       className={`w-full rounded-lg border bg-[var(--surface)] px-3 py-1.5 text-sm ${
-                        good
+                        good || showGood
                           ? 'border-brand-600'
                           : checked
                             ? 'border-red-300'
@@ -355,7 +404,7 @@ function QuestionRow({
                         </option>
                       ))}
                     </select>
-                    {checked && !good && (
+                    {!good && (checked || revealed) && (
                       <p className="mt-1 text-xs text-[var(--ink-soft)]">
                         Correct answer: <span className="font-medium text-brand-700 dark:text-brand-300">{LETTERS[ri]}. {question.pairs[ri].left}</span>
                       </p>
@@ -367,13 +416,35 @@ function QuestionRow({
           </div>
         </div>
       )
+      break
     }
 
     case 'ordering':
-      return (
-        <Ordering index={index} question={question} answered={answered} onAnswer={onAnswer} checked={checked} />
-      )
+      content = <Ordering index={index} question={question} answered={answered} onAnswer={onAnswer} checked={checked} revealed={revealed} />
+      break
   }
+
+  return (
+    <div>
+      <div className="mb-2 flex items-center justify-end">
+        <button
+          type="button"
+          onClick={() => onReveal(question.id)}
+          aria-pressed={revealed}
+          aria-label={revealed ? 'Hide correct answer' : 'Show correct answer'}
+          className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors ${
+            revealed
+              ? 'border-brand-400 bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300'
+              : 'border-[var(--line)] bg-[var(--surface)] text-[var(--ink-faint)] hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300'
+          }`}
+        >
+          {revealed ? <IconEyeOff size={13} /> : <IconEye size={13} />}
+          {revealed ? 'Hide answer' : 'Show answer'}
+        </button>
+      </div>
+      {content}
+    </div>
+  )
 }
 
 function Ordering({
@@ -382,12 +453,14 @@ function Ordering({
   answered,
   onAnswer,
   checked,
+  revealed,
 }: {
   index: number
   question: Extract<ExerciseQuestion, { kind: 'ordering' }>
   answered: Record<string, unknown>
   onAnswer: (id: string, value: unknown) => void
   checked: boolean
+  revealed: boolean
 }) {
   const stable = useMemo(() => shuffle(question.items), [question.items])
   const order = (answered[question.id] as string[] | undefined) ?? stable
@@ -408,20 +481,24 @@ function Ordering({
       <div className="space-y-1.5">
         {order.map((item, i) => {
           const correctPos = question.items[i] === item
+          const good = checked && correctPos
+          const bad = checked && !correctPos
           return (
             <div
               key={`${item}-${i}`}
               className={`flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm ${
-                checked && correctPos
+                good
                   ? 'border-brand-600 bg-brand-50 text-brand-800 dark:bg-brand-950 dark:text-brand-200'
-                  : checked
+                  : bad
                     ? 'border-red-400 bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300'
-                    : 'border-[var(--line-strong)]'
+                    : revealed && correctPos
+                      ? 'border-brand-500 bg-brand-50/60 text-brand-800 dark:bg-brand-950 dark:text-brand-200'
+                      : 'border-[var(--line-strong)]'
               }`}
             >
               <span className="w-5 text-xs font-semibold text-[var(--ink-faint)]">{i + 1}.</span>
               <span className="flex-1">{item}</span>
-              {checked && (correctPos ? <IconCheck size={14} /> : <IconCross size={14} />)}
+              {checked ? (correctPos ? <IconCheck size={14} /> : <IconCross size={14} />) : null}
               <button type="button" onClick={() => move(i, -1)} aria-label="move up" className="px-1 text-[var(--ink-faint)] hover:text-[var(--ink)]">
                 {'\u2191'}
               </button>

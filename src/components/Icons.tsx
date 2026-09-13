@@ -225,3 +225,18 @@ export const IconShield = (p: IconProps) => (
     <path d="m8.8 11.8 2.2 2.2 4.2-4.5" />
   </svg>
 )
+
+export const IconEye = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+)
+
+export const IconEyeOff = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+    <circle cx="12" cy="12" r="3" />
+    <path d="m4 4 16 16" />
+  </svg>
+)

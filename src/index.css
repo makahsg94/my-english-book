@@ -231,6 +231,11 @@ h1, h2, h3, h4 {
   transition: width 100ms ease;
 }
 
+/* ---------- Section anchors ---------- */
+[id^="section-"] {
+  scroll-margin-top: 5rem;
+}
+
 /* ---------- Section divider ---------- */
 .section-divider {
   display: flex;

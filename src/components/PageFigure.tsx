@@ -1,5 +1,6 @@
 import type { PageImage } from '../types/content'
 import { pageImageUrl } from '../lib/images'
+import { Link } from 'react-router-dom'
 import { IconZoomIn } from './Icons'
 import { openLightbox } from './Media'
 
@@ -36,8 +37,8 @@ export function PageFigure({ image }: { image: PageImage }) {
 export function PageThumb({ pdf, label }: { pdf: number; label?: string }) {
   const src = pageImageUrl(pdf)
   return (
-    <a
-      href={`/page/${pdf}`}
+    <Link
+      to={`/page/${pdf}`}
       className="block overflow-hidden rounded-lg border border-[var(--line)] bg-white transition-shadow hover:shadow-md"
     >
       <img src={src} alt={label ?? `PDF page ${pdf}`} loading="lazy" className="aspect-[3/4] w-full object-cover object-top" />
@@ -46,6 +47,6 @@ export function PageThumb({ pdf, label }: { pdf: number; label?: string }) {
           {label}
         </span>
       )}
-    </a>
+    </Link>
   )
 }
