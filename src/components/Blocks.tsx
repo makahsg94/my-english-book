@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ContentBlock } from '../types/content'
 import { Quiz } from './Exercise'
 import { AudioPlayer } from './Media'
@@ -12,6 +12,7 @@ import {
   IconLayers,
   IconList,
   IconBook,
+  IconVolume,
 } from './Icons'
 import { Link } from 'react-router-dom'
 
@@ -93,6 +94,158 @@ function calloutToneClasses(tone?: string) {
   }
 }
 
+function splitSentences(text: string): string[] {
+  const parts = text.match(/[^.!?\s][^.!?]*[.!?]*/g)
+  return parts ? parts.map((s) => s.trim()).filter(Boolean) : [text.trim()]
+}
+
+/** Read the passage aloud with Web Speech, highlighting the sentence being spoken. */
+function ReadingPanel({
+  id,
+  title,
+  paragraphs,
+  total,
+}: {
+  id: string
+  title: string
+  paragraphs: string[]
+  total: number
+}) {
+  const sentences = useMemo(() => paragraphs.flatMap((p) => splitSentences(p)).filter(Boolean), [paragraphs])
+  const supported = typeof window !== 'undefined' && 'speechSynthesis' in window
+  const token = useRef(0)
+  const [speaking, setSpeaking] = useState(false)
+  const [index, setIndex] = useState(-1)
+
+  useEffect(
+    () => () => {
+      token.current++
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel()
+    },
+    [],
+  )
+
+  const finish = () => {
+    setSpeaking(false)
+    setIndex(-1)
+  }
+
+  const speak = (start: number) => {
+    const synth = window.speechSynthesis
+    if (!synth || sentences.length === 0) return
+    const t = ++token.current
+    synth.cancel()
+    setSpeaking(true)
+    let errorBudget = 3
+    const say = (i: number) => {
+      if (token.current !== t || i >= sentences.length) {
+        finish()
+        return
+      }
+      setIndex(i)
+      const u = new SpeechSynthesisUtterance(sentences[i])
+      u.lang = 'en-GB'
+      u.rate = 0.98
+      const voices = synth.getVoices()
+      const voice =
+        voices.find((v) => v.lang.toLowerCase().startsWith('en-gb')) ??
+        voices.find((v) => v.lang.toLowerCase().startsWith('en'))
+      if (voice) u.voice = voice
+      u.onend = () => say(i + 1)
+      u.onerror = () => {
+        if (token.current !== t) return
+        errorBudget--
+        if (errorBudget <= 0) {
+          finish()
+          return
+        }
+        say(i + 1)
+      }
+      synth.speak(u)
+    }
+    say(start)
+  }
+
+  const stop = () => {
+    token.current++
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel()
+    finish()
+  }
+
+  const toggle = () => {
+    if (speaking) stop()
+    else speak(0)
+  }
+
+  let cursor = 0
+  return (
+    <section id={id} className="reading-panel fade-up">
+      <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 sm:p-7">
+        <header className="mb-5 flex flex-wrap items-start justify-between gap-3">
+          <div className="min-w-0">
+            <SectionLabel className="bg-accent-100 text-accent-700 dark:bg-accent-900/60 dark:text-accent-300">
+              <IconBook size={12} />
+              Reading
+            </SectionLabel>
+            <h2 className="display mt-2.5 text-2xl tracking-tight sm:text-[1.7rem]">{title}</h2>
+          </div>
+          <div className="flex shrink-0 flex-wrap items-center gap-2">
+            {supported && (
+              <button
+                type="button"
+                onClick={toggle}
+                aria-pressed={speaking}
+                className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
+                  speaking
+                    ? 'border-accent-500 bg-accent-600 text-white'
+                    : 'border-[var(--line-strong)] bg-[var(--bg)] text-[var(--ink-soft)] hover:border-accent-400 hover:text-accent-700 dark:hover:text-accent-300'
+                }`}
+              >
+                <IconVolume size={14} />
+                {speaking ? 'Stop' : 'Read aloud'}
+              </button>
+            )}
+            <span className="shrink-0 rounded-full border border-[var(--line)] bg-[var(--bg)] px-2.5 py-1 text-[11px] font-medium tabular-nums text-[var(--ink-faint)]">
+              {'\u2248'} {total} words
+            </span>
+          </div>
+        </header>
+        <div className="reading-body">
+          {paragraphs.map((para, j) => {
+            const sents = splitSentences(para)
+            return (
+              <p key={j} className={j === 0 ? 'reading-lead' : undefined}>
+                {sents.map((s) => {
+                  const fi = cursor++
+                  const active = speaking && fi === index
+                  return (
+                    <span
+                      key={fi}
+                      className={`sentence${active ? ' is-speaking' : ''}`}
+                      title="Read from here"
+                      onClick={() => {
+                        if (speaking && fi === index) stop()
+                        else speak(fi)
+                      }}
+                    >
+                      {s}
+                      {fi < sentences.length - 1 ? ' ' : ''}
+                    </span>
+                  )
+                })}
+              </p>
+            )
+          })}
+        </div>
+        <span className="reading-rule" aria-hidden />
+        <p className="study-tip">
+          Study tip: read it once for the main idea, then again for the details
+        </p>
+      </div>
+    </section>
+  )
+}
+
 export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
   return (
     <div className="space-y-8">
@@ -105,35 +258,13 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
             const isReading = total >= 110
             if (isReading) {
               return (
-                <section key={i} id={id} className="reading-panel fade-up">
-                  <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 sm:p-7">
-                    <header className="mb-5 flex flex-wrap items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <SectionLabel className="bg-accent-100 text-accent-700 dark:bg-accent-900/60 dark:text-accent-300">
-                          <IconBook size={12} />
-                          Reading
-                        </SectionLabel>
-                        <h2 className="display mt-2.5 text-2xl tracking-tight sm:text-[1.7rem]">
-                          {block.title ?? 'Reading passage'}
-                        </h2>
-                      </div>
-                      <span className="shrink-0 rounded-full border border-[var(--line)] bg-[var(--bg)] px-2.5 py-1 text-[11px] font-medium tabular-nums text-[var(--ink-faint)]">
-                        {'\u2248'} {total} words
-                      </span>
-                    </header>
-                    <div className="reading-body">
-                      {paras.map((p, j) => (
-                        <p key={j} className={j === 0 ? 'reading-lead' : undefined}>
-                          {p}
-                        </p>
-                      ))}
-                    </div>
-                    <span className="reading-rule" aria-hidden />
-                    <p className="study-tip">
-                      Study tip: read it once for the main idea, then again for the details
-                    </p>
-                  </div>
-                </section>
+                <ReadingPanel
+                  key={i}
+                  id={id}
+                  title={block.title ?? 'Reading passage'}
+                  paragraphs={paras}
+                  total={total}
+                />
               )
             }
             return (
