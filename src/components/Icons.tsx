@@ -240,3 +240,17 @@ export const IconEyeOff = (p: IconProps) => (
     <path d="m4 4 16 16" />
   </svg>
 )
+
+export const IconPen = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17l-1 4Z" />
+    <path d="m13.5 6.5 3 3" />
+  </svg>
+)
+
+export const IconAward = (p: IconProps) => (
+  <svg {...base(p)}>
+    <circle cx="12" cy="9" r="5" />
+    <path d="m8.5 13.5-1.5 7 5-2.8 5 2.8-1.5-7" />
+  </svg>
+)

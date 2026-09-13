@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage'
 import BookPage from './pages/BookPage'
 import UnitPage from './pages/UnitPage'
 import UnitQuizPage from './pages/UnitQuizPage'
+import WritingPage from './pages/WritingPage'
 import LessonPage from './pages/LessonPage'
 import PageView from './pages/PageView'
 import BankPage from './pages/BankPage'
@@ -55,6 +56,7 @@ export default function App() {
                 <Route path="book" element={<BookPage />} />
                 <Route path="unit/:unitId" element={<UnitPage />} />
                 <Route path="unit/:unitId/quiz" element={<UnitQuizPage />} />
+                <Route path="unit/:unitId/writing" element={<WritingPage />} />
                 <Route path="unit/:unitId/lesson/:lessonId" element={<LessonPage />} />
                 <Route path="page/:pdf" element={<PageView />} />
                 <Route path="bank/:bankId" element={<BankPage />} />

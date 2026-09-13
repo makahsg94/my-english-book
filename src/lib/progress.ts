@@ -18,9 +18,17 @@ export interface QuizResult {
   wrong?: string[]
 }
 
+export interface WritingResult {
+  score: number
+  grade: string
+  words: number
+  at: number
+}
+
 export interface ProgressState {
   lessons: Record<string, LessonProgress>
   quizzes: Record<string, QuizResult[]>
+  writing: Record<string, WritingResult[]>
   lastUnit?: string
   lastLesson?: string
 }
@@ -36,16 +44,17 @@ class LocalStore implements IProgressStore {
   load(): ProgressState {
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
-      if (!raw) return { lessons: {}, quizzes: {} }
+      if (!raw) return { lessons: {}, quizzes: {}, writing: {} }
       const parsed = JSON.parse(raw) as ProgressState
       return {
         lessons: parsed.lessons ?? {},
         quizzes: parsed.quizzes ?? {},
+        writing: parsed.writing ?? {},
         lastUnit: parsed.lastUnit,
         lastLesson: parsed.lastLesson,
       }
     } catch {
-      return { lessons: {}, quizzes: {} }
+      return { lessons: {}, quizzes: {}, writing: {} }
     }
   }
   save(state: ProgressState): void {
@@ -123,6 +132,16 @@ export function createProgressApi(store: IProgressStore = progressStore) {
     }, undefined)
   }
 
+  function recordWriting(taskId: string, score: number, grade: string, words: number) {
+    state.writing[taskId] = [...(state.writing[taskId] ?? []), { score, grade, words, at: Date.now() }]
+    emit()
+  }
+
+  function bestWriting(taskId: string): WritingResult | undefined {
+    const list = state.writing[taskId] ?? []
+    return list.reduce<WritingResult | undefined>((best, r) => (!best || r.score > best.score ? r : best), undefined)
+  }
+
   function isLessonComplete(lessonId: string) {
     return state.lessons[lessonId]?.completed ?? false
   }
@@ -130,6 +149,7 @@ export function createProgressApi(store: IProgressStore = progressStore) {
   function resetAll() {
     state.lessons = {}
     state.quizzes = {}
+    state.writing = {}
     emit()
   }
 
@@ -142,6 +162,8 @@ export function createProgressApi(store: IProgressStore = progressStore) {
     recordVisit,
     recordQuiz,
     bestQuiz,
+    recordWriting,
+    bestWriting,
     isLessonComplete,
     resetAll,
   }

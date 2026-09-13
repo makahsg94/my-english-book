@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom'
 import { BOOK } from '../content/book'
+import { getWritingTask } from '../content/writing'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import BookProgress from './BookProgress'
-import { IconBook, IconCheck, IconTarget } from './Icons'
+import { IconBook, IconCheck, IconPen, IconTarget } from './Icons'
 
 type Status = 'done' | 'started' | 'todo'
 
@@ -103,6 +104,24 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                     </NavLink>
                   )
                 })}
+                {getWritingTask(unit.id) && (
+                  <NavLink
+                    to={`/unit/${unit.id}/writing`}
+                    onClick={onNavigate}
+                    className={({ isActive }) =>
+                      `toc-row group truncate rounded px-1.5 py-0.5 text-[13px] transition-colors ${
+                        isActive
+                          ? 'bg-warm-50 text-warm-800 dark:bg-warm-950 dark:text-warm-200'
+                          : 'text-warm-600 hover:text-warm-700 dark:text-warm-300 dark:hover:text-warm-200'
+                      }`
+                    }
+                  >
+                    <IconPen size={11} className="shrink-0" />
+                    <span className="min-w-0 truncate">Writing task</span>
+                    <span className="toc-dots" aria-hidden />
+                    <span className="toc-page shrink-0">94</span>
+                  </NavLink>
+                )}
                 {quiz && (
                   <NavLink
                     to={`/unit/${unit.id}/quiz`}

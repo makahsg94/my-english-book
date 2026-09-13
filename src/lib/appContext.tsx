@@ -73,6 +73,10 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       progress.recordQuiz(id, correct, total, meta)
       bump()
     },
+    recordWriting: (id, score, grade, words) => {
+      progress.recordWriting(id, score, grade, words)
+      bump()
+    },
     resetAll: () => {
       progress.resetAll()
       bump()

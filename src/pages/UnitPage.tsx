@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { BOOK, getUnit } from '../content/book'
+import { getWritingTask } from '../content/writing'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import { PageFigure } from '../components/PageFigure'
 import Reveal from '../components/Reveal'
 import AnimatedBar from '../components/AnimatedBar'
 import Parallax from '../components/Parallax'
-import { IconChevronRight, IconVideo, IconHome, IconCheck, IconList, IconTarget, IconVolume, IconSpark } from '../components/Icons'
+import { IconChevronRight, IconVideo, IconHome, IconCheck, IconList, IconTarget, IconVolume, IconSpark, IconPen } from '../components/Icons'
 
 function LessonPreview({ lesson }: { lesson: { title: string; pages: [number, number]; labels?: { grammar?: string; vocabulary?: string; pronunciation?: string; skills?: string }; objectives?: string[]; blocks: { type: string; title?: string; exercise?: { title?: string }; videos?: unknown[]; tracks?: unknown[] }[] } }) {
   const exercises = lesson.blocks.filter((b) => b.type === 'exercise').length
@@ -83,6 +84,8 @@ export default function UnitPage() {
   const pct = Math.round((done / Math.max(1, unit.lessons.length)) * 100)
   const quiz = getUnitQuiz(unit.id)
   const quizBest = quiz ? progress.bestQuiz(quiz.id) : undefined
+  const writingTask = getWritingTask(unit.id)
+  const writingBest = writingTask ? progress.bestWriting(writingTask.id) : undefined
 
   const previewLesson = previewId ? unit.lessons.find((l) => l.id === previewId) : undefined
 
@@ -161,6 +164,36 @@ export default function UnitPage() {
           In this chapter
         </span>
       </div>
+
+      {writingTask && (
+        <Reveal delay={20}>
+          <Link
+            to={`/unit/${unit.id}/writing`}
+            className="group flex items-center gap-4 rounded-2xl border border-warm-300 bg-gradient-to-r from-warm-50 to-brand-50 p-4 transition-all hover:border-warm-400 hover:shadow-sm dark:border-warm-800 dark:from-warm-950/70 dark:to-brand-950/60 dark:hover:border-warm-500"
+          >
+            <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-warm-600 text-white shadow-sm transition-transform group-hover:scale-105">
+              <IconPen size={22} />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="flex items-center gap-2">
+                <span className="font-semibold">{unitLabel} writing desk</span>
+                {writingBest && (
+                  <span className="rounded-full bg-warm-600 px-2 py-0.5 text-[11px] font-bold text-white">
+                    best {writingBest.grade} {writingBest.score}%
+                  </span>
+                )}
+              </span>
+              <span className="mt-0.5 block truncate text-sm text-[var(--ink-soft)]">
+                {writingTask.title} {'\u00b7'} {writingTask.minWords}+ words {'\u00b7'} check your writing and get a grade
+              </span>
+            </span>
+            <IconChevronRight
+              size={18}
+              className="shrink-0 text-warm-600 transition-transform group-hover:translate-x-0.5"
+            />
+          </Link>
+        </Reveal>
+      )}
 
       {quiz && (
         <Reveal delay={40}>
