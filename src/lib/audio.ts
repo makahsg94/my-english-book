@@ -10,6 +10,8 @@ export interface Playhead {
   duration: number
 }
 
+export const PLAYBACK_SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2]
+
 let audio: HTMLAudioElement | null = null
 if (typeof Audio !== 'undefined') {
   try {
@@ -18,6 +20,8 @@ if (typeof Audio !== 'undefined') {
     audio = null
   }
 }
+
+let rate = 1
 
 let playhead: Playhead | null = null
 let seq = 0
@@ -77,6 +81,16 @@ export function getPlayhead(): Playhead | null {
   return playhead
 }
 
+export function getPlaybackRate(): number {
+  return rate
+}
+
+export function setPlaybackRate(next: number) {
+  rate = Math.min(3, Math.max(0.25, next))
+  if (audio) audio.playbackRate = rate
+  emit()
+}
+
 export function subscribePlayhead(fn: () => void): () => void {
   listeners.add(fn)
   return () => {
@@ -101,6 +115,7 @@ export function toggleTrack(file: string, label: string, instance: number) {
   }
   audio.src = file
   audio.load()
+  audio.playbackRate = rate
   playhead = { instance, file, label, playing: false, position: 0, duration: 0 }
   audio.play().catch(() => {})
   emit()

@@ -9,6 +9,7 @@ import {
   toggleTrack,
 } from '../lib/audio'
 import { IconClose, IconForward, IconPause, IconPlay, IconRewind } from './Icons'
+import { SpeedControl } from './Media'
 
 export default function MiniPlayer() {
   const [, force] = useReducer((n: number) => n + 1, 0)
@@ -46,6 +47,8 @@ export default function MiniPlayer() {
           <p className="truncate text-sm font-semibold leading-tight">{ph.label}</p>
           <p className="truncate font-mono text-[11px] text-[var(--ink-faint)]">{ph.file.split('/audio/').pop()}</p>
         </div>
+
+        <SpeedControl compact />
 
         <button
           type="button"

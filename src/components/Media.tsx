@@ -1,17 +1,47 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 import type { AudioTrack } from '../types/content'
 import {
+  PLAYBACK_SPEEDS,
   formatTime,
+  getPlaybackRate,
   getPlayhead,
   isTrackActive,
   nextInstance,
   onEnded,
   seekAudio,
+  setPlaybackRate,
   stepAudio,
   subscribePlayhead,
   toggleTrack,
 } from '../lib/audio'
 import { IconClose, IconForward, IconPlay, IconRewind, IconZoomIn, IconZoomOut } from './Icons'
+
+function formatRate(r: number) {
+  const s = Number.isInteger(r) ? r.toString() : r.toFixed(2).replace(/[.0]+$/, '')
+  return `${s}x`
+}
+
+export function SpeedControl({ compact = false }: { compact?: boolean }) {
+  const rate = getPlaybackRate()
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        const i = PLAYBACK_SPEEDS.indexOf(rate)
+        setPlaybackRate(PLAYBACK_SPEEDS[(i + 1) % PLAYBACK_SPEEDS.length])
+      }}
+      aria-label={`Playback speed ${formatRate(rate)}`}
+      title="Playback speed"
+      className={
+        compact
+          ? 'shrink-0 rounded-md px-1.5 py-1 font-mono text-[11px] font-bold tabular-nums text-[var(--ink-soft)] transition-colors hover:bg-[var(--line)]'
+          : 'shrink-0 rounded-md px-2 font-mono text-[11px] font-bold tabular-nums text-brand-700 transition-colors hover:bg-[var(--line)] dark:text-brand-300'
+      }
+    >
+      {formatRate(rate)}
+    </button>
+  )
+}
 
 export function AudioPlayer({ tracks, title }: { tracks: AudioTrack[]; title?: string }) {
   const [instance] = useState(() => nextInstance())
@@ -123,6 +153,8 @@ export function AudioPlayer({ tracks, title }: { tracks: AudioTrack[]; title?: s
                     <IconForward size={16} />
                     <span className="text-[9px] font-bold leading-none">10</span>
                   </button>
+
+                  <SpeedControl />
                 </div>
               )}
             </div>
