@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getUnit } from '../content/book'
+import { getUnit, unitLabel } from '../content/book'
 import { getWritingTask } from '../content/writing'
 import { useProgress } from '../lib/appContext'
 import { checkWriting } from '../lib/writeCheck'
@@ -147,7 +147,7 @@ export default function WritingPage() {
     )
   }
 
-  const unitLabel = unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`
+  const label = unitLabel(unit)
 
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => setDraft(e.target.value)
 
@@ -184,7 +184,7 @@ export default function WritingPage() {
     <div className="fade-up book-page mx-auto w-full max-w-4xl px-5 pb-14 pt-3 sm:px-9">
       <div className="running-head">
         <span>
-          Station {unitLabel} {'\u00b7'} Writing desk
+          Station {label} {'\u00b7'} Writing desk
         </span>
         <span className="rh-right">
           <span className="inline-flex items-center gap-1">
@@ -200,7 +200,7 @@ export default function WritingPage() {
         </Link>
         <IconChevronRight size={13} className="text-[var(--ink-faint)]" />
         <Link to={`/unit/${unit.id}`} className="hover:text-[var(--ink)]">
-          {unitLabel}
+          {label}
         </Link>
         <IconChevronRight size={13} />
         <span className="text-[var(--ink)]">Writing desk</span>
@@ -457,7 +457,7 @@ export default function WritingPage() {
                 <IconPen size={14} /> Edit and try again
               </button>
               <Link to={`/unit/${unit.id}`} className="page-turn py-2">
-                <IconChevronLeft size={14} /> Back to {unitLabel}
+                <IconChevronLeft size={14} /> Back to {label}
               </Link>
             </div>
           </div>

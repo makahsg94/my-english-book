@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { BOOK } from '../content/book'
+import { BOOK, unitGlyph, unitLabel } from '../content/book'
 import { useProgress } from '../lib/appContext'
 import { IconCheck } from './Icons'
 
@@ -88,7 +88,7 @@ export default function LineMap() {
                 />
               ) : (
                 <text className="num" x={p.x} y={p.y + 6} textAnchor="middle" fontSize={current ? 17 : 14} fill={numFill}>
-                  {unit.number === 0 ? '0' : String(unit.number)}
+                  {unitGlyph(unit)}
                 </text>
               )}
               <text
@@ -99,7 +99,7 @@ export default function LineMap() {
                 fontSize={13}
                 fontWeight={current ? 700 : 500}
               >
-                {unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`}
+                {unitLabel(unit)}
               </text>
             </g>
           )
@@ -118,7 +118,7 @@ export default function LineMap() {
       </svg>
 
       <div className="mt-1 flex flex-wrap items-center justify-between gap-2 px-1 pb-1 text-[11px] uppercase tracking-[0.14em] text-[var(--ink-faint)]">
-        <span>Single track {'\u00b7'} {n} stations {'\u00b7'} board at station {'\u2018'}{units[currentIndex].number === 0 ? 'Lead-in' : `Unit ${units[currentIndex].number}`}{'\u2019'}</span>
+        <span>Single track {'\u00b7'} {n} stations {'\u00b7'} board at station {'\u2018'}{unitLabel(units[currentIndex])}{'\u2019'}</span>
         <span>End of the line: reference banks</span>
       </div>
     </div>

@@ -42,8 +42,9 @@ export function validateUnitQuiz(quiz: UnitQuiz, units: Unit[]): ValidationIssue
   if (!quiz.description.trim()) push(issues, 'quiz', quiz.unitId, 'EMPTY_DESCRIPTION', `Quiz "${quiz.id}" has an empty description.`, { quizId: quiz.id })
 
   const count = quiz.questions.length
-  if (count < 8 || count > 20) {
-    push(issues, 'quiz', quiz.unitId, 'QUESTION_COUNT', `Quiz "${quiz.id}" has ${count} questions (expected 8\u201320).`, { quizId: quiz.id })
+  const max = quiz.maxQuestions ?? 20
+  if (count < 8 || count > max) {
+    push(issues, 'quiz', quiz.unitId, 'QUESTION_COUNT', `Quiz "${quiz.id}" has ${count} questions (expected 8\u2013${max}).`, { quizId: quiz.id })
   }
 
   for (const item of quiz.questions) {

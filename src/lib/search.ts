@@ -1,4 +1,4 @@
-import { BOOK, flattenLessons } from '../content/book'
+import { BOOK, flattenLessons, unitLabel } from '../content/book'
 import type { Exercise, ExerciseQuestion, Lesson } from '../types/content'
 
 export interface SearchHit {
@@ -100,7 +100,7 @@ export function searchBook(query: string): SearchHit[] {
     if (score > 0) {
       hits.push({
         type: 'lesson',
-        title: `Unit ${unit.number === 0 ? 'Lead-in' : unit.number} \u00b7 ${lesson.code}: ${lesson.title}`,
+        title: `${unitLabel(unit)} \u00b7 ${lesson.code}: ${lesson.title}`,
         subtitle: unit.title,
         snippet: snippet(hay, tokens),
         url: `/unit/${unit.id}/lesson/${lesson.id}`,

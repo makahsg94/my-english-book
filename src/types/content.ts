@@ -209,8 +209,12 @@ export interface Unit {
   number: number
   title: string
   phrase?: string
+  /** set to 'review' for digital-only end-of-book content with no printed unit */
+  kind?: 'review'
   /** printed page of the unit opener with learning objectives */
   overviewPage: number
+  /** PDF page used for the unit hero/cover when it is not overviewPage + 2 / + 14 (digital-only units) */
+  overviewPdf?: number
   pages: [number, number]
   intro?: string
   objectives?: string[]
@@ -305,5 +309,7 @@ export interface UnitQuiz {
   /** one-line overview shown on the intro screen */
   description: string
   skills: string[]
+  /** optional upper bound on questions allowed by validation (default: 20) */
+  maxQuestions?: number
   questions: UnitQuizItem[]
 }

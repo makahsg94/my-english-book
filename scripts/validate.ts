@@ -9,8 +9,9 @@ import { unit05 } from '../src/content/units/unit-05'
 import { unit06 } from '../src/content/units/unit-06'
 import { unit07 } from '../src/content/units/unit-07'
 import { unit08 } from '../src/content/units/unit-08'
+import { finalReview } from '../src/content/units/final-review'
 
-const units = [leadIn, unit01, unit02, unit03, unit04, unit05, unit06, unit07, unit08]
+const units = [leadIn, unit01, unit02, unit03, unit04, unit05, unit06, unit07, unit08, finalReview]
 
 const quizIssues = validateAllQuizzes(UNIT_QUIZZES, units)
 const exerciseIssues = validateBookExercises(units)

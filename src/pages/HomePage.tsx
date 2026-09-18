@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { BOOK, flattenLessons } from '../content/book'
+import { BOOK, flattenLessons, unitGlyph, unitLabel } from '../content/book'
 import { useProgress } from '../lib/appContext'
 import { levelProgress, achievementsFor } from '../lib/progress'
 import { shareCardBlob } from '../lib/shareCard'
@@ -178,11 +178,11 @@ export default function HomePage() {
                     className="group flex items-baseline gap-4 py-1"
                   >
                     <span className="chapter-num font-display text-5xl leading-none">
-                      {unit.number === 0 ? '0' : String(unit.number)}
+                      {unitGlyph(unit)}
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="block text-[10px] font-bold uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300">
-                        {unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`}
+                        {unitLabel(unit)}
                       </span>
                       <span className="mt-0.5 block truncate font-display text-xl font-semibold tracking-tight group-hover:text-brand-700 dark:group-hover:text-brand-300">
                         {unit.phrase ?? unit.title}

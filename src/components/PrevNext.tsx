@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BOOK, nav } from '../content/book'
+import { BOOK, nav, unitLabel } from '../content/book'
 import { IconChevronLeft, IconChevronRight } from './Icons'
 
 export default function PrevNext({ unitId, lessonId }: { unitId: string; lessonId: string }) {
@@ -9,7 +9,7 @@ export default function PrevNext({ unitId, lessonId }: { unitId: string; lessonI
     if (!target?.unitId || !target.lessonId) return <div aria-hidden className="flex-1" />
     const unit = BOOK.units.find((u) => u.id === target.unitId)
     const lesson = unit?.lessons.find((l) => l.id === target.lessonId)
-    const unitLabel = unit ? (unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`) : ''
+    const label = unit ? unitLabel(unit) : ''
     return (
       <Link
         to={`/unit/${target.unitId}/lesson/${target.lessonId}`}
@@ -30,7 +30,7 @@ export default function PrevNext({ unitId, lessonId }: { unitId: string; lessonI
         </span>
         <span className="truncate text-sm font-medium">{lesson?.title ?? lessonId}</span>
         <span className="truncate text-xs text-[var(--ink-faint)]">
-          {unitLabel} {lesson?.code}
+          {label} {lesson?.code}
         </span>
       </Link>
     )

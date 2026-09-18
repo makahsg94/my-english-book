@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getUnit } from '../content/book'
+import { getUnit, unitLabel } from '../content/book'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import { UnitQuiz } from '../components/UnitQuiz'
@@ -32,7 +32,7 @@ export default function UnitQuizPage() {
     )
   }
 
-  const unitLabel = unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`
+  const label = unitLabel(unit)
 
   return (
     <div className="fade-up mx-auto max-w-3xl space-y-6">
@@ -42,7 +42,7 @@ export default function UnitQuizPage() {
         </Link>
         <IconChevronRight size={13} />
         <Link to={`/unit/${unit.id}`} className="hover:text-[var(--ink)]">
-          {unitLabel}
+          {label}
         </Link>
         <IconChevronRight size={13} />
         <span className="text-[var(--ink)]">Unit quiz</span>
@@ -51,7 +51,7 @@ export default function UnitQuizPage() {
       <header className="grid items-start gap-5 sm:grid-cols-[1fr_220px]">
         <div>
           <p className="text-[11px] font-bold uppercase tracking-widest text-brand-700 dark:text-brand-300">
-            {unitLabel} assessment
+            {label} assessment
           </p>
           <h1 className="mt-1 text-4xl font-bold tracking-tight">{quiz.title}</h1>
           <p className="mt-3 text-[15px] leading-relaxed text-[var(--ink-soft)]">
@@ -61,7 +61,7 @@ export default function UnitQuizPage() {
         </div>
       </header>
 
-      <UnitQuiz quiz={quiz} unitLabel={unitLabel} />
+      <UnitQuiz quiz={quiz} unitLabel={label} />
     </div>
   )
 }

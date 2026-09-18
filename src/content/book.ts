@@ -8,6 +8,7 @@ import { unit05 } from './units/unit-05'
 import { unit06 } from './units/unit-06'
 import { unit07 } from './units/unit-07'
 import { unit08 } from './units/unit-08'
+import { finalReview } from './units/final-review'
 import ocrHints from './ocrHints.json'
 
 const UNITS: Unit[] = [
@@ -20,6 +21,7 @@ const UNITS: Unit[] = [
   unit06,
   unit07,
   unit08,
+  finalReview,
 ]
 
 export const BOOK: Book = {
@@ -93,4 +95,18 @@ export function nav(unitId: string, lessonId: string): { prev?: NavTarget; next?
 /** Printed book page of a given PDF page, if present in the OCR index. */
 export function pageInfo(pdf: number) {
   return BOOK.searchablePages.find((p) => p.pdf === pdf)
+}
+
+/** Short chapter label: "Lead-in", "Unit 4" or "Final Review" for the end-of-book review. */
+export function unitLabel(unit: Pick<Unit, 'number' | 'kind'>): string {
+  if (unit.number === 0) return 'Lead-in'
+  if (unit.kind === 'review') return 'Final Review'
+  return `Unit ${unit.number}`
+}
+
+/** Compact chapter number shown in the TOC/badges: "0", "4" or "\u2605" for the final review. */
+export function unitGlyph(unit: Pick<Unit, 'number' | 'kind'>): string {
+  if (unit.number === 0) return '0'
+  if (unit.kind === 'review') return '\u2605'
+  return String(unit.number)
 }

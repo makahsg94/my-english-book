@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { BOOK, getUnit } from '../content/book'
+import { BOOK, getUnit, unitGlyph, unitLabel } from '../content/book'
 import { getWritingTask } from '../content/writing'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
@@ -79,7 +79,7 @@ export default function UnitPage() {
   const unitIndex = BOOK.units.findIndex((u) => u.id === unit.id)
   const nextUnit = unitIndex >= 0 ? BOOK.units[unitIndex + 1] : undefined
 
-  const unitLabel = unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`
+  const label = unitLabel(unit)
   const done = unit.lessons.filter((l) => progress.isLessonComplete(l.id)).length
   const pct = Math.round((done / Math.max(1, unit.lessons.length)) * 100)
   const quiz = getUnitQuiz(unit.id)
@@ -93,7 +93,7 @@ export default function UnitPage() {
     <div className="fade-up book-page mx-auto w-full max-w-4xl space-y-10 px-6 py-8 sm:px-10">
       <div className="running-head">
         <span>
-          Station {unitLabel} {'\u00b7'} {unit.title}
+          Station {label} {'\u00b7'} {unit.title}
         </span>
         <span className="rh-right">pages {unit.pages[0]}{'\u2013'}{unit.pages[1]}</span>
       </div>
@@ -103,18 +103,18 @@ export default function UnitPage() {
           <IconHome size={14} /> Home
         </Link>
         <IconChevronRight size={13} />
-        <span className="text-[var(--ink)]">{unitLabel}</span>
+        <span className="text-[var(--ink)]">{label}</span>
       </nav>
 
       <header className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_220px]">
         <div>
           <div className="flex items-center gap-4">
             <span className="chapter-num text-6xl lg:text-7xl" aria-hidden>
-              {unit.number === 0 ? '0' : String(unit.number)}
+              {unitGlyph(unit)}
             </span>
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-700 dark:text-brand-300">
-                {unitLabel}
+                {label}
               </p>
               <p className="page-number mt-1">{unit.title}</p>
             </div>
@@ -153,7 +153,7 @@ export default function UnitPage() {
         </div>
         <div className="w-full lg:justify-self-end">
           <Parallax strength={18}>
-            <PageFigure image={{ pdf: unit.overviewPage + 2, bookPage: unit.overviewPage }} />
+            <PageFigure image={{ pdf: unit.overviewPdf ?? unit.overviewPage + 2, bookPage: unit.overviewPage }} />
           </Parallax>
         </div>
       </header>
@@ -176,7 +176,7 @@ export default function UnitPage() {
             </span>
             <span className="min-w-0 flex-1">
               <span className="flex items-center gap-2">
-                <span className="font-semibold">{unitLabel} writing desk</span>
+                <span className="font-semibold">{label} writing desk</span>
                 {writingBest && (
                   <span className="rounded-full bg-warm-600 px-2 py-0.5 text-[11px] font-bold text-white">
                     best {writingBest.grade} {writingBest.score}%
@@ -206,7 +206,7 @@ export default function UnitPage() {
             </span>
             <span className="min-w-0 flex-1">
               <span className="flex items-center gap-2">
-                <span className="font-semibold">Take the {unitLabel} Quiz</span>
+                <span className="font-semibold">Take the {label} Quiz</span>
                 {quizBest && (
                   <span className="rounded-full bg-brand-600 px-2 py-0.5 text-[11px] font-bold text-white">
                     best {Math.round((quizBest.correct / Math.max(1, quizBest.total)) * 100)}%
@@ -280,7 +280,7 @@ export default function UnitPage() {
             <span className="min-w-0 flex-1">
               <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">Next unit</span>
               <span className="mt-0.5 block truncate font-semibold">
-                {nextUnit.number === 0 ? 'Lead-in' : `Unit ${nextUnit.number}`}: {nextUnit.phrase ?? nextUnit.title}
+                {unitLabel(nextUnit)}: {nextUnit.phrase ?? nextUnit.title}
               </span>
             </span>
             <IconChevronRight

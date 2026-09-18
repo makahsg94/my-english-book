@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { getUnit, nav } from '../content/book'
+import { getUnit, nav, unitLabel } from '../content/book'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import { useToast } from '../lib/toast'
@@ -178,7 +178,7 @@ export default function LessonPage() {
     )
   }
 
-  const unitLabel = unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`
+  const label = unitLabel(unit)
   const complete = progress.isLessonComplete(lesson.id)
   const hasVideo = lesson.blocks.some((b) => b.type === 'video')
   const hasAudio = lesson.blocks.some((b) => b.type === 'audio')
@@ -213,7 +213,7 @@ export default function LessonPage() {
 
       <div className="running-head">
         <span>
-          Station {unitLabel} {'\u00b7'} {lesson.title}
+          Station {label} {'\u00b7'} {lesson.title}
         </span>
         <span className="rh-right">pages {lesson.pages[0]}{'\u2013'}{lesson.pages[1]}</span>
       </div>
@@ -224,7 +224,7 @@ export default function LessonPage() {
         </Link>
         <IconChevronRight size={13} className="text-[var(--ink-faint)]" />
         <Link to={`/unit/${unit.id}`} className="hover:text-[var(--ink)]">
-          {unitLabel}
+          {label}
         </Link>
         <IconChevronRight size={13} />
         <span className="text-[var(--ink)]">{lesson.title}</span>
@@ -239,7 +239,7 @@ export default function LessonPage() {
           )}
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-700 dark:text-brand-300">
-              {unitLabel}
+              {label}
             </p>
             <p className="page-number mt-0.5">Pages {lesson.pages[0]}{'\u2013'}{lesson.pages[1]}</p>
           </div>
@@ -351,7 +351,7 @@ export default function LessonPage() {
               className="group flex flex-col justify-center gap-1.5 rounded-2xl border border-brand-300 bg-brand-50 p-4 transition-all hover:border-brand-500 hover:shadow-sm dark:border-brand-800 dark:bg-brand-950"
             >
               <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-brand-700 dark:text-brand-300">
-                <IconTarget size={12} /> {unitLabel} quiz
+                <IconTarget size={12} /> {label} quiz
               </span>
               <span className="font-semibold">Finished this unit? Test yourself.</span>
               <span className="text-sm font-medium text-brand-700 dark:text-brand-300">Start the quiz {'\u2192'}</span>
@@ -403,7 +403,7 @@ export default function LessonPage() {
       <div className="running-head mt-12 border-t-0 pt-0">
         <span>{lesson.title}</span>
         <span className="rh-right">
-          {unitLabel} {'\u00b7'} {lesson.pages[0]}
+          {label} {'\u00b7'} {lesson.pages[0]}
         </span>
       </div>
 
@@ -412,7 +412,7 @@ export default function LessonPage() {
           to={`/unit/${unit.id}`}
           className="page-turn"
         >
-          <IconChevronLeft size={14} /> Back to {unitLabel}
+          <IconChevronLeft size={14} /> Back to {label}
         </Link>
       </div>
 

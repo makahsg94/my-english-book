@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { BOOK } from '../content/book'
+import { BOOK, unitGlyph, unitLabel } from '../content/book'
 import { getWritingTask } from '../content/writing'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
@@ -55,10 +55,10 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                 }
               >
                 <span className="font-display text-lg font-bold leading-none tracking-tight">
-                  {unit.number === 0 ? '0' : String(unit.number)}
+                  {unitGlyph(unit)}
                 </span>
                 <span className="min-w-0 truncate text-[13px] font-semibold">
-                  {unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`} {'\u2014'} {unit.title}
+                  {unitLabel(unit)} {'\u2014'} {unit.title}
                 </span>
                 <span className="toc-dots" aria-hidden />
                 <span className="toc-page">{unit.pages[0]}</span>
@@ -135,7 +135,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                     }
                   >
                     <IconTarget size={11} className="shrink-0" />
-                    <span className="min-w-0 truncate">{unitLabel(unit.number)} quiz</span>
+                    <span className="min-w-0 truncate">{unitLabel(unit)} quiz</span>
                     <span className="toc-dots" aria-hidden />
                     <span className="toc-page shrink-0">end</span>
                   </NavLink>
@@ -185,8 +185,4 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       </div>
     </nav>
   )
-}
-
-function unitLabel(number: number) {
-  return number === 0 ? 'Lead-in' : `Unit ${number}`
 }
