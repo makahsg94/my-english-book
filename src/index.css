@@ -1,0 +1,1003 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Lora", ui-serif, Georgia, "Times New Roman", serif;
+  --font-display: "Ewert", "DM Serif Display", "Libre Baskerville", ui-serif, Georgia, "Times New Roman", serif;
+
+  --color-brand-50: #f0f7f6;
+  --color-brand-100: #d9edea;
+  --color-brand-200: #b3dbd6;
+  --color-brand-300: #84c2bb;
+  --color-brand-400: #56a49c;
+  --color-brand-500: #3b8882;
+  --color-brand-600: #2e6d68;
+  --color-brand-700: #285855;
+  --color-brand-800: #234745;
+  --color-brand-900: #1f3c3a;
+  --color-brand-950: #0d2221;
+
+  --color-accent-50: #f3f0ff;
+  --color-accent-100: #e9e3ff;
+  --color-accent-200: #d5cbff;
+  --color-accent-300: #b7a4ff;
+  --color-accent-400: #9678fd;
+  --color-accent-500: #7a49f9;
+  --color-accent-600: #6b2bf0;
+  --color-accent-700: #5d1ed9;
+  --color-accent-800: #4d1ab6;
+  --color-accent-900: #411895;
+  --color-accent-950: #270d65;
+
+  --color-warm-50: #fef7ee;
+  --color-warm-100: #fdeadb;
+  --color-warm-200: #fad1b4;
+  --color-warm-500: #e97a22;
+  --color-warm-600: #d0641a;
+  --color-warm-700: #a44d16;
+  --color-warm-900: #5a2808;
+
+  --color-sky-50: #f0f7ff;
+  --color-sky-100: #dceeff;
+  --color-sky-500: #2d7dd2;
+  --color-sky-600: #1a5fa8;
+  --color-sky-700: #154a83;
+  --color-sky-900: #0c2745;
+
+  --color-rose-50: #fff1f2;
+  --color-rose-100: #ffe1e3;
+  --color-rose-500: #e84057;
+  --color-rose-600: #cc2e45;
+  --color-rose-700: #a32337;
+  --color-rose-900: #5c101e;
+}
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --ink: #1c1c1a;
+  --ink-soft: #56564f;
+  --ink-faint: #83837a;
+  --line: #e6e5e0;
+  --line-strong: #d2d1ca;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #101618;
+  --surface: #161d20;
+  --ink: #e9eceb;
+  --ink-soft: #b3bcba;
+  --ink-faint: #7d8b88;
+  --line: #283338;
+  --line-strong: #3a474d;
+  color-scheme: dark;
+}
+
+.reading {
+  --bg: #f7f0df;
+  --surface: #fff8e8;
+  --ink: #2b2117;
+  --ink-soft: #6a5744;
+  --ink-faint: #9a836a;
+  --line: #e5d7bd;
+  --line-strong: #d2bd97;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-x: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Clip horizontal overflow here (NOT on html/body, which would break
+   position: fixed / sticky on mobile browsers and hide floating UI).
+   `clip` creates no scroll container, so fixed children stay viewport-anchored. */
+#root {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+.reading body {
+  background:
+    radial-gradient(circle at top left, rgb(233 122 34 / 0.08), transparent 28rem),
+    var(--bg);
+}
+
+.reading .prose-book p {
+  font-size: 1rem;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+/* Editorial display headings – serif feel reserved for hero moments */
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+/* ---------- Editorial prose ---------- */
+.prose-book {
+  color: var(--ink);
+  max-width: 66ch;
+}
+.prose-book p {
+  margin: 1.05rem 0;
+  line-height: 1.85;
+  font-size: 1rem;
+  text-wrap: pretty;
+}
+.prose-book p + p {
+  text-indent: 1.5em;
+}
+.prose-book strong {
+  font-weight: 650;
+  color: var(--ink);
+}
+.prose-book em {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* ---------- Reading panels (long written passages) ---------- */
+.reading-panel {
+  max-width: 100%;
+}
+.reading-body {
+  color: var(--ink);
+}
+.reading-body p {
+  margin: 1.15rem 0;
+  font-size: 1.03rem;
+  line-height: 1.92;
+  letter-spacing: 0.002em;
+  text-wrap: pretty;
+}
+.reading-body p:first-child {
+  margin-top: 0;
+}
+.reading-body p:last-child {
+  margin-bottom: 0;
+}
+.reading-body .reading-lead {
+  font-size: 1.07rem;
+  color: var(--ink);
+}
+.reading-body strong {
+  color: var(--color-brand-700);
+  font-weight: 650;
+}
+.dark .reading-body strong {
+  color: var(--color-brand-300);
+}
+
+/* Read-aloud sentence highlighting */
+.sentence {
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 0.3rem;
+}
+.sentence:hover {
+  background: color-mix(in srgb, var(--color-accent-500) 14%, transparent);
+  cursor: pointer;
+}
+.sentence.is-speaking {
+  background: var(--color-accent-100);
+  box-shadow: inset 0 -0.3em 0 color-mix(in srgb, var(--color-accent-500) 34%, transparent);
+}
+.dark .sentence.is-speaking {
+  background: color-mix(in srgb, var(--color-accent-500) 18%, transparent);
+}
+.reading-rule {
+  display: block;
+  margin: 1.4rem 0 0.4rem;
+  height: 1px;
+  width: 5rem;
+  background: linear-gradient(90deg, var(--color-accent-500), transparent);
+}
+.study-tip {
+  margin-top: 0.7rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--ink-faint);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.study-tip::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background: var(--color-accent-500);
+}
+
+/* ---------- Drop-cap first paragraph ---------- */
+.drop-cap > p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.2em;
+  line-height: 0.82;
+  font-weight: 700;
+  margin-right: 0.12em;
+  margin-top: 0.06em;
+  color: var(--color-brand-600);
+  font-family: var(--font-display);
+  padding-right: 0.04em;
+}
+
+/* Book page marker – small running index in the margin */
+.page-number {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.page-number::before {
+  content: '';
+  width: 1.4rem;
+  height: 2px;
+  background: var(--color-brand-400);
+  display: inline-block;
+}
+
+.book-cover {
+  transform-style: preserve-3d;
+  transition: transform 0.45s ease, filter 0.45s ease;
+}
+.book-cover:hover {
+  filter: saturate(1.05);
+  transform: perspective(900px) rotateY(-5deg) translateY(-3px);
+}
+
+/* ---------- Section labels ---------- */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  line-height: 1;
+  background: color-mix(in srgb, var(--color-brand-600) 10%, transparent);
+  color: var(--color-brand-700);
+}
+.dark .section-label {
+  color: var(--color-brand-300);
+}
+
+/* ---------- Callout tone palette ---------- */
+.callout-info {
+  border-color: var(--color-brand-300);
+  background: var(--color-brand-50);
+}
+.dark .callout-info {
+  border-color: var(--color-brand-800);
+  background: color-mix(in srgb, var(--color-brand-950) 50%, transparent);
+}
+.callout-tip {
+  border-color: var(--color-accent-300);
+  background: var(--color-accent-50);
+}
+.dark .callout-tip {
+  border-color: var(--color-accent-800);
+  background: color-mix(in srgb, var(--color-accent-950) 50%, transparent);
+}
+.callout-note {
+  border-color: var(--color-warm-200);
+  background: var(--color-warm-50);
+}
+.dark .callout-note {
+  border-color: var(--color-warm-900);
+  background: color-mix(in srgb, var(--color-warm-900) 40%, transparent);
+}
+.callout-warning {
+  border-color: var(--color-rose-100);
+  background: var(--color-rose-50);
+}
+.dark .callout-warning {
+  border-color: var(--color-rose-900);
+  background: color-mix(in srgb, var(--color-rose-900) 40%, transparent);
+}
+
+/* ---------- Content tables ---------- */
+.content-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.875rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+}
+.content-table th {
+  background: var(--color-brand-600);
+  color: white;
+  padding: 0.625rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.dark .content-table th {
+  background: color-mix(in srgb, var(--color-brand-700) 80%, #000);
+}
+.content-table td {
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--line);
+}
+.content-table tbody tr:nth-child(odd) td {
+  background: color-mix(in srgb, var(--color-brand-50) 40%, var(--surface));
+}
+.dark .content-table tbody tr:nth-child(odd) td {
+  background: color-mix(in srgb, var(--color-brand-950) 30%, transparent);
+}
+.content-table tbody tr:hover td {
+  background: color-mix(in srgb, var(--color-brand-100) 30%, var(--surface));
+}
+.dark .content-table tbody tr:hover td {
+  background: color-mix(in srgb, var(--color-brand-950) 50%, transparent);
+}
+
+/* ---------- Reading progress ---------- */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-brand-400), var(--color-accent-500));
+  border-radius: 0 2px 2px 0;
+  z-index: 50;
+  transition: width 100ms ease;
+}
+
+/* ---------- Section anchors ---------- */
+[id^="section-"] {
+  scroll-margin-top: 5rem;
+}
+
+/* ---------- Section divider ---------- */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 2rem 0 1.5rem;
+}
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line-strong);
+}
+.section-divider span {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+/* ---------- Scrollbar ---------- */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 8px;
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---------- Mini player equalizer bars ---------- */
+.eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 15px;
+}
+.eq i {
+  width: 3px;
+  height: 5px;
+  border-radius: 2px;
+  background: currentColor;
+  transform-origin: bottom;
+}
+.eq-on i {
+  animation: eqBounce 0.9s ease-in-out infinite;
+}
+.eq-on i:nth-child(2) {
+  animation-delay: 0.18s;
+}
+.eq-on i:nth-child(3) {
+  animation-delay: 0.32s;
+}
+.eq-on i:nth-child(4) {
+  animation-delay: 0.1s;
+}
+@keyframes eqBounce {
+  0%,
+  100% {
+    height: 4px;
+  }
+  50% {
+    height: 15px;
+  }
+}
+
+/* ---------- Range input ---------- */
+input[type='range'] {
+  height: 6px;
+  appearance: none;
+  border-radius: 999px;
+  background: var(--line-strong);
+}
+input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 999px;
+  background: var(--color-brand-600);
+  border: 2px solid var(--surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+input[type='range']::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 999px;
+  background: var(--color-brand-600);
+  border: 2px solid var(--surface);
+  cursor: pointer;
+}
+
+/* ---------- Selection + Focus ---------- */
+::selection {
+  background: color-mix(in srgb, var(--color-brand-500) 25%, transparent);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Micro-interactions ---------- */
+button:not(:disabled):active,
+a:active {
+  transform: scale(0.98);
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: riseIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.pop {
+  animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Scroll reveal – fades/slides in once when first scrolled into view */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Page-turn sweep – a light passes across as the page settles in */
+@keyframes pageSweep {
+  0% {
+    transform: translateX(-120%) skewX(-8deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-8deg);
+  }
+}
+.page-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.page-sweep::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-brand-200) 45%, transparent) 50%,
+    transparent
+  );
+  transform: translateX(-120%) skewX(-8deg);
+  pointer-events: none;
+}
+.page-sweep.is-visible::after {
+  animation: pageSweep 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Book cover glow on hover */
+.book-cover-sheen {
+  position: relative;
+}
+.book-cover-sheen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 30% 20%,
+    color-mix(in srgb, white 35%, transparent),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.book-cover-sheen:hover::before {
+  opacity: 1;
+}
+
+/* Chapter number – oversized editorial figure */
+.chapter-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: transparent;
+  background: linear-gradient(160deg, var(--color-brand-500), var(--color-brand-700));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ---------- Interactive cover deck ---------- */
+.stack-deck {
+  perspective: 1400px;
+  overflow-x: clip;
+}
+.stack-card {
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease, box-shadow 0.3s ease;
+  transform: var(--t, none);
+  transform-origin: 50% 120%;
+  will-change: transform;
+}
+.stack-card:hover {
+  transform: var(--t, none) translateY(-7px);
+}
+.stack-card:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+.stack-card .stack-caption {
+  transition: opacity 0.3s ease;
+}
+.stack-deck:hover .stack-card .stack-caption {
+  opacity: 0.9;
+}
+
+/* Page-enter transition – simulated page turn on route change */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.page-enter {
+  position: relative;
+  animation: pageEnter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.page-enter::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-brand-200) 38%, transparent) 50%,
+    transparent
+  );
+  transform: translateX(-120%);
+  animation: pageSweep 0.7s ease 0.12s both;
+}
+
+/* Parallax – motion driven by a --parallax CSS variable */
+[data-parallax] {
+  will-change: transform;
+}
+[data-parallax] > * {
+  transform: translateY(var(--parallax, 0px));
+  will-change: transform;
+}
+
+/* Tactile press – springy buttons */
+.tactile {
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.tactile:active {
+  transform: translateY(2px) scale(0.985);
+  box-shadow: none;
+}
+
+/* Page corner fold hint on prev/next navigation */
+.page-corner {
+  position: relative;
+  overflow: hidden;
+}
+.page-corner::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(225deg, transparent 50%, color-mix(in srgb, var(--color-brand-400) 55%, transparent) 50%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.page-corner:hover::after {
+  opacity: 1;
+}
+
+/* ---------- THE DIGITAL BOOK: paper, running heads, TOC, page corners ---------- */
+.book-page {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow:
+    0 2px 3px rgb(0 0 0 / 0.04),
+    0 34px 70px -38px rgb(0 0 0 / 0.4),
+    inset 1px 0 0 rgb(255 255 255 / 0.5);
+}
+/* spine hint along the binding edge */
+.book-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 8px;
+  border-radius: 4px 0 0 4px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-brand-900) 12%, transparent),
+    transparent 80%
+  );
+  pointer-events: none;
+}
+.book-page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  background: linear-gradient(
+    270deg,
+    color-mix(in srgb, var(--color-brand-900) 10%, transparent),
+    transparent 85%
+  );
+  border-radius: 0 4px 4px 0;
+  pointer-events: none;
+}
+
+/* running head – like a printed page header line */
+.running-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.6rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--line-strong);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.running-head .rh-right {
+  font-weight: 600;
+  color: var(--ink-faint);
+}
+
+/* dotted-leader TOC rows – true table-of-contents typography */
+.toc-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  color: var(--ink);
+}
+.toc-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--line-strong);
+  transform: translateY(-4px);
+  min-width: 1rem;
+}
+.toc-page {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+  font-size: 0.8rem;
+}
+
+/* title page – the book's opening spread */
+.title-page {
+  text-align: center;
+}
+
+/* big page-turn corners for primary navigation */
+.page-turn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink-soft);
+  border-radius: 8px;
+  padding: 0.65rem 1.1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.page-turn:hover {
+  color: var(--color-brand-700);
+  border-color: var(--color-brand-400);
+  box-shadow: 0 10px 26px -18px rgb(0 0 0 / 0.35);
+}
+.dark .page-turn:hover {
+  color: var(--color-brand-300);
+}
+.page-turn:active {
+  transform: translateY(1px) scale(0.99);
+}
+[data-theme='reading'] .book-page {
+  box-shadow:
+    0 2px 3px rgb(0 0 0 / 0.04),
+    0 30px 60px -38px rgb(0 0 0 / 0.35);
+}
+
+/* ---------- THE SPEAKOUT LINE: a metro map as the course ---------- */
+.line-track {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+.line-track-dash {
+  fill: none;
+  stroke: var(--ink-faint);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 2 12;
+  opacity: 0.4;
+  animation: line-dash 22s linear infinite;
+}
+@keyframes line-dash {
+  to {
+    stroke-dashoffset: -560;
+  }
+}
+.line-traveled {
+  fill: none;
+  stroke: var(--color-brand-600);
+  stroke-width: 7;
+  stroke-linecap: round;
+  filter: drop-shadow(0 5px 14px color-mix(in srgb, var(--color-brand-600) 45%, transparent));
+  animation: line-glow 3.2s ease-in-out infinite;
+}
+@keyframes line-glow {
+  0%, 100% {
+    filter: drop-shadow(0 5px 10px color-mix(in srgb, var(--color-brand-600) 35%, transparent));
+  }
+  50% {
+    filter: drop-shadow(0 5px 18px color-mix(in srgb, var(--color-brand-600) 60%, transparent));
+  }
+}
+.station-dot {
+  cursor: pointer;
+}
+.station-dot .dot {
+  transition: transform 0.25s ease, fill 0.25s ease, stroke 0.25s ease;
+}
+.station-dot:hover .dot {
+  transform: scale(1.18);
+}
+.station-dot .label {
+  fill: var(--ink-soft);
+}
+.station-dot:hover .label {
+  fill: var(--color-brand-700);
+}
+.dark .station-dot:hover .label {
+  fill: var(--color-brand-300);
+}
+
+/* Reached (completed) stations light up the line */
+.station-dot.reached .dot {
+  fill: var(--color-brand-600);
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--color-brand-500) 70%, transparent))
+    drop-shadow(0 0 14px color-mix(in srgb, var(--color-brand-500) 40%, transparent));
+}
+.station-dot.reached .dot-ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-brand-500) 55%, transparent);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+  opacity: 0.7;
+}
+.station-dot.reached .label {
+  fill: var(--color-brand-700);
+  font-weight: 600;
+}
+.dark .station-dot.reached .label {
+  fill: var(--color-brand-300);
+}
+.station-dot .num {
+  font-weight: 800;
+}
+.station-pulse {
+  animation: station-pulse 2.6s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes station-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  70% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+.train-body .tm {
+  fill: var(--color-brand-700);
+}
+.dark .train-body .tm {
+  fill: var(--color-brand-400);
+}
+.train-body .tnose {
+  fill: var(--color-brand-500);
+}
+.dark .train-body .tnose {
+  fill: var(--color-brand-300);
+}
+.train-body .twin {
+  fill: #fff;
+  opacity: 0.92;
+}
+.train-glow {
+  filter: drop-shadow(0 4px 12px color-mix(in srgb, var(--color-brand-600) 55%, transparent));
+}
+.line-card {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px -40px rgb(0 0 0 / 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0.01ms !important;
+  }
+  .rise,
+  .pop,
+  .reveal {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  [data-parallax] > * {
+    transform: none !important;
+  }
+  .stack-card:hover {
+    transform: var(--t, none) !important;
+  }
+  .stack-deck:hover .stack-card .stack-caption {
+    opacity: 1;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
