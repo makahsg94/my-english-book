@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// Content model for the Speakout A2 Student's Book platform.
+// Content model for the Speakout B1 Student's Book platform.
 // All book content lives in src/content/. These types describe how lessons,
 // sections and exercises are structured so the UI can render them generically
 // (add a lesson → add data, no component changes required).

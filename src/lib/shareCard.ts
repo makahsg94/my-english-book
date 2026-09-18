@@ -64,7 +64,7 @@ export function drawShareCard(state: ProgressState, totalLessons: number): strin
 
   // heading
   text(ctx, 'The Speakout Line', 60, 92, 34, { color: INK, weight: '800', caps: true })
-  text(ctx, 'Speakout A2 \u00b7 3rd edition \u00b7 course companion', 60, 122, 15, { color: SOFT, weight: '600' })
+  text(ctx, 'Speakout B1 \u00b7 3rd edition \u00b7 course companion', 60, 122, 15, { color: SOFT, weight: '600' })
   text(ctx, label, W - 60, 92, 16, { color: SOFT, weight: '600', caps: true })
 
   // level ring
