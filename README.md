@@ -1,32 +1,46 @@
-# React + TypeScript + Vite
+# My English Book (Speakout 3rd Edition B1)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+An interactive companion app for the **Speakout 3rd Edition B1 Student's Book**. The whole course is in one place: every page, audio track, video clip, vocabulary bank, grammar bank, review and quiz — searchable and playable.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **All 8 units + lead-in** with lessons A–D, reviews and BBC content
+- **In-book page images** (`img()`) side by side with the digital content
+- **Audio player** for every track with playback speed (0.5x–2x) and a floating mini player
+- **BBC videos** (programmes & vlogs) bundled as `public/videos`
+- **OCR hints** per book page for quick lookup (`src/content/ocrHints.json`)
+- **Quizzes & in-lesson exercises** validated by `scripts/validate.mjs`
+- **Progress & milestones** saved locally
+- Full-text **search** across units, exercises and audio
 
-## React Compiler
+## Tech stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + TypeScript + Vite
+- Tailwind CSS 4
+- Oxlint for linting
+- GitHub Actions → GitHub Pages deployment
 
-## Expanding the Oxlint configuration
+## Getting started
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev        # local dev server
+npm run validate   # validate units, quizzes and exercises
+npm run lint       # oxlint
+npm run build      # type-check + production build
+npm run preview    # preview the production build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Live site
+
+Deployed to GitHub Pages by `.github/workflows/pages.yml` on every push to `main`.
+
+## Content structure
+
+- `src/content/book.ts` – book metadata
+- `src/content/units/*.ts` – units 1–8 and the lead-in (lessons, exercises, audio, video)
+- `src/content/audioMap.ts` – canonical track label → bundled `public/audio` file
+- `src/content/ocrHints.json` – per-page OCR text used as ground truth
+- `public/audio` – B1 audio pack (`Speakout_3E_B1_SB_*.mp3`)
+- `public/videos` – B1 BBC video library
+- `src/assets/book/` – page image renders
