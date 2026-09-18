@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { pageInfo } from '../content/book'
-import { pageImageCount, pageImageUrl } from '../lib/images'
+import { BOOK, pageInfo } from '../content/book'
+import { pageImageUrl } from '../lib/images'
 import { openLightbox } from '../components/Media'
 import { IconChevronLeft, IconChevronRight, IconClose } from '../components/Icons'
 
@@ -28,8 +28,15 @@ export default function PageView() {
     )
   }
 
-  const prev = n > 1 ? n - 1 : null
-  const next = n < pageImageCount ? n + 1 : null
+  const pages = BOOK.searchablePages.map((p) => p.pdf).sort((a, b) => a - b)
+  const at = pages.indexOf(n)
+  const prev = at > 0 ? pages[at - 1] : null
+  const next = at !== -1 && at < pages.length - 1 ? pages[at + 1] : null
+
+  const pageLabel = (pdf: number) => {
+    const p = pageInfo(pdf)
+    return p && p.bookPage >= 1 ? p.bookPage : `PDF ${pdf}`
+  }
 
   return (
     <div className="fade-up mx-auto max-w-4xl">
@@ -41,12 +48,12 @@ export default function PageView() {
         <div className="flex items-center gap-2">
           {prev && (
             <Link to={`/page/${prev}`} className="inline-flex items-center gap-1 rounded-lg border border-[var(--line-strong)] px-3 py-1.5 text-sm hover:bg-[var(--line)]">
-              <IconChevronLeft size={14} /> {prev > 3 ? prev - 2 : prev}
+              <IconChevronLeft size={14} /> {pageLabel(prev)}
             </Link>
           )}
           {next && (
             <Link to={`/page/${next}`} className="inline-flex items-center gap-1 rounded-lg border border-[var(--line-strong)] px-3 py-1.5 text-sm hover:bg-[var(--line)]">
-              {next > 3 ? next - 2 : next} <IconChevronRight size={14} />
+              {pageLabel(next)} <IconChevronRight size={14} />
             </Link>
           )}
         </div>

@@ -1,9 +1,9 @@
 import type { AudioTrack, PageImage } from '../types/content'
 import { AUDIO } from './audioMap'
 
-/** Build a PageImage entry from the PDF page number (printed page = pdf - 2). */
+/** Build a PageImage entry from the PDF page number (printed page = pdf - 14). */
 export function img(pdf: number, caption?: string, alt?: string): PageImage {
-  return { pdf, bookPage: pdf - 2, caption, alt }
+  return { pdf, bookPage: pdf - 14, caption, alt }
 }
 
 /** Build AudioTrack[] from canonical track labels, resolving public audio URLs. */

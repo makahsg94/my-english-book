@@ -14,7 +14,7 @@ export default function BookPage() {
     number: unit.number,
     title: unit.phrase ?? unit.title,
     subtitle: unit.number === 0 ? 'Lead-in' : `Unit ${unit.number}`,
-    img: pageImageUrl(unit.overviewPage + 2),
+    img: pageImageUrl(unit.overviewPage + 14),
     done: unit.lessons.every((l) => progress.isLessonComplete(l.id)),
   }))
 
@@ -29,7 +29,7 @@ export default function BookPage() {
 
       <header className="title-page mx-auto max-w-xl pb-8">
         <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[var(--ink-faint)]">
-          {BOOK.edition} {'\u00b7'} A2
+          {BOOK.edition} {'\u00b7'} {BOOK.level}
         </p>
         <h1 className="display mt-3 text-4xl tracking-tight sm:text-5xl">{BOOK.title}</h1>
         <p className="mt-3 text-sm leading-relaxed text-[var(--ink-soft)]">

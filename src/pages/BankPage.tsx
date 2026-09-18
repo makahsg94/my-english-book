@@ -22,7 +22,7 @@ export default function BankPage() {
   // printed page -> pdf
   const pages: { pdf: number; bookPage: number; label: string }[] = []
   for (let printed = bank.pages[0]; printed <= bank.pages[1]; printed += 1) {
-    pages.push({ pdf: printed + 2, bookPage: printed, label: pageInfo(printed + 2)?.label ?? '' })
+    pages.push({ pdf: printed + 14, bookPage: printed, label: pageInfo(printed + 14)?.label ?? '' })
   }
 
   return (

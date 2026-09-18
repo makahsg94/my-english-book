@@ -199,7 +199,7 @@ export interface Lesson {
   /** printed page range, e.g. [10, 11] */
   pages: [number, number]
   /** short meta labels taken from the lesson header, e.g. "Grammar / present simple" */
-  labels?: { grammar?: string; vocabulary?: string; pronunciation?: string; skills?: string }
+  labels?: { grammar?: string; vocabulary?: string; pronunciation?: string; skills?: string; writing?: string }
   objectives?: string[]
   blocks: ContentBlock[]
 }
