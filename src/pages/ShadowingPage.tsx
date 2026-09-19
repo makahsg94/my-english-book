@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SHADOWING_CLIPS, getShadowClip, type ShadowClip, type ShadowKind } from '../content/shadowing'
+import { HT_DIALOGUE } from '../content/ht-dialogue'
 import { videoSrc } from '../lib/videos'
 import { playSound } from '../lib/sounds'
 import {
@@ -588,6 +589,7 @@ const KIND_META: Record<ShadowKind, { label: string; chip: string; dot: string }
 
 function ClipCard({ clip, onOpen }: { clip: ShadowClip; onOpen: () => void }) {
   const meta = KIND_META[clip.kind]
+  const sceneCount = clip.scenes?.length ?? HT_DIALOGUE[clip.id]?.length ?? 0
   return (
     <button
       type="button"
@@ -613,10 +615,10 @@ function ClipCard({ clip, onOpen }: { clip: ShadowClip; onOpen: () => void }) {
             {clip.note}
           </span>
         )}
-        {clip.scenes && clip.scenes.length > 0 && (
+        {sceneCount > 0 && (
           <span className="mt-1 inline-flex w-fit items-center gap-1 rounded-full bg-[var(--line)] px-2 py-0.5 text-[11px] font-semibold text-[var(--ink-soft)]">
             <IconList size={11} />
-            <Ar>{clip.scenes.length} مشاهد جاهزة</Ar>
+            <Ar>{sceneCount} سطر ديالوج متزامن</Ar>
           </span>
         )}
       </span>
@@ -673,7 +675,9 @@ function Library({ onOpen }: { onOpen: (id: string) => void }) {
         <SectionTitle label="بلاي ليست: Hotel Transylvania 2012 (فيلم كامل بالانجليزي)" count={parts.length + extras.length} />
         <p className="text-[13px] leading-relaxed text-[var(--ink-soft)]" dir="rtl" lang="ar">
           الفيلم كامل مقسّم لأجزاء على يوتيوب — بيشتغلوا مباشرة هنا من غير أي ملفات، وكل جزء مفتوح في الاستوديو.
-          ابدأ بجزء 1، ولو عايز سطور كل جزء مكتوبة بيها مشاهد، ابعتلي جُمل الحوار (أو لينك ترجمة) وأنا احطهم.
+          ملحوظة: أجزاء الفيلم الـ50 معمولة على يوتيوب من غير ترجمة/نص إنجليزي أصلاً، فأنا مبقدرش أطلعه لوحدي —
+          ابعتلي نص الكلام (حتى من غير توقيتات، أو ملف ترجمة srt) وأنا أظبطه سطر سطر على الفيديو.
+          المقاطع القصيرة اللي ‏«كل سطر ديالوج متزامن»‏ ظاهر عليها: الديالوج جاهز وماشي مع الفيديو من دلوقتي.
         </p>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {parts.map((c) => (
@@ -706,7 +710,7 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
   const [userLoop, setUserLoop] = useState<{ a: number; b: number } | null>(null)
   const meta = KIND_META[clip.kind]
 
-  const scenes = clip.scenes ?? []
+  const scenes = (clip.scenes ?? HT_DIALOGUE[clip.id]) ?? []
   const loopOn = activeIdx !== null || userLoop !== null
   const setBridge = (b: MediaBridge | null) => {
     bridgeRef.current = b
@@ -800,6 +804,27 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
     bridgeRef.current?.setRate(v)
   }
 
+  const hasDialogue = !!HT_DIALOGUE[clip.id]
+  const currRef = useRef<HTMLDivElement | null>(null)
+  let currIdx: number | null = null
+  for (let i = 0; i < scenes.length; i++) {
+    if (t >= scenes[i].time && t < endOf(i)) {
+      currIdx = i
+      break
+    }
+  }
+  useEffect(() => {
+    currRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+  }, [currIdx])
+
+  const startCurrent = () => {
+    if (currIdx !== null) {
+      startShadowing(currIdx)
+    } else {
+      togglePlay()
+    }
+  }
+
   return (
     <div className="fade-up mx-auto max-w-2xl space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -838,6 +863,70 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
           {playing ? <IconPause size={28} /> : <IconPlay size={30} className="translate-x-0.5" />}
         </button>
       </div>
+
+      {scenes.length > 0 && (
+        <div className="rounded-2xl border border-[var(--line-strong)] bg-[#0d1017] p-4 shadow-lg dark:border-brand-900">
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <p className="inline-flex items-center gap-1.5 text-[11px] font-bold text-brand-300">
+              <IconVolume size={12} />
+              <Ar>بيقول دلوقتي</Ar>
+            </p>
+            <div className="flex items-center gap-1.5">
+              {hasDialogue && (
+                <span className="rounded-full bg-warm-100 px-2 py-0.5 text-[10px] font-bold text-warm-700 dark:bg-warm-900 dark:text-warm-200">
+                  <Ar>ديالوج متزامن</Ar>
+                </span>
+              )}
+              {currIdx !== null && (
+                <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[10px] tabular-nums text-white/70">
+                  {fmt(scenes[currIdx].time)}
+                </span>
+              )}
+            </div>
+          </div>
+          <p
+            className="min-h-[3.2rem] text-center text-[17px] font-bold leading-7 tracking-wide text-white sm:text-[18px]"
+            style={{ textShadow: '0 1px 3px rgba(0,0,0,.55)' }}
+          >
+            {currIdx !== null ? scenes[currIdx].en : '\u00A0'}
+          </p>
+          <div className="mt-2.5 flex items-center justify-center gap-2">
+            {currIdx !== null && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => say(scenes[currIdx].en)}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-3.5 py-1.5 text-xs font-bold text-white transition-colors hover:bg-white/10"
+                >
+                  <IconVolume size={13} /> <Ar>اسمعها</Ar>
+                </button>
+                <button
+                  type="button"
+                  onClick={startCurrent}
+                  className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold transition-colors ${
+                    activeIdx === currIdx ? 'border border-warm-500 bg-warm-500 text-white hover:bg-warm-600' : 'bg-brand-600 text-white hover:bg-brand-700'
+                  }`}
+                >
+                  {activeIdx === currIdx ? <IconRotate size={13} /> : <IconPlay size={13} />}
+                  {activeIdx === currIdx ? <Ar>أوقف الشادونج</Ar> : <Ar>شادونج السطر ده</Ar>}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    bridgeRef.current?.pause()
+                    setMicIdx(micIdx === currIdx ? null : currIdx)
+                  }}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-bold transition-colors ${
+                    micIdx === currIdx ? 'border-accent-400 bg-accent-600 text-white' : 'border-white/25 text-white hover:bg-white/10'
+                  }`}
+                >
+                  <IconMic size={13} /> {micIdx === currIdx ? <Ar>سداد</Ar> : <Ar>سجّل صوتك</Ar>}
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="space-y-3 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4 shadow-sm">
         <div className="flex items-center gap-2">
@@ -896,13 +985,18 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
           </h2>
           {scenes.map((s, i) => {
             const active = i === activeIdx
+            const current = i === currIdx
             const openMic = micIdx === i
+            const style = active
+              ? 'border-brand-400 bg-brand-50/70 dark:border-brand-700 dark:bg-brand-950/50'
+              : current
+                ? 'border-emerald-400 bg-emerald-50/70 dark:border-emerald-700 dark:bg-emerald-950/40'
+                : 'border-[var(--line)] bg-[var(--surface)]'
             return (
               <div
                 key={i}
-                className={`rounded-xl border p-4 transition-colors ${
-                  active ? 'border-brand-400 bg-brand-50/70 dark:border-brand-700 dark:bg-brand-950/50' : 'border-[var(--line)] bg-[var(--surface)]'
-                }`}
+                ref={i === currIdx ? currRef : undefined}
+                className={`rounded-xl border p-4 transition-colors ${style}`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex flex-wrap items-center gap-2">
@@ -913,6 +1007,12 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
                       <IconClock size={10} />
                       {fmt(s.time)}
                     </span>
+                    {current && !active && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700 dark:bg-emerald-900 dark:text-emerald-200">
+                        <IconPlay size={9} />
+                        <Ar>بيتقال دلوقتي</Ar>
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center gap-1.5">
                     <button
@@ -997,8 +1097,8 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
             )}
           </div>
           <p className="text-[12px] leading-relaxed text-[var(--ink-faint)]" dir="rtl" lang="ar">
-            وعشان التقييم بالمايك: ثبت اللي بتقولها فوق بره وافتح «امتحن النطق» للمقارنة — وكل اللي بتشوفه هنا شغال
-            بالفعل من غير أي خطوات إعداد.
+            لو بعتلي نص الكلام بتاع الجزء ده، هيظهر هنا تحت الفيديو سطر بسطر بيتمشى معاه وكل سطر عليه زرار
+            «سجّل صوتك» للمراجعة — زي المقاطع اللي عليها «ديالوج متزامن».
           </p>
         </section>
       )}
