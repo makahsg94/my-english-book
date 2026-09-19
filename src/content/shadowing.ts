@@ -1,19 +1,20 @@
 // استوديو الشادونج — مصادر الفيديوهات.
 // الفيديوهات اللي تحت نوعها course موجودة أصلًا في public/videos/ (من حزمة الوسائط بتاعة الكتاب).
-// عشان تضيف كرتون أو فيلم: حط ملف mp4 جوه public/videos/، وبعدين ضيف له Clip هنا.
-// لو احتبيت، اكتب نص الحوار في lines (both time = الثانية اللي تبدأ فيها الجملة):
-//   lines: [
+// عشان تضيف كرتون أو فيلم: حط ملف mp4 جوه public/videos/، وبعدين ضيف له Clip جوه الليستة تحت.
+// كل "مشهد" فيه سطر الحوار + معناه بالعربي + التايم اللي يبدأ فيه:
+//   scenes: [
 //     { time: 2, en: "Oh no! The sofa is gone!", ar: "أوه لأ! الكنبة اختفت!" },
-//   ]
+//     { time: 9, en: "Daddy Pig, is that your tummy?", ar: "بابا بيج، ده بطنك؟" },
+//   ],
 
 export type ShadowKind = 'course' | 'cartoon' | 'movie' | 'series'
 
-export interface ShadowLine {
-  /** الثانية اللي تبدأ فيها الجملة */
-  time: number
+export interface ShadowScene {
   en: string
   ar?: string
-  /** نهاية الجملة (اختياري) — بتستخدم لما تعملها حلقة */
+  /** الثانية اللي يبدأ فيها المشهد (بيتكتب إنك تشوف الفيديو، أو انا أحسبها تقريبي) */
+  time: number
+  /** نهاية المشهد (اختياري) — لو مش موجودة، هتاخد بداية المشهد اللي بعده */
   end?: number
 }
 
@@ -25,7 +26,8 @@ export interface ShadowClip {
   file: string
   source: string
   note?: string
-  lines?: ShadowLine[]
+  /** مشاهد بتاعة المقطع — كل مشهد له سطر حوار وزر شادونج */
+  scenes?: ShadowScene[]
 }
 
 export const SHADOWING_CLIPS: ShadowClip[] = [
@@ -153,7 +155,7 @@ export const SHADOWING_CLIPS: ShadowClip[] = [
 //   file: 'peppa-pool.mp4',
 //   source: 'Cartoon',
 //   note: 'حلقات قصيرة مثالية للشادونج',
-//   lines: [
+//   scenes: [
 //     { time: 3, en: 'Oh no! The sofa is gone!', ar: 'أوه لأ! الكنبة اختفت!' },
 //     { time: 12, en: "Daddy Pig, is that your tummy?", ar: 'بابا بيج، ده بطنك؟' },
 //   ],
@@ -164,7 +166,7 @@ export const SHADOWING_CLIPS: ShadowClip[] = [
 //   kind: 'movie',
 //   file: 'movie-scene.mp4',
 //   source: 'Film',
-//   lines: [{ time: 5, en: 'This is where the journey begins.' }],
+//   scenes: [{ time: 5, en: 'This is where the journey begins.' }],
 // },
 
 export function getShadowClip(id: string): ShadowClip | undefined {

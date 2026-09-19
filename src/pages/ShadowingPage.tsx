@@ -1,24 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { SHADOWING_CLIPS, getShadowClip, type ShadowClip, type ShadowKind, type ShadowLine } from '../content/shadowing'
+import { SHADOWING_CLIPS, getShadowClip, type ShadowClip, type ShadowKind } from '../content/shadowing'
 import { videoSrc } from '../lib/videos'
 import { playSound } from '../lib/sounds'
 import {
   IconChevronRight,
   IconClock,
   IconClose,
-  IconCross,
-  IconForward,
   IconHome,
   IconList,
   IconMic,
   IconPause,
   IconPlay,
-  IconRewind,
   IconRotate,
   IconVideo,
   IconVolume,
-  IconZoomIn,
 } from '../components/Icons'
 
 function Ar({ children, className = '' }: { children: React.ReactNode; className?: string }) {
@@ -30,21 +26,12 @@ function Ar({ children, className = '' }: { children: React.ReactNode; className
 }
 
 const SPEED_KEY = 'shadow-speed'
-const SPEEDS = [
-  { id: '0.5', value: 0.5, label: '0.5×' },
-  { id: '0.75', value: 0.75, label: '0.75×' },
-  { id: '1', value: 1, label: '1×' },
-  { id: '1.25', value: 1.25, label: '1.25×' },
-  { id: '1.5', value: 1.5, label: '1.5×' },
-]
+const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5]
 
 function loadSpeed(): number {
   try {
     const raw = window.localStorage.getItem(SPEED_KEY)
-    if (raw) {
-      const v = Number(raw)
-      if (SPEEDS.some((s) => s.value === v)) return v
-    }
+    if (raw && SPEEDS.includes(Number(raw))) return Number(raw)
   } catch {
     /* ignore */
   }
@@ -133,7 +120,11 @@ function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
   )
 
   if (!supported) {
-    return null
+    return (
+      <div className="rounded-xl border border-brand-200 bg-brand-50/60 p-3.5 text-[13px] text-brand-800 dark:border-brand-800 dark:bg-brand-950/50 dark:text-brand-200">
+        <Ar>الميكروفون غير مدعوم في المتصفح ده — جرّب Google Chrome أو Edge.</Ar>
+      </div>
+    )
   }
 
   const stopListening = () => {
@@ -197,7 +188,7 @@ function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="flex items-center gap-1.5 text-xs font-bold text-brand-800 dark:text-brand-200">
           <IconMic size={14} />
-          <Ar>امتحان النطق — قولها وراء الستارة</Ar>
+          <Ar>امتحان النطق</Ar>
         </p>
         <button
           type="button"
@@ -211,14 +202,13 @@ function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
           <IconClose size={14} />
         </button>
       </div>
-      <div className="flex flex-wrap items-center gap-2 text-sm">
-        <p className="w-full rounded-lg bg-[var(--surface)] px-3 py-2 leading-relaxed">{text}</p>
+      <div className="flex flex-wrap items-center gap-2">
         <button
           type="button"
           onClick={() => say(text)}
           className="inline-flex items-center gap-1 rounded-full border border-[var(--line-strong)] px-3 py-1.5 text-xs font-semibold text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700"
         >
-          <IconVolume size={13} /> <Ar>اسمعها تاني</Ar>
+          <IconVolume size={13} /> <Ar>اسمعها</Ar>
         </button>
         <button
           type="button"
@@ -230,7 +220,7 @@ function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
           }`}
         >
           <IconMic size={13} />
-          {listening ? '...يجري التقاط' : <Ar>سجّل صوتك</Ar>}
+          {listening ? '...بيسمع' : <Ar>سجّل صوتك</Ar>}
         </button>
       </div>
 
@@ -243,11 +233,11 @@ function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
       {result && (
         <div className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-3">
           <div className="mb-1.5 flex flex-wrap items-center justify-between gap-2">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">
-              <Ar>قولت:</Ar> <span className="normal-case italic tracking-normal text-[var(--ink-soft)]">{result.said}</span>
+            <span className="text-[12px] text-[var(--ink-soft)]">
+              <Ar>قولت:</Ar> <span className="italic">{result.said}</span>
             </span>
             <span
-              className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold ${
+              className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold ${
                 pct === 100 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200' : 'bg-[var(--line)] text-[var(--ink-soft)]'
               }`}
             >
@@ -331,10 +321,10 @@ function ClipCard({ clip, onOpen }: { clip: ShadowClip; onOpen: () => void }) {
             {clip.note}
           </span>
         )}
-        {clip.lines && clip.lines.length > 0 && (
+        {clip.scenes && clip.scenes.length > 0 && (
           <span className="mt-1 inline-flex w-fit items-center gap-1 rounded-full bg-[var(--line)] px-2 py-0.5 text-[11px] font-semibold text-[var(--ink-soft)]">
             <IconList size={11} />
-            <Ar>{clip.lines.length} سطر حوار جاهز</Ar>
+            <Ar>{clip.scenes.length} مشاهد جاهزة</Ar>
           </span>
         )}
       </span>
@@ -353,9 +343,9 @@ function Library({ onOpen }: { onOpen: (id: string) => void }) {
     <div className="fade-up mx-auto max-w-4xl space-y-8">
       <section className="grid gap-3 sm:grid-cols-3">
         {[
-          { n: '1', ar: 'اسمع', en: 'Listen without reading' },
-          { n: '2', ar: 'كرر', en: 'Pause, loop, echo it back' },
-          { n: '3', ar: 'سجّل', en: 'Record yourself and compare' },
+          { n: '1', ar: 'اسمع', en: 'Play the scene' },
+          { n: '2', ar: 'شادونج', en: 'It loops, you repeat louder' },
+          { n: '3', ar: 'سجّل', en: 'Record and compare word by word' },
         ].map((s) => (
           <div key={s.n} className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4 shadow-sm">
             <span className="grid size-7 place-items-center rounded-lg bg-brand-600 text-sm font-bold text-white">{s.n}</span>
@@ -399,8 +389,8 @@ function Library({ onOpen }: { onOpen: (id: string) => void }) {
             </p>
             <ol className="mt-3 space-y-2 text-[13.5px] leading-relaxed text-[var(--ink-soft)]" dir="rtl" lang="ar">
               <li>1) حط ملف الفيديو (.mp4) جوه مجلد <code className="rounded bg-[var(--line)] px-1.5 py-0.5 font-mono text-[12px]">public/videos/</code> في المشروع.</li>
-              <li>2) افتح <code className="rounded bg-[var(--line)] px-1.5 py-0.5 font-mono text-[12px]">src/content/shadowing.ts</code> واضيف Clip بسيط (مثال جاهز معلّق أهو جوه الملف).</li>
-              <li>3) اختياري: اكتب نص الحوار مع التايم بتاع كل جملة، وهيتفضل تحت المشغل للشادونج اللي ورا الستارة.</li>
+              <li>2) افتح <code className="rounded bg-[var(--line)] px-1.5 py-0.5 font-mono text-[12px]">src/content/shadowing.ts</code> وضيف Clip بسيط (مثال معلّق جوه الملف).</li>
+              <li>3) لكل «مشهد» اكتب سطر الحوار + معناه بالعربي + التايم، وبعدين زرار الشادونج الخاص بيه هيشتغل في الاستوديو.</li>
             </ol>
           </div>
         )}
@@ -411,35 +401,32 @@ function Library({ onOpen }: { onOpen: (id: string) => void }) {
 
 function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
-  const wrapRef = useRef<HTMLDivElement | null>(null)
   const [playing, setPlaying] = useState(false)
   const [t, setT] = useState(0)
   const [dur, setDur] = useState(0)
   const [speed, setSpeed] = useState(() => loadSpeed())
-  const [ab, setAb] = useState<{ a: number | null; b: number | null }>({ a: null, b: null })
-  const [micLine, setMicLine] = useState<string | null>(null)
+  const [activeIdx, setActiveIdx] = useState<number | null>(null)
+  const [micIdx, setMicIdx] = useState<number | null>(null)
   const meta = KIND_META[clip.kind]
+
+  const scenes = clip.scenes ?? []
 
   useEffect(() => () => {
     if ('speechSynthesis' in window) window.speechSynthesis.cancel()
   }, [])
 
-  const lines = clip.lines ?? []
-  const activeIdx = (() => {
-    if (lines.length === 0) return -1
-    let idx = -1
-    for (let i = 0; i < lines.length; i++) {
-      if (t >= lines[i].time) idx = i
-      else break
-    }
-    return idx
-  })()
+  useEffect(() => {
+    setActiveIdx(null)
+    setMicIdx(null)
+  }, [clip.id])
 
-  const setVidSpeed = (v: number) => {
-    setSpeed(v)
-    saveSpeed(v)
-    if (videoRef.current) videoRef.current.playbackRate = v
+  const endOf = (i: number): number => {
+    const s = scenes[i]
+    const next = i + 1 < scenes.length ? scenes[i + 1] : null
+    return s.end ?? next?.time ?? Math.min(dur, s.time + 8)
   }
+
+  const loopOn = activeIdx !== null
 
   const togglePlay = () => {
     const v = videoRef.current
@@ -461,53 +448,23 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
     setT(to)
   }
 
-  const step = (dt: number) => {
+  const startShadowing = (i: number) => {
     const v = videoRef.current
     if (!v) return
-    const to = Math.max(0, Math.min(v.duration || (dur || 0), v.currentTime + dt))
-    v.currentTime = to
-    setT(to)
-  }
-
-  const setA = () => {
-    setAb((prev) => (prev.b !== null && prev.b <= t ? { a: t, b: null } : { a: t, b: prev.b }))
-  }
-  const setB = () => {
-    setAb((prev) => (prev.a !== null && t > prev.a ? { a: prev.a, b: t } : prev))
-  }
-  const clearAB = () => {
-    setAb({ a: null, b: null })
-  }
-
-  const loopOn = ab.a !== null && ab.b !== null
-
-  const replayLine = (line: ShadowLine, lineIdx: number) => {
-    const v = videoRef.current
-    if (!v) return
-    v.currentTime = line.time
-    setT(line.time)
-    const end = line.end ?? (lineIdx + 1 < lines.length ? lines[lineIdx + 1].time : Math.min(v.duration || dur, line.time + 6))
-    setAb({ a: line.time, b: end })
+    setMicIdx(null)
+    if (activeIdx === i) {
+      setActiveIdx(null)
+      return
+    }
+    v.currentTime = scenes[i].time
+    setT(scenes[i].time)
+    setActiveIdx(i)
     void v.play()
     setPlaying(true)
   }
 
-  const toggleFullscreen = () => {
-    const el = wrapRef.current
-    if (!el) return
-    if (document.fullscreenElement) {
-      void document.exitFullscreen()
-    } else {
-      void el.requestFullscreen?.()
-    }
-  }
-
   useEffect(() => {
-    const v = videoRef.current
-    if (v) {
-      v.playbackRate = speed
-      v.volume = 1
-    }
+    if (videoRef.current) videoRef.current.playbackRate = speed
   }, [clip.id, speed])
 
   return (
@@ -535,7 +492,7 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
         <p className="text-[12px] font-mono text-[var(--ink-faint)]">{clip.file}</p>
       </header>
 
-      <div ref={wrapRef} className="group-video relative overflow-hidden rounded-2xl bg-black shadow-lg">
+      <div className="overflow-hidden rounded-2xl bg-black shadow-lg">
         <video
           key={clip.id}
           ref={videoRef}
@@ -547,17 +504,20 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
           onTimeUpdate={(e) => {
             const v = e.currentTarget
             setT(v.currentTime)
-            if (ab.b !== null && ab.a !== null && v.currentTime >= ab.b) {
-              v.currentTime = ab.a
-              setT(ab.a)
+            if (activeIdx !== null) {
+              const end = endOf(activeIdx)
+              if (v.currentTime >= end) {
+                v.currentTime = scenes[activeIdx].time
+                setT(scenes[activeIdx].time)
+              }
             }
           }}
           onEnded={() => {
             setPlaying(false)
-            if (ab.a !== null && ab.b !== null) {
+            if (activeIdx !== null && scenes[activeIdx]) {
               const v = videoRef.current
               if (v) {
-                v.currentTime = ab.a
+                v.currentTime = scenes[activeIdx].time
                 void v.play()
                 setPlaying(true)
               }
@@ -576,17 +536,9 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
         >
           {playing ? <IconPause size={28} /> : <IconPlay size={30} className="translate-x-0.5" />}
         </button>
-        {loopOn && (
-          <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-warm-600 px-2.5 py-1 text-[11px] font-bold text-white shadow">
-            <IconRotate size={12} />
-            <span className="tabular-nums">
-              {fmt(ab.a!)} {'\u2192'} {fmt(ab.b!)}
-            </span>
-          </span>
-        )}
       </div>
 
-      <div className="space-y-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4 shadow-sm">
+      <div className="space-y-3 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4 shadow-sm">
         <div className="flex items-center gap-2">
           <span className="shrink-0 w-11 text-center font-mono text-[12px] tabular-nums text-[var(--ink-soft)]">
             {fmt(t)}
@@ -604,202 +556,117 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
           <span className="shrink-0 w-12 text-center font-mono text-[12px] tabular-nums text-[var(--ink-faint)]">
             {fmt(dur)}
           </span>
-          <button
-            type="button"
-            onClick={toggleFullscreen}
-            className="grid size-8 shrink-0 place-items-center rounded-lg text-[var(--ink-faint)] transition-colors hover:bg-[var(--line)] hover:text-[var(--ink)]"
-            aria-label="ملء الشاشة"
-          >
-            <IconZoomIn size={16} />
-          </button>
         </div>
-
         <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => step(-3)}
-            className="inline-flex items-center gap-1 rounded-lg border border-[var(--line-strong)] px-2.5 py-1.5 text-xs font-semibold text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700"
-            aria-label="رجوع 3 ثواني"
-          >
-            <IconRewind size={13} /> 3s
-          </button>
-          <button
-            type="button"
-            onClick={() => step(3)}
-            className="inline-flex items-center gap-1 rounded-lg border border-[var(--line-strong)] px-2.5 py-1.5 text-xs font-semibold text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700"
-            aria-label="قدام 3 ثواني"
-          >
-            <IconForward size={13} /> 3s
-          </button>
-          <span className="mx-1 h-5 w-px bg-[var(--line)]" aria-hidden />
-          <span className="inline-flex items-center gap-1.5" role="group" aria-label="سرعة التشغيل">
-            {SPEEDS.map((s) => (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => setVidSpeed(s.value)}
-                aria-pressed={speed === s.value}
-                className={`rounded-full border px-2.5 py-1 text-xs font-bold transition-colors ${
-                  speed === s.value
-                    ? 'border-brand-500 bg-brand-600 text-white'
-                    : 'border-[var(--line-strong)] bg-[var(--bg)] text-[var(--ink-soft)] hover:border-brand-400'
-                }`}
-              >
-                {s.label}
-              </button>
-            ))}
+          <span className="text-xs font-bold text-[var(--ink-soft)]">
+            <Ar>السرعة:</Ar>
           </span>
-          <span className="mx-1 h-5 w-px bg-[var(--line)]" aria-hidden />
-          <button
-            type="button"
-            onClick={setA}
-            disabled={dur === 0 || (ab.b !== null && t >= ab.b)}
-            className={`rounded-full border px-2.5 py-1 text-xs font-bold transition-colors disabled:opacity-40 ${
-              ab.a !== null ? 'border-warm-500 bg-warm-500 text-white' : 'border-[var(--line-strong)] bg-[var(--bg)] text-[var(--ink-soft)] hover:border-warm-400'
-            }`}
-          >
-            <Ar>ضبط A</Ar>
-          </button>
-          <button
-            type="button"
-            onClick={setB}
-            disabled={ab.a === null || t <= ab.a}
-            className={`rounded-full border px-2.5 py-1 text-xs font-bold transition-colors disabled:opacity-40 ${
-              ab.b !== null ? 'border-warm-500 bg-warm-500 text-white' : 'border-[var(--line-strong)] bg-[var(--bg)] text-[var(--ink-soft)] hover:border-warm-400'
-            }`}
-          >
-            <Ar>ضبط B</Ar>
-          </button>
-          {loopOn && (
+          {SPEEDS.map((s) => (
             <button
+              key={s}
               type="button"
-              onClick={clearAB}
-              className="inline-flex items-center gap-1 rounded-full border border-[var(--line-strong)] px-2.5 py-1 text-xs font-semibold text-[var(--ink-soft)] transition-colors hover:border-rose-300 hover:text-rose-600"
+              onClick={() => {
+                setSpeed(s)
+                saveSpeed(s)
+              }}
+              aria-pressed={speed === s}
+              className={`rounded-full border px-2.5 py-1 text-xs font-bold transition-colors ${
+                speed === s
+                  ? 'border-brand-500 bg-brand-600 text-white'
+                  : 'border-[var(--line-strong)] bg-[var(--bg)] text-[var(--ink-soft)] hover:border-brand-400'
+              }`}
             >
-              <IconCross size={12} /> <Ar>إلغاء الحلقة</Ar>
+              {s}×
             </button>
+          ))}
+          {loopOn && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-warm-100 px-2.5 py-1 text-[11px] font-bold text-warm-700 dark:bg-warm-900 dark:text-warm-200">
+              <IconRotate size={12} />
+              <Ar>شادونج شغال — المشهد بيتعاد</Ar>
+            </span>
           )}
-          <span
-            className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-bold ${
-              loopOn ? 'bg-warm-100 text-warm-700 dark:bg-warm-900 dark:text-warm-200' : 'text-[var(--ink-faint)]'
-            }`}
-          >
-            <IconClock size={12} />
-            {loopOn ? (
-              <span className="tabular-nums" dir="ltr">
-                {fmt(ab.a!)} — {fmt(ab.b!)}
-              </span>
-            ) : (
-              <Ar>حلقة A-B</Ar>
-            )}
-          </span>
         </div>
-
-        {loopOn && (
-          <p className="rounded-lg border border-warm-200 bg-warm-50 px-3 py-2 text-[12.5px] leading-relaxed text-warm-800 dark:border-warm-900 dark:bg-warm-950 dark:text-warm-200">
-            <Ar>
-              الحلقة شغّالة — الجزء من {fmt(ab.a!)} ل {fmt(ab.b!)} هيتعاد لوحده لحد ما تدوس «إلغاء الحلقة». مثالي لتمشيط
-              جملة صعبة.
-            </Ar>
-          </p>
-        )}
       </div>
 
-      {lines.length > 0 ? (
+      {scenes.length > 0 ? (
         <section className="space-y-2.5">
           <h2 className="flex items-center gap-2 text-sm font-bold text-[var(--ink)]">
             <span className="grid size-7 place-items-center rounded-md bg-brand-600 text-white">
               <IconList size={14} />
             </span>
-            <Ar>سطور الشادونج ({lines.length})</Ar>
+            <Ar>مشاهد ومواقف ({scenes.length})</Ar>
             <span className="text-[11px] font-normal text-[var(--ink-faint)]">
-              <Ar>اللي بيظهر ملوّن هو اللي الفيديو واقف عنده</Ar>
+              <Ar>اضغط «شادونج» على أي موقف — المشهد هيتعاد تلقائيًا ورا ما تردد</Ar>
             </span>
           </h2>
-          {lines.map((line, i) => {
+          {scenes.map((s, i) => {
             const active = i === activeIdx
-            const openMic = micLine === line.en
-            const next = i + 1 < lines.length ? lines[i + 1] : null
+            const playingHere = active && playing
+            const openMic = micIdx === i
             return (
               <div
                 key={i}
-                className={`rounded-xl border p-3.5 transition-colors ${
-                  active
-                    ? 'border-brand-400 bg-brand-50/70 dark:border-brand-700 dark:bg-brand-950/50'
-                    : 'border-[var(--line)] bg-[var(--surface)]'
+                className={`rounded-xl border p-4 transition-colors ${
+                  active ? 'border-brand-400 bg-brand-50/70 dark:border-brand-700 dark:bg-brand-950/50' : 'border-[var(--line)] bg-[var(--surface)]'
                 }`}
               >
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="grid size-6 place-items-center rounded-md bg-[var(--line)] font-mono text-[11px] font-bold tabular-nums text-[var(--ink-soft)]">
-                        {i + 1}
-                      </span>
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[var(--line)] px-2 py-0.5 font-mono text-[11px] tabular-nums text-[var(--ink-soft)]">
-                        <IconClock size={10} />
-                        {fmt(line.time)}
-                      </span>
-                      {line.ar && (
-                        <Ar className="text-[13px] font-medium text-[var(--ink-faint)]">{line.ar}</Ar>
-                      )}
-                    </div>
-                    <p className="mt-1.5 text-[15px] font-semibold leading-relaxed">{line.en}</p>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="grid size-6 place-items-center rounded-md bg-[var(--line)] font-mono text-[11px] font-bold tabular-nums text-[var(--ink-soft)]">
+                      {i + 1}
+                    </span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[var(--line)] px-2 py-0.5 font-mono text-[11px] tabular-nums text-[var(--ink-soft)]">
+                      <IconClock size={10} />
+                      {fmt(s.time)}
+                    </span>
                   </div>
-                  <div className="flex shrink-0 flex-wrap items-center gap-1.5">
+                  <div className="flex items-center gap-1.5">
                     <button
                       type="button"
-                      onClick={() => {
-                        const v = videoRef.current
-                        if (!v) return
-                        v.currentTime = line.time
-                        setT(line.time)
-                        void v.play()
-                        setPlaying(true)
-                      }}
-                      className="inline-flex items-center gap-1 rounded-full border border-brand-300 bg-brand-50 px-2.5 py-1 text-[11px] font-bold text-brand-800 transition-colors hover:bg-brand-100 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-200"
-                    >
-                      <IconPlay size={11} /> <Ar>كرر</Ar>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => say(line.en)}
-                      className="inline-flex items-center gap-1 rounded-full border border-[var(--line-strong)] px-2.5 py-1 text-[11px] font-semibold text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700"
-                      aria-label="اسمع الجملة"
-                    >
-                      <IconVolume size={12} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setMicLine(line.en)
-                        setPlaying(false)
-                        videoRef.current?.pause()
-                      }}
-                      className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] font-bold transition-colors ${
-                        openMic
-                          ? 'border-brand-500 bg-brand-600 text-white'
-                          : 'border-[var(--line-strong)] bg-[var(--bg)] text-[var(--ink-soft)] hover:border-brand-400 hover:text-brand-700'
+                      onClick={() => startShadowing(i)}
+                      className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold transition-colors ${
+                        active
+                          ? 'border border-warm-500 bg-warm-500 text-white hover:bg-warm-600'
+                          : 'bg-brand-600 text-white hover:bg-brand-700'
                       }`}
                     >
-                      <IconMic size={12} /> {openMic ? <Ar>سداد</Ar> : <Ar>امتحن نطقك</Ar>}
+                      {active ? <IconRotate size={14} /> : <IconPlay size={14} />}
+                      {active ? <Ar>وقّف الشادونج</Ar> : <Ar>شادونج</Ar>}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (videoRef.current) videoRef.current.pause()
+                        setPlaying(false)
+                        setMicIdx(openMic ? null : i)
+                      }}
+                      className={`inline-flex items-center gap-1 rounded-full border px-3 py-2 text-xs font-bold transition-colors ${
+                        openMic
+                          ? 'border-accent-500 bg-accent-600 text-white'
+                          : 'border-[var(--line-strong)] bg-[var(--bg)] text-[var(--ink-soft)] hover:border-accent-400 hover:text-accent-700'
+                      }`}
+                    >
+                      <IconMic size={13} /> {openMic ? <Ar>سداد</Ar> : <Ar>سجّل</Ar>}
                     </button>
                   </div>
                 </div>
-                <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => replayLine(line, i)}
-                    className="inline-flex items-center gap-1 rounded-full border border-warm-200 bg-warm-50 px-2.5 py-1 text-[11px] font-bold text-warm-700 transition-colors hover:bg-warm-100 dark:border-warm-900 dark:bg-warm-950 dark:text-warm-300"
-                  >
-                    <IconRotate size={11} /> <Ar>كررها كحلقة</Ar>
-                  </button>
-                  {next && (
-                    <span className="text-[11px] text-[var(--ink-faint)]">
-                      <Ar>حتى</Ar> {fmt(next.time)}
-                    </span>
-                  )}
-                </div>
-                {openMic && <div className="mt-3"><LineScorer text={line.en} onClose={() => setMicLine(null)} /></div>}
+                <p className="mt-2.5 text-[16px] font-bold leading-relaxed">{s.en}</p>
+                {s.ar && <Ar className="mt-1 block text-[13.5px] leading-snug text-[var(--ink-faint)]">{s.ar}</Ar>}
+                {active && (
+                  <p className="pop mt-2 inline-flex items-center gap-1.5 rounded-lg bg-warm-100 px-3 py-1.5 text-[12px] font-bold text-warm-700 dark:bg-warm-900 dark:text-warm-200">
+                    <IconRotate size={13} />
+                    {playingHere ? (
+                      <Ar>هي شغّالة — كرر وراها بصوتك، وبعدين دوس «سجّل»</Ar>
+                    ) : (
+                      <Ar>اضغط تشغيل فوق على الفيديو — وهيتعاد من بداية المشهد</Ar>
+                    )}
+                  </p>
+                )}
+                {openMic && (
+                  <div className="mt-3">
+                    <LineScorer text={s.en} onClose={() => setMicIdx(null)} />
+                  </div>
+                )}
               </div>
             )
           })}
@@ -807,17 +674,14 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
       ) : (
         <section className="space-y-3 rounded-2xl border border-dashed border-brand-300 bg-brand-50/50 p-5 dark:border-brand-800 dark:bg-brand-950/40">
           <p className="text-sm font-bold text-brand-800 dark:text-brand-200" dir="rtl" lang="ar">
-            مفيش نص حوار جاهز للمقطع ده
+            لسه مفيش مشاهد مضافين للمقطع ده
           </p>
-          <ul className="list-none space-y-1.5 text-[13.5px] leading-relaxed text-[var(--ink-soft)]" dir="rtl" lang="ar">
-            <li>· شغّل الفيديو ووقف عند جملة عايز تتمرن عليها.</li>
-            <li>· دوس «ضبط A» عند بدايتها و«ضبط B» عند نهايتها — هتتكرر لوحدها.</li>
-            <li>· كرر وراها كذا مرة، وبعدين جرّب تحكيها ورا الستارة.</li>
-          </ul>
+          <p className="text-[13.5px] leading-relaxed text-[var(--ink-soft)]" dir="rtl" lang="ar">
+            اضغط على أي جملة في الفيديو ووقّف، قرب بالشريط وسمّع نفسك، وكرر وراها. ولما أبعت لك الكرتون أو الليست
+            بتاعتك، هنضيف المشاهد بسطورها ومواقيتها هنا وكل موقف هيكون له زرار الشادونج بتاعه.
+          </p>
           <p className="text-[12px] leading-relaxed text-[var(--ink-faint)]" dir="rtl" lang="ar">
-            لو عايز سطور الحوار تظهر هنا تلقائيًا، ضيفها في الملف{' '}
-            <code className="rounded bg-[var(--line)] px-1.5 py-0.5 font-mono text-[11px]">src/content/shadowing.ts</code>{' '}
-            تحت المقطع ده، ومثال جاهز معلّق في آخر الملف.
+            لو عايز تضيفهم بنفسك: حط الـ mp4 في <code className="rounded bg-[var(--line)] px-1.5 py-0.5 font-mono text-[11px]">public/videos/</code> وضيف المشاهد في <code className="rounded bg-[var(--line)] px-1.5 py-0.5 font-mono text-[11px]">src/content/shadowing.ts</code>.
           </p>
         </section>
       )}
@@ -858,8 +722,7 @@ export default function ShadowingPage() {
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-[var(--ink-soft)]">
               <Ar>
-                اختار فيديو، اسمعه جمله جمله، قف عند اللي صعبة عليك، وكررها وراء الستارة لحد ما لسانك يتروس عليها —
-                طريقه بتحسس النطق والسرعة وطريقة نطق الكلام الطبيعي.
+                كل فيديو مقسّم لمشاهد ومواقف، كل موقف له سطر الحوار بتاعه وزر «شادونج» يكرّره ورا ما تردد وراه بصوتك.
               </Ar>
             </p>
           </header>
