@@ -22,7 +22,50 @@ function Ar({ children, className = '' }: { children: React.ReactNode; className
   )
 }
 
-function sayWord(word: string) {
+interface SpeechSettings {
+  accent: 'en-GB' | 'en-US'
+  rate: number
+}
+
+const SPEECH_DEFAULT: SpeechSettings = { accent: 'en-GB', rate: 0.9 }
+const SPEECH_STORAGE_KEY = 'review-speech-settings'
+
+const ACCENTS = [
+  { id: 'en-GB', label: 'بريطاني' },
+  { id: 'en-US', label: 'أمريكي' },
+] as const
+
+const SPEEDS = [
+  { id: 'slow', label: 'بطيء', rate: 0.6 },
+  { id: 'normal', label: 'عادي', rate: 0.9 },
+  { id: 'fast', label: 'سريع', rate: 1.3 },
+] as const
+
+function loadSpeech(): SpeechSettings {
+  try {
+    const raw = window.localStorage.getItem(SPEECH_STORAGE_KEY)
+    if (raw) {
+      const parsed = JSON.parse(raw) as Partial<SpeechSettings>
+      return {
+        accent: parsed.accent === 'en-US' ? 'en-US' : 'en-GB',
+        rate: typeof parsed.rate === 'number' ? parsed.rate : SPEECH_DEFAULT.rate,
+      }
+    }
+  } catch {
+    /* ignore */
+  }
+  return SPEECH_DEFAULT
+}
+
+function saveSpeech(settings: SpeechSettings) {
+  try {
+    window.localStorage.setItem(SPEECH_STORAGE_KEY, JSON.stringify(settings))
+  } catch {
+    /* ignore */
+  }
+}
+
+function sayWord(word: string, settings: SpeechSettings) {
   if (!('speechSynthesis' in window) || !word.trim()) return
   const synth = window.speechSynthesis
   synth.cancel()
@@ -35,11 +78,11 @@ function sayWord(word: string) {
 
   const makeUtterance = (text: string) => {
     const u = new SpeechSynthesisUtterance(text)
-    u.lang = 'en-GB'
-    u.rate = 0.9
+    u.lang = settings.accent
+    u.rate = settings.rate
     const voices = synth.getVoices()
     const voice =
-      voices.find((v) => v.lang.toLowerCase().startsWith('en-gb')) ??
+      voices.find((v) => v.lang.toLowerCase().startsWith(settings.accent.toLowerCase())) ??
       voices.find((v) => v.lang.toLowerCase().startsWith('en'))
     if (voice) u.voice = voice
     return u
@@ -57,6 +100,67 @@ function sayWord(word: string) {
   }
 
   speakNext(0)
+}
+
+function SpeechControls({
+  settings,
+  onChange,
+}: {
+  settings: SpeechSettings
+  onChange: (next: SpeechSettings) => void
+}) {
+  return (
+    <div className="mx-auto flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2.5 rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 shadow-sm">
+      <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">
+        <IconVolume size={13} />
+        <Ar className="!tracking-normal">النطق</Ar>
+      </span>
+
+      <span className="inline-flex items-center gap-1.5" role="group" aria-label="اللكنة">
+        <Ar className="text-xs font-semibold text-[var(--ink-soft)]">اللكنة:</Ar>
+        {ACCENTS.map((a) => {
+          const active = settings.accent === a.id
+          return (
+            <button
+              key={a.id}
+              type="button"
+              onClick={() => onChange({ ...settings, accent: a.id })}
+              aria-pressed={active}
+              className={`rounded-full border px-3 py-1 text-xs font-bold transition-colors ${
+                active
+                  ? 'border-brand-500 bg-brand-600 text-white'
+                  : 'border-[var(--line-strong)] bg-[var(--bg)] text-[var(--ink-soft)] hover:border-brand-400'
+              }`}
+            >
+              {a.label}
+            </button>
+          )
+        })}
+      </span>
+
+      <span className="inline-flex items-center gap-1.5" role="group" aria-label="السرعة">
+        <Ar className="text-xs font-semibold text-[var(--ink-soft)]">السرعة:</Ar>
+        {SPEEDS.map((s) => {
+          const active = settings.rate === s.rate
+          return (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => onChange({ ...settings, rate: s.rate })}
+              aria-pressed={active}
+              className={`rounded-full border px-3 py-1 text-xs font-bold transition-colors ${
+                active
+                  ? 'border-accent-500 bg-accent-600 text-white'
+                  : 'border-[var(--line-strong)] bg-[var(--bg)] text-[var(--ink-soft)] hover:border-accent-400'
+              }`}
+            >
+              {s.label}
+            </button>
+          )
+        })}
+      </span>
+    </div>
+  )
 }
 
 function Tabs({ tab, onChange }: { tab: Tab; onChange: (t: Tab) => void }) {
@@ -102,7 +206,7 @@ function Tabs({ tab, onChange }: { tab: Tab; onChange: (t: Tab) => void }) {
   )
 }
 
-function VocabTable({ table }: { table: ReviewVocabTable }) {
+function VocabTable({ table, onSpeak }: { table: ReviewVocabTable; onSpeak: (word: string) => void }) {
   const lastIsExample = /مثال/.test(table.headers[table.headers.length - 1] ?? '')
   return (
     <div className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] shadow-sm">
@@ -129,7 +233,7 @@ function VocabTable({ table }: { table: ReviewVocabTable }) {
                       <td key={j} className="align-top">
                         <button
                           type="button"
-                          onClick={() => sayWord(cell)}
+                          onClick={() => onSpeak(cell)}
                           title="اضغط للاستماع"
                           aria-label={`استمع إلى ${cell}`}
                           className="group/word inline-flex max-w-full items-center gap-1.5 text-left font-semibold text-brand-800 underline-offset-4 hover:underline dark:text-brand-200"
@@ -164,29 +268,191 @@ function VocabTable({ table }: { table: ReviewVocabTable }) {
   )
 }
 
-function VocabPart() {
+function MemoryCards({
+  tables,
+  onSpeak,
+}: {
+  tables: ReviewVocabTable[]
+  onSpeak: (word: string) => void
+}) {
+  const [revealed, setRevealed] = useState<Set<string>>(new Set())
+
+  const total = tables.reduce((acc, t) => acc + t.rows.filter((r) => r.length > 0 && r[0].trim()).length, 0)
+  const known = revealed.size
+
+  const toggle = (key: string) => {
+    setRevealed((prev) => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+  }
+
+  return (
+    <section className="fade-up space-y-4">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        <p className="text-xs text-[var(--ink-faint)]">
+          <Ar className="!text-[13px]">
+            اقرأ الكلمة من غير ما تشوف الترجمة، وحاول تتذكر معناها، وبعدين اضغط على الكارت تكتشفها بنفسك.
+          </Ar>
+        </p>
+        <span
+          className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+            known === total && total > 0
+              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300'
+              : 'bg-[var(--line)]'
+          }`}
+        >
+          {known}/{total} {known === total && total > 0 ? '\u2713' : ''}
+        </span>
+      </div>
+
+      {tables.map((t, ti) => (
+        <div key={ti} className="space-y-2">
+          <h4 className="flex items-center gap-2 text-[13px] font-bold text-[var(--ink-soft)]">
+            <span className="h-3.5 w-1 rounded-full bg-gradient-to-b from-accent-500 to-brand-500" />
+            <Ar>{t.title}</Ar>
+          </h4>
+          <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+            {t.rows.map((row, ri) => {
+              if (row.length === 0 || !row[0].trim()) return null
+              const key = `${ti}-${ri}`
+              const examplePos = t.headers.findIndex((h) => /مثال/.test(h)) - 1
+              const open = revealed.has(key)
+              const primary = row[0]
+              const details = row.slice(1)
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => toggle(key)}
+                  aria-pressed={open}
+                  className={`flex min-h-28 flex-col justify-between gap-2 rounded-xl border p-3.5 text-left transition-all ${
+                    open
+                      ? 'border-brand-400 bg-brand-50/70 dark:border-brand-700 dark:bg-brand-950/40'
+                      : 'border-[var(--line)] bg-[var(--surface)] hover:border-brand-300 hover:shadow-sm'
+                  }`}
+                >
+                  <span className="flex min-w-0 items-start justify-between gap-2">
+                    {hasArabic(primary) ? (
+                      <Ar className="text-[15px] font-bold text-brand-800 dark:text-brand-200">{primary}</Ar>
+                    ) : (
+                      <span className="inline-flex items-center gap-2">
+                        <span className="min-w-0 text-[15px] font-bold text-brand-800 dark:text-brand-200">
+                          {primary}
+                        </span>
+                        <span
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            onSpeak(primary)
+                          }}
+                          className="grid size-6 shrink-0 place-items-center rounded-md text-brand-500 opacity-50 transition-opacity hover:bg-[var(--line)] hover:opacity-100 dark:text-brand-300"
+                          aria-label={`استمع إلى ${primary}`}
+                        >
+                          <IconVolume size={13} />
+                        </span>
+                      </span>
+                    )}
+                  </span>
+                  {open ? (
+                    <span className="pop space-y-1.5">
+                      {details.map((d, k) => {
+                        if (hasArabic(d)) {
+                          return (
+                            <Ar key={k} className="block text-[13.5px] leading-snug text-[var(--ink)]">
+                              {d}
+                            </Ar>
+                          )
+                        }
+                        if (k === examplePos) {
+                          return (
+                            <em key={k} className="block text-[12px] italic text-[var(--ink-faint)]">
+                              {'\u201c'}
+                              {d}
+                              {'\u201d'}
+                            </em>
+                          )
+                        }
+                        return (
+                          <span key={k} className="block text-[13.5px] leading-snug text-[var(--ink)]">
+                            {d}
+                          </span>
+                        )
+                      })}
+                    </span>
+                  ) : (
+                    <span aria-hidden className="block text-[13px] font-bold tracking-[0.3em] text-[var(--ink-faint)]">
+                      {'\u00b7'} {'\u00b7'} {'\u00b7'}
+                    </span>
+                  )}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      ))}
+    </section>
+  )
+}
+
+function VocabPart({ onSpeak }: { onSpeak: (word: string) => void }) {
+  const [cardsMode, setCardsMode] = useState(false)
+
   return (
     <div className="fade-up space-y-10">
+      <div className="mx-auto -mb-4 flex w-fit items-center gap-2 rounded-full border border-[var(--line-strong)] bg-[var(--surface)] p-1 shadow-sm">
+        <button
+          type="button"
+          onClick={() => setCardsMode(false)}
+          aria-pressed={!cardsMode}
+          className={`rounded-full px-3.5 py-1.5 text-xs font-bold transition-colors ${
+            !cardsMode ? 'bg-brand-600 text-white' : 'text-[var(--ink-soft)] hover:text-[var(--ink)]'
+          }`}
+        >
+          <Ar>الجداول</Ar>
+        </button>
+        <button
+          type="button"
+          onClick={() => setCardsMode(true)}
+          aria-pressed={cardsMode}
+          className={`rounded-full px-3.5 py-1.5 text-xs font-bold transition-colors ${
+            cardsMode ? 'bg-accent-600 text-white' : 'text-[var(--ink-soft)] hover:text-[var(--ink)]'
+          }`}
+        >
+          <Ar>كروت الذاكرة</Ar>
+        </button>
+      </div>
+
       <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-[var(--ink-soft)]">
-        <Ar>كل جدول بيمثل مجموعة كلمات من الكتاب: الكلمة، ترجمتها بالعربي، ومثال من الدرس.</Ar>
+        {cardsMode ? (
+          <Ar>حاول تسترجع معنى كل كلمة بنفسك قبل ما تكشفه — اضغط على الكارت.</Ar>
+        ) : (
+          <Ar>كل جدول بيمثل مجموعة كلمات من الكتاب: الكلمة، ترجمتها بالعربي، ومثال من الدرس.</Ar>
+        )}
       </p>
+
       {REVIEW_VOCAB.map((group) => (
         <section key={group.unit} className="space-y-6">
           <h2 className="display flex items-baseline gap-3 text-2xl tracking-tight">
             <Ar className="shrink-0!">{group.unit}</Ar>
             <span className="h-px flex-1 bg-gradient-to-r from-brand-400/60 to-transparent" aria-hidden />
           </h2>
-          <div className="space-y-5">
-            {group.tables.map((t, j) => (
-              <div key={j}>
-                <h3 className="mb-2 flex items-center gap-2 text-[15px] font-bold">
-                  <span className="h-4 w-1 rounded-full bg-gradient-to-b from-accent-500 to-brand-500" />
-                  <Ar>{t.title}</Ar>
-                </h3>
-                <VocabTable table={t} />
-              </div>
-            ))}
-          </div>
+          {cardsMode ? (
+            <MemoryCards tables={group.tables} onSpeak={onSpeak} />
+          ) : (
+            <div className="space-y-5">
+              {group.tables.map((t, j) => (
+                <div key={j}>
+                  <h3 className="mb-2 flex items-center gap-2 text-[15px] font-bold">
+                    <span className="h-4 w-1 rounded-full bg-gradient-to-b from-accent-500 to-brand-500" />
+                    <Ar>{t.title}</Ar>
+                  </h3>
+                  <VocabTable table={t} onSpeak={onSpeak} />
+                </div>
+              ))}
+            </div>
+          )}
         </section>
       ))}
     </div>
@@ -417,10 +683,18 @@ function QuizPart() {
 
 export default function ReviewPage() {
   const [tab, setTab] = useState<Tab>('vocab')
+  const [speech, setSpeech] = useState<SpeechSettings>(() => loadSpeech())
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [tab])
+
+  const handleSpeech = (next: SpeechSettings) => {
+    setSpeech(next)
+    saveSpeech(next)
+  }
+
+  const onSpeak = (word: string) => sayWord(word, speech)
 
   return (
     <div className="fade-up mx-auto max-w-4xl space-y-8">
@@ -451,8 +725,10 @@ export default function ReviewPage() {
 
       <Tabs tab={tab} onChange={setTab} />
 
+      <SpeechControls settings={speech} onChange={handleSpeech} />
+
       <div key={tab}>
-        {tab === 'vocab' ? <VocabPart /> : tab === 'grammar' ? <GrammarPart /> : <QuizPart />}
+        {tab === 'vocab' ? <VocabPart onSpeak={onSpeak} /> : tab === 'grammar' ? <GrammarPart /> : <QuizPart />}
       </div>
     </div>
   )
