@@ -24,16 +24,39 @@ function Ar({ children, className = '' }: { children: React.ReactNode; className
 
 function sayWord(word: string) {
   if (!('speechSynthesis' in window) || !word.trim()) return
-  window.speechSynthesis.cancel()
-  const u = new SpeechSynthesisUtterance(word)
-  u.lang = 'en-GB'
-  u.rate = 0.9
-  const voices = window.speechSynthesis.getVoices()
-  const voice =
-    voices.find((v) => v.lang.toLowerCase().startsWith('en-gb')) ??
-    voices.find((v) => v.lang.toLowerCase().startsWith('en'))
-  if (voice) u.voice = voice
-  window.speechSynthesis.speak(u)
+  const synth = window.speechSynthesis
+  synth.cancel()
+
+  const parts = word
+    .split('/')
+    .map((s) => s.trim())
+    .filter(Boolean)
+  const texts = parts.length > 0 ? parts : [word.trim()]
+
+  const makeUtterance = (text: string) => {
+    const u = new SpeechSynthesisUtterance(text)
+    u.lang = 'en-GB'
+    u.rate = 0.9
+    const voices = synth.getVoices()
+    const voice =
+      voices.find((v) => v.lang.toLowerCase().startsWith('en-gb')) ??
+      voices.find((v) => v.lang.toLowerCase().startsWith('en'))
+    if (voice) u.voice = voice
+    return u
+  }
+
+  const speakNext = (i: number) => {
+    if (i >= texts.length) return
+    const u = makeUtterance(texts[i])
+    const next = () => {
+      if (i + 1 < texts.length) window.setTimeout(() => speakNext(i + 1), 200)
+    }
+    u.onend = next
+    u.onerror = next
+    synth.speak(u)
+  }
+
+  speakNext(0)
 }
 
 function Tabs({ tab, onChange }: { tab: Tab; onChange: (t: Tab) => void }) {
