@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SHADOWING_CLIPS, getShadowClip, type ShadowClip, type ShadowKind } from '../content/shadowing'
 import { HT_DIALOGUE } from '../content/ht-dialogue'
+import { HT_PARTS_DIALOGUE } from '../content/ht-parts-dialogue'
 import { videoSrc } from '../lib/videos'
 import { playSound } from '../lib/sounds'
 import {
@@ -589,7 +590,7 @@ const KIND_META: Record<ShadowKind, { label: string; chip: string; dot: string }
 
 function ClipCard({ clip, onOpen }: { clip: ShadowClip; onOpen: () => void }) {
   const meta = KIND_META[clip.kind]
-  const sceneCount = clip.scenes?.length ?? HT_DIALOGUE[clip.id]?.length ?? 0
+  const sceneCount = clip.scenes?.length ?? HT_DIALOGUE[clip.id]?.length ?? HT_PARTS_DIALOGUE[clip.id]?.length ?? 0
   return (
     <button
       type="button"
@@ -675,9 +676,8 @@ function Library({ onOpen }: { onOpen: (id: string) => void }) {
         <SectionTitle label="بلاي ليست: Hotel Transylvania 2012 (فيلم كامل بالانجليزي)" count={parts.length + extras.length} />
         <p className="text-[13px] leading-relaxed text-[var(--ink-soft)]" dir="rtl" lang="ar">
           الفيلم كامل مقسّم لأجزاء على يوتيوب — بيشتغلوا مباشرة هنا من غير أي ملفات، وكل جزء مفتوح في الاستوديو.
-          ملحوظة: أجزاء الفيلم الـ50 معمولة على يوتيوب من غير ترجمة/نص إنجليزي أصلاً، فأنا مبقدرش أطلعه لوحدي —
-          ابعتلي نص الكلام (حتى من غير توقيتات، أو ملف ترجمة srt) وأنا أظبطه سطر سطر على الفيديو.
-          المقاطع القصيرة اللي ‏«كل سطر ديالوج متزامن»‏ ظاهر عليها: الديالوج جاهز وماشي مع الفيديو من دلوقتي.
+          توقيت الديالوج اتعمل تلقائيًا لكل الأجزاء (تعرف على الكلام على صوت المقطع نفسه)، فمشي مع الفيديو من أول جزء لآخره.
+          الملاحظة الوحيدة: النص ده ناتج تلقائيًا ففيه أخطاء إملائية عادية — حقه نيلعّل عليه لاحقًا إن استدعى الأمر.
         </p>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {parts.map((c) => (
@@ -710,7 +710,7 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
   const [userLoop, setUserLoop] = useState<{ a: number; b: number } | null>(null)
   const meta = KIND_META[clip.kind]
 
-  const scenes = (clip.scenes ?? HT_DIALOGUE[clip.id]) ?? []
+  const scenes = (clip.scenes ?? HT_DIALOGUE[clip.id] ?? HT_PARTS_DIALOGUE[clip.id]) ?? []
   const loopOn = activeIdx !== null || userLoop !== null
   const setBridge = (b: MediaBridge | null) => {
     bridgeRef.current = b
@@ -804,7 +804,7 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
     bridgeRef.current?.setRate(v)
   }
 
-  const hasDialogue = !!HT_DIALOGUE[clip.id]
+  const hasDialogue = !!HT_DIALOGUE[clip.id] || !!HT_PARTS_DIALOGUE[clip.id]
   const currRef = useRef<HTMLDivElement | null>(null)
   let currIdx: number | null = null
   for (let i = 0; i < scenes.length; i++) {
