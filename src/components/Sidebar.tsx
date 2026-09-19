@@ -40,6 +40,25 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         Open the full contents of this course, unit by unit.
       </NavLink>
 
+      <NavLink
+        to="/review"
+        onClick={onNavigate}
+        className={({ isActive }) =>
+          `mb-4 block rounded-lg px-2.5 py-1.5 transition-colors ${
+            isActive
+              ? 'bg-warm-50 text-warm-800 dark:bg-warm-950 dark:text-warm-200'
+              : 'text-warm-600 hover:text-warm-700 dark:text-warm-300 dark:hover:text-warm-200'
+          }`
+        }
+      >
+        <span className="block text-[13px] font-bold leading-snug" dir="rtl" lang="ar">
+          المراجعة الشاملة
+        </span>
+        <span className="block text-[12px] leading-snug opacity-80">
+          Vocab tables · grammar · 25-question quiz
+        </span>
+      </NavLink>
+
       <div className="space-y-5">
         {BOOK.units.map((unit) => {
           const quiz = getUnitQuiz(unit.id)

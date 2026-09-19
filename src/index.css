@@ -327,6 +327,22 @@ h1, h2, h3, h4 {
   background: color-mix(in srgb, var(--color-rose-900) 40%, transparent);
 }
 
+/* ---------- Arabic text ---------- */
+.ar {
+  direction: rtl;
+  unicode-bidi: isolate;
+  text-align: right;
+  font-family: "Segoe UI", "Tahoma", "Arial", ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.7;
+}
+.content-table .ar {
+  font-size: 0.85rem;
+}
+.content-table th .ar,
+.content-table th.ar {
+  font-size: 0.72rem;
+}
+
 /* ---------- Content tables ---------- */
 .content-table {
   width: 100%;

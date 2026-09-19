@@ -123,6 +123,29 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ---- Review banner ---- */}
+      <section className="mx-auto max-w-2xl">
+        <Link
+          to="/review"
+          className="group flex items-center gap-4 rounded-2xl border border-warm-200 bg-gradient-to-r from-warm-50 to-brand-50 p-5 shadow-sm transition-all hover:shadow-md dark:border-warm-900 dark:from-warm-950/60 dark:to-brand-950/60"
+        >
+          <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-brand-600 text-xl text-white">
+            <IconLayers size={22} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-lg font-bold tracking-tight text-brand-800 dark:text-brand-200" dir="rtl" lang="ar">
+              المراجعة الشاملة
+            </span>
+            <span className="block text-[13px] leading-snug text-[var(--ink-soft)]" dir="rtl" lang="ar">
+              كلمات في جداول بالعربي وأمثلة · ملخص الجرامر · كويز 25 سؤال بتصحيح فوري
+            </span>
+          </span>
+          <span className="shrink-0 rounded-full bg-brand-600 px-3 py-1.5 text-xs font-bold text-white transition-transform group-hover:translate-x-0.5">
+            افتح الصفحة
+          </span>
+        </Link>
+      </section>
+
       {/* ---- 2. The line: the whole course as one ride ---- */}
       <section>
         <LineMap />
