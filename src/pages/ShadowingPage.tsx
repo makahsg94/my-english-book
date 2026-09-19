@@ -958,6 +958,11 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
               </>
             )}
           </div>
+          {currIdx !== null && micIdx === currIdx && (
+            <div className="mt-3">
+              <LineScorer text={scenes[currIdx].en} onClose={() => setMicIdx(null)} />
+            </div>
+          )}
         </div>
       )}
 
