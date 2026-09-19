@@ -806,6 +806,7 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
 
   const hasDialogue = !!HT_DIALOGUE[clip.id] || !!HT_PARTS_DIALOGUE[clip.id]
   const currRef = useRef<HTMLDivElement | null>(null)
+  const listBoxRef = useRef<HTMLDivElement | null>(null)
   let currIdx: number | null = null
   for (let i = 0; i < scenes.length; i++) {
     if (t >= scenes[i].time && t < endOf(i)) {
@@ -814,7 +815,18 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
     }
   }
   useEffect(() => {
-    currRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+    const box = listBoxRef.current
+    const item = currRef.current
+    if (!box || !item) return
+    const pad = 8
+    const rel = item.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop
+    const top = rel
+    const bottom = rel + item.offsetHeight
+    if (top - pad < box.scrollTop) {
+      box.scrollTop = Math.max(0, top - pad)
+    } else if (bottom + pad > box.scrollTop + box.clientHeight) {
+      box.scrollTop = bottom + pad - box.clientHeight
+    }
   }, [currIdx])
 
   const startCurrent = () => {
@@ -890,6 +902,16 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
           >
             {currIdx !== null ? scenes[currIdx].en : '\u00A0'}
           </p>
+          {currIdx !== null && scenes[currIdx].ar ? (
+            <p
+              dir="rtl"
+              lang="ar"
+              className="ar mt-1 text-center text-[15px] font-semibold leading-6 text-white/90"
+              style={{ textShadow: '0 1px 3px rgba(0,0,0,.55)' }}
+            >
+              {scenes[currIdx].ar}
+            </p>
+          ) : null}
           <div className="mt-2.5 flex items-center justify-center gap-2">
             {currIdx !== null && (
               <>
@@ -983,7 +1005,8 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
             </span>
             <Ar>مشاهد ومواقف ({scenes.length})</Ar>
           </h2>
-          {scenes.map((s, i) => {
+          <div ref={listBoxRef} className="max-h-[42vh] space-y-2.5 overflow-y-auto pr-1 scrollbar-thin sm:max-h-[22rem]">
+            {scenes.map((s, i) => {
             const active = i === activeIdx
             const current = i === currIdx
             const openMic = micIdx === i
@@ -1057,6 +1080,7 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
               </div>
             )
           })}
+          </div>
         </section>
       ) : (
         <section className="space-y-3 rounded-2xl border border-dashed border-brand-300 bg-brand-50/50 p-5 dark:border-brand-800 dark:bg-brand-950/40">
