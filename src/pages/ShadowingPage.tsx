@@ -109,41 +109,122 @@ function matchWords(targetWords: string[], saidWords: string[]) {
   })
 }
 
+interface WhisperLike {
+  (audio: Float32Array, options: Record<string, unknown>): Promise<{ text?: string }>
+}
+
+let whisperLoading: Promise<WhisperLike> | null = null
+
+async function getWhisperTranscriber(): Promise<WhisperLike> {
+  if (!whisperLoading) {
+    whisperLoading = (async () => {
+      const mod = await import('@xenova/transformers')
+      mod.env.allowLocalModels = false
+      const p = await mod.pipeline('automatic-speech-recognition', 'Xenova/whisper-tiny.en')
+      return p as unknown as WhisperLike
+    })().catch((err) => {
+      whisperLoading = null
+      throw err
+    })
+  }
+  return whisperLoading
+}
+
+function pickAudioMimeType(): string | null {
+  if (typeof MediaRecorder === 'undefined') return null
+  for (const t of ['audio/webm;codecs=opus', 'audio/mp4', 'audio/webm']) {
+    if (MediaRecorder.isTypeSupported(t)) return t
+  }
+  return null
+}
+
+async function decodeTo16k(blob: Blob): Promise<Float32Array> {
+  const arr = await blob.arrayBuffer()
+  const Ctor = window.AudioContext ?? (window as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+  if (!Ctor) throw new Error('no-audio-context')
+  const ctx = new Ctor()
+  try {
+    const buf = await new Promise<AudioBuffer>((res, rej) => ctx.decodeAudioData(arr, res, rej))
+    const offline = new OfflineAudioContext(1, Math.max(1, Math.ceil(buf.duration * 16000)), 16000)
+    const src = offline.createBufferSource()
+    src.buffer = buf
+    src.connect(offline.destination)
+    src.start(0)
+    const out = await offline.startRendering()
+    return out.getChannelData(0).slice(0)
+  } finally {
+    try {
+      void ctx.close()
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
 function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
-  const supported = typeof window !== 'undefined' && !!recognitionCtor()
+  const [engine, setEngine] = useState<'web' | 'whisper'>(() =>
+    typeof window !== 'undefined' && !!recognitionCtor() ? 'web' : 'whisper',
+  )
   const [listening, setListening] = useState(false)
+  const [recording, setRecording] = useState(false)
+  const [working, setWorking] = useState<string | null>(null)
   const [result, setResult] = useState<{ ok: boolean[]; said: string } | null>(null)
   const [error, setError] = useState<string | null>(null)
   const recRef = useRef<SpeechRecognitionLike | null>(null)
+  const mediaRef = useRef<{ recorder: MediaRecorder; chunks: Blob[] } | null>(null)
 
   useEffect(
     () => () => {
-      if (recRef.current) recRef.current.abort()
+      if (recRef.current) {
+        try {
+          recRef.current.abort()
+        } catch {
+          /* ignore */
+        }
+      }
+      if (mediaRef.current) {
+        try {
+          mediaRef.current.recorder.stop()
+        } catch {
+          /* ignore */
+        }
+      }
     },
     [],
   )
 
-  if (!supported) {
-    return (
-      <div className="rounded-xl border border-brand-200 bg-brand-50/60 p-3.5 text-[13px] text-brand-800 dark:border-brand-800 dark:bg-brand-950/50 dark:text-brand-200">
-        <Ar>الميكروفون غير مدعوم في المتصفح ده — جرّب Google Chrome أو Edge.</Ar>
-      </div>
-    )
-  }
-
-  const stopListening = () => {
+  const stopWeb = () => {
     if (recRef.current) {
-      recRef.current.abort()
+      try {
+        recRef.current.abort()
+      } catch {
+        /* ignore */
+      }
       recRef.current = null
     }
     setListening(false)
   }
 
-  const record = () => {
+  const score = (said: string) => {
+    const target = wordsOf(text)
+    const saidW = wordsOf(said)
+    const ok = matchWords(target, saidW)
+    setResult({ ok, said })
+    const pct = ok.filter(Boolean).length / Math.max(1, target.length)
+    if (pct === 1) playSound('star')
+    else if (pct >= 0.5) playSound('echo')
+    else playSound('wrong')
+  }
+
+  const startWeb = () => {
     setError(null)
     setResult(null)
     const Ctor = recognitionCtor()
-    if (!Ctor) return
+    if (!Ctor) {
+      setEngine('whisper')
+      void startWhisper()
+      return
+    }
     const rec = new Ctor()
     recRef.current = rec
     rec.lang = 'en-GB'
@@ -151,29 +232,22 @@ function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
     rec.continuous = false
     rec.onresult = (e) => {
       const said = e.results[0]?.[0]?.transcript.trim() ?? ''
-      if (said) {
-        const target = wordsOf(text)
-        const saidW = wordsOf(said)
-        const ok = matchWords(target, saidW)
-        setResult({ ok, said })
-        const pct = ok.filter(Boolean).length / Math.max(1, target.length)
-        if (pct === 1) playSound('star')
-        else if (pct >= 0.5) playSound('echo')
-        else playSound('wrong')
-      }
+      recRef.current = null
       setListening(false)
+      if (said) score(said)
     }
     rec.onerror = (e) => {
+      recRef.current = null
       setListening(false)
-      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
-        setError('الميكروفون مقفول — اسمح بالوصول وحاول تاني.')
-      } else if (e.error === 'no-speech') {
-        setError('مش سمعنا حاجة — اضغط تسجيل وكرّر الجملة تاني.')
-      } else if (e.error === 'network') {
-        setError('خدمة الصوت مش متاحة — اتأكد من النت وجرّب تاني.')
-      } else {
-        setError('مقدرناش نسمعك بوضوح — جرّب تاني.')
+      if (e.error === 'network' || e.error === 'service-not-allowed') {
+        setError('خدمة الصوت في المتصفح مش متاحة هنا — هشغّللك المحرك المحلي، دقيقة واحد.')
+        setEngine('whisper')
+        void startWhisper()
+        return
       }
+      if (e.error === 'not-allowed') setError('الميكروفون مقفول — اسمح بالوصول وحاول تاني.')
+      else if (e.error === 'no-speech') setError('مش سمعنا حاجة — اضغط تسجيل وكرّر الجملة تاني.')
+      else setError('مقدرناش نسمعك بوضوح — جرّب تاني.')
     }
     setListening(true)
     try {
@@ -182,6 +256,93 @@ function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
       setListening(false)
       setError('مقدرناش نشغّل الميكروفون على الجهاز ده.')
     }
+  }
+
+  const finishWhisper = async (recorded: MediaRecorder, chunks: Blob[], stream: MediaStream) => {
+    try {
+      for (const t of stream.getTracks()) t.stop()
+    } catch {
+      /* ignore */
+    }
+    setRecording(false)
+    if (mediaRef.current?.recorder !== recorded) mediaRef.current = null
+    try {
+      const blob = new Blob(chunks, { type: recorded.mimeType || 'audio/webm' })
+      if (blob.size < 2000) {
+        setWorking(null)
+        setError('مش سمعنا حاجة — اضغط تسجيل وكرّر الجملة تاني.')
+        return
+      }
+      setWorking('بيفهم كلامك (محرك محلي)...')
+      const pcm = await decodeTo16k(blob)
+      const transcriber = await getWhisperTranscriber()
+      const out = await transcriber(pcm, { language: 'en' })
+      setWorking(null)
+      const said = (out?.text ?? '').trim()
+      if (said) score(said)
+      else setError('مش سمعنا حاجة — اضغط تسجيل وكرّر الجملة تاني.')
+    } catch {
+      setWorking(null)
+      setError('مقدرناش نفهم التسجيل ده — أول مرة ممكن تحتاج نت عشان تنزّل محرك النطق، وبعدها شغّال أوفلاين.')
+    }
+  }
+
+  const startWhisper = async () => {
+    setError(null)
+    setResult(null)
+    if (!navigator.mediaDevices?.getUserMedia) {
+      setError('المتصفح ده مش بيدعم التسجيل من الميكروفون — جرّب Google Chrome أو Edge الجديد.')
+      return
+    }
+    setWorking('بيبى السماح بالميكروفون...')
+    let stream: MediaStream
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+    } catch {
+      setWorking(null)
+      setError('الميكروفون مقفول — اسمح بالوصول وحاول تاني.')
+      return
+    }
+    const mime = pickAudioMimeType()
+    let recorder: MediaRecorder
+    try {
+      recorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream)
+    } catch {
+      recorder = new MediaRecorder(stream)
+    }
+    const chunks: Blob[] = []
+    recorder.ondataavailable = (e) => {
+      if (e.data && e.data.size) chunks.push(e.data)
+    }
+    recorder.onstop = () => {
+      void finishWhisper(recorder, chunks, stream)
+    }
+    mediaRef.current = { recorder, chunks }
+    recorder.start()
+    setWorking(null)
+    setRecording(true)
+  }
+
+  const toggleRec = () => {
+    if (working) return
+    if (listening) {
+      stopWeb()
+      return
+    }
+    if (recording) {
+      const m = mediaRef.current
+      mediaRef.current = null
+      if (m) {
+        try {
+          m.recorder.stop()
+        } catch {
+          /* ignore */
+        }
+      }
+      return
+    }
+    if (engine === 'web') startWeb()
+    else void startWhisper()
   }
 
   const target = wordsOf(text)
@@ -197,7 +358,18 @@ function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
         <button
           type="button"
           onClick={() => {
-            stopListening()
+            if (listening) stopWeb()
+            if (recording) {
+              const m = mediaRef.current
+              mediaRef.current = null
+              if (m) {
+                try {
+                  m.recorder.stop()
+                } catch {
+                  /* ignore */
+                }
+              }
+            }
             onClose()
           }}
           className="rounded-full p-1 text-[var(--ink-faint)] transition-colors hover:bg-[var(--line)] hover:text-[var(--ink)]"
@@ -216,17 +388,29 @@ function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
         </button>
         <button
           type="button"
-          onClick={listening ? stopListening : record}
+          onClick={toggleRec}
           className={`inline-flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
-            listening
+            listening || recording
               ? 'border-rose-400 bg-rose-500 text-white'
               : 'border-brand-400 bg-brand-600 text-white hover:bg-brand-700'
           }`}
         >
           <IconMic size={13} />
-          {listening ? '...بيسمع' : <Ar>سجّل صوتك</Ar>}
+          {listening || recording ? '...بيسمع' : working ? '...بيشتغل' : <Ar>سجّل صوتك</Ar>}
         </button>
       </div>
+
+      {(working || engine === 'whisper') && (
+        <p className="rounded-lg border border-brand-200 bg-white/60 px-3 py-2 text-[12.5px] leading-relaxed text-brand-800 dark:border-brand-800 dark:bg-white/5 dark:text-brand-200">
+          {working ? (
+            <Ar>{working}</Ar>
+          ) : (
+            <Ar>
+              المحرك المحلي شغّال — أول استخدام بينزّل نموذج صغير (حوالى 40MB) وبعدها بيتسجل وبيقيّم الكلام أوفلاين بدون نت.
+            </Ar>
+          )}
+        </p>
+      )}
 
       {error && (
         <p className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-[13px] text-rose-800 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200">
@@ -265,7 +449,7 @@ function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
           {pct !== 100 && (
             <button
               type="button"
-              onClick={record}
+              onClick={toggleRec}
               className="mt-2.5 inline-flex items-center gap-1.5 rounded-full border border-[var(--line-strong)] px-3 py-1 text-xs font-semibold text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:text-brand-700"
             >
               <IconRotate size={12} /> <Ar>جرّب تاني</Ar>
