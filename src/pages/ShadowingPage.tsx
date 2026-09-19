@@ -63,6 +63,8 @@ function say(text: string, rate = 0.8) {
   synth.speak(u)
 }
 
+// ---------------------------------- ميكروفون ----------------------------------
+
 interface SpeechRecognitionLike {
   lang: string
   continuous: boolean
@@ -273,6 +275,294 @@ function LineScorer({ text, onClose }: { text: string; onClose: () => void }) {
   )
 }
 
+// ------------------------------ وسيط التشغيل (فيديو محلي أو يوتيوب) ------------------------------
+
+interface MediaEvents {
+  time: (t: number) => void
+  state: (playing: boolean) => void
+  ended: () => void
+  ready: (duration: number) => void
+}
+
+interface MediaBridge {
+  play(): void
+  pause(): void
+  seek(t: number): void
+  setRate(r: number): void
+  getTime(): number
+  getDuration(): number
+  destroy(): void
+}
+
+type EVRef = { current: MediaEvents }
+
+function createNativeBridge(el: HTMLVideoElement, ev: EVRef): MediaBridge {
+  const onTime = () => ev.current.time(el.currentTime)
+  const onPlay = () => ev.current.state(true)
+  const onPause = () => ev.current.state(false)
+  const onEnded = () => ev.current.ended()
+  const onReady = () => {
+    if (Number.isFinite(el.duration)) ev.current.ready(el.duration)
+  }
+  el.addEventListener('timeupdate', onTime)
+  el.addEventListener('play', onPlay)
+  el.addEventListener('pause', onPause)
+  el.addEventListener('ended', onEnded)
+  el.addEventListener('loadedmetadata', onReady)
+  return {
+    play: () => {
+      void el.play().catch(() => {})
+    },
+    pause: () => el.pause(),
+    seek: (t) => {
+      try {
+        el.currentTime = t
+      } catch {
+        /* ignore */
+      }
+    },
+    setRate: (r) => {
+      try {
+        el.playbackRate = r
+      } catch {
+        /* ignore */
+      }
+    },
+    getTime: () => el.currentTime,
+    getDuration: () => el.duration || 0,
+    destroy: () => {
+      el.removeEventListener('timeupdate', onTime)
+      el.removeEventListener('play', onPlay)
+      el.removeEventListener('pause', onPause)
+      el.removeEventListener('ended', onEnded)
+      el.removeEventListener('loadedmetadata', onReady)
+    },
+  }
+}
+
+let ytApiPromise: Promise<void> | null = null
+
+function loadYtApi(): Promise<void> {
+  const w = window as unknown as { YT?: { Player?: unknown }; onYouTubeIframeAPIReady?: () => void }
+  if (w.YT?.Player) return Promise.resolve()
+  if (ytApiPromise) return ytApiPromise
+  ytApiPromise = new Promise((resolve) => {
+    const prev = w.onYouTubeIframeAPIReady
+    w.onYouTubeIframeAPIReady = () => {
+      prev?.()
+      resolve()
+    }
+    const s = document.createElement('script')
+    s.src = 'https://www.youtube.com/iframe_api'
+    s.async = true
+    document.head.appendChild(s)
+  })
+  return ytApiPromise
+}
+
+interface YTPlayerLike {
+  playVideo(): void
+  pauseVideo(): void
+  seekTo(t: number, allowAhead?: boolean): void
+  setPlaybackRate(r: number): void
+  getCurrentTime(): number
+  getDuration(): number
+  getPlayerState(): number
+  destroy(): void
+}
+
+interface YTPlayerCtor {
+  new (
+    host: string,
+    opts: {
+      videoId: string
+      playerVars?: Record<string, unknown>
+      events: {
+        onReady: (e: { target: YTPlayerLike }) => void
+        onStateChange: (e: { data: number }) => void
+      }
+    },
+  ): YTPlayerLike
+}
+
+function createYtBridge(host: HTMLDivElement, videoId: string, ev: EVRef): MediaBridge {
+  let player: YTPlayerLike | null = null
+  let poll: ReturnType<typeof setInterval> | null = null
+  let destroyed = false
+
+  const stopPoll = () => {
+    if (poll) {
+      clearInterval(poll)
+      poll = null
+    }
+  }
+  const tick = () => {
+    if (!player || destroyed) return
+    try {
+      ev.current.time(player.getCurrentTime())
+      ev.current.state(player.getPlayerState() === 1)
+    } catch {
+      /* ignore */
+    }
+  }
+  const startPoll = () => {
+    if (poll) return
+    poll = setInterval(tick, 200)
+  }
+
+  loadYtApi().then(() => {
+    if (destroyed) return
+    const w = window as unknown as { YT?: { Player: YTPlayerCtor } }
+    if (!w.YT?.Player) return
+    host.innerHTML = ''
+    player = new w.YT.Player(host.getAttribute('id') ?? '', {
+      videoId,
+      playerVars: { playsinline: 1, rel: 0, fs: 1, modestbranding: 1 },
+      events: {
+        onReady: (e) => {
+          player = e.target
+          try {
+            ev.current.ready(player.getDuration() || 0)
+            player.setPlaybackRate(1)
+          } catch {
+            /* ignore */
+          }
+          startPoll()
+        },
+        onStateChange: (e) => {
+          const st = e.data
+          if (st === 1) {
+            ev.current.state(true)
+            startPoll()
+          } else if (st === 2 || st === 0) {
+            ev.current.state(false)
+            stopPoll()
+          }
+          if (st === 0) ev.current.ended()
+        },
+      },
+    })
+  })
+
+  return {
+    play: () => {
+      try {
+        player?.playVideo()
+      } catch {
+        /* ignore */
+      }
+    },
+    pause: () => {
+      try {
+        player?.pauseVideo()
+      } catch {
+        /* ignore */
+      }
+    },
+    seek: (t) => {
+      try {
+        player?.seekTo(t, true)
+      } catch {
+        /* ignore */
+      }
+    },
+    setRate: (r) => {
+      try {
+        player?.setPlaybackRate(r)
+      } catch {
+        /* ignore */
+      }
+    },
+    getTime: () => {
+      try {
+        return player ? player.getCurrentTime() : 0
+      } catch {
+        return 0
+      }
+    },
+    getDuration: () => {
+      try {
+        return player ? player.getDuration() || 0 : 0
+      } catch {
+        return 0
+      }
+    },
+    destroy: () => {
+      destroyed = true
+      stopPoll()
+      try {
+        player?.destroy()
+      } catch {
+        /* ignore */
+      }
+      player = null
+    },
+  }
+}
+
+// ---------------------------------- واجهة المشغل ----------------------------------
+
+function MediaPlayer({
+  clip,
+  rate,
+  events,
+  onBridge,
+}: {
+  clip: ShadowClip
+  rate: number
+  events: MediaEvents
+  onBridge: (b: MediaBridge | null) => void
+}) {
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const ytHostRef = useRef<HTMLDivElement | null>(null)
+  const bridgeRef = useRef<MediaBridge | null>(null)
+  const eventsRef = useRef(events)
+  eventsRef.current = events
+  const rateRef = useRef(rate)
+  rateRef.current = rate
+
+  useEffect(() => {
+    let bridge: MediaBridge | null = null
+    if (clip.youtube) {
+      bridge = ytHostRef.current ? createYtBridge(ytHostRef.current, clip.youtube, eventsRef) : null
+    } else if (videoRef.current) {
+      bridge = createNativeBridge(videoRef.current, eventsRef)
+    }
+    bridgeRef.current = bridge
+    onBridge(bridge)
+    return () => {
+      bridgeRef.current = null
+      try {
+        bridge?.destroy()
+      } catch {
+        /* ignore */
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clip])
+
+  useEffect(() => {
+    bridgeRef.current?.setRate(rateRef.current)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rate])
+
+  if (clip.youtube) {
+    return <div ref={ytHostRef} id={`yt-${clip.id}`} className="aspect-video w-full bg-black" />
+  }
+  return (
+    <video
+      ref={videoRef}
+      src={clip.file ? videoSrc(clip.file) : undefined}
+      preload="metadata"
+      playsInline
+      className="aspect-video w-full cursor-pointer bg-black"
+      aria-label={clip.title}
+    />
+  )
+}
+
+// ---------------------------------- المكتبة ----------------------------------
+
 const KIND_META: Record<ShadowKind, { label: string; chip: string; dot: string }> = {
   course: {
     label: 'من الكتاب',
@@ -315,7 +605,9 @@ function ClipCard({ clip, onOpen }: { clip: ShadowClip; onOpen: () => void }) {
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-1">
         <span className="text-sm font-bold leading-snug text-[var(--ink)]">{clip.title}</span>
-        <span className="truncate font-mono text-[11px] text-[var(--ink-faint)]">{clip.source}</span>
+        <span className="truncate font-mono text-[11px] text-[var(--ink-faint)]">
+          {clip.youtube ? `youtube · ${clip.youtube}` : clip.file}
+        </span>
         {clip.note && (
           <span className="text-[12.5px] leading-relaxed text-[var(--ink-soft)]" dir="rtl" lang="ar">
             {clip.note}
@@ -336,9 +628,20 @@ function ClipCard({ clip, onOpen }: { clip: ShadowClip; onOpen: () => void }) {
   )
 }
 
+function SectionTitle({ label, count }: { label: string; count: number }) {
+  return (
+    <h2 className="flex items-center gap-2 text-lg font-bold tracking-tight">
+      <span className="h-4 w-1 rounded-full bg-gradient-to-b from-brand-500 to-accent-500" />
+      <Ar>{label}</Ar>
+      <span className="text-xs font-semibold text-[var(--ink-faint)]">({count})</span>
+    </h2>
+  )
+}
+
 function Library({ onOpen }: { onOpen: (id: string) => void }) {
   const course = SHADOWING_CLIPS.filter((c) => c.kind === 'course')
-  const custom = SHADOWING_CLIPS.filter((c) => c.kind !== 'course')
+  const parts = SHADOWING_CLIPS.filter((c) => c.id.startsWith('ht-part-'))
+  const extras = SHADOWING_CLIPS.filter((c) => c.kind !== 'course' && !c.id.startsWith('ht-part-'))
   return (
     <div className="fade-up mx-auto max-w-4xl space-y-8">
       <section className="grid gap-3 sm:grid-cols-3">
@@ -358,11 +661,7 @@ function Library({ onOpen }: { onOpen: (id: string) => void }) {
       </section>
 
       <section className="space-y-4">
-        <h2 className="flex items-center gap-2 text-lg font-bold tracking-tight">
-          <span className="h-4 w-1 rounded-full bg-gradient-to-b from-brand-500 to-accent-500" />
-          <Ar>فيديوهات الكتاب (BBC)</Ar>
-          <span className="text-xs font-semibold text-[var(--ink-faint)]">({course.length})</span>
-        </h2>
+        <SectionTitle label="فيديوهات الكتاب (BBC)" count={course.length} />
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {course.map((c) => (
             <ClipCard key={c.id} clip={c} onOpen={() => onOpen(c.id)} />
@@ -371,27 +670,21 @@ function Library({ onOpen }: { onOpen: (id: string) => void }) {
       </section>
 
       <section className="space-y-4">
-        <h2 className="flex items-center gap-2 text-lg font-bold tracking-tight">
-          <span className="h-4 w-1 rounded-full bg-gradient-to-b from-warm-500 to-accent-500" />
-          <Ar>كرتون وأفلام</Ar>
-          <span className="text-xs font-semibold text-[var(--ink-faint)]">({custom.length})</span>
-        </h2>
-        {custom.length > 0 ? (
+        <SectionTitle label="بلاي ليست: Hotel Transylvania 2012 (فيلم كامل بالانجليزي)" count={parts.length + extras.length} />
+        <p className="text-[13px] leading-relaxed text-[var(--ink-soft)]" dir="rtl" lang="ar">
+          الفيلم كامل مقسّم لأجزاء على يوتيوب — بيشتغلوا مباشرة هنا من غير أي ملفات، وكل جزء مفتوح في الاستوديو.
+          ابدأ بجزء 1، ولو عايز سطور كل جزء مكتوبة بيها مشاهد، ابعتلي جُمل الحوار (أو لينك ترجمة) وأنا احطهم.
+        </p>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {parts.map((c) => (
+            <ClipCard key={c.id} clip={c} onOpen={() => onOpen(c.id)} />
+          ))}
+        </div>
+        {extras.length > 0 && (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {custom.map((c) => (
+            {extras.map((c) => (
               <ClipCard key={c.id} clip={c} onOpen={() => onOpen(c.id)} />
             ))}
-          </div>
-        ) : (
-          <div className="rounded-2xl border border-dashed border-warm-300 bg-warm-50/60 p-6 dark:border-warm-900 dark:bg-warm-950/40">
-            <p className="text-sm font-bold text-warm-800 dark:text-warm-200" dir="rtl" lang="ar">
-              عايز تشادونج على كرتون أو فيلم؟
-            </p>
-            <ol className="mt-3 space-y-2 text-[13.5px] leading-relaxed text-[var(--ink-soft)]" dir="rtl" lang="ar">
-              <li>1) حط ملف الفيديو (.mp4) جوه مجلد <code className="rounded bg-[var(--line)] px-1.5 py-0.5 font-mono text-[12px]">public/videos/</code> في المشروع.</li>
-              <li>2) افتح <code className="rounded bg-[var(--line)] px-1.5 py-0.5 font-mono text-[12px]">src/content/shadowing.ts</code> وضيف Clip بسيط (مثال معلّق جوه الملف).</li>
-              <li>3) لكل «مشهد» اكتب سطر الحوار + معناه بالعربي + التايم، وبعدين زرار الشادونج الخاص بيه هيشتغل في الاستوديو.</li>
-            </ol>
           </div>
         )}
       </section>
@@ -399,26 +692,29 @@ function Library({ onOpen }: { onOpen: (id: string) => void }) {
   )
 }
 
+// ---------------------------------- الاستوديو ----------------------------------
+
 function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
-  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const bridgeRef = useRef<MediaBridge | null>(null)
   const [playing, setPlaying] = useState(false)
   const [t, setT] = useState(0)
   const [dur, setDur] = useState(0)
   const [speed, setSpeed] = useState(() => loadSpeed())
   const [activeIdx, setActiveIdx] = useState<number | null>(null)
   const [micIdx, setMicIdx] = useState<number | null>(null)
+  const [arming, setArming] = useState<number | null>(null)
+  const [userLoop, setUserLoop] = useState<{ a: number; b: number } | null>(null)
   const meta = KIND_META[clip.kind]
 
   const scenes = clip.scenes ?? []
+  const loopOn = activeIdx !== null || userLoop !== null
+  const setBridge = (b: MediaBridge | null) => {
+    bridgeRef.current = b
+  }
 
   useEffect(() => () => {
     if ('speechSynthesis' in window) window.speechSynthesis.cancel()
   }, [])
-
-  useEffect(() => {
-    setActiveIdx(null)
-    setMicIdx(null)
-  }, [clip.id])
 
   const endOf = (i: number): number => {
     const s = scenes[i]
@@ -426,46 +722,83 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
     return s.end ?? next?.time ?? Math.min(dur, s.time + 8)
   }
 
-  const loopOn = activeIdx !== null
+  const events: MediaEvents = {
+    time: (now) => {
+      setT(now)
+      if (activeIdx !== null && now >= endOf(activeIdx)) {
+        bridgeRef.current?.seek(scenes[activeIdx].time)
+        setT(scenes[activeIdx].time)
+      } else if (userLoop && now >= userLoop.b) {
+        bridgeRef.current?.seek(userLoop.a)
+        setT(userLoop.a)
+      }
+    },
+    state: (p) => setPlaying(p),
+    ended: () => {
+      setPlaying(false)
+      if (activeIdx !== null && scenes[activeIdx]) {
+        bridgeRef.current?.seek(scenes[activeIdx].time)
+        setT(scenes[activeIdx].time)
+        bridgeRef.current?.play()
+        setPlaying(true)
+      } else if (userLoop) {
+        bridgeRef.current?.seek(userLoop.a)
+        setT(userLoop.a)
+        bridgeRef.current?.play()
+        setPlaying(true)
+      }
+    },
+    ready: (d) => setDur(Math.max(0, d)),
+  }
 
   const togglePlay = () => {
-    const v = videoRef.current
-    if (!v) return
-    if (v.paused) {
-      void v.play()
-      setPlaying(true)
-    } else {
-      v.pause()
-      setPlaying(false)
+    if (playing) bridgeRef.current?.pause()
+    else {
+      bridgeRef.current?.play()
     }
   }
 
   const seek = (value: string | number) => {
-    const v = videoRef.current
-    if (!v) return
     const to = Math.max(0, Number(value))
-    v.currentTime = to
+    bridgeRef.current?.seek(to)
     setT(to)
   }
 
   const startShadowing = (i: number) => {
-    const v = videoRef.current
-    if (!v) return
-    setMicIdx(null)
     if (activeIdx === i) {
       setActiveIdx(null)
       return
     }
-    v.currentTime = scenes[i].time
+    setMicIdx(null)
+    bridgeRef.current?.seek(scenes[i].time)
     setT(scenes[i].time)
     setActiveIdx(i)
-    void v.play()
-    setPlaying(true)
+    bridgeRef.current?.play()
   }
 
-  useEffect(() => {
-    if (videoRef.current) videoRef.current.playbackRate = speed
-  }, [clip.id, speed])
+  const manualShadow = () => {
+    if (userLoop) {
+      setUserLoop(null)
+      setArming(null)
+      return
+    }
+    if (arming === null) {
+      setArming(bridgeRef.current?.getTime() ?? t)
+      return
+    }
+    const b = Math.max(arming + 0.5, bridgeRef.current?.getTime() ?? t)
+    setUserLoop({ a: arming, b })
+    setArming(null)
+    bridgeRef.current?.seek(arming)
+    setT(arming)
+    bridgeRef.current?.play()
+  }
+
+  const setVidSpeed = (v: number) => {
+    setSpeed(v)
+    saveSpeed(v)
+    bridgeRef.current?.setRate(v)
+  }
 
   return (
     <div className="fade-up mx-auto max-w-2xl space-y-5">
@@ -488,46 +821,14 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
         <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-700 dark:text-brand-300">
           Shadowing studio
         </p>
-        <h1 className="display text-3xl font-bold tracking-tight">{clip.title}</h1>
-        <p className="text-[12px] font-mono text-[var(--ink-faint)]">{clip.file}</p>
+        <h1 className="display text-2xl font-bold tracking-tight sm:text-3xl">{clip.title}</h1>
+        <p className="text-[12px] font-mono text-[var(--ink-faint)]">
+          {clip.youtube ? `youtube · ${clip.youtube}` : clip.file}
+        </p>
       </header>
 
-      <div className="overflow-hidden rounded-2xl bg-black shadow-lg">
-        <video
-          key={clip.id}
-          ref={videoRef}
-          src={videoSrc(clip.file)}
-          preload="metadata"
-          playsInline
-          onClick={togglePlay}
-          onLoadedMetadata={(e) => setDur(e.currentTarget.duration)}
-          onTimeUpdate={(e) => {
-            const v = e.currentTarget
-            setT(v.currentTime)
-            if (activeIdx !== null) {
-              const end = endOf(activeIdx)
-              if (v.currentTime >= end) {
-                v.currentTime = scenes[activeIdx].time
-                setT(scenes[activeIdx].time)
-              }
-            }
-          }}
-          onEnded={() => {
-            setPlaying(false)
-            if (activeIdx !== null && scenes[activeIdx]) {
-              const v = videoRef.current
-              if (v) {
-                v.currentTime = scenes[activeIdx].time
-                void v.play()
-                setPlaying(true)
-              }
-            }
-          }}
-          onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
-          className="aspect-video w-full cursor-pointer"
-          aria-label={clip.title}
-        />
+      <div className="relative overflow-hidden rounded-2xl bg-black shadow-lg">
+        <MediaPlayer clip={clip} rate={speed} events={events} onBridge={setBridge} />
         <button
           type="button"
           onClick={togglePlay}
@@ -565,10 +866,7 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
             <button
               key={s}
               type="button"
-              onClick={() => {
-                setSpeed(s)
-                saveSpeed(s)
-              }}
+              onClick={() => setVidSpeed(s)}
               aria-pressed={speed === s}
               className={`rounded-full border px-2.5 py-1 text-xs font-bold transition-colors ${
                 speed === s
@@ -582,7 +880,7 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
           {loopOn && (
             <span className="inline-flex items-center gap-1 rounded-full bg-warm-100 px-2.5 py-1 text-[11px] font-bold text-warm-700 dark:bg-warm-900 dark:text-warm-200">
               <IconRotate size={12} />
-              <Ar>شادونج شغال — المشهد بيتعاد</Ar>
+              <Ar>شادونج شغال — الجزء بيتعاد</Ar>
             </span>
           )}
         </div>
@@ -595,13 +893,9 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
               <IconList size={14} />
             </span>
             <Ar>مشاهد ومواقف ({scenes.length})</Ar>
-            <span className="text-[11px] font-normal text-[var(--ink-faint)]">
-              <Ar>اضغط «شادونج» على أي موقف — المشهد هيتعاد تلقائيًا ورا ما تردد</Ar>
-            </span>
           </h2>
           {scenes.map((s, i) => {
             const active = i === activeIdx
-            const playingHere = active && playing
             const openMic = micIdx === i
             return (
               <div
@@ -625,9 +919,7 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
                       type="button"
                       onClick={() => startShadowing(i)}
                       className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold transition-colors ${
-                        active
-                          ? 'border border-warm-500 bg-warm-500 text-white hover:bg-warm-600'
-                          : 'bg-brand-600 text-white hover:bg-brand-700'
+                        active ? 'border border-warm-500 bg-warm-500 text-white hover:bg-warm-600' : 'bg-brand-600 text-white hover:bg-brand-700'
                       }`}
                     >
                       {active ? <IconRotate size={14} /> : <IconPlay size={14} />}
@@ -636,8 +928,7 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
                     <button
                       type="button"
                       onClick={() => {
-                        if (videoRef.current) videoRef.current.pause()
-                        setPlaying(false)
+                        bridgeRef.current?.pause()
                         setMicIdx(openMic ? null : i)
                       }}
                       className={`inline-flex items-center gap-1 rounded-full border px-3 py-2 text-xs font-bold transition-colors ${
@@ -655,11 +946,7 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
                 {active && (
                   <p className="pop mt-2 inline-flex items-center gap-1.5 rounded-lg bg-warm-100 px-3 py-1.5 text-[12px] font-bold text-warm-700 dark:bg-warm-900 dark:text-warm-200">
                     <IconRotate size={13} />
-                    {playingHere ? (
-                      <Ar>هي شغّالة — كرر وراها بصوتك، وبعدين دوس «سجّل»</Ar>
-                    ) : (
-                      <Ar>اضغط تشغيل فوق على الفيديو — وهيتعاد من بداية المشهد</Ar>
-                    )}
+                    {playing ? <Ar>هي شغّالة — كرر وراها بصوتك، وبعدين دوس «سجّل»</Ar> : <Ar>اضغط تشغيل — وهيتعاد من بداية المشهد</Ar>}
                   </p>
                 )}
                 {openMic && (
@@ -674,14 +961,44 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
       ) : (
         <section className="space-y-3 rounded-2xl border border-dashed border-brand-300 bg-brand-50/50 p-5 dark:border-brand-800 dark:bg-brand-950/40">
           <p className="text-sm font-bold text-brand-800 dark:text-brand-200" dir="rtl" lang="ar">
-            لسه مفيش مشاهد مضافين للمقطع ده
+            شادونج من غير مشاهد مكتوبة — فيها بسيطة
           </p>
           <p className="text-[13.5px] leading-relaxed text-[var(--ink-soft)]" dir="rtl" lang="ar">
-            اضغط على أي جملة في الفيديو ووقّف، قرب بالشريط وسمّع نفسك، وكرر وراها. ولما أبعت لك الكرتون أو الليست
-            بتاعتك، هنضيف المشاهد بسطورها ومواقيتها هنا وكل موقف هيكون له زرار الشادونج بتاعه.
+            وقّف على الجملة اللي عايز تتمرن عليها، دوس «شادونج من هنا» عند بدايتها، وبعدين دوس تاني عند نهايتها
+            وهتتكرر لوحدها — وانت كرر وراها بصوتك.
           </p>
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={manualShadow}
+              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold transition-colors ${
+                userLoop
+                  ? 'border border-warm-500 bg-warm-500 text-white hover:bg-warm-600'
+                  : 'bg-brand-600 text-white hover:bg-brand-700'
+              }`}
+            >
+              {userLoop ? <IconRotate size={14} /> : <IconPlay size={14} />}
+              {userLoop ? <Ar>أوقف الشادونج</Ar> : arming !== null ? <Ar>ضغط قبل النهاية</Ar> : <Ar>شادونج من هنا</Ar>}
+            </button>
+            {arming !== null && !userLoop && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-[var(--line)] px-2.5 py-1 text-[11px] font-bold text-[var(--ink-soft)]">
+                <IconClock size={11} />
+                <Ar>البداية: </Ar>
+                <span className="font-mono tabular-nums">{fmt(arming)}</span>
+              </span>
+            )}
+            {userLoop && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-warm-100 px-2.5 py-1 text-[11px] font-bold text-warm-700 dark:bg-warm-900 dark:text-warm-200">
+                <IconRotate size={11} />
+                <span className="font-mono tabular-nums" dir="ltr">
+                  {fmt(userLoop.a)} — {fmt(userLoop.b)}
+                </span>
+              </span>
+            )}
+          </div>
           <p className="text-[12px] leading-relaxed text-[var(--ink-faint)]" dir="rtl" lang="ar">
-            لو عايز تضيفهم بنفسك: حط الـ mp4 في <code className="rounded bg-[var(--line)] px-1.5 py-0.5 font-mono text-[11px]">public/videos/</code> وضيف المشاهد في <code className="rounded bg-[var(--line)] px-1.5 py-0.5 font-mono text-[11px]">src/content/shadowing.ts</code>.
+            وعشان التقييم بالمايك: ثبت اللي بتقولها فوق بره وافتح «امتحن النطق» للمقارنة — وكل اللي بتشوفه هنا شغال
+            بالفعل من غير أي خطوات إعداد.
           </p>
         </section>
       )}
@@ -710,7 +1027,7 @@ export default function ShadowingPage() {
       </nav>
 
       {clip ? (
-        <Studio clip={clip} onBack={() => setClipId(null)} />
+        <Studio key={clip.id} clip={clip} onBack={() => setClipId(null)} />
       ) : (
         <>
           <header className="text-center">
@@ -722,7 +1039,8 @@ export default function ShadowingPage() {
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-[var(--ink-soft)]">
               <Ar>
-                كل فيديو مقسّم لمشاهد ومواقف، كل موقف له سطر الحوار بتاعه وزر «شادونج» يكرّره ورا ما تردد وراه بصوتك.
+                فيديوهات الكتاب + بلاي ليست أفلام وكرتون بتشتغل من يوتيوب مباشرة. كل موقف له زرار «شادونج» يكرّره ورا
+                ما تردد وراه — لحد ما لسانك يتروس عليه.
               </Ar>
             </p>
           </header>
