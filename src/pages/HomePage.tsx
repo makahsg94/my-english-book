@@ -8,7 +8,7 @@ import { playSound } from '../lib/sounds'
 import Reveal from '../components/Reveal'
 import AnimatedBar from '../components/AnimatedBar'
 import LineMap from '../components/LineMap'
-import { IconBook, IconCheck, IconFlame, IconLayers, IconShare } from '../components/Icons'
+import { IconBook, IconCheck, IconFlame, IconLayers, IconMic, IconShare } from '../components/Icons'
 
 export default function HomePage() {
   const progress = useProgress()
@@ -142,6 +142,29 @@ export default function HomePage() {
           </span>
           <span className="shrink-0 rounded-full bg-brand-600 px-3 py-1.5 text-xs font-bold text-white transition-transform group-hover:translate-x-0.5">
             افتح الصفحة
+          </span>
+        </Link>
+      </section>
+
+      {/* ---- Shadowing studio banner ---- */}
+      <section className="mx-auto max-w-2xl">
+        <Link
+          to="/shadowing"
+          className="group flex items-center gap-4 rounded-2xl border border-accent-200 bg-gradient-to-r from-accent-50 to-brand-50 p-5 shadow-sm transition-all hover:shadow-md dark:border-accent-900 dark:from-accent-950/60 dark:to-brand-950/60"
+        >
+          <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-accent-600 text-white">
+            <IconMic size={22} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-lg font-bold tracking-tight text-accent-800 dark:text-accent-200" dir="rtl" lang="ar">
+              استوديو الشادونج
+            </span>
+            <span className="block text-[13px] leading-snug text-[var(--ink-soft)]" dir="rtl" lang="ar">
+              اسمع الفيديو، قفّف على الجملة، وكررها ورا الستارة لحد ما تتروس عليها
+            </span>
+          </span>
+          <span className="shrink-0 rounded-full bg-accent-600 px-3 py-1.5 text-xs font-bold text-white transition-transform group-hover:translate-x-0.5">
+            افتح الاستوديو
           </span>
         </Link>
       </section>

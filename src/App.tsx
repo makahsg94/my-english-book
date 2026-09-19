@@ -13,6 +13,7 @@ import LessonPage from './pages/LessonPage'
 import PageView from './pages/PageView'
 import BankPage from './pages/BankPage'
 import ReviewPage from './pages/ReviewPage'
+import ShadowingPage from './pages/ShadowingPage'
 import { Link } from 'react-router-dom'
 import { IconHome } from './components/Icons'
 
@@ -62,6 +63,7 @@ export default function App() {
                 <Route path="page/:pdf" element={<PageView />} />
                 <Route path="bank/:bankId" element={<BankPage />} />
                 <Route path="review" element={<ReviewPage />} />
+                <Route path="shadowing" element={<ShadowingPage />} />
               </Route>
               <Route path="*" element={<NotFound />} />
               </Routes>

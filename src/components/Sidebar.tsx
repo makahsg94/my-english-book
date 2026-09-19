@@ -4,7 +4,7 @@ import { getWritingTask } from '../content/writing'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import BookProgress from './BookProgress'
-import { IconBook, IconCheck, IconPen, IconTarget } from './Icons'
+import { IconBook, IconCheck, IconMic, IconPen, IconTarget } from './Icons'
 
 type Status = 'done' | 'started' | 'todo'
 
@@ -56,6 +56,28 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         </span>
         <span className="block text-[12px] leading-snug opacity-80">
           Vocab tables · grammar · 25-question quiz
+        </span>
+      </NavLink>
+
+      <NavLink
+        to="/shadowing"
+        onClick={onNavigate}
+        className={({ isActive }) =>
+          `mb-4 block rounded-lg px-2.5 py-1.5 transition-colors ${
+            isActive
+              ? 'bg-accent-50 text-accent-800 dark:bg-accent-950 dark:text-accent-200'
+              : 'text-accent-600 hover:text-accent-700 dark:text-accent-300 dark:hover:text-accent-200'
+          }`
+        }
+      >
+        <span className="flex items-center gap-1.5">
+          <IconMic size={13} className="shrink-0" />
+          <span className="block text-[13px] font-bold leading-snug" dir="rtl" lang="ar">
+            استوديو الشادونج
+          </span>
+        </span>
+        <span className="block pl-5 text-[12px] leading-snug opacity-80">
+          Listen · loop · repeat · record
         </span>
       </NavLink>
 
