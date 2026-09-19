@@ -701,6 +701,7 @@ function Library({ onOpen }: { onOpen: (id: string) => void }) {
 function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
   const bridgeRef = useRef<MediaBridge | null>(null)
   const [playing, setPlaying] = useState(false)
+  const [showBtn, setShowBtn] = useState(true)
   const [t, setT] = useState(0)
   const [dur, setDur] = useState(0)
   const [speed, setSpeed] = useState(() => loadSpeed())
@@ -761,6 +762,14 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
       bridgeRef.current?.play()
     }
   }
+
+  useEffect(() => {
+    if (playing) {
+      const id = window.setTimeout(() => setShowBtn(false), 1000)
+      return () => window.clearTimeout(id)
+    }
+    setShowBtn(true)
+  }, [playing])
 
   const seek = (value: string | number) => {
     const to = Math.max(0, Number(value))
@@ -870,7 +879,9 @@ function Studio({ clip, onBack }: { clip: ShadowClip; onBack: () => void }) {
           type="button"
           onClick={togglePlay}
           aria-label={playing ? 'إيقاف' : 'تشغيل'}
-          className="absolute inset-0 m-auto grid size-16 place-items-center rounded-full bg-black/45 text-white backdrop-blur-sm transition-opacity hover:bg-black/60"
+          className={`absolute inset-0 m-auto grid size-16 place-items-center rounded-full bg-black/45 text-white backdrop-blur-sm transition-opacity duration-300 hover:bg-black/60 ${
+            showBtn ? 'opacity-100' : 'pointer-events-none opacity-0'
+          }`}
         >
           {playing ? <IconPause size={28} /> : <IconPlay size={30} className="translate-x-0.5" />}
         </button>
