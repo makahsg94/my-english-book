@@ -7,7 +7,7 @@ import {
   REVIEW_QUIZ_LETTERS,
   type ReviewVocabTable,
 } from '../content/review'
-import { IconChevronRight, IconHome, IconLayers, IconList, IconTarget } from '../components/Icons'
+import { IconChevronRight, IconHome, IconLayers, IconList, IconTarget, IconVolume } from '../components/Icons'
 import { burstConfetti } from '../lib/confetti'
 
 type Tab = 'vocab' | 'grammar' | 'quiz'
@@ -20,6 +20,20 @@ function Ar({ children, className = '' }: { children: React.ReactNode; className
       {children}
     </span>
   )
+}
+
+function sayWord(word: string) {
+  if (!('speechSynthesis' in window) || !word.trim()) return
+  window.speechSynthesis.cancel()
+  const u = new SpeechSynthesisUtterance(word)
+  u.lang = 'en-GB'
+  u.rate = 0.9
+  const voices = window.speechSynthesis.getVoices()
+  const voice =
+    voices.find((v) => v.lang.toLowerCase().startsWith('en-gb')) ??
+    voices.find((v) => v.lang.toLowerCase().startsWith('en'))
+  if (voice) u.voice = voice
+  window.speechSynthesis.speak(u)
 }
 
 function Tabs({ tab, onChange }: { tab: Tab; onChange: (t: Tab) => void }) {
@@ -87,8 +101,27 @@ function VocabTable({ table }: { table: ReviewVocabTable }) {
                   const isWord = j === 0 && !hasArabic(cell)
                   const isLast = j === row.length - 1
                   const italic = lastIsExample && isLast
+                  if (isWord) {
+                    return (
+                      <td key={j} className="align-top">
+                        <button
+                          type="button"
+                          onClick={() => sayWord(cell)}
+                          title="اضغط للاستماع"
+                          aria-label={`استمع إلى ${cell}`}
+                          className="group/word inline-flex max-w-full items-center gap-1.5 text-left font-semibold text-brand-800 underline-offset-4 hover:underline dark:text-brand-200"
+                        >
+                          <span className="min-w-0">{cell}</span>
+                          <IconVolume
+                            size={13}
+                            className="shrink-0 text-brand-500 opacity-40 transition-opacity group-hover/word:opacity-100 dark:text-brand-300"
+                          />
+                        </button>
+                      </td>
+                    )
+                  }
                   return (
-                    <td key={j} className={isWord ? 'align-top font-semibold text-brand-800 dark:text-brand-200' : 'align-top'}>
+                    <td key={j} className="align-top">
                       {hasArabic(cell) ? (
                         <Ar className={italic ? 'italic' : ''}>{cell}</Ar>
                       ) : italic ? (
