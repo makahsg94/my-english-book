@@ -642,9 +642,8 @@ function SectionTitle({ label, count }: { label: string; count: number }) {
 }
 
 function Library({ onOpen }: { onOpen: (id: string) => void }) {
-  const course = SHADOWING_CLIPS.filter((c) => c.kind === 'course')
   const parts = SHADOWING_CLIPS.filter((c) => c.id.startsWith('ht-part-'))
-  const extras = SHADOWING_CLIPS.filter((c) => c.kind !== 'course' && !c.id.startsWith('ht-part-'))
+  const extras = SHADOWING_CLIPS.filter((c) => !c.id.startsWith('ht-part-'))
   return (
     <div className="fade-up mx-auto max-w-4xl space-y-8">
       <section className="grid gap-3 sm:grid-cols-3">
@@ -661,15 +660,6 @@ function Library({ onOpen }: { onOpen: (id: string) => void }) {
             <p className="pt-1 text-[12.5px] leading-relaxed text-[var(--ink-faint)]">{s.en}</p>
           </div>
         ))}
-      </section>
-
-      <section className="space-y-4">
-        <SectionTitle label="فيديوهات الكتاب (BBC)" count={course.length} />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {course.map((c) => (
-            <ClipCard key={c.id} clip={c} onOpen={() => onOpen(c.id)} />
-          ))}
-        </div>
       </section>
 
       <section className="space-y-4">
