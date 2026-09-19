@@ -7,10 +7,20 @@ import {
   REVIEW_QUIZ_LETTERS,
   type ReviewVocabTable,
 } from '../content/review'
-import { IconChevronRight, IconHome, IconLayers, IconList, IconTarget, IconVolume } from '../components/Icons'
+import {
+  IconChevronRight,
+  IconEar,
+  IconFlame,
+  IconHome,
+  IconLayers,
+  IconList,
+  IconTarget,
+  IconVolume,
+} from '../components/Icons'
 import { burstConfetti } from '../lib/confetti'
+import EchoLab from '../components/EchoLab'
 
-type Tab = 'vocab' | 'grammar' | 'quiz'
+type Tab = 'vocab' | 'grammar' | 'quiz' | 'focus'
 
 const hasArabic = (text: string) => /[\u0600-\u06FF]/.test(text)
 
@@ -60,6 +70,46 @@ function loadSpeech(): SpeechSettings {
 function saveSpeech(settings: SpeechSettings) {
   try {
     window.localStorage.setItem(SPEECH_STORAGE_KEY, JSON.stringify(settings))
+  } catch {
+    /* ignore */
+  }
+}
+
+interface HardCard {
+  key: string
+  unit: string
+  title: string
+  word: string
+  meaning?: string
+  example?: string
+}
+
+interface HardStore {
+  quiz: { qi: number; picked: string }[]
+  cards: HardCard[]
+}
+
+const HARD_STORAGE_KEY = 'review-hard-words'
+
+function loadHard(): HardStore {
+  try {
+    const raw = window.localStorage.getItem(HARD_STORAGE_KEY)
+    if (raw) {
+      const parsed = JSON.parse(raw) as Partial<HardStore>
+      return {
+        quiz: Array.isArray(parsed.quiz) ? parsed.quiz : [],
+        cards: Array.isArray(parsed.cards) ? parsed.cards : [],
+      }
+    }
+  } catch {
+    /* ignore */
+  }
+  return { quiz: [], cards: [] }
+}
+
+function saveHard(store: HardStore) {
+  try {
+    window.localStorage.setItem(HARD_STORAGE_KEY, JSON.stringify(store))
   } catch {
     /* ignore */
   }
@@ -163,16 +213,26 @@ function SpeechControls({
   )
 }
 
-function Tabs({ tab, onChange }: { tab: Tab; onChange: (t: Tab) => void }) {
+function Tabs({
+  tab,
+  onChange,
+  focusCount,
+}: {
+  tab: Tab
+  onChange: (t: Tab) => void
+  focusCount: number
+}) {
   const items: { id: Tab; label: string; sub: string; icon: React.ReactNode }[] = [
-    { id: 'vocab', label: 'الكلمات', sub: 'جداول بالترجمة والأمثلة', icon: <IconList size={15} /> },
+    { id: 'vocab', label: 'الكلمات', sub: 'جداول وكروت الذاكرة', icon: <IconList size={15} /> },
     { id: 'grammar', label: 'الجرامر', sub: 'قواعد وأمثلة لكل درس', icon: <IconLayers size={15} /> },
     { id: 'quiz', label: 'الكويز', sub: '25 سؤال بتصحيح فوري', icon: <IconTarget size={15} /> },
+    { id: 'focus', label: 'ركز هنا', sub: 'أخطائي وكلماتي الصعبة', icon: <IconFlame size={15} /> },
   ]
   return (
-    <div className="mx-auto grid max-w-3xl gap-2 sm:grid-cols-3" role="tablist" aria-label="أقسام المراجعة">
+    <div className="mx-auto grid max-w-4xl gap-2 sm:grid-cols-2 lg:grid-cols-4" role="tablist" aria-label="أقسام المراجعة">
       {items.map((item) => {
         const active = tab === item.id
+        const badge = item.id === 'focus' ? focusCount : 0
         return (
           <button
             key={item.id}
@@ -180,7 +240,7 @@ function Tabs({ tab, onChange }: { tab: Tab; onChange: (t: Tab) => void }) {
             role="tab"
             aria-selected={active}
             onClick={() => onChange(item.id)}
-            className={`tactile flex items-center gap-2.5 rounded-xl border px-3.5 py-3 text-left transition-all ${
+            className={`tactile relative flex items-center gap-2.5 rounded-xl border px-3.5 py-3 text-left transition-all ${
               active
                 ? 'border-brand-500 bg-brand-600 text-white shadow-sm'
                 : 'border-[var(--line-strong)] bg-[var(--surface)] text-[var(--ink-soft)] hover:border-brand-400'
@@ -188,7 +248,7 @@ function Tabs({ tab, onChange }: { tab: Tab; onChange: (t: Tab) => void }) {
           >
             <span
               className={`grid size-8 shrink-0 place-items-center rounded-lg ${
-                active ? 'bg-white/15' : 'bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300'
+                active ? 'bg-white/15' : item.id === 'focus' ? 'bg-warm-50 text-warm-600 dark:bg-warm-950 dark:text-warm-300' : 'bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300'
               }`}
             >
               {item.icon}
@@ -199,6 +259,15 @@ function Tabs({ tab, onChange }: { tab: Tab; onChange: (t: Tab) => void }) {
                 {item.sub}
               </span>
             </span>
+            {badge > 0 && (
+              <span
+                className={`absolute right-2 top-2 grid min-w-5 place-items-center rounded-full px-1 text-[10px] font-bold ${
+                  active ? 'bg-white text-brand-700' : 'bg-warm-500 text-white'
+                }`}
+              >
+                {badge}
+              </span>
+            )}
           </button>
         )
       })}
@@ -268,14 +337,56 @@ function VocabTable({ table, onSpeak }: { table: ReviewVocabTable; onSpeak: (wor
   )
 }
 
+function TableEcho({ table }: { table: ReviewVocabTable }) {
+  const [open, setOpen] = useState(false)
+  const sentences = useMemo(() => {
+    const exIdx = table.headers.findIndex((h) => /مثال/.test(h))
+    return Array.from(
+      new Set(
+        table.rows
+          .map((r) => (exIdx >= 0 ? r[exIdx] : r[r.length - 1]))
+          .filter((s) => !!s && s.trim() && !/[\u0600-\u06FF]/.test(s)),
+      ),
+    )
+  }, [table])
+  if (sentences.length === 0) return null
+  return (
+    <div className="mt-3">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="inline-flex items-center gap-1.5 rounded-full border border-accent-300 px-3 py-1.5 text-xs font-semibold text-accent-800 transition-colors hover:bg-accent-100 dark:border-accent-800 dark:text-accent-200 dark:hover:bg-accent-900/40"
+      >
+        <IconEar size={13} />
+        <Ar>سمّع الجمل وكررها</Ar>
+        <span className="text-[10px] font-bold opacity-70">({sentences.length})</span>
+      </button>
+      {open && (
+        <div className="fade-up">
+          <EchoLab sentences={sentences} />
+        </div>
+      )}
+    </div>
+  )
+}
+
 function MemoryCards({
+  unit,
   tables,
   onSpeak,
+  hardKeys,
+  onToggleHard,
 }: {
+  unit: string
   tables: ReviewVocabTable[]
   onSpeak: (word: string) => void
+  hardKeys: Set<string>
+  onToggleHard: (card: HardCard) => void
 }) {
   const [revealed, setRevealed] = useState<Set<string>>(new Set())
+
+  const examplePosOf = (t: ReviewVocabTable) => t.headers.findIndex((h) => /مثال/.test(h)) - 1
 
   const total = tables.reduce((acc, t) => acc + t.rows.filter((r) => r.length > 0 && r[0].trim()).length, 0)
   const known = revealed.size
@@ -289,12 +400,29 @@ function MemoryCards({
     })
   }
 
+  const cardFromRow = (t: ReviewVocabTable, row: string[]): HardCard | null => {
+    if (row.length === 0 || !row[0].trim()) return null
+    const exPos = examplePosOf(t)
+    const details = row.slice(1)
+    const meaning = details.find((d) => hasArabic(d))
+    const example = exPos >= 0 ? details[exPos] : undefined
+    return {
+      key: `${unit}|${t.title}|${row[0]}`,
+      unit,
+      title: t.title,
+      word: row[0],
+      meaning,
+      example,
+    }
+  }
+
   return (
     <section className="fade-up space-y-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <p className="text-xs text-[var(--ink-faint)]">
           <Ar className="!text-[13px]">
-            اقرأ الكلمة من غير ما تشوف الترجمة، وحاول تتذكر معناها، وبعدين اضغط على الكارت تكتشفها بنفسك.
+            اقرأ الكلمة من غير ما تشوف الترجمة، وحاول تتذكر معناها، وبعدين اضغط على الكارت تكتشفها بنفسك. لو نسيتها
+            اضغط «نسيتها ✗» — هتتروح تلقائيًا لتبويب «ركز هنا».
           </Ar>
         </p>
         <span
@@ -318,10 +446,12 @@ function MemoryCards({
             {t.rows.map((row, ri) => {
               if (row.length === 0 || !row[0].trim()) return null
               const key = `${ti}-${ri}`
-              const examplePos = t.headers.findIndex((h) => /مثال/.test(h)) - 1
+              const examplePos = examplePosOf(t)
               const open = revealed.has(key)
               const primary = row[0]
               const details = row.slice(1)
+              const hard = cardFromRow(t, row)
+              const isHard = hard ? hardKeys.has(hard.key) : false
               return (
                 <button
                   key={key}
@@ -380,6 +510,32 @@ function MemoryCards({
                           </span>
                         )
                       })}
+                      {hard && (
+                        <span className="mt-2 block border-t border-[var(--line)] pt-2">
+                          <span
+                            role="button"
+                            tabIndex={0}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              onToggleHard(hard)
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.stopPropagation()
+                                onToggleHard(hard)
+                              }
+                            }}
+                            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold transition-colors ${
+                              isHard
+                                ? 'bg-warm-500 text-white hover:bg-warm-600'
+                                : 'bg-rose-100 text-rose-700 hover:bg-rose-200 dark:bg-rose-950 dark:text-rose-300'
+                            }`}
+                          >
+                            <IconFlame size={11} />
+                            {isHard ? <Ar>في «ركز هنا» — اضغط للشيل</Ar> : <Ar>نسيتها ✗</Ar>}
+                          </span>
+                        </span>
+                      )}
                     </span>
                   ) : (
                     <span aria-hidden className="block text-[13px] font-bold tracking-[0.3em] text-[var(--ink-faint)]">
@@ -396,7 +552,15 @@ function MemoryCards({
   )
 }
 
-function VocabPart({ onSpeak }: { onSpeak: (word: string) => void }) {
+function VocabPart({
+  onSpeak,
+  hardKeys,
+  onToggleHard,
+}: {
+  onSpeak: (word: string) => void
+  hardKeys: Set<string>
+  onToggleHard: (card: HardCard) => void
+}) {
   const [cardsMode, setCardsMode] = useState(false)
 
   return (
@@ -439,7 +603,7 @@ function VocabPart({ onSpeak }: { onSpeak: (word: string) => void }) {
             <span className="h-px flex-1 bg-gradient-to-r from-brand-400/60 to-transparent" aria-hidden />
           </h2>
           {cardsMode ? (
-            <MemoryCards tables={group.tables} onSpeak={onSpeak} />
+            <MemoryCards unit={group.unit} tables={group.tables} onSpeak={onSpeak} hardKeys={hardKeys} onToggleHard={onToggleHard} />
           ) : (
             <div className="space-y-5">
               {group.tables.map((t, j) => (
@@ -449,6 +613,7 @@ function VocabPart({ onSpeak }: { onSpeak: (word: string) => void }) {
                     <Ar>{t.title}</Ar>
                   </h3>
                   <VocabTable table={t} onSpeak={onSpeak} />
+                  <TableEcho table={t} />
                 </div>
               ))}
             </div>
@@ -532,7 +697,7 @@ interface QuizAnswer {
   correct?: boolean
 }
 
-function QuizPart() {
+function QuizPart({ onMarkWrong }: { onMarkWrong: (qi: number, picked: string) => void }) {
   const [answers, setAnswers] = useState<Record<number, QuizAnswer>>({})
   const [submitted, setSubmitted] = useState(false)
 
@@ -552,6 +717,10 @@ function QuizPart() {
     if (!allAnswered) return
     setSubmitted(true)
     const pct = score / REVIEW_QUIZ.length
+    REVIEW_QUIZ.forEach((q, qi) => {
+      const picked = answers[qi]
+      if (!picked?.correct) onMarkWrong(qi, picked ? q.options[picked.index] : q.answer)
+    })
     if (pct === 1) burstConfetti()
   }
 
@@ -684,6 +853,45 @@ function QuizPart() {
 export default function ReviewPage() {
   const [tab, setTab] = useState<Tab>('vocab')
   const [speech, setSpeech] = useState<SpeechSettings>(() => loadSpeech())
+  const [hard, setHard] = useState<HardStore>(loadHard)
+  const { quiz: hardQuiz, cards: hardCards } = hard
+
+  const commitHard = (next: HardStore) => {
+    setHard(next)
+    saveHard(next)
+  }
+
+  const addQuizWrong = (qi: number, picked: string) => {
+    if (hard.quiz.some((w) => w.qi === qi)) return
+    commitHard({ ...hard, quiz: [...hard.quiz, { qi, picked }] })
+  }
+
+  const removeQuizWrong = (qi: number) => {
+    commitHard({ ...hard, quiz: hard.quiz.filter((w) => w.qi !== qi) })
+  }
+
+  const clearQuizWrong = () => {
+    commitHard({ ...hard, quiz: [] })
+  }
+
+  const toggleHardCard = (card: HardCard) => {
+    const exists = hard.cards.some((c) => c.key === card.key)
+    commitHard({
+      ...hard,
+      cards: exists ? hard.cards.filter((c) => c.key !== card.key) : [...hard.cards, card],
+    })
+  }
+
+  const removeHardCard = (key: string) => {
+    commitHard({ ...hard, cards: hard.cards.filter((c) => c.key !== key) })
+  }
+
+  const clearHardCards = () => {
+    commitHard({ ...hard, cards: [] })
+  }
+
+  const focusCount = hardQuiz.length + hardCards.length
+  const hardKeys = useMemo(() => new Set(hardCards.map((c) => c.key)), [hardCards])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -723,13 +931,192 @@ export default function ReviewPage() {
         </p>
       </header>
 
-      <Tabs tab={tab} onChange={setTab} />
+      <Tabs tab={tab} onChange={setTab} focusCount={focusCount} />
 
       <SpeechControls settings={speech} onChange={handleSpeech} />
 
       <div key={tab}>
-        {tab === 'vocab' ? <VocabPart onSpeak={onSpeak} /> : tab === 'grammar' ? <GrammarPart /> : <QuizPart />}
+        {tab === 'vocab' ? (
+          <VocabPart onSpeak={onSpeak} hardKeys={hardKeys} onToggleHard={toggleHardCard} />
+        ) : tab === 'grammar' ? (
+          <GrammarPart />
+        ) : tab === 'quiz' ? (
+          <QuizPart onMarkWrong={addQuizWrong} />
+        ) : (
+          <FocusPart
+            quizWrong={hardQuiz}
+            cards={hardCards}
+            onRemoveQuizWrong={removeQuizWrong}
+            onClearQuizWrong={clearQuizWrong}
+            onRemoveCard={removeHardCard}
+            onClearCards={clearHardCards}
+            onSpeak={onSpeak}
+          />
+        )}
       </div>
+    </div>
+  )
+}
+
+function FocusPart({
+  quizWrong,
+  cards,
+  onRemoveQuizWrong,
+  onClearQuizWrong,
+  onRemoveCard,
+  onClearCards,
+  onSpeak,
+}: {
+  quizWrong: { qi: number; picked: string }[]
+  cards: HardCard[]
+  onRemoveQuizWrong: (qi: number) => void
+  onClearQuizWrong: () => void
+  onRemoveCard: (key: string) => void
+  onClearCards: () => void
+  onSpeak: (word: string) => void
+}) {
+  const empty = quizWrong.length === 0 && cards.length === 0
+  return (
+    <div className="fade-up mx-auto max-w-3xl space-y-6">
+      <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-[var(--ink-soft)]">
+        <Ar>
+          هنا بتتجمع كل ما كنت محتاج تركّز فيه: أخطاء الكويز، والكلمات اللي نسيتها في كروت الذاكرة.
+          الاتنين بيتحفظوا على جهازك لحد ما تمسحهم.
+        </Ar>
+      </p>
+
+      {empty && (
+        <div className="mx-auto max-w-md rounded-2xl border border-dashed border-[var(--line-strong)] bg-[var(--surface)] p-8 text-center">
+          <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-warm-50 text-warm-600 dark:bg-warm-950 dark:text-warm-300">
+            <IconFlame size={22} />
+          </span>
+          <p className="mt-3 text-sm font-bold text-[var(--ink)]">
+            <Ar>لسه ما فيش أخطاء محفوظة</Ar>
+          </p>
+          <p className="mt-1 text-[13px] leading-relaxed text-[var(--ink-faint)]">
+            <Ar>حلّ الكويز أو افتح كروت الذاكرة وخد بالك من الكلمات، وهتلاقيها هنا عشان تراجع عليها كويس.</Ar>
+          </p>
+        </div>
+      )}
+
+      {cards.length > 0 && (
+        <section className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4 shadow-sm sm:p-5">
+          <header className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <h3 className="flex items-center gap-2 text-sm font-bold text-[var(--ink)]">
+              <span className="grid size-7 place-items-center rounded-md bg-warm-500 text-white">
+                <IconFlame size={14} />
+              </span>
+              <Ar>كلماتي الصعبة ({cards.length})</Ar>
+            </h3>
+            <button
+              type="button"
+              onClick={onClearCards}
+              className="rounded-full px-3 py-1 text-[11px] font-semibold text-[var(--ink-faint)] transition-colors hover:bg-[var(--line)] hover:text-rose-600"
+            >
+              <Ar>مسح الكل</Ar>
+            </button>
+          </header>
+          <div className="space-y-2">
+            {cards.map((c) => (
+              <div
+                key={c.key}
+                className="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5"
+              >
+                <div className="min-w-0 flex-1">
+                  <div className="min-w-0">
+                    {hasArabic(c.word) ? (
+                      <Ar className="font-bold text-warm-700 dark:text-warm-300">{c.word}</Ar>
+                    ) : (
+                      <span className="inline-flex items-center gap-2">
+                        <span className="font-bold text-warm-700 dark:text-warm-300">{c.word}</span>
+                        <button
+                          type="button"
+                          onClick={() => onSpeak(c.word)}
+                          className="grid size-6 place-items-center rounded-md text-warm-500 opacity-50 transition-opacity hover:bg-[var(--line)] hover:opacity-100"
+                          aria-label={`استمع إلى ${c.word}`}
+                        >
+                          <IconVolume size={13} />
+                        </button>
+                      </span>
+                    )}
+                    {c.title && (
+                      <span className="mr-2 text-[11px] text-[var(--ink-faint)]">
+                        <Ar>{c.unit} · {c.title}</Ar>
+                      </span>
+                    )}
+                  </div>
+                  {c.meaning && <Ar className="mt-0.5 block text-[13px] leading-snug">{c.meaning}</Ar>}
+                  {c.example && (
+                    <em className="mt-0.5 block text-[12px] italic text-[var(--ink-faint)]">"{c.example}"</em>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => onRemoveCard(c.key)}
+                  className="rounded-full px-2.5 py-1 text-[11px] font-semibold text-[var(--ink-faint)] transition-colors hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950"
+                  aria-label={`شيل ${c.word} من كلماتي الصعبة`}
+                >
+                  {'\u2715'} <Ar>شيل</Ar>
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {quizWrong.length > 0 && (
+        <section className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-4 shadow-sm sm:p-5">
+          <header className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <h3 className="flex items-center gap-2 text-sm font-bold text-[var(--ink)]">
+              <span className="grid size-7 place-items-center rounded-md bg-rose-500 text-white">
+                <IconTarget size={14} />
+              </span>
+              <Ar>أخطاء الكويز ({quizWrong.length})</Ar>
+            </h3>
+            <button
+              type="button"
+              onClick={onClearQuizWrong}
+              className="rounded-full px-3 py-1 text-[11px] font-semibold text-[var(--ink-faint)] transition-colors hover:bg-[var(--line)] hover:text-rose-600"
+            >
+              <Ar>مسح الكل</Ar>
+            </button>
+          </header>
+          <ol className="space-y-2.5">
+            {quizWrong.map(({ qi, picked }) => {
+              const q = REVIEW_QUIZ[qi]
+              if (!q) return null
+              return (
+                <li key={qi} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5">
+                  <p className="flex items-start justify-between gap-3">
+                    <span className="min-w-0 text-sm leading-relaxed">
+                      <span className="font-bold text-[var(--ink)]">{qi + 1}. </span>
+                      {q.prompt}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => onRemoveQuizWrong(qi)}
+                      className="shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold text-[var(--ink-faint)] transition-colors hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950"
+                      aria-label={`شيل السؤال ${qi + 1} من الأخطاء`}
+                    >
+                      {'\u2715'}
+                    </button>
+                  </p>
+                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                    <span className="rounded-md bg-emerald-100 px-2 py-0.5 text-[12px] font-semibold text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">
+                      <Ar>الصحيح: </Ar>
+                      {q.answer}
+                    </span>
+                    <span className="rounded-md bg-rose-100 px-2 py-0.5 text-[12px] font-semibold text-rose-700 dark:bg-rose-950 dark:text-rose-300">
+                      <Ar>اختاريت: </Ar>
+                      {picked}
+                    </span>
+                  </div>
+                </li>
+              )
+            })}
+          </ol>
+        </section>
+      )}
     </div>
   )
 }
