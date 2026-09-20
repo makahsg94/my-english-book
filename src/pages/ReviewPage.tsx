@@ -697,7 +697,7 @@ interface QuizAnswer {
   correct?: boolean
 }
 
-function QuizPart({ onMarkWrong }: { onMarkWrong: (qi: number, picked: string) => void }) {
+function QuizPart({ onMarkWrong }: { onMarkWrong: (wrongs: { qi: number; picked: string }[]) => void }) {
   const [answers, setAnswers] = useState<Record<number, QuizAnswer>>({})
   const [submitted, setSubmitted] = useState(false)
 
@@ -717,10 +717,13 @@ function QuizPart({ onMarkWrong }: { onMarkWrong: (qi: number, picked: string) =
     if (!allAnswered) return
     setSubmitted(true)
     const pct = score / REVIEW_QUIZ.length
-    REVIEW_QUIZ.forEach((q, qi) => {
+    const wrongs = REVIEW_QUIZ.reduce<{ qi: number; picked: string }[]>((acc, q, qi) => {
       const picked = answers[qi]
-      if (!picked?.correct) onMarkWrong(qi, picked ? q.options[picked.index] : q.answer)
-    })
+      if (picked?.correct) return acc
+      acc.push({ qi, picked: picked ? q.options[picked.index] : q.answer })
+      return acc
+    }, [])
+    if (wrongs.length > 0) onMarkWrong(wrongs)
     if (pct === 1) burstConfetti()
   }
 
@@ -879,9 +882,12 @@ export default function ReviewPage() {
     saveHard(next)
   }
 
-  const addQuizWrong = (qi: number, picked: string) => {
-    if (hard.quiz.some((w) => w.qi === qi)) return
-    commitHard({ ...hard, quiz: [...hard.quiz, { qi, picked }] })
+const addQuizWrong = (wrongs: { qi: number; picked: string }[]) => {
+    if (wrongs.length === 0) return
+    const existing = new Set(hard.quiz.map((w) => w.qi))
+    const fresh = wrongs.filter((w) => !existing.has(w.qi))
+    if (fresh.length === 0) return
+    commitHard({ ...hard, quiz: [...hard.quiz, ...fresh] })
   }
 
   const removeQuizWrong = (qi: number) => {
