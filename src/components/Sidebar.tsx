@@ -3,13 +3,15 @@ import { BOOK, unitGlyph, unitLabel } from '../content/book'
 import { getWritingTask } from '../content/writing'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
+import { useAuth } from '../lib/authContext'
 import BookProgress from './BookProgress'
-import { IconBook, IconCheck, IconFlame, IconPen, IconTarget } from './Icons'
+import { IconBook, IconCheck, IconFlame, IconLayers, IconPen, IconTarget } from './Icons'
 
 type Status = 'done' | 'started' | 'todo'
 
 export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const progress = useProgress()
+  const { user } = useAuth()
   const reviewActive = useMatch('/review') !== null
 
   return (
@@ -38,6 +40,24 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             <span className="block text-sm font-bold leading-tight">Comprehensive review</span>
             <span className={`block text-[11px] leading-tight ${reviewActive ? 'text-white/75' : 'text-[var(--ink-faint)]'}`} dir="rtl" lang="ar">
               المراجعة الشاملة
+            </span>
+          </span>
+        </NavLink>
+      </div>
+
+      <div className="mb-5">
+        <NavLink
+          to="/account"
+          onClick={onNavigate}
+          className="flex items-center gap-2.5 rounded-xl border border-[var(--line-strong)] px-3 py-2.5 transition-colors hover:border-accent-400 hover:bg-accent-50 dark:hover:bg-accent-950/40"
+        >
+          <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent-600 text-white">
+            <IconLayers size={16} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-sm font-bold leading-tight">{user ?? 'حسابك'}</span>
+            <span className="block text-[11px] leading-tight text-[var(--ink-faint)]" dir="rtl" lang="ar">
+              البروفايل والتقدّم
             </span>
           </span>
         </NavLink>

@@ -81,6 +81,10 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       progress.resetAll()
       bump()
     },
+    reload: () => {
+      progress.reload()
+      bump()
+    },
   }
 
   return (

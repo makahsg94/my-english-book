@@ -2,6 +2,8 @@
 // Persisted in localStorage for v1; the IProgressStore interface keeps the UI
 // decoupled so a backend/database provider can be swapped in later.
 
+import { storageKey } from './auth'
+
 export interface LessonProgress {
   completed: boolean
   completedAt?: number
@@ -56,12 +58,12 @@ export interface IProgressStore {
   save(state: ProgressState): void
 }
 
-const STORAGE_KEY = 'speakout-b1.progress.v1'
+const progressStorageKey = () => storageKey('speakout-b1.progress.v1')
 
 class LocalStore implements IProgressStore {
   load(): ProgressState {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY)
+      const raw = localStorage.getItem(progressStorageKey())
       if (!raw) return { lessons: {}, quizzes: {}, writing: {}, xp: 0, xpLog: [], streak: 0 }
       const parsed = JSON.parse(raw) as ProgressState
       return {
@@ -81,7 +83,7 @@ class LocalStore implements IProgressStore {
   }
   save(state: ProgressState): void {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+      localStorage.setItem(progressStorageKey(), JSON.stringify(state))
     } catch {
       /* storage unavailable – ignore */
     }
@@ -199,6 +201,10 @@ export function createProgressApi(store: IProgressStore = progressStore) {
     emit()
   }
 
+  function reload() {
+    Object.assign(state, store.load())
+  }
+
   return {
     get state() {
       return state
@@ -212,6 +218,7 @@ export function createProgressApi(store: IProgressStore = progressStore) {
     bestWriting,
     isLessonComplete,
     resetAll,
+    reload,
   }
 }
 

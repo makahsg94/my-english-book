@@ -19,6 +19,9 @@ import {
 } from '../components/Icons'
 import { burstConfetti } from '../lib/confetti'
 import EchoLab from '../components/EchoLab'
+import { ACCENTS, SPEEDS, sayWord, useSpeech } from '../lib/speech'
+import type { SpeechSettings } from '../lib/speech'
+import { storageKey } from '../lib/auth'
 
 type Tab = 'vocab' | 'grammar' | 'quiz' | 'focus'
 
@@ -30,49 +33,6 @@ function Ar({ children, className = '' }: { children: React.ReactNode; className
       {children}
     </span>
   )
-}
-
-interface SpeechSettings {
-  accent: 'en-GB' | 'en-US'
-  rate: number
-}
-
-const SPEECH_DEFAULT: SpeechSettings = { accent: 'en-GB', rate: 0.9 }
-const SPEECH_STORAGE_KEY = 'review-speech-settings'
-
-const ACCENTS = [
-  { id: 'en-GB', label: 'بريطاني' },
-  { id: 'en-US', label: 'أمريكي' },
-] as const
-
-const SPEEDS = [
-  { id: 'slow', label: 'بطيء', rate: 0.6 },
-  { id: 'normal', label: 'عادي', rate: 0.9 },
-  { id: 'fast', label: 'سريع', rate: 1.3 },
-] as const
-
-function loadSpeech(): SpeechSettings {
-  try {
-    const raw = window.localStorage.getItem(SPEECH_STORAGE_KEY)
-    if (raw) {
-      const parsed = JSON.parse(raw) as Partial<SpeechSettings>
-      return {
-        accent: parsed.accent === 'en-US' ? 'en-US' : 'en-GB',
-        rate: typeof parsed.rate === 'number' ? parsed.rate : SPEECH_DEFAULT.rate,
-      }
-    }
-  } catch {
-    /* ignore */
-  }
-  return SPEECH_DEFAULT
-}
-
-function saveSpeech(settings: SpeechSettings) {
-  try {
-    window.localStorage.setItem(SPEECH_STORAGE_KEY, JSON.stringify(settings))
-  } catch {
-    /* ignore */
-  }
 }
 
 interface HardCard {
@@ -89,11 +49,11 @@ interface HardStore {
   cards: HardCard[]
 }
 
-const HARD_STORAGE_KEY = 'review-hard-words'
+const hardKey = () => storageKey('review-hard-words')
 
 function loadHard(): HardStore {
   try {
-    const raw = window.localStorage.getItem(HARD_STORAGE_KEY)
+    const raw = window.localStorage.getItem(hardKey())
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<HardStore>
       return {
@@ -109,47 +69,10 @@ function loadHard(): HardStore {
 
 function saveHard(store: HardStore) {
   try {
-    window.localStorage.setItem(HARD_STORAGE_KEY, JSON.stringify(store))
+    window.localStorage.setItem(hardKey(), JSON.stringify(store))
   } catch {
     /* ignore */
   }
-}
-
-function sayWord(word: string, settings: SpeechSettings) {
-  if (!('speechSynthesis' in window) || !word.trim()) return
-  const synth = window.speechSynthesis
-  synth.cancel()
-
-  const parts = word
-    .split('/')
-    .map((s) => s.trim())
-    .filter(Boolean)
-  const texts = parts.length > 0 ? parts : [word.trim()]
-
-  const makeUtterance = (text: string) => {
-    const u = new SpeechSynthesisUtterance(text)
-    u.lang = settings.accent
-    u.rate = settings.rate
-    const voices = synth.getVoices()
-    const voice =
-      voices.find((v) => v.lang.toLowerCase().startsWith(settings.accent.toLowerCase())) ??
-      voices.find((v) => v.lang.toLowerCase().startsWith('en'))
-    if (voice) u.voice = voice
-    return u
-  }
-
-  const speakNext = (i: number) => {
-    if (i >= texts.length) return
-    const u = makeUtterance(texts[i])
-    const next = () => {
-      if (i + 1 < texts.length) window.setTimeout(() => speakNext(i + 1), 200)
-    }
-    u.onend = next
-    u.onerror = next
-    synth.speak(u)
-  }
-
-  speakNext(0)
 }
 
 function SpeechControls({
@@ -873,7 +796,7 @@ function QuizPart({ onMarkWrong }: { onMarkWrong: (wrongs: { qi: number; picked:
 
 export default function ReviewPage() {
   const [tab, setTab] = useState<Tab>('vocab')
-  const [speech, setSpeech] = useState<SpeechSettings>(() => loadSpeech())
+  const { settings: speech, setSettings: setSpeech } = useSpeech()
   const [hard, setHard] = useState<HardStore>(loadHard)
   const { quiz: hardQuiz, cards: hardCards } = hard
 
@@ -921,11 +844,6 @@ const addQuizWrong = (wrongs: { qi: number; picked: string }[]) => {
     window.scrollTo(0, 0)
   }, [tab])
 
-  const handleSpeech = (next: SpeechSettings) => {
-    setSpeech(next)
-    saveSpeech(next)
-  }
-
   const onSpeak = (word: string) => sayWord(word, speech)
 
   return (
@@ -957,7 +875,7 @@ const addQuizWrong = (wrongs: { qi: number; picked: string }[]) => {
 
       <Tabs tab={tab} onChange={setTab} focusCount={focusCount} />
 
-      <SpeechControls settings={speech} onChange={handleSpeech} />
+      <SpeechControls settings={speech} onChange={setSpeech} />
 
       <div key={tab}>
         {tab === 'vocab' ? (

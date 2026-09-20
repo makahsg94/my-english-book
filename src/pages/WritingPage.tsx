@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { getUnit, unitLabel } from '../content/book'
 import { getWritingTask } from '../content/writing'
 import { useProgress } from '../lib/appContext'
+import { storageKey } from '../lib/auth'
 import { checkWriting } from '../lib/writeCheck'
 import type { WritingCheck } from '../lib/writeCheck'
 import { levelProgress } from '../lib/progress'
@@ -93,7 +94,7 @@ export default function WritingPage() {
   const progress = useProgress()
   const task = unitId ? getWritingTask(unitId) : undefined
 
-  const draftKey = `speakout-b1.writing.draft.${task?.id ?? 'none'}`
+  const draftKey = storageKey(`speakout-b1.writing.draft.${task?.id ?? 'none'}`)
   const [draft, setDraft] = useState(() => {
     try {
       return localStorage.getItem(draftKey) ?? ''

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { ThemeProvider, ProgressProvider } from './lib/appContext'
+import { AuthProvider } from './lib/authContext'
 import { ToastProvider } from './lib/toast'
 import { ConfettiHost } from './lib/confetti'
 import Layout from './components/Layout'
@@ -13,6 +14,7 @@ import LessonPage from './pages/LessonPage'
 import PageView from './pages/PageView'
 import BankPage from './pages/BankPage'
 import ReviewPage from './pages/ReviewPage'
+import AccountPage from './pages/AccountPage'
 import { Link } from 'react-router-dom'
 import { IconHome } from './components/Icons'
 
@@ -46,28 +48,31 @@ function ScrollToTop() {
 export default function App() {
   return (
     <ThemeProvider>
-      <ProgressProvider>
-        <ToastProvider>
-          <ConfettiHost />
-          <HashRouter>
-            <ScrollToTop />
-            <Routes>
-              <Route element={<Layout />}>
-                <Route index element={<HomePage />} />
-                <Route path="book" element={<BookPage />} />
-                <Route path="unit/:unitId" element={<UnitPage />} />
-                <Route path="unit/:unitId/quiz" element={<UnitQuizPage />} />
-                <Route path="unit/:unitId/writing" element={<WritingPage />} />
-                <Route path="unit/:unitId/lesson/:lessonId" element={<LessonPage />} />
-                <Route path="page/:pdf" element={<PageView />} />
-                <Route path="bank/:bankId" element={<BankPage />} />
-                <Route path="review" element={<ReviewPage />} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
+      <AuthProvider>
+        <ProgressProvider>
+          <ToastProvider>
+            <ConfettiHost />
+            <HashRouter>
+              <ScrollToTop />
+              <Routes>
+                <Route element={<Layout />}>
+                  <Route index element={<HomePage />} />
+                  <Route path="book" element={<BookPage />} />
+                  <Route path="account" element={<AccountPage />} />
+                  <Route path="unit/:unitId" element={<UnitPage />} />
+                  <Route path="unit/:unitId/quiz" element={<UnitQuizPage />} />
+                  <Route path="unit/:unitId/writing" element={<WritingPage />} />
+                  <Route path="unit/:unitId/lesson/:lessonId" element={<LessonPage />} />
+                  <Route path="page/:pdf" element={<PageView />} />
+                  <Route path="bank/:bankId" element={<BankPage />} />
+                  <Route path="review" element={<ReviewPage />} />
+                </Route>
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </HashRouter>
           </ToastProvider>
-      </ProgressProvider>
+        </ProgressProvider>
+      </AuthProvider>
     </ThemeProvider>
   )
 }

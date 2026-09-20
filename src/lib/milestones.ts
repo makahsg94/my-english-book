@@ -4,12 +4,13 @@
 import { BOOK } from '../content/book'
 import type { ProgressState } from './progress'
 import type { ToastOptions } from './toast'
+import { storageKey } from './auth'
 
 interface Milestone extends ToastOptions {
   id: string
 }
 
-const KEY = 'speakout-b1.milestones.v1'
+const milestonesKey = () => storageKey('speakout-b1.milestones.v1')
 
 const ALL: Milestone[] = [
   { id: 'first-lesson', title: 'First lesson completed', body: 'Great start \u2014 keep the momentum!', tone: 'success' },
@@ -30,7 +31,7 @@ function counts(state: ProgressState) {
 
 function readSeen(): Set<string> {
   try {
-    const raw = localStorage.getItem(KEY)
+    const raw = localStorage.getItem(milestonesKey())
     if (!raw) return new Set()
     const arr = JSON.parse(raw) as unknown
     if (!Array.isArray(arr)) return new Set()
@@ -53,7 +54,7 @@ export function checkMilestones(state: ProgressState): ToastOptions[] {
   if (fresh.length === 0) return []
   for (const m of fresh) seen.add(m.id)
   try {
-    localStorage.setItem(KEY, JSON.stringify([...seen]))
+    localStorage.setItem(milestonesKey(), JSON.stringify([...seen]))
   } catch {
     /* storage unavailable - ignore */
   }

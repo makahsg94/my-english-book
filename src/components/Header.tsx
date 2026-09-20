@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../lib/appContext'
+import { useAuth } from '../lib/authContext'
 import SearchBox from './SearchBox'
 import { playSound, setSoundEnabled, soundEnabled } from '../lib/sounds'
 import { IconBook, IconList, IconMoon, IconSun, IconVolume, IconVolumeOff } from './Icons'
 
 export default function Header({ onContents }: { onContents: () => void }) {
   const { theme, toggle } = useTheme()
+  const { user } = useAuth()
   const [soundOn, setSoundOn] = useState(() => soundEnabled())
 
   const toggleSound = () => {
@@ -40,6 +42,25 @@ export default function Header({ onContents }: { onContents: () => void }) {
           <div className="hidden w-48 lg:block">
             <SearchBox />
           </div>
+          <Link
+            to="/account"
+            className={`inline-flex h-9 items-center gap-1.5 rounded-lg border px-2 text-sm font-bold transition-colors ${
+              user
+                ? 'border-brand-300 bg-brand-50 text-brand-800 hover:bg-brand-100 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-200 dark:hover:bg-brand-900/60'
+                : 'border-[var(--line-strong)] text-[var(--ink-soft)] hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300'
+            }`}
+          >
+            {user ? (
+              <>
+                <span className="grid size-5 shrink-0 place-items-center rounded-full bg-brand-600 text-[10px] font-extrabold text-white">
+                  {user.slice(0, 1).toUpperCase()}
+                </span>
+                <span className="hidden max-w-28 truncate sm:inline">{user}</span>
+              </>
+            ) : (
+              <span>دخول</span>
+            )}
+          </Link>
           <button
             type="button"
             onClick={toggleSound}
