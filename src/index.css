@@ -34,10 +34,12 @@
   --color-warm-50: #fef7ee;
   --color-warm-100: #fdeadb;
   --color-warm-200: #fad1b4;
+  --color-warm-300: #f2bc90;
   --color-warm-500: #e97a22;
   --color-warm-600: #d0641a;
   --color-warm-700: #a44d16;
   --color-warm-900: #5a2808;
+  --color-warm-950: #331703;
 
   --color-sky-50: #f0f7ff;
   --color-sky-100: #dceeff;
@@ -325,6 +327,22 @@ h1, h2, h3, h4 {
 .dark .callout-warning {
   border-color: var(--color-rose-900);
   background: color-mix(in srgb, var(--color-rose-900) 40%, transparent);
+}
+
+/* ---------- Arabic text ---------- */
+.ar {
+  direction: rtl;
+  unicode-bidi: isolate;
+  text-align: right;
+  font-family: "Segoe UI", "Tahoma", "Arial", ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.7;
+}
+.content-table .ar {
+  font-size: 0.85rem;
+}
+.content-table th .ar,
+.content-table th.ar {
+  font-size: 0.72rem;
 }
 
 /* ---------- Content tables ---------- */

@@ -1,0 +1,1356 @@
+{
+  "units": [
+    {
+      "id": "unit-1",
+      "number": 1,
+      "title": "People",
+      "phrase": "people and relationships • present simple and present continuous • jobs and work • conversations • lifestyle"
+    },
+    {
+      "id": "unit-2",
+      "number": 2,
+      "title": "Tale tellers",
+      "phrase": "narrative tenses • past simple and present perfect • collocations with get and make • storytelling"
+    },
+    {
+      "id": "unit-3",
+      "number": 3,
+      "title": "Questions",
+      "phrase": "question forms • future plans and intentions • polite inquiries • phrasal verbs"
+    },
+    {
+      "id": "unit-4",
+      "number": 4,
+      "title": "winners",
+      "phrase": "talk about success, explain rules and describe memorable journeys"
+    }
+  ],
+  "vocab": [
+    {
+      "unitNumber": 1,
+      "lessonCode": "1A",
+      "lessonTitle": "Who are you?",
+      "blockTitle": "people and relationships",
+      "source": "Vocabulary Bank 1A, page 136",
+      "items": [
+        {
+          "word": "teammate",
+          "meaning": "a person you play a sport with in the same team",
+          "example": "I get on well with my teammates on the football team."
+        },
+        {
+          "word": "colleague",
+          "meaning": "a person you work with",
+          "example": "I'm friendly with most of my colleagues."
+        },
+        {
+          "word": "manager",
+          "meaning": "the person who leads a team or a department",
+          "example": "I have a really good manager. I look up to her."
+        },
+        {
+          "word": "close friend",
+          "meaning": "a friend you know very well and trust",
+          "example": "I also have a group of close friends and we sometimes play music together."
+        },
+        {
+          "word": "partner",
+          "meaning": "the person you share your life with",
+          "example": "My partner is my best friend."
+        },
+        {
+          "word": "grandparent",
+          "meaning": "your mother’s or father’s parent",
+          "example": "My grandparents were very important to me."
+        },
+        {
+          "word": "daughter",
+          "meaning": "a female child",
+          "example": "My daughter takes after my mother."
+        },
+        {
+          "word": "children",
+          "meaning": "your sons or daughters",
+          "example": "I want my children to have a good relationship with my parents."
+        }
+      ]
+    },
+    {
+      "unitNumber": 1,
+      "lessonCode": "1A",
+      "lessonTitle": "Who are you?",
+      "blockTitle": "personality adjectives",
+      "items": [
+        {
+          "word": "funny",
+          "meaning": "making you laugh",
+          "example": "They're so funny, and great to be with."
+        },
+        {
+          "word": "kind",
+          "meaning": "caring about other people",
+          "example": "She's such a kind and generous person."
+        },
+        {
+          "word": "generous",
+          "meaning": "happy to give things or money to others",
+          "example": "My grandfather is very generous with his time."
+        },
+        {
+          "word": "hard-working",
+          "meaning": "working with effort",
+          "example": "They are hard-working and very reliable."
+        },
+        {
+          "word": "reliable",
+          "meaning": "someone you can depend on",
+          "example": "She is a very reliable colleague."
+        },
+        {
+          "word": "cheerful",
+          "meaning": "happy and positive",
+          "example": "She's always cheerful."
+        },
+        {
+          "word": "calm",
+          "meaning": "relaxed and not worried",
+          "example": "It’s amazing that he was so calm."
+        }
+      ]
+    },
+    {
+      "unitNumber": 1,
+      "lessonCode": "1B",
+      "lessonTitle": "Good people",
+      "blockTitle": "jobs",
+      "source": "Vocabulary Bank 1B, page 136",
+      "items": [
+        {
+          "word": "chef",
+          "meaning": "a person who cooks in a restaurant",
+          "example": "A chef is responsible for planning the menu and creating new dishes."
+        },
+        {
+          "word": "musician",
+          "meaning": "a person who plays music or sings",
+          "example": "My brother is a musician."
+        },
+        {
+          "word": "mechanic",
+          "meaning": "a person whose job is repairing cars and machines",
+          "example": "The mechanic fixed our car very quickly."
+        },
+        {
+          "word": "financial consultant",
+          "meaning": "a person who gives advice about money",
+          "example": "I'd like to be a financial consultant because they earn a good salary."
+        },
+        {
+          "word": "shop assistant",
+          "meaning": "a person who helps customers in a shop",
+          "example": "The shop assistant recommended the blue jacket."
+        },
+        {
+          "word": "plumber",
+          "meaning": "a person who repairs water pipes",
+          "example": "We called a plumber to fix the kitchen tap."
+        },
+        {
+          "word": "gardener",
+          "meaning": "a person who works in a garden",
+          "example": "Our gardener looks after the plants once a week."
+        },
+        {
+          "word": "journalist",
+          "meaning": "a person who writes for newspapers or websites",
+          "example": "My sister is a journalist."
+        }
+      ]
+    },
+    {
+      "unitNumber": 1,
+      "lessonCode": "1C",
+      "lessonTitle": "Let's talk!",
+      "blockTitle": "conversation topics",
+      "items": [
+        {
+          "word": "clothes and fashion",
+          "example": "That's a nice jacket. Where did you get it?"
+        },
+        {
+          "word": "food and eating out",
+          "example": "Have you tried these pastries? They look delicious."
+        },
+        {
+          "word": "hobbies and free-time activities",
+          "example": "What kinds of things do you paint?"
+        },
+        {
+          "word": "holiday experiences",
+          "example": "We've just got back from Corfu. It was wonderful."
+        },
+        {
+          "word": "politics",
+          "example": "So, who do you think will win the election?"
+        },
+        {
+          "word": "sport or music events",
+          "example": "It's the Big Music Live this weekend. Are you going?"
+        },
+        {
+          "word": "the news",
+          "example": "Did you hear about the fire in town? It’s terrible."
+        },
+        {
+          "word": "the weather",
+          "example": "Lovely day, isn't it?"
+        },
+        {
+          "word": "work or studies",
+          "example": "I hear you have a job in finance. Do you enjoy it?"
+        }
+      ]
+    },
+    {
+      "unitNumber": 2,
+      "lessonCode": "2A",
+      "lessonTitle": "What happened?",
+      "blockTitle": "adjectives for feelings; -ed/-ing adjectives",
+      "source": "Vocabulary Bank 2A, page 137",
+      "items": [
+        {
+          "word": "bored",
+          "meaning": "feeling unhappy because something is not interesting",
+          "example": "We were bored, so we went into the garage."
+        },
+        {
+          "word": "exciting",
+          "meaning": "making you feel excited",
+          "example": "We were really excited when we found all dad’s paints."
+        },
+        {
+          "word": "frightened",
+          "meaning": "afraid of something",
+          "example": "My sister and I were frightened."
+        },
+        {
+          "word": "embarrassed",
+          "meaning": "feeling uncomfortable or ashamed about something",
+          "example": "I think he found it a bit embarrassing."
+        },
+        {
+          "word": "annoyed",
+          "meaning": "slightly angry",
+          "example": "Dad is going to be really annoyed!"
+        },
+        {
+          "word": "surprised",
+          "meaning": "feeling that something unexpected has happened",
+          "example": "I'm surprised you chose blue."
+        },
+        {
+          "word": "disappointed",
+          "meaning": "unhappy because something was not as good as you hoped",
+          "example": "He was probably disappointed with us."
+        },
+        {
+          "word": "amazed",
+          "meaning": "very surprised",
+          "example": "It's amazing that he was so calm."
+        }
+      ]
+    },
+    {
+      "unitNumber": 2,
+      "lessonCode": "2B",
+      "lessonTitle": "Storytelling",
+      "blockTitle": "story words",
+      "source": "Vocabulary Bank 2B, page 137",
+      "items": [
+        {
+          "word": "hero",
+          "meaning": "the main person in a story",
+          "example": "The hero of the film saves the town."
+        },
+        {
+          "word": "characters",
+          "meaning": "the people in a story",
+          "example": "The characters in this book are very realistic."
+        },
+        {
+          "word": "plot",
+          "meaning": "the main events in a story",
+          "example": "I think having an exciting plot is important."
+        },
+        {
+          "word": "ending",
+          "meaning": "the way a story finishes",
+          "example": "I like a happy ending, too."
+        },
+        {
+          "word": "storyteller",
+          "meaning": "a person who tells the story",
+          "example": "The storyteller at the festival was amazing."
+        },
+        {
+          "word": "performances",
+          "meaning": "when people act or sing in front of people",
+          "example": "I love the actors' performances."
+        },
+        {
+          "word": "fairytales",
+          "meaning": "traditional stories for children",
+          "example": "My grandmother told me fairytales."
+        },
+        {
+          "word": "TV shows",
+          "meaning": "programmes which are shown on television",
+          "example": "It's the same with TV shows and films."
+        }
+      ]
+    },
+    {
+      "unitNumber": 2,
+      "lessonCode": "2C",
+      "lessonTitle": "A likely story!",
+      "blockTitle": "collocations with get and make",
+      "items": [
+        {
+          "word": "get off",
+          "meaning": "to leave a bus or train",
+          "example": "I got off at the wrong bus stop!"
+        },
+        {
+          "word": "get lost",
+          "meaning": "to not know where you are",
+          "example": "Sorry I’m late – I got lost!"
+        },
+        {
+          "word": "get held up",
+          "meaning": "to be delayed",
+          "example": "I got held up at work."
+        },
+        {
+          "word": "get the wrong day/time/date/address",
+          "meaning": "to understand something wrongly",
+          "example": "I got the wrong day!"
+        },
+        {
+          "word": "make a mistake",
+          "meaning": "to do something wrong",
+          "example": "I made a mistake with the address."
+        },
+        {
+          "word": "make a call",
+          "meaning": "to phone someone",
+          "example": "I had to make an urgent call."
+        },
+        {
+          "word": "make a plan",
+          "meaning": "to agree to do something at a certain time",
+          "example": "My partner made other plans and I didn’t know until it was too late."
+        },
+        {
+          "word": "make a mess",
+          "meaning": "to make something dirty or untidy",
+          "example": "My little sister made a mess and I had to clean it up."
+        }
+      ]
+    },
+    {
+      "unitNumber": 3,
+      "lessonCode": "3A",
+      "lessonTitle": "Facts and figures",
+      "blockTitle": "knowledge: verbs and nouns",
+      "source": "Vocabulary Bank 3A, page 138",
+      "items": [
+        {
+          "word": "note down",
+          "meaning": "to write something to help you remember it",
+          "example": "I note down new information, and I use my notes to revise for exams."
+        },
+        {
+          "word": "revise",
+          "meaning": "to prepare for a test by studying books and notes",
+          "example": "I use my notes to revise for exams."
+        },
+        {
+          "word": "memory",
+          "meaning": "your ability to remember things and not forget them",
+          "example": "I read all the time and I have a good memory."
+        },
+        {
+          "word": "a mind",
+          "meaning": "the part of you that thinks and understands things",
+          "example": "I think my mind works that way."
+        },
+        {
+          "word": "general knowledge",
+          "meaning": "information on many different subjects",
+          "example": "My general knowledge is fine, although I don’t know much about sport!"
+        },
+        {
+          "word": "solve (a problem)",
+          "meaning": "to find the correct answer to a problem",
+          "example": "I love to do quizzes and solve problems."
+        },
+        {
+          "word": "guess",
+          "meaning": "to answer a question without knowing if you are right",
+          "example": "If I don’t know the answer, I just guess!"
+        },
+        {
+          "word": "score",
+          "meaning": "the number of points you get during a game or test",
+          "example": "Even if I get a good score, I forget everything immediately afterwards!"
+        },
+        {
+          "word": "data",
+          "meaning": "information, especially numbers or facts",
+          "example": "At work, I need to understand data and I’m quite good with numbers."
+        },
+        {
+          "word": "an option",
+          "meaning": "a thing you can choose",
+          "example": "I try to choose the best option."
+        }
+      ]
+    },
+    {
+      "unitNumber": 3,
+      "lessonCode": "3B",
+      "lessonTitle": "Decisions",
+      "blockTitle": "decisions",
+      "source": "",
+      "items": [
+        {
+          "word": "communicate",
+          "meaning": "to share or exchange information, news or ideas",
+          "example": "Good teams communicate well."
+        }
+      ]
+    },
+    {
+      "unitNumber": 3,
+      "lessonCode": "3C",
+      "lessonTitle": "Can I ask you… ?",
+      "blockTitle": "facilities",
+      "source": "Vocabulary Bank 3C, page 138",
+      "items": [
+        {
+          "word": "facilities",
+          "meaning": "the buildings, services and equipment provided for a purpose",
+          "example": "The university offers all the facilities you need."
+        },
+        {
+          "word": "campus",
+          "meaning": "the land and buildings of a university or college",
+          "example": "If you are studying at the University of Malta, the campus also has a sports centre."
+        },
+        {
+          "word": "library",
+          "meaning": "a place with a large selection of books",
+          "example": "There is a main library which has a huge selection of books."
+        },
+        {
+          "word": "sports centre",
+          "meaning": "a building where you can do sports",
+          "example": "The campus has a sports centre with football pitches and a swimming pool."
+        },
+        {
+          "word": "gym",
+          "meaning": "a place where you do physical exercise",
+          "example": "Can I use the gym? I’d like to know when the gym opens in the morning."
+        },
+        {
+          "word": "halls of residence",
+          "meaning": "university accommodation for students",
+          "example": "You can stay in university halls of residence or with home-stay families."
+        },
+        {
+          "word": "study areas",
+          "meaning": "places where students can study",
+          "example": "There are outside study areas where students can study together."
+        },
+        {
+          "word": "language schools",
+          "meaning": "schools that teach languages",
+          "example": "You can register for a course at one of the many language schools on the island."
+        },
+        {
+          "word": "employment office",
+          "meaning": "an office that helps people find work",
+          "example": "Jobs in finance or tourism are easy to find in Malta."
+        },
+        {
+          "word": "theatres",
+          "meaning": "places where plays and shows are performed",
+          "example": "The sports centre is in the town square, opposite the theatre."
+        }
+      ]
+    },
+    {
+      "unitNumber": 4,
+      "lessonCode": "4A",
+      "lessonTitle": "Success",
+      "blockTitle": "success",
+      "items": [
+        {
+          "word": "talented",
+          "meaning": "naturally good at something",
+          "example": "She's a really talented dancer - she's so good!"
+        },
+        {
+          "word": "strict (with yourself)",
+          "meaning": "demanding that rules are followed",
+          "example": "He needs to be strict about when he starts work."
+        },
+        {
+          "word": "do well",
+          "meaning": "be successful",
+          "example": "She is doing well at school and getting good grades."
+        },
+        {
+          "word": "bad loser",
+          "meaning": "someone who reacts badly to losing",
+          "example": "He hates it when his team doesn't win. He's a bad loser."
+        },
+        {
+          "word": "working hard",
+          "meaning": "putting a lot of effort in",
+          "example": "She's working hard, so I'm sure she'll be successful."
+        },
+        {
+          "word": "competitive",
+          "meaning": "always wanting to win",
+          "example": "The brothers are very competitive. They always want to win."
+        },
+        {
+          "word": "carry on",
+          "meaning": "continue",
+          "example": "Carry on playing and do not stop until you win."
+        },
+        {
+          "word": "give up",
+          "meaning": "stop trying",
+          "example": "She is thinking about giving up her job."
+        },
+        {
+          "word": "failure",
+          "meaning": "a person or thing that does not succeed",
+          "example": "Do not be afraid of failure."
+        },
+        {
+          "word": "succeed",
+          "meaning": "achieve what you want",
+          "example": "Only a few people achieve their dreams."
+        }
+      ]
+    },
+    {
+      "unitNumber": 4,
+      "lessonCode": "4B",
+      "lessonTitle": "First!",
+      "blockTitle": "technology collocations; word building: suffixes",
+      "source": "See also Vocabulary Bank, page 139",
+      "items": [
+        {
+          "word": "create a webpage",
+          "example": "Tim Berners-Lee showed how to create webpages."
+        },
+        {
+          "word": "send / receive a text",
+          "example": "Didn’t you receive all my texts?"
+        },
+        {
+          "word": "download an app",
+          "example": "You just use your email address and add a password."
+        },
+        {
+          "word": "launch a website",
+          "example": "When we launched a website last year, we didn’t expect so many people to visit it so quickly!"
+        },
+        {
+          "word": "post a photo",
+          "example": "Do you post photos on social media?"
+        },
+        {
+          "word": "share a video or photo",
+          "example": "I shared a video with my friends on Instagram."
+        },
+        {
+          "word": "comment on a webpage",
+          "example": "Please leave a comment on their website."
+        },
+        {
+          "word": "go viral",
+          "example": "It didn’t exactly go viral, but it did launch a website that has been incredibly popular."
+        }
+      ]
+    },
+    {
+      "unitNumber": 4,
+      "lessonCode": "4C",
+      "lessonTitle": "Taking part",
+      "blockTitle": "sports and games",
+      "items": [
+        {
+          "word": "take part in",
+          "meaning": "participate in",
+          "example": "Do you take part in any sports?"
+        },
+        {
+          "word": "support a team",
+          "meaning": "want a team to win",
+          "example": "I support Manchester United."
+        },
+        {
+          "word": "a fan of a team/player",
+          "meaning": "enjoy watching them",
+          "example": "Are you a fan of any teams or players?"
+        },
+        {
+          "word": "a champion",
+          "meaning": "the winner of a competition",
+          "example": "We're the champions!"
+        },
+        {
+          "word": "score points / goals",
+          "meaning": "get points in a game",
+          "example": "Do you know how you score points?"
+        },
+        {
+          "word": "board game",
+          "meaning": "a game played on a board",
+          "example": "Do you have any board games at home?"
+        },
+        {
+          "word": "e-sports",
+          "meaning": "competitive video gaming",
+          "example": "He takes part in e-sports competitions."
+        }
+      ]
+    },
+    {
+      "unitNumber": 4,
+      "lessonCode": "4D",
+      "lessonTitle": "Top Gear: Nepal",
+      "blockTitle": "Key phrases: a memorable journey",
+      "items": [
+        {
+          "word": "",
+          "meaning": "",
+          "example": "The most memorable journey I've ever been on was…"
+        },
+        {
+          "word": "",
+          "meaning": "",
+          "example": "It was my first time…"
+        },
+        {
+          "word": "",
+          "meaning": "",
+          "example": "It was one of the most amazing…"
+        },
+        {
+          "word": "",
+          "meaning": "",
+          "example": "It was memorable because…"
+        },
+        {
+          "word": "",
+          "meaning": "",
+          "example": "The journey took… days."
+        },
+        {
+          "word": "",
+          "meaning": "",
+          "example": "… is definitely the most interesting place I've been to."
+        }
+      ]
+    }
+  ],
+  "grammar": [
+    {
+      "unitNumber": 1,
+      "lessonCode": "1A",
+      "lessonTitle": "Who are you?",
+      "title": "present simple and present continuous; state verbs; adverbs of frequency",
+      "explanation": "We use the present simple for facts and things that are always or usually true. We use the present continuous for things happening now or around now. Some verbs describe states (feelings, thoughts), not actions, and we don't usually use them in the continuous form.",
+      "rule": "present simple: facts, habits and routines → We study during the day and then we usually cook together in the evening. present continuous: temporary situations happening around now → I'm living with a few of the people on my course at the moment. state verbs: like, love, want, need, know, prefer, remember → stay in the present simple. adverbs of frequency: always, usually, often, sometimes, hardly ever, never – before the main verb but after be.",
+      "examples": [
+        "I'm studying design and I love it!",
+        "I'm living with a few of the people on my course at the moment.",
+        "We study during the day and then we usually cook together in the evening.",
+        "My parents live back home in Poland."
+      ],
+      "bankPage": 104,
+      "table": {
+        "headers": [
+          "Tense",
+          "Use"
+        ],
+        "rows": [
+          {
+            "label": "present simple",
+            "values": [
+              "facts, habits and routines",
+              "My parents live back home in Poland.",
+              "When they come home, we always try to meet up."
+            ]
+          },
+          {
+            "label": "present continuous",
+            "values": [
+              "things happening now or around now",
+              "I'm studying design and I love it!",
+              "I'm living with a few of the people on my course at the moment."
+            ]
+          },
+          {
+            "label": "state verbs",
+            "values": [
+              "feelings and states – not usually continuous",
+              "I love it! (not: I’m loving it)"
+            ]
+          },
+          {
+            "label": "adverbs of frequency",
+            "values": [
+              "always / usually / often / sometimes / hardly ever / never",
+              "We always try to meet up when my parents come home."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 1,
+      "lessonCode": "1B",
+      "lessonTitle": "Good people",
+      "title": "verb patterns",
+      "explanation": "Some verbs are followed by the to + infinitive form, and other verbs are followed by the -ing form. We can also use the -ing form as the subject of a sentence and after prepositions.",
+      "rule": "verb + to + infinitive: decide, hope, need, want, agree, help, plan → After leaving school, I decided to do a plumbing course. verb + -ing: enjoy, finish, like, mind, spend time → Before studying to be a doctor, he worked as a volunteer. -ing form as subject: Working here is great! preposition + -ing form: She agreed to help before realising how hard it was.",
+      "examples": [
+        "After leaving school, I decided to do a plumbing course.",
+        "She hopes to become a chef.",
+        "Working here is great – I love it!",
+        "Helping people is what Ridsdale does."
+      ],
+      "bankPage": 105,
+      "table": {
+        "headers": [
+          "Pattern",
+          "Example"
+        ],
+        "rows": [
+          {
+            "label": "verb + to + infinitive",
+            "values": [
+              "decide to do • hope to become • need to speak",
+              "After leaving school, I decided to do a plumbing course.",
+              "She hopes to become a chef."
+            ]
+          },
+          {
+            "label": "verb + -ing",
+            "values": [
+              "enjoy working • spend time learning | Working here is great – I love it!",
+              "Before studying to be a doctor, he worked as a volunteer in a hospital."
+            ]
+          },
+          {
+            "label": "-ing form as subject",
+            "values": [
+              "Helping people is what Ridsdale does."
+            ]
+          },
+          {
+            "label": "preposition + -ing form",
+            "values": [
+              "After leaving the food outside her home, she put up a sign."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 1,
+      "lessonCode": "1D",
+      "lessonTitle": "Lifestyle",
+      "title": "modifiers",
+      "explanation": "We use modifiers before adjectives and adverbs to make the meaning stronger or weaker. We can also use a bit before a comparative to talk about a small change, and a lot for a big change.",
+      "rule": "weaker: quite / relatively / fairly + adjective → I would describe my lifestyle as quite normal. I guess my life is fairly comfortable. patterns: quite a … lifestyle / a bit more / a lot of.",
+      "examples": [
+        "I would describe my lifestyle as quite normal.",
+        "My lifestyle is pretty normal.",
+        "I’m doing quite a lot of studying for university.",
+        "I want to travel a bit more."
+      ],
+      "bankPage": 107,
+      "table": {
+        "headers": [
+          "Form",
+          "Example"
+        ],
+        "rows": [
+          {
+            "label": "quite + adjective",
+            "values": [
+              "I would describe my lifestyle as quite normal.",
+              "I have quite a normal lifestyle."
+            ]
+          },
+          {
+            "label": "pretty / relatively / fairly",
+            "values": [
+              "My lifestyle is pretty normal.",
+              "My lifestyle is relatively normal and conservative.",
+              "I guess my life is fairly comfortable."
+            ]
+          },
+          {
+            "label": "quite a lot of + noun",
+            "values": [
+              "I'm doing quite a lot of studying for university."
+            ]
+          },
+          {
+            "label": "a bit more / a lot more",
+            "values": [
+              "I want to travel a bit more.",
+              "I spend quite a lot of time with my friends."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 2,
+      "lessonCode": "2A",
+      "lessonTitle": "What happened?",
+      "title": "narrative tenses",
+      "explanation": "When we tell a story, we use the past continuous to set the scene (background information), the past simple for the main events, and the past perfect to talk about an earlier event.",
+      "rule": "past continuous: background information → They were sleeping on the floor. past simple: the main events → Suddenly, the train stopped in the middle of nowhere. past perfect: had + past participle for an earlier event → Jane woke up on the railway track. She had fallen off the train.",
+      "examples": [
+        "They were sleeping on the floor when the train stopped suddenly.",
+        "I had never been on a jet ski before, so I was really excited.",
+        "When I found the right place, the driver had already left."
+      ],
+      "bankPage": 108,
+      "table": {
+        "headers": [
+          "Tense",
+          "Use"
+        ],
+        "rows": [
+          {
+            "label": "past continuous",
+            "values": [
+              "background information / to set the scene",
+              "They were sleeping on the floor.",
+              "She was getting very worried."
+            ]
+          },
+          {
+            "label": "past simple",
+            "values": [
+              "the main events in the story",
+              "Suddenly, the train stopped in the middle of nowhere.",
+              "The driver left me on the beach."
+            ]
+          },
+          {
+            "label": "past perfect",
+            "values": [
+              "an earlier event in the past",
+              "Jane woke up on the railway track. She had fallen off the train.",
+              "I couldn’t remember the exact beach where we had arranged to meet."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 2,
+      "lessonCode": "2B",
+      "lessonTitle": "Storytelling",
+      "title": "past simple and present perfect",
+      "explanation": "The past simple describes an event that started and finished at a specific time in the past. The present perfect describes something that started in the past and continues, or is still important, now.",
+      "rule": "past simple: an event that started and finished at a specific time in the past → In December 2019, researchers in Indonesia found a cave with paintings. present perfect: something that started in the past and continues, or is still important, now → People in the Middle East have told the story of Little Red Riding Hood for a thousand years. New technologies have brought exciting new ways to tell stories.",
+      "examples": [
+        "People in the Middle East have told the story of Little Red Riding Hood for a thousand years.",
+        "New technologies have brought exciting new ways to tell stories.",
+        "In December 2019, researchers in Indonesia found a cave with paintings."
+      ],
+      "bankPage": 109,
+      "table": {
+        "headers": [
+          "Tense",
+          "Use"
+        ],
+        "rows": [
+          {
+            "label": "past simple",
+            "values": [
+              "started and finished at a specific time in the past",
+              "In December 2019, researchers in Indonesia found a cave with paintings."
+            ]
+          },
+          {
+            "label": "present perfect",
+            "values": [
+              "started in the past and continues, or is still important, now",
+              "People in the Middle East have told the story of Little Red Riding Hood for a thousand years."
+            ]
+          },
+          {
+            "label": "present perfect of have",
+            "values": [
+              "contracted form: I’ve, you’ve, they’ve",
+              "New technologies have brought exciting new ways to tell stories."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 2,
+      "lessonCode": "2D",
+      "lessonTitle": "The story of a place",
+      "title": "prepositions of time",
+      "explanation": "We use before, until and during to talk about time in a narrative about a place or situation.",
+      "rule": "until: the situation continues up to that time → The old way of life continued in Matera until the Italian government moved people out of the caves. before: earlier than that time → Before they moved into modern homes, families shared the caves with their animals. during: at the same time as a period → The changes happened during the 1950s.",
+      "examples": [
+        "The old way of life continued in Matera until the Italian government moved people out of the caves.",
+        "Before they moved into modern homes, families shared the caves with their animals.",
+        "The changes happened during the 1950s."
+      ],
+      "bankPage": 111,
+      "table": {
+        "headers": [
+          "Preposition",
+          "Use"
+        ],
+        "rows": [
+          {
+            "label": "until",
+            "values": [
+              "continues up to that time",
+              "The old way of life continued until the government moved people out."
+            ]
+          },
+          {
+            "label": "before",
+            "values": [
+              "earlier than that time",
+              "Before they moved into modern homes, families shared the caves with their animals."
+            ]
+          },
+          {
+            "label": "during",
+            "values": [
+              "at the same time as a period",
+              "The changes happened during the 1950s."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 3,
+      "lessonCode": "3A",
+      "lessonTitle": "Facts and figures",
+      "title": "question forms",
+      "explanation": "We can ask about the subject of a sentence (Who/What + verb) or about the object (Who/What + auxiliary + subject + verb). We also use question words like why, when, where, how and which with auxiliary verbs.",
+      "rule": "subject question: no auxiliary → Who wrote the Sherlock Holmes books? (Tim Berners-Lee invented the web. → Who invented the World Wide Web?) object question: auxiliary + subject → What did Tim Berners-Lee invent? (Tim Berners-Lee invented the web. → What did he invent?) preposition at the end: What do you know a lot about?",
+      "examples": [
+        "Who wrote the Sherlock Holmes books?",
+        "What did Tim Berners-Lee invent?",
+        "What do you know a lot about?"
+      ],
+      "bankPage": 112,
+      "table": {
+        "headers": [
+          "Form",
+          "Example"
+        ],
+        "rows": [
+          {
+            "label": "subject question (no auxiliary)",
+            "values": [
+              "Who wrote the Sherlock Holmes books?",
+              "Who invented the World Wide Web?"
+            ]
+          },
+          {
+            "label": "object question (auxiliary)",
+            "values": [
+              "What did Tim Berners-Lee invent?",
+              "Why do we have eyebrows?"
+            ]
+          },
+          {
+            "label": "question ending in a preposition",
+            "values": [
+              "What do you know a lot about?",
+              "What are you going to do later?"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 3,
+      "lessonCode": "3B",
+      "lessonTitle": "Decisions",
+      "title": "future plans and intentions",
+      "explanation": "We use different forms to talk about the future. The present continuous is for arrangements we have already made. Going to is for plans and intentions. Will is for a decision made at the time of speaking. Might is for a plan we are not sure about.",
+      "rule": "present continuous: a future arrangement → Next week we're looking at a house in a village. going to: future plans → They're going to travel around South America. will: a decision made at the time of speaking → We'll see if we can find somewhere nice, then we'll make our decision. might: a plan you are not sure about → I might get a job in a local restaurant.",
+      "examples": [
+        "Next week we're looking at a house in a village.",
+        "They're going to travel around South America.",
+        "We'll see if we can find somewhere nice, then we'll make our decision.",
+        "I might get a job in a local restaurant."
+      ],
+      "bankPage": 113,
+      "table": {
+        "headers": [
+          "Form",
+          "Use"
+        ],
+        "rows": [
+          {
+            "label": "present continuous",
+            "values": [
+              "a future arrangement",
+              "Next week we're looking at a house in a village."
+            ]
+          },
+          {
+            "label": "going to",
+            "values": [
+              "future plans",
+              "They're going to travel around South America."
+            ]
+          },
+          {
+            "label": "will",
+            "values": [
+              "a decision made at the time of speaking",
+              "We'll see if we can find somewhere nice, then we'll make our decision."
+            ]
+          },
+          {
+            "label": "might",
+            "values": [
+              "a plan which you are not sure about",
+              "I might get a job in a local restaurant."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 3,
+      "lessonCode": "3C",
+      "lessonTitle": "Can I ask you… ?",
+      "title": "indirect questions (polite inquiries)",
+      "explanation": "Indirect questions are more polite than direct questions. In an indirect question, the word order changes: the subject comes before the verb, and we often use Can you tell me…?, Do you know…?, I’d like to know…?, Could you tell me…?",
+      "rule": "word order: question word + subject + verb (no auxiliary after the question word) → Where is the swimming pool? → Can you tell me where the swimming pool is? (not: where is the swimming pool is) → direct: What time does the accommodation office close? → indirect: I'd like to know what time the accommodation office closes. yes/no questions use if/whether → Do I need a visa? → Do you know if I need a visa?",
+      "examples": [
+        "Can you tell me where the swimming pool is?",
+        "I'd like to know what time the accommodation office closes.",
+        "Do you know if I need a visa?",
+        "Could you tell me if I can use the gym?"
+      ],
+      "bankPage": 114,
+      "table": {
+        "headers": [
+          "Direct question",
+          "Indirect (polite) question"
+        ],
+        "rows": [
+          {
+            "label": "Where is …?",
+            "values": [
+              "Can you tell me where the swimming pool is?"
+            ]
+          },
+          {
+            "label": "What time does …?",
+            "values": [
+              "I’d like to know what time the accommodation office closes."
+            ]
+          },
+          {
+            "label": "Can I …?",
+            "values": [
+              "Could you tell me if I can use the gym?"
+            ]
+          },
+          {
+            "label": "Do I need …?",
+            "values": [
+              "Do you know if I need a visa?"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 3,
+      "lessonCode": "3D",
+      "lessonTitle": "What matters most?",
+      "title": "phrasal verbs",
+      "explanation": "A phrasal verb is a verb + a small word (particle) with a special meaning. In some phrasal verbs, the object can go between the verb and the particle, or after the particle.",
+      "rule": "separable phrasal verbs: I put on a song. = I put a song on. Inseparable phrasal verbs: My friends and I look out for each other. (not: look for each other out) phrasal verbs from the video: put on (a song), look out for (each other).",
+      "examples": [
+        "Putting on a certain song can uplift you.",
+        "[It's important to] look out for each other.",
+        "I put on a song. / I put a song on."
+      ],
+      "bankPage": 115,
+      "table": {
+        "headers": [
+          "Phrasal verb",
+          "Meaning"
+        ],
+        "rows": [
+          {
+            "label": "put on (separable)",
+            "values": [
+              "to start playing (music)",
+              "Putting on a certain song can uplift you. → I put a song on."
+            ]
+          },
+          {
+            "label": "look out for (inseparable)",
+            "values": [
+              "to take care of / protect",
+              "[It’s important to] look out for each other."
+            ]
+          },
+          {
+            "label": "find out",
+            "values": [
+              "to discover",
+              "You are going to find out information about your partner’s answers."
+            ]
+          },
+          {
+            "label": "switch on / shut down",
+            "values": [
+              "to start / stop a machine",
+              "I switch on my computer and begin work. At 4 p.m., I shut down my computer."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 4,
+      "lessonCode": "4A",
+      "lessonTitle": "Success",
+      "title": "modals for rules and advice",
+      "explanation": "Modal verbs change the meaning of the verb that follows. Some modals say something is necessary, some say it is not necessary, and some give advice.",
+      "rule": "c = it is necessary. Have to / need to / must. a = it's a good idea: should. b = this isn't necessary: don't have to / needn't. d = don't do this, it isn't allowed or advised: mustn't.",
+      "examples": [
+        "You need to set goals. You have to know what you want to achieve.",
+        "You don’t have to be more talented than everyone else, but you have to make more effort.",
+        "You must work really hard and you mustn’t give up.",
+        "You should be nice to people, but you needn’t work all the time."
+      ],
+      "bankPage": 116,
+      "table": {
+        "headers": [
+          "Modal",
+          "Meaning",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "must / have to / need to",
+              "It is necessary. You have no choice.",
+              "You must work really hard."
+            ]
+          },
+          {
+            "values": [
+              "don't have to / needn't",
+              "This isn't necessary.",
+              "You needn't work all the time."
+            ]
+          },
+          {
+            "values": [
+              "should / shouldn’t",
+              "a good idea / a bad idea",
+              "You should be nice to people."
+            ]
+          },
+          {
+            "values": [
+              "mustn’t",
+              "Don't do this. It isn't allowed or advised.",
+              "You mustn't give up."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 4,
+      "lessonCode": "4B",
+      "lessonTitle": "First!",
+      "title": "articles",
+      "explanation": "Articles tell the listener or reader if we are talking about something new, something already known, or things in general.",
+      "rule": "We use a/an the first time something is mentioned (new information) and with jobs. We use the when we know which person or thing we are talking about, and with superlatives. We use no article when we talk generally about people and things, and with most names of places.",
+      "examples": [
+        "Who made the first flight?",
+        "He was an inventor called Alberto Santos Dumont.",
+        "The first flight happened in a field in North Carolina, USA, or in France.",
+        "The puzzle of who made the first flight remains one of the biggest questions in aeroplane history."
+      ],
+      "bankPage": 117,
+      "table": {
+        "headers": [
+          "Article",
+          "Use",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "a / an",
+              "first mention (new information)",
+              "Books often say it was the Wright brothers."
+            ]
+          },
+          {
+            "values": [
+              "a / an",
+              "jobs",
+              "He was an inventor."
+            ]
+          },
+          {
+            "values": [
+              "the",
+              "known person or thing",
+              "The Brazilian’s flight was watched by hundreds of people."
+            ]
+          },
+          {
+            "values": [
+              "the",
+              "superlatives",
+              "the biggest questions"
+            ]
+          },
+          {
+            "values": [
+              "no article",
+              "general people and things",
+              "Books about the history of flight"
+            ]
+          },
+          {
+            "values": [
+              "no article",
+              "most names of places",
+              "France, North Carolina"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 4,
+      "lessonCode": "4C",
+      "lessonTitle": "Taking part",
+      "title": "How to… explain rules and procedures",
+      "explanation": "When we explain rules and procedures, we present the information in a clear sequence with a clear structure, starting with more general information and then adding more details.",
+      "rule": "Start with the aim: The aim of the game is to… Then say how it is organised: There are (six players). It is played on a field. Then the procedure: To start with… Then / Next… After that… . Then the rules: You score (shooting the ball into the goal). You can… You have to / must… You can't / mustn't… It lasts (one hour).",
+      "examples": [
+        "That was the first time I have ever played floorball.",
+        "Let us know in the comments - are bowling, dance and fishing sports, or just hobbies?",
+        "The aim of the game is to score more goals than the other team."
+      ],
+      "bankPage": 118,
+      "table": {
+        "headers": [
+          "Information",
+          "Language"
+        ],
+        "rows": [
+          {
+            "values": [
+              "how to win",
+              "The goal is to… / The aim of the game is to…"
+            ]
+          },
+          {
+            "values": [
+              "organisation and equipment",
+              "There are (six players). It is played on a field."
+            ]
+          },
+          {
+            "values": [
+              "procedure",
+              "To start with… Then / Next… After that…"
+            ]
+          },
+          {
+            "values": [
+              "rules",
+              "You score (shooting the ball into the goal). You can… You have to / must… You can't / mustn't…"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 4,
+      "lessonCode": "4D",
+      "lessonTitle": "Top Gear: Nepal",
+      "title": "present perfect + superlative",
+      "explanation": "We can use the present perfect + the superlative form of an adjective to talk about an experience related to our whole life.",
+      "rule": "Subject + has/have + the superlative adjective + I've ever + past participle. Example: 'This is the worst… I've ever seen!'",
+      "examples": [
+        "This is the worst… I've ever seen!",
+        "It's the worst hotel I've ever stayed in.",
+        "It's the longest journey I've been on!"
+      ],
+      "bankPage": 119,
+      "table": {
+        "headers": [
+          "Pattern",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "This is the best + noun + I’ve ever + past participle",
+              "This is the best holiday I've ever had!"
+            ]
+          },
+          {
+            "values": [
+              "It's the worst + noun + I've ever + past participle",
+              "It's the worst hotel I've ever stayed in."
+            ]
+          },
+          {
+            "values": [
+              "It's the longest + noun + I've ever + past participle",
+              "It's the longest journey I've been on!"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

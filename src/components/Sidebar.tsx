@@ -1,15 +1,16 @@
-import { NavLink } from 'react-router-dom'
+import { useMatch, NavLink } from 'react-router-dom'
 import { BOOK, unitGlyph, unitLabel } from '../content/book'
 import { getWritingTask } from '../content/writing'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import BookProgress from './BookProgress'
-import { IconBook, IconCheck, IconPen, IconTarget } from './Icons'
+import { IconBook, IconCheck, IconFlame, IconPen, IconTarget } from './Icons'
 
 type Status = 'done' | 'started' | 'todo'
 
 export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const progress = useProgress()
+  const reviewActive = useMatch('/review') !== null
 
   return (
     <nav className="px-5 py-6">
@@ -18,6 +19,28 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       </p>
       <div className="mb-5">
         <BookProgress />
+      </div>
+
+      <div className="mb-5">
+        <NavLink
+          to="/review"
+          onClick={onNavigate}
+          className={`tactile flex items-center gap-2.5 rounded-xl border px-3 py-2.5 transition-colors ${
+            reviewActive
+              ? 'border-brand-500 bg-brand-600 text-white'
+              : 'border-warm-200 bg-gradient-to-r from-warm-50 to-brand-50 text-brand-800 hover:shadow-sm dark:border-warm-900 dark:from-warm-950/50 dark:to-brand-950/50 dark:text-brand-200'
+          }`}
+        >
+          <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-brand-600 text-white">
+            <IconFlame size={16} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-sm font-bold leading-tight">Comprehensive review</span>
+            <span className={`block text-[11px] leading-tight ${reviewActive ? 'text-white/75' : 'text-[var(--ink-faint)]'}`} dir="rtl" lang="ar">
+              المراجعة الشاملة
+            </span>
+          </span>
+        </NavLink>
       </div>
 
       <div className="mb-1 flex items-baseline gap-2 pb-1">

@@ -12,6 +12,7 @@ import WritingPage from './pages/WritingPage'
 import LessonPage from './pages/LessonPage'
 import PageView from './pages/PageView'
 import BankPage from './pages/BankPage'
+import ReviewPage from './pages/ReviewPage'
 import { Link } from 'react-router-dom'
 import { IconHome } from './components/Icons'
 
@@ -60,6 +61,7 @@ export default function App() {
                 <Route path="unit/:unitId/lesson/:lessonId" element={<LessonPage />} />
                 <Route path="page/:pdf" element={<PageView />} />
                 <Route path="bank/:bankId" element={<BankPage />} />
+                <Route path="review" element={<ReviewPage />} />
               </Route>
               <Route path="*" element={<NotFound />} />
               </Routes>

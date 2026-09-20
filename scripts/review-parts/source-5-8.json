@@ -1,0 +1,1340 @@
+{
+  "units": [
+    {
+      "id": "unit-5",
+      "number": 5,
+      "title": "news",
+      "phrase": "talk about the news, plan a campaign and make predictions"
+    },
+    {
+      "id": "unit-6",
+      "number": 6,
+      "title": "creators",
+      "phrase": "talk about the arts, creativity and creative geniuses"
+    },
+    {
+      "id": "unit-7",
+      "number": 7,
+      "title": "travel",
+      "phrase": "talk about travel, new experiences and making recommendations"
+    },
+    {
+      "id": "unit-8",
+      "number": 8,
+      "title": "know-how",
+      "phrase": "talk about skills and abilities, videos, technology and learning"
+    }
+  ],
+  "vocab": [
+    {
+      "unitNumber": 5,
+      "lessonCode": "5A",
+      "lessonTitle": "Fake news",
+      "blockTitle": "news and social media",
+      "items": [
+        {
+          "word": "publish",
+          "meaning": "make a story available for other people to read, in print or online"
+        },
+        {
+          "word": "journalist",
+          "meaning": "someone who writes about the news for a newspaper, radio, TV, etc."
+        },
+        {
+          "word": "find out",
+          "meaning": "to discover information"
+        },
+        {
+          "word": "post",
+          "meaning": "upload a story on the internet"
+        },
+        {
+          "word": "headline",
+          "meaning": "the title of a story in the news, usually printed in large letters"
+        },
+        {
+          "word": "fake news",
+          "meaning": "news that is invented and not true"
+        },
+        {
+          "word": "the facts",
+          "meaning": "the main information in the news story"
+        },
+        {
+          "word": "blog post",
+          "meaning": "an article on someone’s personal webpage"
+        },
+        {
+          "word": "go viral",
+          "meaning": "spread very quickly across the internet"
+        },
+        {
+          "word": "spot",
+          "meaning": "see or notice",
+          "example": "I think it’s pretty easy to spot this kind of story."
+        }
+      ]
+    },
+    {
+      "unitNumber": 5,
+      "lessonCode": "5B",
+      "lessonTitle": "Newsmakers",
+      "blockTitle": "social issues; the environment",
+      "source": "See also Vocabulary Bank, page 141 (the environment)",
+      "items": [
+        {
+          "word": "pollution",
+          "meaning": "the amount of dirt or unwanted objects in the environment"
+        },
+        {
+          "word": "level",
+          "meaning": "the amount or number of something",
+          "example": "Levels of pollution means the amount of dirt or unwanted objects in the environment."
+        },
+        {
+          "word": "recycle",
+          "meaning": "use things again instead of throwing them away"
+        },
+        {
+          "word": "waste",
+          "meaning": "unwanted things, e.g. plastic and old objects"
+        },
+        {
+          "word": "campaign",
+          "meaning": "a programme of planned actions to achieve something"
+        },
+        {
+          "word": "activists",
+          "meaning": "people who take action to create change"
+        },
+        {
+          "word": "collect",
+          "meaning": "gather things together"
+        },
+        {
+          "word": "charity",
+          "meaning": "an organisation that helps people in need"
+        },
+        {
+          "word": "donate",
+          "meaning": "give money or things to help people"
+        },
+        {
+          "word": "environment",
+          "meaning": "the natural world around us"
+        }
+      ]
+    },
+    {
+      "unitNumber": 5,
+      "lessonCode": "5C",
+      "lessonTitle": "Good news",
+      "blockTitle": "events and occasions",
+      "items": [
+        {
+          "word": "pass your exams/driving test",
+          "meaning": "succeed in a test",
+          "example": "I passed my driving test."
+        },
+        {
+          "word": "fail your exams/driving test",
+          "meaning": "not succeed in a test",
+          "example": "I failed my accountancy exams for the third time."
+        },
+        {
+          "word": "have a baby",
+          "meaning": "give birth to a child",
+          "example": "Lolita was born on Saturday."
+        },
+        {
+          "word": "lose your job",
+          "meaning": "be sacked",
+          "example": "I’m now worried I might lose my job."
+        },
+        {
+          "word": "get promoted / a new job",
+          "meaning": "get a higher position or a new job",
+          "example": "I got promoted, so I’m now earning more money."
+        },
+        {
+          "word": "have an argument",
+          "meaning": "disagree angrily",
+          "example": "I had an argument with a friend."
+        },
+        {
+          "word": "win a competition/match",
+          "meaning": "come first in a competition",
+          "example": "I won a competition and got a prize."
+        },
+        {
+          "word": "get engaged/married",
+          "meaning": "agree to marry / get married",
+          "example": "We’re getting married in the summer."
+        },
+        {
+          "word": "break your phone/laptop",
+          "meaning": "accidentally damage it",
+          "example": "I broke my phone."
+        },
+        {
+          "word": "get 2,000 likes",
+          "meaning": "receive 2,000 likes online",
+          "example": "My video got over 2,000 likes!"
+        },
+        {
+          "word": "graduate from university",
+          "meaning": "finish university studies",
+          "example": "I graduated from university last year."
+        },
+        {
+          "word": "move house",
+          "meaning": "go and live in a new house",
+          "example": "I’ve just moved into a really nice house."
+        },
+        {
+          "word": "have your birthday",
+          "meaning": "celebrate your birthday",
+          "example": "How did you have your last birthday?"
+        },
+        {
+          "word": "quit your job",
+          "meaning": "leave your job",
+          "example": "I’m thinking about quitting my job."
+        },
+        {
+          "word": "celebrate",
+          "meaning": "do something fun for a special occasion",
+          "example": "We’re having a party for my 40th."
+        }
+      ]
+    },
+    {
+      "unitNumber": 6,
+      "lessonCode": "6A",
+      "lessonTitle": "The two Pablos",
+      "blockTitle": "the arts",
+      "source": "See also Vocabulary Bank, page 141 (the arts: people, places, things)",
+      "items": [
+        {
+          "word": "musician",
+          "meaning": "someone who is paid to play a musical instrument"
+        },
+        {
+          "word": "the arts",
+          "meaning": "music, writing, art, literature, film, etc."
+        },
+        {
+          "word": "performer",
+          "meaning": "someone who plays music or acts in public"
+        },
+        {
+          "word": "recording",
+          "meaning": "something that is recorded so people can watch or listen again in the future"
+        },
+        {
+          "word": "painter",
+          "meaning": "a person who paints pictures"
+        },
+        {
+          "word": "style",
+          "meaning": "the way a work of art looks"
+        },
+        {
+          "word": "subjects",
+          "meaning": "the things you are writing about, drawing or discussing"
+        },
+        {
+          "word": "composer",
+          "meaning": "someone who writes music"
+        },
+        {
+          "word": "works",
+          "meaning": "the things that artists create (music, books, etc.)"
+        },
+        {
+          "word": "image",
+          "meaning": "any kind of picture"
+        }
+      ]
+    },
+    {
+      "unitNumber": 6,
+      "lessonCode": "6B",
+      "lessonTitle": "Be creative",
+      "blockTitle": "creativity: word building",
+      "items": [
+        {
+          "word": "imagine / imagination / imaginative",
+          "meaning": "verb / noun / adjective"
+        },
+        {
+          "word": "create / creativity / creative",
+          "meaning": "verb / noun / adjective"
+        },
+        {
+          "word": "art / art / artistic",
+          "meaning": "noun / noun / adjective"
+        },
+        {
+          "word": "photograph / photography / photographic",
+          "meaning": "verb / noun / adjective"
+        },
+        {
+          "word": "skill / skill / skilful",
+          "meaning": "verb / noun / adjective"
+        },
+        {
+          "word": "talent / talent / talented",
+          "meaning": "verb / noun / adjective"
+        }
+      ]
+    },
+    {
+      "unitNumber": 6,
+      "lessonCode": "6C",
+      "lessonTitle": "Why do you think that?",
+      "blockTitle": "extreme adjectives",
+      "items": [
+        {
+          "word": "good",
+          "meaning": "normal adjective",
+          "example": "We can say 'very good'. We can't say 'very fantastic'."
+        },
+        {
+          "word": "fantastic",
+          "meaning": "extreme adjective",
+          "example": "We can say 'absolutely fantastic'. We can't say 'absolutely good'."
+        },
+        {
+          "word": "bad / terrible",
+          "meaning": "normal / extreme"
+        },
+        {
+          "word": "interesting / fascinating",
+          "meaning": "normal / extreme"
+        },
+        {
+          "word": "big / huge",
+          "meaning": "normal / extreme"
+        },
+        {
+          "word": "small / tiny",
+          "meaning": "normal / extreme"
+        },
+        {
+          "word": "important / essential",
+          "meaning": "normal / extreme"
+        },
+        {
+          "word": "difficult / impossible",
+          "meaning": "normal / extreme"
+        }
+      ]
+    },
+    {
+      "unitNumber": 6,
+      "lessonCode": "6C",
+      "lessonTitle": "Why do you think that?",
+      "blockTitle": "Ask for and give opinions and reasons",
+      "items": [
+        {
+          "word": "asking for an opinion",
+          "meaning": "How about you? / What makes you say that? / What do/did you think of…?",
+          "response": "What do you think about it?"
+        },
+        {
+          "word": "giving an opinion",
+          "meaning": "Forme,… / In my view,… / I think… / I would say…",
+          "response": "In my view, it’s a really new and exciting design."
+        },
+        {
+          "word": "asking for a reason",
+          "meaning": "Why do you think that?",
+          "response": "Why do you think that?"
+        },
+        {
+          "word": "giving a reason",
+          "meaning": "The reason is… / It’s because…",
+          "response": "It’s because it’s free."
+        },
+        {
+          "word": "agreeing to disagree",
+          "meaning": "I suppose we’re all different. / I guess it’s good we’re not all the same.",
+          "response": "I guess we all like different things."
+        }
+      ]
+    },
+    {
+      "unitNumber": 7,
+      "lessonCode": "7A",
+      "lessonTitle": "Good tourists",
+      "blockTitle": "travel and tourism",
+      "source": "See also Vocabulary Bank, page 142 (travel and tourism)",
+      "items": [
+        {
+          "word": "tradition / traditional",
+          "meaning": "a custom passed on through generations",
+          "example": "It’s a local tradition in Poland for people to throw water at each other on ‘wet Monday’."
+        },
+        {
+          "word": "custom",
+          "meaning": "usual behaviour in a place",
+          "example": "Family life is very important in Italian customs."
+        },
+        {
+          "word": "out of season",
+          "meaning": "when there are not so many tourists",
+          "example": "You can usually find much better prices if you travel out of season."
+        },
+        {
+          "word": "festival",
+          "meaning": "a special day or period of celebration",
+          "example": "Chinese New Year is one of China’s most important festivals."
+        },
+        {
+          "word": "tourist destination",
+          "meaning": "a place where tourists go",
+          "example": "The USA, Spain and Japan are three of the most popular tourist destinations."
+        },
+        {
+          "word": "weekend trip / break",
+          "meaning": "a short trip",
+          "example": "We're going for a short break to the Lake District this weekend."
+        },
+        {
+          "word": "go sightseeing",
+          "meaning": "visit the famous places",
+          "example": "We saw all the main sights yesterday."
+        },
+        {
+          "word": "queue",
+          "meaning": "a line of people waiting",
+          "example": "I hate standing in queues with all those people."
+        },
+        {
+          "word": "traffic jams",
+          "meaning": "long lines of slow traffic",
+          "example": "There are often traffic jams on the way to the beach."
+        },
+        {
+          "word": "attractions",
+          "meaning": "interesting places to visit",
+          "example": "Which attractions do you visit?"
+        },
+        {
+          "word": "trip",
+          "meaning": "a journey to a place and back again",
+          "example": "We’re going on a trip to the Lake District."
+        }
+      ]
+    },
+    {
+      "unitNumber": 7,
+      "lessonCode": "7B",
+      "lessonTitle": "Globetrotters",
+      "blockTitle": "the natural world",
+      "source": "See also Vocabulary Bank, page 143 (the natural world)",
+      "items": [
+        {
+          "word": "coast",
+          "example": "I walked along the coast every morning."
+        },
+        {
+          "word": "beach",
+          "example": "Those dogs on the beach were my friends."
+        },
+        {
+          "word": "landscape",
+          "example": "The landscape was never boring."
+        },
+        {
+          "word": "field",
+          "example": "We walked through green fields."
+        },
+        {
+          "word": "valley",
+          "example": "We went over hills, through valleys."
+        },
+        {
+          "word": "stream / river",
+          "example": "We walked next to streams and rivers."
+        },
+        {
+          "word": "forest",
+          "example": "The path led through a forest."
+        }
+      ]
+    },
+    {
+      "unitNumber": 7,
+      "lessonCode": "7C",
+      "lessonTitle": "You must see…!",
+      "blockTitle": "describing places",
+      "items": [
+        {
+          "word": "vibrant",
+          "meaning": "full of energy and life",
+          "example": "It's worth a visit to experience this vibrant, exciting and modern city."
+        },
+        {
+          "word": "modern",
+          "example": "The buildings are modern."
+        },
+        {
+          "word": "ancient",
+          "example": "This ancient bridge is over 800 years old."
+        },
+        {
+          "word": "narrow / wide",
+          "example": "The streets are so narrow you can't drive down them."
+        },
+        {
+          "word": "peaceful",
+          "meaning": "quiet and calm",
+          "example": "I love sitting in the park - it’s so peaceful."
+        },
+        {
+          "word": "wooden",
+          "example": "There are some old wooden benches."
+        },
+        {
+          "word": "colourful",
+          "example": "The buildings are colourful."
+        },
+        {
+          "word": "historical",
+          "example": "There are many historical buildings in Rome."
+        },
+        {
+          "word": "traditional",
+          "example": "We saw traditional houses in the old town."
+        },
+        {
+          "word": "famous for",
+          "example": "The city is famous for its beautiful views."
+        }
+      ]
+    },
+    {
+      "unitNumber": 7,
+      "lessonCode": "7C",
+      "lessonTitle": "You must see…!",
+      "blockTitle": "make and respond to recommendations",
+      "items": [
+        {
+          "word": "There are a few things you absolutely have to see/do…",
+          "meaning": "strong recommendation",
+          "response": "a strong way to recommend"
+        },
+        {
+          "word": "You must visit/try/see…",
+          "meaning": "strong recommendation",
+          "response": "use must + verb"
+        },
+        {
+          "word": "You should definitely visit…",
+          "meaning": "strong recommendation",
+          "response": "use should + definitely"
+        },
+        {
+          "word": "Make sure you…",
+          "meaning": "tell someone not to forget",
+          "response": "make sure + present simple"
+        },
+        {
+          "word": "… is one of the best things to do…",
+          "meaning": "superlative recommendation",
+          "response": "it's one of the best"
+        },
+        {
+          "word": "It’s a lovely/great place to…",
+          "meaning": "recommend a place for an activity",
+          "response": "it's a lovely place to + verb"
+        },
+        {
+          "word": "Don’t leave without visiting/seeing…",
+          "meaning": "unmissable",
+          "response": "don't + without + -ing"
+        },
+        {
+          "word": "Oh wow! How exciting!",
+          "meaning": "respond enthusiastically",
+          "response": "responding: That's a great idea. / OK, that's a good idea. / That sounds interesting."
+        }
+      ]
+    },
+    {
+      "unitNumber": 8,
+      "lessonCode": "8A",
+      "lessonTitle": "Doers and dreamers",
+      "blockTitle": "practical abilities; abilities: phrasal verbs",
+      "source": "See also Vocabulary Bank, page 144 (abilities: phrasal verbs)",
+      "items": [
+        {
+          "word": "repair",
+          "meaning": "fix something broken",
+          "example": "He sometimes has to repair things that go wrong."
+        },
+        {
+          "word": "replace",
+          "meaning": "buy something new because the old one doesn’t work",
+          "example": "He replaced the old parts of his van."
+        },
+        {
+          "word": "upload",
+          "meaning": "put something on the internet",
+          "example": "He uploads the videos to YouTube."
+        },
+        {
+          "word": "put up",
+          "meaning": "fix something to a wall",
+          "example": "They put up shelves."
+        },
+        {
+          "word": "calculate",
+          "meaning": "work out a number",
+          "example": "He calculated what size it should be."
+        },
+        {
+          "word": "design",
+          "meaning": "draw and plan something new",
+          "example": "He designed the tiny house."
+        },
+        {
+          "word": "install",
+          "meaning": "put in and connect (technology)",
+          "example": "He installed electricity."
+        },
+        {
+          "word": "turn (something) into (something else)",
+          "meaning": "change something into something different",
+          "example": "He turned his van into a mobile studio."
+        },
+        {
+          "word": "solve a problem",
+          "meaning": "find an answer to a problem",
+          "example": "They had to solve a few problems."
+        },
+        {
+          "word": "arrange",
+          "meaning": "organise",
+          "example": "They arranged access to running water."
+        }
+      ]
+    },
+    {
+      "unitNumber": 8,
+      "lessonCode": "8B",
+      "lessonTitle": "Video everywhere",
+      "blockTitle": "video collocations",
+      "source": "See also Vocabulary Bank, page 144 (technology 1)",
+      "items": [
+        {
+          "word": "clip",
+          "meaning": "a short piece from a longer video",
+          "example": "A video clip is a short piece from a longer video."
+        },
+        {
+          "word": "share",
+          "meaning": "send a video to other people on social media",
+          "example": "If you share a video, other people can watch it too."
+        },
+        {
+          "word": "edit",
+          "meaning": "make a video shorter and keep the best parts",
+          "example": "When you edit a video, you make it shorter."
+        },
+        {
+          "word": "like",
+          "meaning": "show you enjoy a video",
+          "example": "You might like the video."
+        },
+        {
+          "word": "comment",
+          "meaning": "write a response on a video",
+          "example": "You might comment on it."
+        },
+        {
+          "word": "make",
+          "meaning": "create a video",
+          "example": "A lot of people make videos to use for marketing."
+        },
+        {
+          "word": "vlog",
+          "meaning": "a video blog",
+          "example": "A video podcast is often called a vlog."
+        },
+        {
+          "word": "upload",
+          "meaning": "put a video online",
+          "example": "Hundreds of hours of video are uploaded to YouTube every minute."
+        }
+      ]
+    },
+    {
+      "unitNumber": 8,
+      "lessonCode": "8C",
+      "lessonTitle": "Help!",
+      "blockTitle": "technical problems",
+      "source": "See also Vocabulary Bank, page 145 (technology 2)",
+      "items": [
+        {
+          "word": "crash",
+          "meaning": "stop working suddenly (of a computer)",
+          "example": "My computer keeps crashing in the middle of a meeting."
+        },
+        {
+          "word": "out of order",
+          "meaning": "not working (of a machine)",
+          "example": "The photocopier is out of order."
+        },
+        {
+          "word": "broken",
+          "meaning": "damaged, not working",
+          "example": "The printer is broken."
+        },
+        {
+          "word": "run out of charge",
+          "meaning": "have no power left a device",
+          "example": "My phone runs out of charge too quickly."
+        },
+        {
+          "word": "lose the wifi signal",
+          "meaning": "stop getting internet",
+          "example": "I lost the wifi signal."
+        },
+        {
+          "word": "open / download / attach a file",
+          "meaning": "open, save or send a file",
+          "example": "I can’t open a file or attachment on my laptop."
+        },
+        {
+          "word": "create / change / forget a password",
+          "meaning": "make, change or forget a password",
+          "example": "You can’t use your account until you log in and create a new password."
+        },
+        {
+          "word": "slow internet connection",
+          "meaning": "internet that works slowly",
+          "example": "You have a slow internet connection."
+        },
+        {
+          "word": "get cut off",
+          "meaning": "lose the connection to a call",
+          "example": "I get cut off after waiting for twenty minutes."
+        }
+      ]
+    }
+  ],
+  "grammar": [
+    {
+      "unitNumber": 5,
+      "lessonCode": "5A",
+      "lessonTitle": "Fake news",
+      "title": "relative clauses",
+      "explanation": "Relative clauses give extra information about a person, thing, place or time. They start with a relative pronoun: who (people), which (things), where (places), when (times) and whose (possession).",
+      "rule": "who = people, which = things, where = places, when = times, whose = possession. That can replace who or which in defining relative clauses.",
+      "examples": [
+        "Books about the history of flight often say it was the Wright brothers.",
+        "The whale, which was picked up by the powerful winds of Hurricane Delta, was 15 m long.",
+        "The boys, who were aged eight, ten and twelve, let the spider bite them."
+      ],
+      "bankPage": 120,
+      "table": {
+        "headers": [
+          "Relative pronoun",
+          "Use",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "who",
+              "people",
+              "Christopher Blair is a journalist who writes fake news."
+            ]
+          },
+          {
+            "values": [
+              "which",
+              "things",
+              "He writes news stories which are completely fake."
+            ]
+          },
+          {
+            "values": [
+              "where",
+              "places",
+              "This is the room where Maarten Schenk works."
+            ]
+          },
+          {
+            "values": [
+              "when",
+              "times",
+              "He makes a note of the time when a story is first shared on social media."
+            ]
+          },
+          {
+            "values": [
+              "whose",
+              "possession",
+              "This is the politician whose story went viral."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 5,
+      "lessonCode": "5B",
+      "lessonTitle": "Newsmakers",
+      "title": "reported speech",
+      "explanation": "When we report what someone said, we usually move the tense back one step (backshift) and change pronouns and other words.",
+      "rule": "present → past: 'He is a genius' → his friends said that he was a genius. present perfect → past perfect: 'It has changed my life' → it had changed his life. will → would: 'Bali will ban single-use plastic bags' → the governor said that Bali would ban single-use plastic bags.",
+      "examples": [
+        "His friends said that he was a genius.",
+        "One child in Mexico told us that it had changed his life.",
+        "The governor said that Bali would ban single-use plastic bags."
+      ],
+      "bankPage": 121,
+      "table": {
+        "headers": [
+          "Direct speech",
+          "Reported speech"
+        ],
+        "rows": [
+          {
+            "values": [
+              "\"He is a genius.\"",
+              "His friends said that he was a genius."
+            ]
+          },
+          {
+            "values": [
+              "“It has changed my life.”",
+              "One child in Mexico told us that it had changed his life."
+            ]
+          },
+          {
+            "values": [
+              "“Bali will ban single-use plastic bags.”",
+              "The governor said that Bali would ban single-use plastic bags."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 5,
+      "lessonCode": "5D",
+      "lessonTitle": "The future of news",
+      "title": "will, might and be going to for predictions",
+      "explanation": "We use will, might and be going to to talk about the future. Will shows strong certainty, might shows possibility, and be going to often shows a prediction based on present evidence or definite intention.",
+      "rule": "will + verb = certain: 'I think print media will disappear.' might + verb = possible: 'I think it might be hard to distinguish real news from fake news.' be going to + verb = strong prediction: 'I definitely think that celebrities are going to be more prominent.'",
+      "examples": [
+        "I think print media will disappear.",
+        "I think it might be hard to distinguish real news from fake news.",
+        "I definitely think that celebrities are going to be more prominent.",
+        "We will bring you wonderful stories from all around the world.",
+        "We probably won’t publish stories about disasters."
+      ],
+      "bankPage": 123,
+      "table": {
+        "headers": [
+          "Modal",
+          "Strength of prediction",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "will",
+              "strong/certain",
+              "I think print media will disappear."
+            ]
+          },
+          {
+            "values": [
+              "might",
+              "possible",
+              "I think it might be hard to distinguish real news from fake news."
+            ]
+          },
+          {
+            "values": [
+              "be going to",
+              "definite/predicted",
+              "I definitely think that celebrities are going to be more prominent."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 6,
+      "lessonCode": "6A",
+      "lessonTitle": "The two Pablos",
+      "title": "used to",
+      "explanation": "We use used to + verb to talk about a regular habit or a state in the past that is no longer true.",
+      "rule": "used to + infinitive for habits and states in the past: 'He used to draw at school.' Didn't use to + infinitive for negatives: 'I didn't use to like vegetables.' Compare with a single past event: 'He painted his first painting when he was seven.'",
+      "examples": [
+        "He used to arrive at his studio in the afternoon.",
+        "He used to pay his bills by giving people drawings instead of money.",
+        "I used to collect toy cars when I was a child.",
+        "We used to live in the countryside."
+      ],
+      "bankPage": 124,
+      "table": {
+        "headers": [
+          "Form",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "used to + verb",
+              "He used to listen to his father playing the piano."
+            ]
+          },
+          {
+            "values": [
+              "didn't use to + verb",
+              "I didn't use to like playing sports at school."
+            ]
+          },
+          {
+            "values": [
+              "single past event (past simple)",
+              "He immediately fell in love with the instrument."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 6,
+      "lessonCode": "6B",
+      "lessonTitle": "Be creative",
+      "title": "comparatives and superlatives",
+      "explanation": "We use comparatives to compare two things and superlatives to say something is the best, biggest, most important, etc.",
+      "rule": "Short adjectives/adverbs: add -er/-est (hard, harder, the hardest). Longer adjectives or -ly adverbs: use more / the most (more carefully, the most important). Irregular: good/well - better - the best; far - further/farther - the furthest/farthest. We can also use (not) as + adjective + as to make comparisons.",
+      "examples": [
+        "Creativity is the most important part of my job.",
+        "I think being creative is just as important as these other things.",
+        "I think it makes my films more interesting.",
+        "It’s easier for me to get ideas when I’m outside.",
+        "It’s the hardest thing about cooking."
+      ],
+      "bankPage": 125,
+      "table": {
+        "headers": [
+          "Form",
+          "Comparative",
+          "Superlative",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "short, e.g. fast, hard",
+              "-er",
+              "the -est",
+              "I have to work harder when I’m at home."
+            ]
+          },
+          {
+            "values": [
+              "long / -ly, e.g. quickly",
+              "more",
+              "the most",
+              "the most important part of my job"
+            ]
+          },
+          {
+            "values": [
+              "irregular, e.g. good/well",
+              "better",
+              "the best",
+              "That's the best thing about cooking."
+            ]
+          },
+          {
+            "values": [
+              "(not) as… as",
+              "-",
+              "-",
+              "Creativity is just as important as these other things."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 6,
+      "lessonCode": "6D",
+      "lessonTitle": "An artist at work",
+      "title": "present perfect + for, since and yet",
+      "explanation": "We use the present perfect with for, since and yet to talk about something that started in the past and is still true now.",
+      "rule": "for = a period of time (for more than ten years). since = a particular time in the past (since the start of his career). yet = ‘at any time up to now’, used with negatives to emphasise that something hasn’t happened but we expect it to happen soon.",
+      "examples": [
+        "The art gallery has supported Yinka since the start of his career.",
+        "Nigel Schofield has worked with Yinka for more than ten years.",
+        "Yinka hasn't seen the finished sculpture yet."
+      ],
+      "bankPage": 127,
+      "table": {
+        "headers": [
+          "Word",
+          "Use",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "for",
+              "a period of time",
+              "Nigel Schofield has worked with Yinka for more than ten years."
+            ]
+          },
+          {
+            "values": [
+              "since",
+              "a particular time in the past",
+              "The art gallery has supported Yinka since the start of his career."
+            ]
+          },
+          {
+            "values": [
+              "yet",
+              "negative: not happened up to now",
+              "Yinka hasn't seen the finished sculpture yet."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 7,
+      "lessonCode": "7A",
+      "lessonTitle": "Good tourists",
+      "title": "first and second conditionals",
+      "explanation": "The first conditional describes a real, possible situation in the future. The second conditional describes a hypothetical or imaginary situation.",
+      "rule": "First conditional: If + present simple + will (If you travel to somewhere new, you'll understand the culture better.) Second conditional: If + past simple + would (If everyone took their litter home with them, tourist destinations would be a lot cleaner.)",
+      "examples": [
+        "If you travel to somewhere new, you'll understand the culture better if you read a book about its history.",
+        "If you try to speak their language, people will appreciate your efforts.",
+        "If people tried going somewhere different, the main tourist destinations wouldn't be so busy.",
+        "If everyone took their litter home with them, tourist destinations would be a lot cleaner and more attractive."
+      ],
+      "bankPage": 128,
+      "table": {
+        "headers": [
+          "Conditional",
+          "Form",
+          "Use",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "first",
+              "If + present simple + will",
+              "real, possible future",
+              "If you try to speak their language, people will appreciate your efforts."
+            ]
+          },
+          {
+            "values": [
+              "second",
+              "If + past simple + would",
+              "hypothetical, not real",
+              "If people tried going somewhere different, the main tourist destinations wouldn't be so busy."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 7,
+      "lessonCode": "7D",
+      "lessonTitle": "Go solo?",
+      "title": "reflexive pronouns",
+      "explanation": "We use reflexive pronouns (myself, yourself, himself, herself, itself, ourselves, yourselves, themselves) when the object of a verb is the same person as the subject. The phrase by myself/yourself… means \"alone\".",
+      "rule": "myself / yourself / himself / herself / itself / ourselves / yourselves / themselves. By + reflexive pronoun = alone: \"Do you prefer travelling by yourself?\"",
+      "examples": [
+        "Do you prefer travelling by yourself?",
+        "I like the freedom of travelling by myself.",
+        "My brother likes travelling by himself.",
+        "Ana prefers walking by herself.",
+        "You always go by yourself."
+      ],
+      "bankPage": 131,
+      "table": {
+        "headers": [
+          "Reflexive pronoun",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "myself",
+              "I like the freedom of travelling by myself."
+            ]
+          },
+          {
+            "values": [
+              "yourself",
+              "Do you prefer travelling by yourself?"
+            ]
+          },
+          {
+            "values": [
+              "himself",
+              "My brother likes travelling by himself."
+            ]
+          },
+          {
+            "values": [
+              "herself",
+              "Ana prefers walking by herself."
+            ]
+          },
+          {
+            "values": [
+              "ourselves",
+              "We really enjoyed ourselves."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 8,
+      "lessonCode": "8A",
+      "lessonTitle": "Doers and dreamers",
+      "title": "can, could, be able to",
+      "explanation": "We use can / can’t for ability in the present, and could / couldn’t for general ability in the past. Be able to is used for all tenses and for specific past achievements.",
+      "rule": "Present: can / can't / am able to. Past: could / couldn't for general ability; was/were able to for specific successful actions. Be able to works with other tenses: 'I'm able to install a washing machine.'",
+      "examples": [
+        "I could draw quite well.",
+        "I was able to use my skills to design clothes.",
+        "I can fix a roof.",
+        "I'm able to install a washing machine.",
+        "I can't play video games.",
+        "I couldn't do any of that a few years ago."
+      ],
+      "bankPage": 132,
+      "table": {
+        "headers": [
+          "Form",
+          "Use",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "can / can't",
+              "present ability",
+              "I can fix a roof. I can't play video games."
+            ]
+          },
+          {
+            "values": [
+              "could / couldn't",
+              "past general ability",
+              "I could draw quite well. I couldn’t do any of that a few years ago."
+            ]
+          },
+          {
+            "values": [
+              "was/were able to",
+              "past specific achievement",
+              "I was able to use my skills to design clothes."
+            ]
+          },
+          {
+            "values": [
+              "be able to (+ other tenses)",
+              "future / perfect ability",
+              "I'm able to install a washing machine."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 8,
+      "lessonCode": "8B",
+      "lessonTitle": "Video everywhere",
+      "title": "active and passive",
+      "explanation": "In the active voice, the subject does the action: \"People share the videos.\" In the passive voice, the important information is the action or the thing affected, not who did it.",
+      "rule": "Passive: be + past participle. Present: is/are + past participle (\"Hundreds of hours of video are uploaded.\"). Past: was/were + past participle (\"Journalists were sent somewhere to report.\"). We use the passive when it ’s not important or not known who does or did the action.",
+      "examples": [
+        "Every minute, hundreds of hours of video are uploaded to YouTube.",
+        "Every year, more and more videos are shared online.",
+        "In the past, journalists were sent somewhere to report on a news event.",
+        "When students watch these videos, they feel more motivated."
+      ],
+      "bankPage": 133,
+      "table": {
+        "headers": [
+          "Active",
+          "Passive"
+        ],
+        "rows": [
+          {
+            "values": [
+              "People watch these videos.",
+              "These kinds of videos are watched every day."
+            ]
+          },
+          {
+            "values": [
+              "People shared the video more than 6 million times.",
+              "The video was shared more than 6 million times."
+            ]
+          },
+          {
+            "values": [
+              "The teachers give the students homework.",
+              "The students are given homework every day."
+            ]
+          },
+          {
+            "values": [
+              "Jenna uploaded the clip to YouTube.",
+              "The clip was uploaded to YouTube."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 8,
+      "lessonCode": "8C",
+      "lessonTitle": "Help!",
+      "title": "How to... describe a problem and make recommendations",
+      "explanation": "To describe a problem: There’s a problem with... / The ... isn’t working. / I can’t ... / It won’t ... / It keeps (crashing). / When/Every time I ... , it ... / I think it’s (broken).",
+      "rule": "To make recommendations: Have you tried + -ing ...? / Try + -ing ... / Have you checked ...? / Maybe you could ... + verb. To respond: Yes, I’ll try that. / Yes, that works. / Yes, it’s working now.",
+      "examples": [
+        "There's a problem with my internet connection.",
+        "The printer isn’t working.",
+        "It keeps crashing when I open the file.",
+        "Have you tried restarting it?",
+        "Maybe you could check the wifi."
+      ],
+      "table": {
+        "headers": [
+          "Describing a problem",
+          "Making a recommendation",
+          "Solving the problem"
+        ],
+        "rows": [
+          {
+            "values": [
+              "There's a problem with...",
+              "Have you tried + -ing ...?",
+              "Yes, I'll try that."
+            ]
+          },
+          {
+            "values": [
+              "The ... isn't working.",
+              "Try + -ing ...",
+              "Yes, that works."
+            ]
+          },
+          {
+            "values": [
+              "I can't ... / It won't ...",
+              "Have you checked ...?",
+              "Yes, it's working now."
+            ]
+          },
+          {
+            "values": [
+              "It keeps (crashing).",
+              "Maybe you could ...",
+              ""
+            ]
+          },
+          {
+            "values": [
+              "When/Every time I..., it...",
+              "",
+              ""
+            ]
+          },
+          {
+            "values": [
+              "I think it's (broken).",
+              "",
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "unitNumber": 8,
+      "lessonCode": "8D",
+      "lessonTitle": "A gifted learner",
+      "title": "-ing form",
+      "explanation": "Some verbs are followed by the -ing form of another verb: I started learning them. She spends an hour every week talking to different people.",
+      "rule": "Verbs followed by -ing: enjoy, hate, imagine, like, love, practise, recommend, remember, spend time, start, stop, suggest, try, etc. Example: I like learning languages.",
+      "examples": [
+        "I started learning them.",
+        "She spends an hour every week talking to different people.",
+        "I like learning languages.",
+        "I can't stand translating!",
+        "I recommend going to a class."
+      ],
+      "bankPage": 135,
+      "table": {
+        "headers": [
+          "Verb + -ing",
+          "Example"
+        ],
+        "rows": [
+          {
+            "values": [
+              "start / begin",
+              "I started learning them."
+            ]
+          },
+          {
+            "values": [
+              "spend time",
+              "She spends an hour every week talking to different people."
+            ]
+          },
+          {
+            "values": [
+              "enjoy / like / love / hate",
+              "Personally, I enjoy studying with other people more than by myself."
+            ]
+          },
+          {
+            "values": [
+              "practise",
+              "I practise listening to songs."
+            ]
+          },
+          {
+            "values": [
+              "recommend / suggest",
+              "I recommend going to a class."
+            ]
+          },
+          {
+            "values": [
+              "imagine / remember",
+              "I remember listening to my favourite British bands years ago."
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
