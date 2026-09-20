@@ -47,7 +47,7 @@ export default function Header({ onContents }: { onContents: () => void }) {
             className={`inline-flex h-9 items-center gap-1.5 rounded-lg border px-2 text-sm font-bold transition-colors ${
               user
                 ? 'border-brand-300 bg-brand-50 text-brand-800 hover:bg-brand-100 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-200 dark:hover:bg-brand-900/60'
-                : 'border-[var(--line-strong)] text-[var(--ink-soft)] hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300'
+                : 'border-brand-600 bg-brand-600 text-white shadow-sm hover:bg-brand-500'
             }`}
           >
             {user ? (
@@ -58,7 +58,7 @@ export default function Header({ onContents }: { onContents: () => void }) {
                 <span className="hidden max-w-28 truncate sm:inline">{user}</span>
               </>
             ) : (
-              <span>دخول</span>
+              <span className="px-1.5">إنشاء حساب / دخول</span>
             )}
           </Link>
           <button
