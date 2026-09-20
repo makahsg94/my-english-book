@@ -1,7 +1,9 @@
-import { createContext, useCallback, useContext, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import { currentUser, login as authLogin, signOut as authLogout, register as authRegister } from './auth'
 import type { AuthResult } from './auth'
+import { getSupabase, initSupabase } from './supabase'
+import { pullAll } from './sync'
 
 interface AuthContextValue {
   user: string | null
@@ -19,6 +21,18 @@ const AuthContext = createContext<AuthContextValue>({
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<string | null>(() => currentUser())
+
+  useEffect(() => {
+    const sb = getSupabase()
+    if (!sb) return undefined
+    const { data } = sb.auth.onAuthStateChange(() => {
+      setUser(currentUser())
+      if (currentUser()) void pullAll()
+      window.dispatchEvent(new CustomEvent('sb:synced'))
+    })
+    void initSupabase()
+    return () => data.subscription.unsubscribe()
+  }, [])
 
   const login = useCallback(async (username: string, password: string) => {
     const result = await authLogin(username, password)

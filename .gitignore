@@ -16,3 +16,8 @@ pnpm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+# env / secrets
+.env
+.env.local
+.env.*.local

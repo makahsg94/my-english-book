@@ -3,6 +3,7 @@
 // decoupled so a backend/database provider can be swapped in later.
 
 import { storageKey } from './auth'
+import { queueSync } from './sync'
 
 export interface LessonProgress {
   completed: boolean
@@ -84,6 +85,7 @@ class LocalStore implements IProgressStore {
   save(state: ProgressState): void {
     try {
       localStorage.setItem(progressStorageKey(), JSON.stringify(state))
+      queueSync('speakout-b1.progress.v1')
     } catch {
       /* storage unavailable – ignore */
     }

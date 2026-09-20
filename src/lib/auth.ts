@@ -1,3 +1,5 @@
+import { getSupabase, currentUser as sbUser, currentUsername } from './supabase'
+
 export interface StoredUser {
   username: string
   salt: string
@@ -25,37 +27,38 @@ function write(key: string, value: unknown) {
   }
 }
 
-function readUsers(): StoredUser[] {
-  const users = read<StoredUser[]>(USERS_KEY)
-  return Array.isArray(users) ? users : []
+function hasSupabase() {
+  return getSupabase() !== null
 }
 
-function saveUsers(users: StoredUser[]) {
-  write(USERS_KEY, users)
-}
-
-function saltFor(username: string) {
-  return `sb1:${username.toLowerCase()}`
-}
-
-export async function hashPassword(password: string, salt: string): Promise<string> {
-  const text = `${salt}:${password}`
+export async function syntheticEmail(username: string): Promise<string> {
+  const base = username.toLowerCase()
   try {
-    const data = new TextEncoder().encode(text)
+    const data = new TextEncoder().encode(base)
     const digest = await crypto.subtle.digest('SHA-256', data)
-    return Array.from(new Uint8Array(digest))
+    const hex = Array.from(new Uint8Array(digest))
       .map((b) => b.toString(16).padStart(2, '0'))
       .join('')
+    return `l${hex.slice(0, 28)}@student.local`
   } catch {
     let h = 0
-    for (let i = 0; i < text.length; i++) {
-      h = (h * 31 + text.charCodeAt(i)) >>> 0
-    }
-    return h.toString(16)
+    for (let i = 0; i < base.length; i++) h = (h * 31 + base.charCodeAt(i)) >>> 0
+    return `l${h.toString(16)}@student.local`
   }
 }
 
+function mapError(message: string): string {
+  const m = message.toLowerCase()
+  if (m.includes('already registered') || m.includes('over email rate limit')) return 'الإسم ده متسجل قبل كده، جرّب اسم تاني'
+  if (m.includes('invalid login credentials')) return 'كلمة السر غلط أو مفيش حساب بالاسم ده'
+  if (m.includes('email not confirmed') || m.includes('email address') && m.includes('confirm')) return 'فعّل الحساب من الإيميل الأول'
+  if (m.includes('should be at least') || m.includes('password')) return 'كلمة السر أقل ما فيها 6 حروف'
+  return 'حصلت مشكلة في الاتصال بالسيرفر، حاول تاني'
+}
+
 export function signOut() {
+  const sb = getSupabase()
+  if (sb) void sb.auth.signOut()
   try {
     window.localStorage.removeItem(SESSION_KEY)
   } catch {
@@ -64,8 +67,13 @@ export function signOut() {
 }
 
 export function currentUser(): string | null {
-  const user = read<{ username: string }>(SESSION_KEY)
-  return user && typeof user.username === 'string' ? user.username : null
+  const sb = getSupabase()
+  if (sb) {
+    const user = sbUser()
+    return user ? currentUsername(user) : null
+  }
+  const sessionUser = read<{ username: string }>(SESSION_KEY)
+  return sessionUser && typeof sessionUser.username === 'string' ? sessionUser.username : null
 }
 
 export function isLoggedIn() {
@@ -73,7 +81,18 @@ export function isLoggedIn() {
 }
 
 export function userJoinedAt(username: string): number | undefined {
-  return readUsers().find((u) => u.username.toLowerCase() === username.toLowerCase())?.createdAt
+  const sb = getSupabase()
+  if (sb) {
+    const user = sbUser()
+    if (user && currentUsername(user).toLowerCase() === username.toLowerCase()) {
+      const ts = Date.parse(user.created_at)
+      return Number.isFinite(ts) ? ts : undefined
+    }
+    return undefined
+  }
+  const legacy: StoredUser[] = read(USERS_KEY) ?? []
+  const found = legacy.find((u) => u.username.toLowerCase() === username.toLowerCase())
+  return found?.createdAt
 }
 
 export function storageKey(base: string): string {
@@ -95,7 +114,7 @@ export function validateUsername(username: string): string | undefined {
 }
 
 export function validatePassword(password: string): string | undefined {
-  if (password.length < 4) return 'كلمة السر أقل ما فيها 4 حروف'
+  if (password.length < 6) return 'كلمة السر أقل ما فيها 6 حروف'
   return undefined
 }
 
@@ -106,26 +125,64 @@ export async function register(username: string, password: string): Promise<Auth
   const passError = validatePassword(password)
   if (passError) return { ok: false, error: passError }
 
-  const users = readUsers()
+  const sb = getSupabase()
+  if (sb) {
+    const email = await syntheticEmail(name)
+    const { data, error } = await sb.auth.signUp({
+      email,
+      password,
+      options: { data: { username: name } },
+    })
+    if (error) return { ok: false, error: mapError(error.message) }
+    if (!data.session) return { ok: false, error: 'تم إرسال تأكيد للإيميل — فعّل الحساب وبعدين سجّل دخول' }
+    return { ok: true }
+  }
+
+  const users: StoredUser[] = read(USERS_KEY) ?? []
   if (users.some((u) => u.username.toLowerCase() === name.toLowerCase())) {
     return { ok: false, error: 'الإسم ده متسجل قبل كده، اختار اسم تاني' }
   }
-
-  const salt = saltFor(name)
-  const hash = await hashPassword(password, salt)
+  const salt = `sb1:${name.toLowerCase()}`
+  const hash = await sha256(`${salt}:${password}`)
   const user: StoredUser = { username: name, salt, hash, createdAt: Date.now() }
-  saveUsers([...users, user])
+  write(USERS_KEY, [...users, user])
   write(SESSION_KEY, { username: name })
   return { ok: true }
 }
 
 export async function login(username: string, password: string): Promise<AuthResult> {
   const name = username.trim()
-  const users = readUsers()
+  const sb = getSupabase()
+  if (sb) {
+    const email = await syntheticEmail(name)
+    const { error } = await sb.auth.signInWithPassword({ email, password })
+    if (error) return { ok: false, error: mapError(error.message) }
+    return { ok: true }
+  }
+
+  const users: StoredUser[] = read(USERS_KEY) ?? []
   const user = users.find((u) => u.username.toLowerCase() === name.toLowerCase())
   if (!user) return { ok: false, error: 'مفيش حساب بالاسم ده — سجّله الأول' }
-  const hash = await hashPassword(password, user.salt)
+  const hash = await sha256(`${user.salt}:${password}`)
   if (hash !== user.hash) return { ok: false, error: 'كلمة السر غلط' }
   write(SESSION_KEY, { username: user.username })
   return { ok: true }
+}
+
+async function sha256(text: string): Promise<string> {
+  try {
+    const data = new TextEncoder().encode(text)
+    const digest = await crypto.subtle.digest('SHA-256', data)
+    return Array.from(new Uint8Array(digest))
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('')
+  } catch {
+    let h = 0
+    for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) >>> 0
+    return h.toString(16)
+  }
+}
+
+export function _hasSupabase() {
+  return hasSupabase()
 }

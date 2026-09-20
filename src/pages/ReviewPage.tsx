@@ -22,6 +22,7 @@ import EchoLab from '../components/EchoLab'
 import { ACCENTS, SPEEDS, sayWord, useSpeech } from '../lib/speech'
 import type { SpeechSettings } from '../lib/speech'
 import { storageKey } from '../lib/auth'
+import { queueSync } from '../lib/sync'
 
 type Tab = 'vocab' | 'grammar' | 'quiz' | 'focus'
 
@@ -70,6 +71,7 @@ function loadHard(): HardStore {
 function saveHard(store: HardStore) {
   try {
     window.localStorage.setItem(hardKey(), JSON.stringify(store))
+    queueSync('review-hard-words')
   } catch {
     /* ignore */
   }

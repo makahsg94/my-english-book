@@ -8,6 +8,7 @@ import { useAuth } from '../lib/authContext'
 import { useProgress } from '../lib/appContext'
 import { achievementsFor, levelProgress, levelForXp, type ProgressState } from '../lib/progress'
 import { userJoinedAt } from '../lib/auth'
+import { pullAll } from '../lib/sync'
 import { IconAward, IconBook, IconChevronRight, IconFlame, IconHome, IconLayers, IconPen, IconTarget } from '../components/Icons'
 
 function Ar({ children }: { children: React.ReactNode }) {
@@ -62,15 +63,16 @@ function AccountGate() {
     e.preventDefault()
     setError('')
     setBusy(true)
-    try {
-      const result =
-        mode === 'login' ? await login(username, password) : await register(username, password)
-      if (!result.ok) {
-        setError(result.error ?? 'حصلت مشكلة، حاول تاني')
-        return
-      }
-      progress.reload()
-    } catch {
+try {
+        const result =
+          mode === 'login' ? await login(username, password) : await register(username, password)
+        if (!result.ok) {
+          setError(result.error ?? 'حصلت مشكلة، حاول تاني')
+          return
+        }
+        await pullAll()
+        progress.reload()
+      } catch {
       setError('حصلت مشكلة، حاول تاني')
     } finally {
       setBusy(false)
@@ -155,7 +157,7 @@ function AccountGate() {
         </button>
 
         <p className="mt-4 text-center text-[11px] leading-relaxed text-[var(--ink-faint)]">
-          <Ar>الموقع مالهوش سيرفر — الحساب والتقدّم بيتحفظوا على جهازك بس، ومفيش حد تاني يقدر يشوفهم.</Ar>
+          <Ar>حسابك بيحفظ تقدّمك (الكويزات والدروس والإنجازات). لو دخلت بنفس الحساب من جهاز تاني، هتلاقي تقدّمك موجود.</Ar>
         </p>
       </form>
     </div>

@@ -5,6 +5,7 @@ import { BOOK } from '../content/book'
 import type { ProgressState } from './progress'
 import type { ToastOptions } from './toast'
 import { storageKey } from './auth'
+import { queueSync } from './sync'
 
 interface Milestone extends ToastOptions {
   id: string
@@ -55,6 +56,7 @@ export function checkMilestones(state: ProgressState): ToastOptions[] {
   for (const m of fresh) seen.add(m.id)
   try {
     localStorage.setItem(milestonesKey(), JSON.stringify([...seen]))
+    queueSync('speakout-b1.milestones.v1')
   } catch {
     /* storage unavailable - ignore */
   }
