@@ -697,7 +697,7 @@ interface QuizAnswer {
   correct?: boolean
 }
 
-function QuizPart({ onMarkWrong }: { onMarkWrong: (qi: number, picked: string) => void }) {
+function QuizPart({ onMarkWrong }: { onMarkWrong: (wrongs: { qi: number; picked: string }[]) => void }) {
   const [answers, setAnswers] = useState<Record<number, QuizAnswer>>({})
   const [submitted, setSubmitted] = useState(false)
 
@@ -717,10 +717,13 @@ function QuizPart({ onMarkWrong }: { onMarkWrong: (qi: number, picked: string) =
     if (!allAnswered) return
     setSubmitted(true)
     const pct = score / REVIEW_QUIZ.length
-    REVIEW_QUIZ.forEach((q, qi) => {
+    const wrongs = REVIEW_QUIZ.reduce<{ qi: number; picked: string }[]>((acc, q, qi) => {
       const picked = answers[qi]
-      if (!picked?.correct) onMarkWrong(qi, picked ? q.options[picked.index] : q.answer)
-    })
+      if (picked?.correct) return acc
+      acc.push({ qi, picked: picked ? q.options[picked.index] : q.answer })
+      return acc
+    }, [])
+    if (wrongs.length > 0) onMarkWrong(wrongs)
     if (pct === 1) burstConfetti()
   }
 
@@ -743,7 +746,7 @@ function QuizPart({ onMarkWrong }: { onMarkWrong: (qi: number, picked: string) =
             <span>
               <Ar>أجبت على</Ar> {Object.keys(answers).length}/{REVIEW_QUIZ.length}
             </span>
-            <span className="font-semibold tabular-nums text-[var(--ink-soft)]">{submitted ? `${score}/25` : '\u2014'}</span>
+            <span className="font-semibold tabular-nums text-[var(--ink-soft)]">{submitted ? `${score}/${REVIEW_QUIZ.length}` : '\u2014'}</span>
           </p>
           <div className="mt-2 h-2 overflow-hidden rounded-full bg-[var(--line)]">
             <div
@@ -831,16 +834,34 @@ function QuizPart({ onMarkWrong }: { onMarkWrong: (qi: number, picked: string) =
                 })}
               </div>
               {submitted && (
-                <p className="px-4 pb-3 text-[12px] leading-relaxed text-[var(--ink-soft)]">
+                <div className="space-y-2 px-4 pb-3 text-[12px] leading-relaxed text-[var(--ink-soft)]">
                   {picked?.correct ? (
                     <Ar className="font-semibold text-emerald-700 dark:text-emerald-300">الإجابة صحيحة ✓</Ar>
                   ) : (
-                    <Ar>
-                      <span className="font-semibold text-rose-600 dark:text-rose-300">إجابة خطأ</span> — الإجابة الصحيحة:{' '}
-                      <span className="font-semibold text-emerald-700 dark:text-emerald-300">{q.answer}</span>
-                    </Ar>
+                    <>
+                      <Ar>
+                        <span className="font-semibold text-rose-600 dark:text-rose-300">إجابة خطأ</span> — الإجابة الصحيحة:{' '}
+                        <span className="font-semibold text-emerald-700 dark:text-emerald-300">{q.answer}</span>
+                      </Ar>
+                      {q.explanation && (
+                        <p className="rounded-lg border border-brand-100 bg-brand-50/60 px-2.5 py-1.5 text-[12.5px] dark:border-brand-900 dark:bg-brand-950/40">
+                          <Ar>
+                            <span className="font-semibold text-brand-700 dark:text-brand-300">ليه {q.answer} صح: </span>
+                            {q.explanation}
+                          </Ar>
+                        </p>
+                      )}
+                      {picked && q.wrongNotes?.[q.options[picked.index]] && (
+                        <p className="rounded-lg border border-rose-100 bg-rose-50/60 px-2.5 py-1.5 text-[12.5px] dark:border-rose-900 dark:bg-rose-950/40">
+                          <Ar>
+                            <span className="font-semibold text-rose-700 dark:text-rose-300">اخترت «{q.options[picked.index]}» — ليه غلط: </span>
+                            {q.wrongNotes[q.options[picked.index]]}
+                          </Ar>
+                        </p>
+                      )}
+                    </>
                   )}
-                </p>
+                </div>
               )}
             </li>
           )
@@ -861,9 +882,12 @@ export default function ReviewPage() {
     saveHard(next)
   }
 
-  const addQuizWrong = (qi: number, picked: string) => {
-    if (hard.quiz.some((w) => w.qi === qi)) return
-    commitHard({ ...hard, quiz: [...hard.quiz, { qi, picked }] })
+  const addQuizWrong = (wrongs: { qi: number; picked: string }[]) => {
+    if (wrongs.length === 0) return
+    const existing = new Set(hard.quiz.map((w) => w.qi))
+    const fresh = wrongs.filter((w) => !existing.has(w.qi))
+    if (fresh.length === 0) return
+    commitHard({ ...hard, quiz: [...hard.quiz, ...fresh] })
   }
 
   const removeQuizWrong = (qi: number) => {
@@ -926,7 +950,8 @@ export default function ReviewPage() {
         <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-[var(--ink-soft)]">
           <Ar>
             كلمات في جداول (بالعربي ومع أمثلة)، ملخص القواعد (الجرامر) لكل درس، وكويز 25 سؤال
-            بعدّلك فورًا — كل ده من محتوى الوحدات الثماني + الـ Lead-in.
+            بعدّلك فورًا مع شرح ليه الإجابة الصح صح وليه اللي اخترته غلط — كل ده من محتوى
+            الوحدات الثماني + الـ Lead-in.
           </Ar>
         </p>
       </header>
@@ -1111,6 +1136,22 @@ function FocusPart({
                       {picked}
                     </span>
                   </div>
+                  {q.explanation && (
+                    <p className="mt-1.5 rounded-lg border border-brand-100 bg-brand-50/60 px-2.5 py-1.5 text-[12px] leading-relaxed text-[var(--ink-soft)] dark:border-brand-900 dark:bg-brand-950/40">
+                      <Ar>
+                        <span className="font-semibold text-brand-700 dark:text-brand-300">ليه {q.answer} صح: </span>
+                        {q.explanation}
+                      </Ar>
+                    </p>
+                  )}
+                  {q.wrongNotes?.[picked] && (
+                    <p className="mt-1 rounded-lg border border-rose-100 bg-rose-50/60 px-2.5 py-1.5 text-[12px] leading-relaxed text-[var(--ink-soft)] dark:border-rose-900 dark:bg-rose-950/40">
+                      <Ar>
+                        <span className="font-semibold text-rose-700 dark:text-rose-300">ليه «{picked}» غلط: </span>
+                        {q.wrongNotes[picked]}
+                      </Ar>
+                    </p>
+                  )}
                 </li>
               )
             })}
