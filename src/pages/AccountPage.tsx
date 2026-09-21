@@ -168,8 +168,8 @@ export function AccountGate() {
     setConfirm('')
   }
 
-  const score = mode === 'register' && password.length > 0 ? Math.min(3, passwordScore(password) - 1) : -1
-  const scoreBox = SCORE_UI[score] ?? null
+  const scoreIdx = mode === 'register' && password.length >= 6 ? Math.min(3, passwordScore(password) - 1) : -1
+  const scoreBox = SCORE_UI[scoreIdx] ?? null
   const confirmState =
     mode === 'register' && confirm.length > 0
       ? confirm === password
@@ -299,14 +299,14 @@ export function AccountGate() {
               onChange={setPassword}
               autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
             />
-            {mode === 'register' && password.length > 0 && (
+            {mode === 'register' && scoreIdx >= 0 && password.length > 0 && (
               <div className="-mt-1">
                 <div className="strength-bar grid grid-cols-4 gap-1.5">
                   {[0, 1, 2, 3].map((i) => (
                     <span
                       key={i}
                       className="h-1.5 rounded-full transition-colors duration-300"
-                      style={{ background: i <= score ? scoreBox?.color : 'var(--line-strong)' }}
+                      style={{ background: i <= scoreIdx ? scoreBox?.color : 'var(--line-strong)' }}
                     />
                   ))}
                 </div>
