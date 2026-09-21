@@ -65,6 +65,13 @@ export default function HomePage() {
     <div className="fade-up space-y-16">
       {/* ---- 1. Title page ---- */}
       <section className="title-page mx-auto max-w-2xl pt-6">
+        <p
+          className="mb-3 inline-block rounded-full border border-brand-300 bg-brand-50 px-3 py-1 text-[12px] font-bold text-brand-700 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-300"
+          dir="rtl"
+          lang="ar"
+        >
+          الجزء التاني
+        </p>
         <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[var(--ink-faint)]">
           {BOOK.edition} {'\u00b7'} Level {BOOK.level}
         </p>
