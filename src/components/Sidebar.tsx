@@ -5,7 +5,7 @@ import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
 import { useAuth } from '../lib/authContext'
 import BookProgress from './BookProgress'
-import { IconBook, IconCheck, IconFlame, IconLayers, IconPen, IconTarget } from './Icons'
+import { IconBook, IconCheck, IconFlame, IconLayers, IconMic, IconPen, IconTarget } from './Icons'
 
 type Status = 'done' | 'started' | 'todo'
 
@@ -13,6 +13,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const progress = useProgress()
   const { user } = useAuth()
   const reviewActive = useMatch('/review') !== null
+  const shadowActive = useMatch('/shadowing') !== null
 
   return (
     <nav className="px-5 py-6">
@@ -40,6 +41,28 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             <span className="block text-sm font-bold leading-tight">Comprehensive review</span>
             <span className={`block text-[11px] leading-tight ${reviewActive ? 'text-white/75' : 'text-[var(--ink-faint)]'}`} dir="rtl" lang="ar">
               المراجعة الشاملة
+            </span>
+          </span>
+        </NavLink>
+      </div>
+
+      <div className="mb-5">
+        <NavLink
+          to="/shadowing"
+          onClick={onNavigate}
+          className={`tactile flex items-center gap-2.5 rounded-xl border px-3 py-2.5 transition-colors ${
+            shadowActive
+              ? 'border-accent-500 bg-accent-600 text-white'
+              : 'border-accent-200 bg-gradient-to-r from-accent-50 to-warm-50 text-accent-800 hover:shadow-sm dark:border-accent-900 dark:from-accent-950/50 dark:to-warm-950/50 dark:text-accent-200'
+          }`}
+        >
+          <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent-600 text-white">
+            <IconMic size={16} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-sm font-bold leading-tight">Shadowing studio</span>
+            <span className={`block text-[11px] leading-tight ${shadowActive ? 'text-white/75' : 'text-[var(--ink-faint)]'}`} dir="rtl" lang="ar">
+              استوديو الشادونج — فيديوهات الجزء التاني
             </span>
           </span>
         </NavLink>
