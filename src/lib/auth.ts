@@ -132,7 +132,7 @@ export function validatePassword(password: string): string | undefined {
 
 export async function register(username: string, password: string): Promise<AuthResult> {
   const name = username.trim()
-  const reserved = new Set(['admin'])
+  const reserved = new Set(['admin', 'ادمن'])
   const envAdmin = (import.meta.env.VITE_ADMIN_USERNAME as string | undefined ?? '').trim().toLowerCase()
   if (envAdmin) reserved.add(envAdmin)
   if (reserved.has(name.toLowerCase())) {
