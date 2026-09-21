@@ -53,7 +53,7 @@ function Field({
 export function AccountGate() {
   const { login, register } = useAuth()
   const progress = useProgress()
-  const [mode, setMode] = useState<Mode>('login')
+  const [mode, setMode] = useState<Mode>('register')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
