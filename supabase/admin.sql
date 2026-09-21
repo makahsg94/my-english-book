@@ -40,6 +40,7 @@ as $$
     select
       u.id as user_id,
       u.raw_user_meta_data ->> 'username' as username,
+      u.raw_user_meta_data ->> 'age' as age,
       u.created_at,
       (select jsonb_object_agg(key, value) from public.user_data d where d.user_id = u.id) as data
     from auth.users u

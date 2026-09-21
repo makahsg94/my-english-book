@@ -7,7 +7,7 @@ import { WRITING_TASKS } from '../content/writing'
 import { useAuth } from '../lib/authContext'
 import { useProgress } from '../lib/appContext'
 import { achievementsFor, levelProgress, levelForXp, type ProgressState } from '../lib/progress'
-import { userJoinedAt } from '../lib/auth'
+import { userJoinedAt, userAge, validateAge } from '../lib/auth'
 import { pullAll } from '../lib/sync'
 import { IconAward, IconBook, IconChevronRight, IconFlame, IconHome, IconLayers, IconPen, IconTarget } from '../components/Icons'
 
@@ -55,17 +55,32 @@ export function AccountGate() {
   const progress = useProgress()
   const [mode, setMode] = useState<Mode>('register')
   const [username, setUsername] = useState('')
+  const [age, setAge] = useState('')
   const [password, setPassword] = useState('')
+  const [confirm, setConfirm] = useState('')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
   const submit = async (e: FormEvent) => {
     e.preventDefault()
     setError('')
+    if (mode === 'register') {
+      const ageError = validateAge(age)
+      if (ageError) {
+        setError(ageError)
+        return
+      }
+      if (password !== confirm) {
+        setError('كلمة السر والتأكيد مش متطابقين')
+        return
+      }
+    }
     setBusy(true)
 try {
         const result =
-          mode === 'login' ? await login(username, password) : await register(username, password)
+          mode === 'login'
+            ? await login(username, password)
+            : await register(username, password, Number(age.trim()))
         if (!result.ok) {
           setError(result.error ?? 'حصلت مشكلة، حاول تاني')
           return
@@ -82,6 +97,7 @@ try {
   const switchMode = (next: Mode) => {
     setMode(next)
     setError('')
+    setConfirm('')
   }
 
   return (
@@ -138,8 +154,26 @@ try {
         </div>
 
         <div className="space-y-3.5">
-          <Field label="اسم المستخدم" type="text" value={username} onChange={setUsername} autoComplete="username" />
-          <Field label="كلمة السر" type="password" value={password} onChange={setPassword} autoComplete="current-password" />
+          <Field label="الاسم" type="text" value={username} onChange={setUsername} autoComplete="username" />
+          {mode === 'register' && (
+            <Field label="العمر" type="number" value={age} onChange={setAge} autoComplete="bday" />
+          )}
+          <Field
+            label="كلمة السر"
+            type="password"
+            value={password}
+            onChange={setPassword}
+            autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
+          />
+          {mode === 'register' && (
+            <Field
+              label="تأكيد كلمة السر"
+              type="password"
+              value={confirm}
+              onChange={setConfirm}
+              autoComplete="new-password"
+            />
+          )}
         </div>
 
         {error && (
@@ -150,7 +184,12 @@ try {
 
         <button
           type="submit"
-          disabled={busy || !username.trim() || !password}
+          disabled={
+            busy ||
+            !username.trim() ||
+            !password ||
+            (mode === 'register' && (!age.trim() || password !== confirm))
+          }
           className="mt-5 w-full rounded-xl bg-brand-600 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <Ar>{mode === 'login' ? 'دخول' : 'إنشاء الحساب والبدء'}</Ar>
@@ -213,6 +252,7 @@ function Profile({ username }: { username: string }) {
   const attempts = allResults.length
   const bestAccuracy = attempts > 0 ? Math.round((allResults.reduce((s, r) => s + r.correct, 0) / allResults.reduce((s, r) => s + r.total, 0)) * 100) : 0
   const joined = userJoinedAt(username)
+  const age = userAge(username)
 
   const formatDate = (ts?: number) => {
     if (!ts) return ''
@@ -249,6 +289,12 @@ function Profile({ username }: { username: string }) {
                 <>
                   {' \u00b7 '}
                   <Ar>مسجّل من {formatDate(joined)}</Ar>
+                </>
+              ) : null}
+              {age ? (
+                <>
+                  {' \u00b7 '}
+                  <Ar>العمر: {age}</Ar>
                 </>
               ) : null}
             </p>

@@ -5,6 +5,7 @@ import type { StoredUser } from './auth'
 export interface AdminRow {
   user_id: string
   username: string | null
+  age: string | null
   created_at: string
   data: Record<string, unknown> | null
 }
@@ -96,6 +97,7 @@ export async function adminStudents(): Promise<AdminRow[]> {
   return readLocalUsers().map((u) => ({
     user_id: `local:${u.username.toLowerCase()}`,
     username: u.username,
+    age: u.age != null ? String(u.age) : null,
     created_at: new Date(u.createdAt).toISOString(),
     data: localProgressFor(u.username),
   }))

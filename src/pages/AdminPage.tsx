@@ -239,6 +239,11 @@ export default function AdminPage() {
                   >
                     <td className="px-3 py-2.5">
                       <span className="font-bold text-[var(--ink)]">{username}</span>
+                      {row.age && (
+                        <span dir="rtl" lang="ar" className="mr-1.5 text-[11px] text-[var(--ink-faint)]">
+                          · {row.age} سنة
+                        </span>
+                      )}
                       {row.user_id.startsWith('local:') && (
                         <span
                           dir="rtl"

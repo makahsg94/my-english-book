@@ -10,6 +10,7 @@ export interface StoredUser {
   salt: string
   hash: string
   createdAt: number
+  age?: number
 }
 
 export const USERS_KEY = 'speakout-b1.users.v1'
@@ -104,6 +105,26 @@ export function userJoinedAt(username: string): number | undefined {
   return found?.createdAt
 }
 
+export function userAge(username?: string): number | undefined {
+  const sb = getSupabase()
+  if (sb) {
+    const user = sbUser()
+    const meta = user?.user_metadata as { age?: unknown } | undefined
+    const raw = meta?.age
+    if (typeof raw === 'number') return Math.trunc(raw)
+    if (typeof raw === 'string') {
+      const n = Number(raw)
+      return Number.isFinite(n) ? Math.trunc(n) : undefined
+    }
+    return undefined
+  }
+  const name = username ?? currentUser()
+  if (!name) return undefined
+  const legacy: StoredUser[] = read(USERS_KEY) ?? []
+  const found = legacy.find((u) => u.username.toLowerCase() === name.toLowerCase())
+  return found?.age
+}
+
 export function storageKey(base: string): string {
   const user = currentUser()
   return user ? `speakout-b1.u.${user}.${base}` : base
@@ -130,7 +151,16 @@ export function validatePassword(password: string): string | undefined {
   return undefined
 }
 
-export async function register(username: string, password: string): Promise<AuthResult> {
+export function validateAge(raw: string): string | undefined {
+  if (raw.trim() === '') return 'اكتب عمرك'
+  const age = Number(raw)
+  if (!Number.isFinite(age) || !Number.isInteger(age) || age < 5 || age > 120) {
+    return 'اكتب عمرك بالأرقام (من 5 لـ 120)'
+  }
+  return undefined
+}
+
+export async function register(username: string, password: string, age?: number): Promise<AuthResult> {
   const name = username.trim()
   const reserved = new Set(['admin', 'ادمن'])
   const envAdmin = (import.meta.env.VITE_ADMIN_USERNAME as string | undefined ?? '').trim().toLowerCase()
@@ -142,6 +172,10 @@ export async function register(username: string, password: string): Promise<Auth
   if (nameError) return { ok: false, error: nameError }
   const passError = validatePassword(password)
   if (passError) return { ok: false, error: passError }
+  if (age !== undefined) {
+    const ageError = validateAge(String(age))
+    if (ageError) return { ok: false, error: ageError }
+  }
 
   const sb = getSupabase()
   if (sb) {
@@ -149,7 +183,7 @@ export async function register(username: string, password: string): Promise<Auth
     const { data, error } = await sb.auth.signUp({
       email,
       password,
-      options: { data: { username: name } },
+      options: { data: { username: name, ...(age !== undefined ? { age } : {}) } },
     })
     if (error) return { ok: false, error: mapError(error.message) }
     if (!data.session) return { ok: false, error: 'تم إرسال تأكيد للإيميل — فعّل الحساب وبعدين سجّل دخول' }
@@ -163,7 +197,7 @@ export async function register(username: string, password: string): Promise<Auth
   }
   const salt = `sb1:${name.toLowerCase()}`
   const hash = await sha256(`${salt}:${password}`)
-  const user: StoredUser = { username: name, salt, hash, createdAt: Date.now() }
+  const user: StoredUser = { username: name, salt, hash, createdAt: Date.now(), age }
   write(USERS_KEY, [...users, user])
   write(SESSION_KEY, { username: name })
   return { ok: true }
