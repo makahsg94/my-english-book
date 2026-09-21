@@ -55,7 +55,27 @@ export default function Layout() {
       <BackToTop />
 
       <footer className="mx-auto max-w-4xl px-4 pb-8 pt-4 text-center text-xs text-[var(--ink-faint)]">
-        Speakout 3rd Edition A2 {'\u00b7'} course companion {'\u2013'} for studying with your class
+        <p>
+          Speakout 3rd Edition A2 {'\u00b7'} course companion {'\u2013'} for studying with your class
+        </p>
+        <div className="mt-3 space-y-0.5" dir="rtl" lang="ar">
+          <p className="text-[12px]">
+            المطور:{' '}
+            <a
+              href="https://www.facebook.com/mahmoud.atef.239821"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-brand-600 transition-colors hover:text-brand-700 dark:text-brand-300 dark:hover:text-brand-200"
+            >
+              Mahmoud Atef
+            </a>
+          </p>
+          <p className="text-[12px]">
+            لدعم المطور:{' '}
+            <span dir="ltr" className="font-semibold text-[var(--ink-soft)]">01042682754</span>
+            {'\u00a0'}(فودافون كاش)
+          </p>
+        </div>
       </footer>
     </div>
   )
