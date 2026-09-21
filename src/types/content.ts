@@ -115,12 +115,18 @@ export interface Exercise {
 export interface VocabItem {
   word: string
   meaning?: string
+  /** Arabic translation of the word, shown under the English meaning (for beginners) */
+  meaningAr?: string
   example?: string
+  /** Arabic translation of the example sentence, shown under it (for beginners) */
+  exampleAr?: string
   pronunciation?: string
   note?: string
   opposite?: string
   /** a model answer / sample line that goes with the word (e.g. social phrases) */
   response?: string
+  /** Arabic translation of the model answer / response line */
+  responseAr?: string
 }
 
 export interface GrammarTableRow {

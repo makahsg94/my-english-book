@@ -593,6 +593,11 @@ function VocabSection({
                 </div>
                 <div className="min-w-0 text-sm text-[var(--ink-soft)]">
                   {item.meaning || '\u2014'}
+                  {item.meaningAr && (
+                    <span dir="rtl" lang="ar" className="ar mt-0.5 block text-[13px] font-medium text-brand-700 dark:text-brand-300">
+                      {item.meaningAr}
+                    </span>
+                  )}
                 </div>
                 <div className="min-w-0 space-y-1">
                   {item.example && (
@@ -600,9 +605,19 @@ function VocabSection({
                       {'\u201c'}{item.example}{'\u201d'}
                     </p>
                   )}
+                  {item.exampleAr && (
+                    <p dir="rtl" lang="ar" className="ar text-[13px] text-[var(--ink-soft)]">
+                      {item.exampleAr}
+                    </p>
+                  )}
                   {item.response && (
                     <p className="inline-flex items-center gap-1 rounded-md border border-accent-200 bg-accent-50 px-2 py-0.5 text-[12px] text-accent-800 dark:border-accent-800 dark:bg-accent-950 dark:text-accent-200">
                       {'\u2192'} {item.response}
+                    </p>
+                  )}
+                  {item.responseAr && (
+                    <p dir="rtl" lang="ar" className="ar text-[12px] text-accent-800 dark:text-accent-200">
+                      {item.responseAr}
                     </p>
                   )}
                   {item.note && (
@@ -670,6 +685,11 @@ function VocabSection({
                   {isOpen ? (
                     <span className="pop mt-2 block text-[13px] leading-snug text-[var(--ink-soft)]">
                       <span className="font-medium text-[var(--ink)]">{item.meaning || '\u2014'}</span>
+                      {item.meaningAr && (
+                        <span dir="rtl" lang="ar" className="ar mt-0.5 block text-[13px] font-medium text-brand-700 dark:text-brand-300">
+                          {item.meaningAr}
+                        </span>
+                      )}
                       {item.opposite && (
                         <span className="mt-1 block text-xs text-[var(--ink-faint)]">
                           opp.{' '}
@@ -681,9 +701,19 @@ function VocabSection({
                           {'\u201c'}{item.example}{'\u201d'}
                         </span>
                       )}
+                      {item.exampleAr && (
+                        <span dir="rtl" lang="ar" className="ar mt-0.5 block text-[13px] text-[var(--ink-soft)]">
+                          {item.exampleAr}
+                        </span>
+                      )}
                       {item.response && (
                         <span className="mt-1 block rounded-md border border-accent-200 bg-accent-50 px-2 py-0.5 text-[12px] text-accent-800 dark:border-accent-800 dark:bg-accent-950 dark:text-accent-200">
                           {'\u2192'} {item.response}
+                        </span>
+                      )}
+                      {item.responseAr && (
+                        <span dir="rtl" lang="ar" className="ar mt-0.5 block text-[12px] text-accent-800 dark:text-accent-200">
+                          {item.responseAr}
                         </span>
                       )}
                       {item.note && (
