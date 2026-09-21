@@ -114,7 +114,7 @@ function TableOfContents({ lesson }: { lesson: { blocks: { type: string; title?:
   }
 
   return (
-    <nav className="sticky top-16 z-20 mb-6 rounded-xl border border-[var(--line)] bg-[var(--surface)]/90 p-3 backdrop-blur">
+    <nav className="mb-6 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3">
       <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-[var(--ink-faint)]">On this page</p>
       <div className="flex flex-wrap gap-1.5">
         {sections.map((s) => (
