@@ -45,6 +45,7 @@ Every visitor must log in or register before using the app; progress is saved pe
 - Admin: set `VITE_ADMIN_USERNAME` in `.env.production` (currently `admin`) to the exact
   username you log in with. Your account gets a shield button in the header and full access
   to the admin panel (all students, their progress, and the ability to delete accounts).
+  The admin username is reserved — students trying to register it get rejected.
 
 ### One-time Supabase setup
 
