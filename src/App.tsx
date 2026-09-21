@@ -18,6 +18,7 @@ import AccountPage, { AccountGate } from './pages/AccountPage'
 import AdminPage from './pages/AdminPage'
 import { Link } from 'react-router-dom'
 import { IconHome } from './components/Icons'
+import { getSupabase, sessionSettled } from './lib/supabase'
 
 function NotFound() {
   return (
@@ -46,9 +47,22 @@ function ScrollToTop() {
   return null
 }
 
+function BootSplash() {
+  return (
+    <div className="grid min-h-screen place-items-center">
+      <span className="size-12 animate-spin rounded-full border-[3px] border-[var(--line)] border-t-brand-600" />
+    </div>
+  )
+}
+
 function Gate() {
   const { user } = useAuth()
-  if (!user) return <AccountGate />
+  if (!user) {
+    if (getSupabase() !== null && !sessionSettled()) {
+      return <BootSplash />
+    }
+    return <AccountGate />
+  }
   return (
     <Routes>
       <Route element={<Layout />}>
