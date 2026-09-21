@@ -43,27 +43,6 @@ export function getShadowClip(id: string): ShadowClip | undefined {
 
 const HOTEL2_CLIPS: ShadowClip[] = [
   {
-    id: "ht2-wedding",
-    title: "Celebrations & The Wedding · Hotel Transylvania 2",
-    kind: 'movie',
-    youtube: "vjwG5a3nzjQ",
-    source: 'YouTube',
-    note: "بداية الفيلم — فرحة العرسان والأهل في القلعة أثناء حفل الجواز — النص الأوتوماتيكي للمشهد (10 سطر من الكلام)",
-
-  scenes: [
-    { time: 44.0, en: "parents of the groom and family how" },
-    { time: 82.0, en: "about how hot mine is you got a date yeah she's invisible that's why you can't see her oh right this" },
-    { time: 90.0, en: "is the one from canada wedding starting little" },
-    { time: 204.0, en: "poison berry oh it is daddy except where's grandpa vlad honey your gramps would not" },
-    { time: 211.0, en: "have been cool with this he's old school how do we know if he could just meet johnny he would have eaten him he's" },
-    { time: 218.0, en: "not as enlightened as your hip daddy so you're really okay with him not being a monster human monster" },
-    { time: 225.0, en: "unicorn as long as you're happy thanks dad and" },
-    { time: 233.0, en: "you'll always be my moonlight but now on wings of love you so now" },
-    { time: 241.0, en: "that you're johnny's girl johnny's girl and kind of daddy's her mom" },
-    { time: 248.0, en: "would be so happy because she always knew love is making room for all the best in" },
-  ],
-  },
-  {
     id: "ht2-intros",
     title: "Wedding Scene · Hotel Transylvania 2",
     kind: 'movie',
