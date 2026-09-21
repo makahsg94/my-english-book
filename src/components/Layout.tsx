@@ -75,6 +75,17 @@ export default function Layout() {
             <span dir="ltr" className="font-semibold text-[var(--ink-soft)]">01042682754</span>
             {'\u00a0'}(فودافون كاش)
           </p>
+          <p className="text-[12px]">
+            واتساب:{' '}
+            <a
+              href="https://wa.me/201224552685"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-brand-600 transition-colors hover:text-brand-700 dark:text-brand-300 dark:hover:text-brand-200"
+            >
+              <span dir="ltr">01224552685</span>
+            </a>
+          </p>
         </div>
       </footer>
     </div>
