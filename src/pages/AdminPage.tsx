@@ -1,0 +1,294 @@
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../lib/authContext'
+import {
+  adminStatus,
+  adminStudents,
+  adminDeleteUser,
+  adminRpcReady,
+  envAdminUsername,
+  type AdminRow,
+} from '../lib/admin'
+import { getSupabase } from '../lib/supabase'
+import { IconShield, IconHome, IconTrash, IconRefresh } from '../components/Icons'
+
+/** عنصر عربي RTL مختصر */
+function Ar({ children }: { children: React.ReactNode }) {
+  return <span dir="rtl" lang="ar">{children}</span>
+}
+
+function pad2(n: number) {
+  return n < 10 ? `0${n}` : String(n)
+}
+
+function formatDate(iso: string | null | undefined): string {
+  if (!iso) return '—'
+  try {
+    const d = new Date(iso)
+    if (Number.isNaN(d.getTime())) return '—'
+    return `${d.getFullYear()}/${pad2(d.getMonth() + 1)}/${pad2(d.getDate())} — ${pad2(d.getHours())}:${pad2(d.getMinutes())}`
+  } catch {
+    return '—'
+  }
+}
+
+function summaryOf(row: AdminRow): { xp: number; lessons: number; quizzes: number } {
+  let xp = 0
+  let lessons = 0
+  let quizzes = 0
+  const d = row.data
+  if (d && typeof d === 'object') {
+    if (typeof d.xp === 'number') xp = Math.round(d.xp)
+    const ls = d.lessons
+    if (ls && typeof ls === 'object' && !Array.isArray(ls)) {
+      lessons = Object.values(ls).filter(
+        (v) => v && typeof v === 'object' && (v as { completed?: boolean }).completed === true,
+      ).length
+    }
+    const qz = d.quizzes
+    if (qz && typeof qz === 'object' && !Array.isArray(qz)) {
+      quizzes = Object.values(qz).filter(
+        (v) => Array.isArray(v) && (v as unknown[]).length > 0,
+      ).length
+    }
+  }
+  return { xp, lessons, quizzes }
+}
+
+export default function AdminPage() {
+  const { user } = useAuth()
+  const [ok, setOk] = useState<boolean | null>(null)
+  const [rows, setRows] = useState<AdminRow[]>([])
+  const [busy, setBusy] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [notice, setNotice] = useState('')
+  const [rpcReady, setRpcReady] = useState<boolean | null>(null)
+
+  const envName = envAdminUsername()
+  const isEnvAdmin =
+    !!envName && !!user && envName.toLowerCase() === user.toLowerCase()
+
+  const refresh = async () => {
+    setLoading(true)
+    const students = await adminStudents()
+    setRows(students)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    let on = true
+    void adminStatus(user).then((v) => {
+      if (!on) return
+      setOk(v)
+      if (v) void refresh()
+    })
+    void adminRpcReady().then((v) => {
+      if (on) setRpcReady(v)
+    })
+    return () => {
+      on = false
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
+
+  const remove = async (username: string) => {
+    if (busy || !username) return
+    setBusy(true)
+    setNotice('')
+    const done = await adminDeleteUser(username)
+    setBusy(false)
+    if (done) {
+      setNotice(`تم مسح الطالب «${username}»`)
+      void refresh()
+    } else {
+      setNotice('حصلت مشكلة في مسح الطالب — جرّب تاني')
+    }
+  }
+
+  /* فحص الأدمن لسه شغال */
+  if (ok === null) {
+    return (
+      <div className="fade-up mx-auto flex max-w-md flex-col items-center gap-5 py-24 text-center">
+        <span className="grid size-14 animate-pulse place-items-center rounded-2xl bg-[var(--line)] text-[var(--ink-faint)]">
+          <IconShield size={26} />
+        </span>
+        <p className="text-sm font-semibold text-[var(--ink-soft)]">
+          <Ar>بنتأكد من صلاحية الأدمن...</Ar>
+        </p>
+      </div>
+    )
+  }
+
+  /* مش أدمن → برة */
+  if (!ok) {
+    return (
+      <div className="fade-up mx-auto max-w-md py-24 text-center">
+        <p className="text-5xl font-bold text-brand-300">403</p>
+        <h1 className="mt-2 text-xl font-semibold">
+          <Ar>مفيش صلاحية</Ar>
+        </h1>
+        <p className="mt-2 text-sm text-[var(--ink-soft)]">
+          <Ar>الصفحة دي للأدمن بس. لو انت صاحب الكتاب، تأكد إن اسمك مكتوب
+          في متغير VITE_ADMIN_USERNAME في ملف .env، وإنك داخل بالحساب ده.</Ar>
+        </p>
+        <Link
+          to="/"
+          className="mt-5 inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
+        >
+          <IconHome size={16} />
+          <Ar>الرئيسية</Ar>
+        </Link>
+      </div>
+    )
+  }
+
+  return (
+    <div className="fade-up mx-auto max-w-3xl space-y-6">
+      <header>
+        <nav className="mb-3 flex items-center gap-1 text-sm text-[var(--ink-faint)]">
+          <Link to="/" className="inline-flex items-center gap-1 hover:text-[var(--ink)]">
+            <IconHome size={14} />
+            <Ar>الرئيسية</Ar>
+          </Link>
+          <span className="mx-1 opacity-50">/</span>
+          <span className="text-[var(--ink)]">
+            <Ar>الأدمن</Ar>
+          </span>
+        </nav>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">
+              Speakout B1 · Admin
+            </p>
+            <h1 className="mt-1 text-2xl font-extrabold">
+              <Ar>لوحة الأدمن</Ar>
+            </h1>
+            <p className="mt-1 text-sm text-[var(--ink-soft)]">
+              <Ar>كل الطلاب المسجلين في الكتاب — تقدّمهم وتقدّر تمسح أي حد.</Ar>
+            </p>
+          </div>
+          {isEnvAdmin && envName && (
+            <span className="rounded-full border border-brand-300 bg-brand-50 px-3 py-1 text-[11px] font-bold text-brand-800 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-200">
+              <Ar>أدمن: {envName}</Ar>
+            </span>
+          )}
+        </div>
+      </header>
+
+      {notice && (
+        <p
+          dir="rtl"
+          lang="ar"
+          className="rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-2 text-[13px] text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
+        >
+          {notice}
+        </p>
+      )}
+
+      {getSupabase() !== null && rpcReady === false && (
+        <p
+          dir="rtl"
+          lang="ar"
+          className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2.5 text-[13px] leading-relaxed text-amber-900 dark:border-amber-800 dark:bg-amber-950/50 dark:text-amber-300"
+        >
+          <Ar>سيرفر Supabase متصل بس اسكربتات الجداول لسه متشغّلتش.
+          افتح Supabase Dashboard ← SQL Editor، وشغّل «schema.sql» وبعدها «admin.sql»
+          من مجلد supabase في المشروع. كمان من Authentication ألغِ تفعيل
+          «Confirm email» عشان تسجيل الطلاب يشتغل فورًا من غير رسائل تأكيد.</Ar>
+        </p>
+      )}
+
+      <div className="flex items-center justify-end">
+        <button
+          type="button"
+          onClick={() => void refresh()}
+          disabled={loading}
+          className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--line-strong)] px-3 py-1.5 text-[13px] font-semibold text-[var(--ink-soft)] transition-colors hover:bg-[var(--line)] disabled:opacity-50"
+        >
+          <IconRefresh size={14} className={loading ? 'animate-spin' : ''} />
+          <Ar>تحديث</Ar>
+        </button>
+      </div>
+
+      <div className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] shadow-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-right text-[13px]">
+            <thead>
+              <tr className="border-b border-[var(--line)] bg-[var(--line)]/50 text-[11px] uppercase tracking-wider text-[var(--ink-faint)]">
+                <th className="px-3 py-2.5 font-bold"><Ar>الطالب</Ar></th>
+                <th className="px-3 py-2.5 font-bold"><Ar>التسجيل</Ar></th>
+                <th className="px-3 py-2.5 font-bold"><Ar>التقدّم</Ar></th>
+                <th className="px-3 py-2.5 text-center font-bold"><Ar>مسح</Ar></th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.length === 0 && (
+                <tr>
+                  <td colSpan={4} className="px-3 py-8 text-center text-sm text-[var(--ink-faint)]">
+                    <Ar>لسه مفيش طلاب مسجلين.</Ar>
+                  </td>
+                </tr>
+              )}
+              {rows.map((row) => {
+                const { xp, lessons, quizzes } = summaryOf(row)
+                const username = row.username ?? '—'
+                return (
+                  <tr
+                    key={row.user_id ?? username}
+                    className="border-b border-[var(--line)] last:border-0 hover:bg-[var(--line)]/40"
+                  >
+                    <td className="px-3 py-2.5">
+                      <span className="font-bold text-[var(--ink)]">{username}</span>
+                      {row.user_id.startsWith('local:') && (
+                        <span
+                          dir="rtl"
+                          lang="ar"
+                          className="mr-1.5 rounded bg-[var(--line)] px-1.5 py-0.5 text-[10px] text-[var(--ink-faint)]"
+                        >
+                          محلي
+                        </span>
+                      )}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-2.5 text-[var(--ink-soft)]" dir="ltr">
+                      {formatDate(row.created_at)}
+                    </td>
+                    <td className="px-3 py-2.5 text-[var(--ink-soft)]">
+                      <span className="font-bold text-brand-700 dark:text-brand-300">{xp} XP</span>
+                      <span dir="rtl" lang="ar" className="mr-1.5">
+                        · {lessons} دروس · {quizzes} كويز
+                      </span>
+                    </td>
+                    <td className="px-3 py-2.5 text-center">
+                      <button
+                        type="button"
+                        disabled={busy || username === user}
+                        onClick={() => void remove(username)}
+                        title={username === user ? 'مش تقدر تمسح نفسك' : `مسح ${username}`}
+                        className="inline-flex items-center gap-1 rounded-lg border border-red-200 px-2.5 py-1.5 text-[12px] font-bold text-red-700 transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950/40"
+                      >
+                        <IconTrash size={13} />
+                        <Ar>مسح</Ar>
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {!envName && (
+        <p
+          dir="rtl"
+          lang="ar"
+          className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2.5 text-[13px] text-amber-900 dark:border-amber-800 dark:bg-amber-950/50 dark:text-amber-300"
+        >
+          <Ar>تنبيه: اسم الأدمن لسه مش مكتوب في ملف .env (متغير VITE_ADMIN_USERNAME).
+          لو انت صاحب الكتاب، اكتب اسمك بالظبط زي ما سجلت بيه في الكود، وضيفه برضه في
+          جدول admins في Supabase.</Ar>
+        </p>
+      )}
+    </div>
+  )
+}

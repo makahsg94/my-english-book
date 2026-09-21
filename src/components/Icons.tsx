@@ -291,3 +291,19 @@ export const IconEar = (p: IconProps) => (
     <path d="M6.5 8.5a4 4 0 0 1 4-3.9c2.2 0 4 .5 4 2.6" />
   </svg>
 )
+
+export const IconTrash = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M4 7h16" />
+    <path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+    <path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13" />
+    <path d="M10 11v6M14 11v6" />
+  </svg>
+)
+
+export const IconRefresh = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M20 12a8 8 0 1 1-2.3-5.7L20 8.8" />
+    <path d="M20 4v5h-5" />
+  </svg>
+)

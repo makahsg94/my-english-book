@@ -1,4 +1,9 @@
-import { getSupabase, currentUser as sbUser, currentUsername } from './supabase'
+import {
+  getSupabase,
+  currentUser as sbUser,
+  currentUsername,
+  sessionSettled,
+} from './supabase'
 
 export interface StoredUser {
   username: string
@@ -7,7 +12,7 @@ export interface StoredUser {
   createdAt: number
 }
 
-const USERS_KEY = 'speakout-b1.users.v1'
+export const USERS_KEY = 'speakout-b1.users.v1'
 const SESSION_KEY = 'speakout-b1.session.v1'
 
 function read<V>(key: string): V | null {
@@ -69,6 +74,10 @@ export function signOut() {
 export function currentUser(): string | null {
   const sb = getSupabase()
   if (sb) {
+    if (!sessionSettled()) {
+      const hint = read<{ username: string }>(SESSION_KEY)
+      return hint && typeof hint.username === 'string' ? hint.username : null
+    }
     const user = sbUser()
     return user ? currentUsername(user) : null
   }
@@ -107,8 +116,11 @@ export interface AuthResult {
 
 export function validateUsername(username: string): string | undefined {
   const name = username.trim()
-  if (!/^[a-zA-Z0-9_\u0600-\u06FF]{2,20}$/.test(name)) {
-    return 'اسم المستخدم لازم يكون من 2 لـ 20 حرف (حروف أو أرقام)'
+  if (name.length < 2 || name.length > 60) {
+    return 'اسم المستخدم لازم يكون من 2 لـ 60 حرف'
+  }
+  if (!/^[\p{L}\p{N}\s.,'_-]+$/u.test(name)) {
+    return 'اسم المستخدم لازم يكون حروف (عربي أو أجنبي) أو أرقام أو مسافات'
   }
   return undefined
 }
@@ -135,6 +147,7 @@ export async function register(username: string, password: string): Promise<Auth
     })
     if (error) return { ok: false, error: mapError(error.message) }
     if (!data.session) return { ok: false, error: 'تم إرسال تأكيد للإيميل — فعّل الحساب وبعدين سجّل دخول' }
+    write(SESSION_KEY, { username: name })
     return { ok: true }
   }
 
@@ -157,6 +170,7 @@ export async function login(username: string, password: string): Promise<AuthRes
     const email = await syntheticEmail(name)
     const { error } = await sb.auth.signInWithPassword({ email, password })
     if (error) return { ok: false, error: mapError(error.message) }
+    write(SESSION_KEY, { username: name })
     return { ok: true }
   }
 

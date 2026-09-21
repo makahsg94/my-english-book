@@ -28,6 +28,14 @@ export function currentUser(): User | null {
   return cachedUser ?? null
 }
 
+export function sessionSettled(): boolean {
+  return cachedUser !== undefined
+}
+
+export function setCachedUser(user: User | null) {
+  cachedUser = user
+}
+
 export function currentUsername(user: User): string {
   const meta = user.user_metadata as { username?: string } | undefined
   if (meta?.username) return meta.username

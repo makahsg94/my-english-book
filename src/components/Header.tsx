@@ -4,7 +4,8 @@ import { useTheme } from '../lib/appContext'
 import { useAuth } from '../lib/authContext'
 import SearchBox from './SearchBox'
 import { playSound, setSoundEnabled, soundEnabled } from '../lib/sounds'
-import { IconBook, IconList, IconMoon, IconSun, IconVolume, IconVolumeOff } from './Icons'
+import { envAdminUsername } from '../lib/admin'
+import { IconBook, IconList, IconMoon, IconShield, IconSun, IconVolume, IconVolumeOff } from './Icons'
 
 export default function Header({ onContents }: { onContents: () => void }) {
   const { theme, toggle } = useTheme()
@@ -42,6 +43,16 @@ export default function Header({ onContents }: { onContents: () => void }) {
           <div className="hidden w-48 lg:block">
             <SearchBox />
           </div>
+          {user && envAdminUsername() && user === envAdminUsername() && (
+            <Link
+              to="/admin"
+              aria-label="Admin panel"
+              title="Admin panel"
+              className="grid size-9 place-items-center rounded-lg border border-[var(--line-strong)] text-[var(--ink-soft)] transition-colors hover:bg-[var(--line)] hover:text-brand-700 dark:hover:text-brand-300"
+            >
+              <IconShield size={17} />
+            </Link>
+          )}
           <Link
             to="/account"
             className={`inline-flex h-9 items-center gap-1.5 rounded-lg border px-2 text-sm font-bold transition-colors ${
