@@ -55,6 +55,20 @@ function summaryOf(row: AdminRow): { xp: number; lessons: number; quizzes: numbe
   return { xp, lessons, quizzes }
 }
 
+function ageOf(row: AdminRow): string | null {
+  if (row.age) return row.age
+  const d = row.data
+  if (d && typeof d === 'object') {
+    const p = (d as Record<string, unknown>)['speakout-b1.profile.v1']
+    if (p && typeof p === 'object' && !Array.isArray(p)) {
+      const a = (p as { age?: unknown }).age
+      if (typeof a === 'number') return String(a)
+      if (typeof a === 'string' && a.trim()) return a.trim()
+    }
+  }
+  return null
+}
+
 export default function AdminPage() {
   const { user } = useAuth()
   const [ok, setOk] = useState<boolean | null>(null)
@@ -232,6 +246,7 @@ export default function AdminPage() {
               {rows.map((row) => {
                 const { xp, lessons, quizzes } = summaryOf(row)
                 const username = row.username ?? '—'
+                const age = ageOf(row)
                 return (
                   <tr
                     key={row.user_id ?? username}
@@ -239,9 +254,9 @@ export default function AdminPage() {
                   >
                     <td className="px-3 py-2.5">
                       <span className="font-bold text-[var(--ink)]">{username}</span>
-                      {row.age && (
+                      {age && (
                         <span dir="rtl" lang="ar" className="mr-1.5 text-[11px] text-[var(--ink-faint)]">
-                          · {row.age} سنة
+                          · {age} سنة
                         </span>
                       )}
                       {row.user_id.startsWith('local:') && (

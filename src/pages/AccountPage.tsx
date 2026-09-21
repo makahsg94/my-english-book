@@ -8,7 +8,7 @@ import { useAuth } from '../lib/authContext'
 import { useProgress } from '../lib/appContext'
 import { achievementsFor, levelProgress, levelForXp, type ProgressState } from '../lib/progress'
 import { userJoinedAt, userAge, validateAge } from '../lib/auth'
-import { pullAll } from '../lib/sync'
+import { pullAll, persistProfile } from '../lib/sync'
 import { IconAward, IconBook, IconChevronRight, IconFlame, IconHome, IconLayers, IconPen, IconTarget } from '../components/Icons'
 
 function Ar({ children }: { children: React.ReactNode }) {
@@ -84,6 +84,9 @@ try {
         if (!result.ok) {
           setError(result.error ?? 'حصلت مشكلة، حاول تاني')
           return
+        }
+        if (mode === 'register') {
+          await persistProfile({ age: Number(age.trim()) })
         }
         await pullAll()
         progress.reload()

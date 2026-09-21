@@ -25,6 +25,26 @@ export function queueSync(key: string) {
   timers[key] = window.setTimeout(() => void flushSync(key), 500)
 }
 
+export async function persistProfile(data: { age?: number }): Promise<void> {
+  const sb = getSupabase()
+  if (!sb) return
+  const user = sbUser()
+  if (!user || data.age === undefined) return
+  try {
+    await sb.from('user_data').upsert(
+      {
+        user_id: user.id,
+        key: 'speakout-b1.profile.v1',
+        value: { age: data.age },
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'user_id,key' },
+    )
+  } catch {
+    /* non-fatal */
+  }
+}
+
 async function flushSync(key: string) {
   delete timers[key]
   const sb = getSupabase()
