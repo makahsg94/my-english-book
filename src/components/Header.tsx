@@ -43,7 +43,7 @@ export default function Header({ onContents }: { onContents: () => void }) {
           <div className="hidden w-48 lg:block">
             <SearchBox />
           </div>
-          {user && envAdminUsername() && user === envAdminUsername() && (
+          {user && envAdminUsername() && user.toLowerCase() === envAdminUsername().toLowerCase() && (
             <Link
               to="/admin"
               aria-label="Admin panel"
