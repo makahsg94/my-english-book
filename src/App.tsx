@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { ThemeProvider, ProgressProvider } from './lib/appContext'
+import { AuthProvider, useAuth } from './lib/authContext'
 import { ToastProvider } from './lib/toast'
 import { ConfettiHost } from './lib/confetti'
 import Layout from './components/Layout'
@@ -14,6 +15,8 @@ import PageView from './pages/PageView'
 import BankPage from './pages/BankPage'
 import ReviewPage from './pages/ReviewPage'
 import ShadowingPage from './pages/ShadowingPage'
+import AccountPage, { AccountGate } from './pages/AccountPage'
+import AdminPage from './pages/AdminPage'
 import { Link } from 'react-router-dom'
 import { IconHome } from './components/Icons'
 
@@ -44,32 +47,55 @@ function ScrollToTop() {
   return null
 }
 
+function BootSplash() {
+  return (
+    <div className="grid min-h-screen place-items-center">
+      <span className="size-12 animate-spin rounded-full border-[3px] border-[var(--line)] border-t-brand-600" />
+    </div>
+  )
+}
+
+function Gate() {
+  const { user, ready } = useAuth()
+  if (!user) {
+    if (!ready) return <BootSplash />
+    return <AccountGate />
+  }
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="book" element={<BookPage />} />
+        <Route path="account" element={<AccountPage />} />
+        <Route path="admin" element={<AdminPage />} />
+        <Route path="unit/:unitId" element={<UnitPage />} />
+        <Route path="unit/:unitId/quiz" element={<UnitQuizPage />} />
+        <Route path="unit/:unitId/writing" element={<WritingPage />} />
+        <Route path="unit/:unitId/lesson/:lessonId" element={<LessonPage />} />
+        <Route path="page/:pdf" element={<PageView />} />
+        <Route path="bank/:bankId" element={<BankPage />} />
+        <Route path="review" element={<ReviewPage />} />
+        <Route path="shadowing" element={<ShadowingPage />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  )
+}
+
 export default function App() {
   return (
     <ThemeProvider>
-      <ProgressProvider>
-        <ToastProvider>
-          <ConfettiHost />
-          <HashRouter>
-            <ScrollToTop />
-            <Routes>
-              <Route element={<Layout />}>
-                <Route index element={<HomePage />} />
-                <Route path="book" element={<BookPage />} />
-                <Route path="unit/:unitId" element={<UnitPage />} />
-                <Route path="unit/:unitId/quiz" element={<UnitQuizPage />} />
-                <Route path="unit/:unitId/writing" element={<WritingPage />} />
-                <Route path="unit/:unitId/lesson/:lessonId" element={<LessonPage />} />
-                <Route path="page/:pdf" element={<PageView />} />
-                <Route path="bank/:bankId" element={<BankPage />} />
-                <Route path="review" element={<ReviewPage />} />
-                <Route path="shadowing" element={<ShadowingPage />} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
-              </Routes>
+      <AuthProvider>
+        <ProgressProvider>
+          <ToastProvider>
+            <ConfettiHost />
+            <HashRouter>
+              <ScrollToTop />
+              <Gate />
             </HashRouter>
           </ToastProvider>
-      </ProgressProvider>
+        </ProgressProvider>
+      </AuthProvider>
     </ThemeProvider>
   )
 }

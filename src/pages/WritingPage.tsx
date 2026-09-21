@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getUnit } from '../content/book'
+import { storageKey } from '../lib/auth'
+import { queueSync } from '../lib/sync'
 import { getWritingTask } from '../content/writing'
 import { useProgress } from '../lib/appContext'
 import { checkWriting } from '../lib/writeCheck'
@@ -93,7 +95,8 @@ export default function WritingPage() {
   const progress = useProgress()
   const task = unitId ? getWritingTask(unitId) : undefined
 
-  const draftKey = `speakout-a2.writing.draft.${task?.id ?? 'none'}`
+  const draftBase = `speakout-a2.writing.draft.${task?.id ?? 'none'}`
+  const draftKey = storageKey(draftBase)
   const [draft, setDraft] = useState(() => {
     try {
       return localStorage.getItem(draftKey) ?? ''
@@ -114,10 +117,11 @@ export default function WritingPage() {
     try {
       if (draft) localStorage.setItem(draftKey, draft)
       else localStorage.removeItem(draftKey)
+      queueSync(draftBase)
     } catch {
       /* ignore */
     }
-  }, [draft, draftKey])
+  }, [draft, draftKey, draftBase])
 
   useEffect(() => {
     window.clearTimeout(debounceRef.current)

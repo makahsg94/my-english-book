@@ -3,13 +3,15 @@ import { BOOK } from '../content/book'
 import { getWritingTask } from '../content/writing'
 import { getUnitQuiz } from '../content/quizzes'
 import { useProgress } from '../lib/appContext'
+import { useAuth } from '../lib/authContext'
 import BookProgress from './BookProgress'
-import { IconBook, IconCheck, IconMic, IconPen, IconTarget } from './Icons'
+import { IconBook, IconCheck, IconLayers, IconMic, IconPen, IconTarget } from './Icons'
 
 type Status = 'done' | 'started' | 'todo'
 
 export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const progress = useProgress()
+  const { user } = useAuth()
 
   return (
     <nav className="px-5 py-6">
@@ -19,6 +21,28 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       <div className="mb-5">
         <BookProgress />
       </div>
+
+      <NavLink
+        to="/account"
+        onClick={onNavigate}
+        className={({ isActive }) =>
+          `mb-4 block rounded-lg px-2.5 py-1.5 transition-colors ${
+            isActive
+              ? 'bg-brand-50 text-brand-800 dark:bg-brand-950 dark:text-brand-200'
+              : 'text-brand-700 hover:bg-[var(--line)] dark:text-brand-300 dark:hover:text-brand-200'
+          }`
+        }
+      >
+        <span className="flex items-center gap-1.5">
+          <IconLayers size={13} className="shrink-0" />
+          <span className="block text-[13px] font-bold leading-snug" dir="rtl" lang="ar">
+            {user ? `حساب ${user}` : 'أنشئ حسابك / دخول'}
+          </span>
+        </span>
+        <span className="block pl-5 text-[12px] leading-snug opacity-80">
+          <span dir="rtl" lang="ar">سجّل تقدّمك وقابله على أي جهاز</span>
+        </span>
+      </NavLink>
 
       <div className="mb-1 flex items-baseline gap-2 pb-1">
         <IconBook size={13} className="shrink-0 self-center text-[var(--ink-faint)]" />

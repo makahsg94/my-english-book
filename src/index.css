@@ -1017,3 +1017,126 @@ a:active {
     scroll-behavior: auto;
   }
 }
+
+/* ---------- Account gate: animated scene ---------- */
+.auth-scene {
+  background:
+    radial-gradient(48rem 48rem at 85% -8%, color-mix(in srgb, var(--color-brand-500) 13%, transparent), transparent 60%),
+    radial-gradient(42rem 42rem at -5% 108%, color-mix(in srgb, var(--color-accent-500) 13%, transparent), transparent 60%),
+    var(--bg);
+}
+.auth-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.4;
+  pointer-events: none;
+  mask-image: radial-gradient(46rem 32rem at 50% 0%, #000 0%, transparent 78%);
+  -webkit-mask-image: radial-gradient(46rem 32rem at 50% 0%, #000 0%, transparent 78%);
+}
+@keyframes blobFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(5vw, -4vh, 0) scale(1.12); }
+  66% { transform: translate3d(-4vw, 5vh, 0) scale(0.92); }
+}
+.auth-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(56px);
+  opacity: 0.55;
+  will-change: transform;
+  animation: blobFloat 16s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+.auth-float {
+  animation: floatY 4.5s ease-in-out infinite;
+}
+@keyframes ringPulse {
+  0% { transform: scale(0.92); opacity: 0.55; }
+  70% { transform: scale(1.3); opacity: 0; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+.auth-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1.5px solid color-mix(in srgb, var(--color-accent-500) 60%, transparent);
+  animation: ringPulse 2.8s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes letterDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--rot, 0deg)); }
+  50% { transform: translate3d(var(--dx, 8px), var(--dy, -12px), 0) rotate(var(--rot, 0deg)); }
+}
+.auth-chip {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 600;
+  opacity: 0.55;
+  will-change: transform;
+  animation: letterDrift 7s ease-in-out infinite;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+}
+/* field focus glow + lift */
+.auth-field {
+  position: relative;
+  transition: transform 0.2s ease;
+}
+.auth-field:focus-within {
+  transform: translateY(-2px);
+}
+.auth-field input {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.auth-field:focus-within input {
+  border-color: color-mix(in srgb, var(--color-brand-500) 65%, var(--line-strong));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-brand-500) 14%, transparent);
+  background: var(--surface);
+}
+.auth-field > span {
+  transition: color 0.2s ease;
+}
+.auth-field:focus-within > span {
+  color: var(--color-brand-700);
+}
+.dark .auth-field:focus-within > span {
+  color: var(--color-brand-300);
+}
+/* submit button sheen sweep */
+.auth-submit {
+  position: relative;
+  overflow: hidden;
+}
+.auth-submit::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  width: 42%;
+  background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.42), transparent);
+  transform: translateX(-160%) skewX(-14deg);
+  animation: sheen 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes sheen {
+  0% { transform: translateX(-160%) skewX(-14deg); }
+  60%, 100% { transform: translateX(260%) skewX(-14deg); }
+}
+@keyframes wordIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.word-in {
+  animation: wordIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.strength-bar > span {
+  transform-origin: right;
+}

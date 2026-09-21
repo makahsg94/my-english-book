@@ -51,12 +51,25 @@ const ProgressStateContext = createContext<ProgressReporting>({
 export function ProgressProvider({ children }: { children: ReactNode }) {
   const [version, setVersion] = useState(0)
 
+  useEffect(() => {
+    const onSync = () => {
+      progress.reload()
+      setVersion((v) => v + 1)
+    }
+    window.addEventListener('sb:synced', onSync)
+    return () => window.removeEventListener('sb:synced', onSync)
+  }, [])
+
   const bump = useCallback(() => {
     setVersion((v) => v + 1)
   }, [])
 
   const api: ProgressApi = {
     ...progress,
+    reload: () => {
+      progress.reload()
+      bump()
+    },
     markLessonComplete: (id) => {
       progress.markLessonComplete(id)
       bump()

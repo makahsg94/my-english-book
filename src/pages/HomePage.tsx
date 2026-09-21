@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BOOK, flattenLessons } from '../content/book'
 import { useProgress } from '../lib/appContext'
+import { useAuth } from '../lib/authContext'
 import { levelProgress, achievementsFor } from '../lib/progress'
 import { shareCardBlob } from '../lib/shareCard'
 import { playSound } from '../lib/sounds'
@@ -12,6 +13,7 @@ import { IconBook, IconCheck, IconFlame, IconLayers, IconMic, IconShare } from '
 
 export default function HomePage() {
   const progress = useProgress()
+  const { user } = useAuth()
   const [sharing, setSharing] = useState(false)
   const lessons = flattenLessons()
   const doneCount = lessons.filter((f) => progress.isLessonComplete(f.lesson.id)).length
@@ -122,6 +124,31 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ---- Account CTA ---- */}
+      {!user && (
+        <section className="mx-auto max-w-2xl">
+          <Link
+            to="/account"
+            className="group flex items-center gap-4 rounded-2xl border border-brand-300 bg-gradient-to-r from-brand-600 to-accent-600 p-5 shadow-md transition-all hover:shadow-lg dark:border-brand-700"
+          >
+            <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-white/15 text-xl text-white">
+              <IconLayers size={22} />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-lg font-bold tracking-tight text-white" dir="rtl" lang="ar">
+                أنشئ حسابك وخلّي تقدّمك معاك على أي جهاز
+              </span>
+              <span className="block text-[13px] leading-snug text-white/85" dir="rtl" lang="ar">
+                تسجيل دخول مجاني — الكويزات والدروس والإنجازات تتسجّل لك، وترجعها أول ما تدخل
+              </span>
+            </span>
+            <span className="shrink-0 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-brand-700 transition-transform group-hover:translate-x-0.5">
+              دخول / تسجيل
+            </span>
+          </Link>
+        </section>
+      )}
 
       {/* ---- Review banner ---- */}
       <section className="mx-auto max-w-2xl">

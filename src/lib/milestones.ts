@@ -2,6 +2,8 @@
 // time. Persisted locally so each milestone fires only once per browser.
 
 import { BOOK } from '../content/book'
+import { storageKey } from './auth'
+import { queueSync } from './sync'
 import type { ProgressState } from './progress'
 import type { ToastOptions } from './toast'
 
@@ -30,7 +32,7 @@ function counts(state: ProgressState) {
 
 function readSeen(): Set<string> {
   try {
-    const raw = localStorage.getItem(KEY)
+    const raw = localStorage.getItem(storageKey(KEY))
     if (!raw) return new Set()
     const arr = JSON.parse(raw) as unknown
     if (!Array.isArray(arr)) return new Set()
@@ -53,7 +55,8 @@ export function checkMilestones(state: ProgressState): ToastOptions[] {
   if (fresh.length === 0) return []
   for (const m of fresh) seen.add(m.id)
   try {
-    localStorage.setItem(KEY, JSON.stringify([...seen]))
+    localStorage.setItem(storageKey(KEY), JSON.stringify([...seen]))
+    queueSync('speakout-a2.milestones.v1')
   } catch {
     /* storage unavailable - ignore */
   }

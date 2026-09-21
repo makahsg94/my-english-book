@@ -1,3 +1,6 @@
+import { storageKey } from './auth'
+import { queueSync } from './sync'
+
 // Learning progress store.
 // Persisted in localStorage for v1; the IProgressStore interface keeps the UI
 // decoupled so a backend/database provider can be swapped in later.
@@ -61,7 +64,7 @@ const STORAGE_KEY = 'speakout-a2.progress.v1'
 class LocalStore implements IProgressStore {
   load(): ProgressState {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY)
+      const raw = localStorage.getItem(storageKey(STORAGE_KEY))
       if (!raw) return { lessons: {}, quizzes: {}, writing: {}, xp: 0, xpLog: [], streak: 0 }
       const parsed = JSON.parse(raw) as ProgressState
       return {
@@ -81,7 +84,8 @@ class LocalStore implements IProgressStore {
   }
   save(state: ProgressState): void {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+      localStorage.setItem(storageKey(STORAGE_KEY), JSON.stringify(state))
+      queueSync('speakout-a2.progress.v1')
     } catch {
       /* storage unavailable – ignore */
     }
@@ -95,6 +99,19 @@ export function createProgressApi(store: IProgressStore = progressStore) {
 
   const emit = () => {
     store.save(state)
+  }
+
+  function reload() {
+    const fresh = store.load()
+    state.lessons = fresh.lessons
+    state.quizzes = fresh.quizzes
+    state.writing = fresh.writing
+    state.xp = fresh.xp
+    state.xpLog = fresh.xpLog
+    state.streak = fresh.streak
+    state.lastActiveDate = fresh.lastActiveDate
+    state.lastUnit = fresh.lastUnit
+    state.lastLesson = fresh.lastLesson
   }
 
   function awardXp(amount: number, reason: string) {
@@ -203,6 +220,7 @@ export function createProgressApi(store: IProgressStore = progressStore) {
     get state() {
       return state
     },
+    reload,
     markLessonComplete,
     toggleLessonComplete,
     recordVisit,

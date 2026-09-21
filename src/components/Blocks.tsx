@@ -16,6 +16,7 @@ import {
   IconVolume,
 } from './Icons'
 import { Link } from 'react-router-dom'
+import { ACCENTS, sayWord, useSpeech } from '../lib/speech'
 
 function BankLink({ page }: { page: number }) {
   return (
@@ -495,6 +496,7 @@ function VocabSection({
 }) {
   const [practice, setPractice] = useState(false)
   const [revealed, setRevealed] = useState<Set<number>>(new Set())
+  const { settings: speech, setSettings: setSpeech } = useSpeech()
   const items = block.items ?? []
   const known = revealed.size
 
@@ -519,6 +521,27 @@ function VocabSection({
           <span className="h-6 w-1 rounded-full bg-gradient-to-b from-accent-500 to-brand-500" />
           {block.title}
         </h2>
+        <span className="inline-flex items-center gap-0.5 rounded-full border border-[var(--line)] bg-[var(--surface)] p-1">
+          <IconVolume size={13} className="mx-1 shrink-0 text-[var(--ink-faint)]" />
+          {ACCENTS.map((a) => {
+            const active = speech.accent === a.id
+            return (
+              <button
+                key={a.id}
+                type="button"
+                onClick={() => setSpeech({ ...speech, accent: a.id })}
+                aria-pressed={active}
+                className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold transition-colors ${
+                  active
+                    ? 'bg-accent-600 text-white'
+                    : 'text-[var(--ink-soft)] hover:bg-[var(--line)] hover:text-accent-700 dark:hover:text-accent-300'
+                }`}
+              >
+                {a.label}
+              </button>
+            )
+          })}
+        </span>
         <button
           type="button"
           onClick={togglePractice}
@@ -547,7 +570,17 @@ function VocabSection({
                 className="group grid gap-1 px-4 py-3 transition-colors hover:bg-[var(--line)]/30 sm:grid-cols-[1fr_1fr_2fr] sm:items-start sm:gap-4"
               >
                 <div className="min-w-0">
-                  <span className="text-[15px] font-semibold text-brand-800 dark:text-brand-200">{item.word}</span>
+                  <span className="inline-flex items-baseline gap-1.5">
+                    <span className="text-[15px] font-semibold text-brand-800 dark:text-brand-200">{item.word}</span>
+                    <button
+                      type="button"
+                      onClick={() => sayWord(item.word, speech)}
+                      aria-label={`Listen to ${item.word}`}
+                      className="shrink-0 self-center rounded-md p-0.5 align-middle text-[var(--ink-faint)] opacity-70 transition-opacity hover:text-brand-600 hover:opacity-100 dark:hover:text-brand-300"
+                    >
+                      <IconVolume size={15} />
+                    </button>
+                  </span>
                   {item.opposite && (
                     <span className="ml-2 text-xs text-[var(--ink-faint)]">
                       opp.{' '}
@@ -611,6 +644,25 @@ function VocabSection({
                 >
                   <span className="flex flex-wrap items-baseline gap-1.5">
                     <span className="text-[15px] font-semibold text-brand-800 dark:text-brand-200">{item.word}</span>
+                    <span
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Listen to ${item.word}`}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        sayWord(item.word, speech)
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          sayWord(item.word, speech)
+                        }
+                      }}
+                      className="shrink-0 self-center rounded-md p-0.5 align-middle text-[var(--ink-faint)] opacity-70 transition-opacity hover:text-brand-600 hover:opacity-100 dark:hover:text-brand-300"
+                    >
+                      <IconVolume size={15} />
+                    </span>
                     {item.pronunciation && (
                       <span className="text-[11px] italic text-[var(--ink-faint)]">/{item.pronunciation}/</span>
                     )}
