@@ -43,35 +43,6 @@ export function getShadowClip(id: string): ShadowClip | undefined {
 
 const HOTEL2_CLIPS: ShadowClip[] = [
   {
-    id: "ht2-intros",
-    title: "Wedding Scene · Hotel Transylvania 2",
-    kind: 'movie',
-    youtube: "idwFe11xq0E",
-    source: 'YouTube',
-    note: "مشهد العرس الكامل — مافيس وجوناثان وإعلان الحب قدام العيلة — النص الأوتوماتيكي للمشهد (18 سطر من الكلام)",
-
-  scenes: [
-    { time: 109.0, en: "everything you wanted, my little poison berry.", ar: "كل ما أردته، يا صغيري التوت السام." },
-    { time: 112.0, en: "Oh, it is, Daddy.", ar: "أوه، إنه كذلك يا أبي." },
-    { time: 114.0, en: "Except where's Grandpa Vlad?", ar: "باستثناء أين الجد فلاد؟" },
-    { time: 116.0, en: "Honey, your gramps would not have been cool with this.", ar: "عزيزتي، جدك لم يكن ليعجب بهذا." },
-    { time: 119.0, en: "He's old school.", ar: "انه المدرسة القديمة." },
-    { time: 121.0, en: "How do we know?", ar: "كيف نعرف؟" },
-    { time: 122.0, en: "If he could just meet Johnny?", ar: "إذا كان بإمكانه مقابلة جوني فقط؟" },
-    { time: 123.0, en: "He would have eaten him.", ar: "كان سيأكله." },
-    { time: 125.0, en: "He's not as enlightened as your hip, Daddy.", ar: "إنه ليس مستنيرًا مثل وركك يا أبي." },
-    { time: 128.0, en: "So you're really OK with him not being a monster?", ar: "إذن أنت موافق حقًا على ألا يكون وحشًا؟" },
-    { time: 131.0, en: "Human, monster, unicorn, as long as you're happy.", ar: "إنسان، وحش، وحيد القرن، طالما أنك سعيد." },
-    { time: 136.0, en: "Thanks, Dad.", ar: "شكرا يا أبي." },
-    { time: 140.0, en: "And you'll always be my moonlight.", ar: "وسوف تكون دائما ضوء القمر الخاص بي." },
-    { time: 144.0, en: "But now on wings of love you soar.", ar: "لكنك الآن تحلق بأجنحة الحب." },
-    { time: 148.0, en: "Now that you're Johnny's girl, Johnny's girl, and kind of Daddy's too, her", ar: "الآن بعد أن أصبحت فتاة جوني، فتاة جوني، وفتاة أبيها أيضًا" },
-    { time: 155.0, en: "mom would be so happy because she always knew.", ar: "ستكون أمي سعيدة جدًا لأنها كانت تعلم دائمًا." },
-    { time: 159.0, en: "Love is making room for all the best in you.", ar: "الحب هو إفساح المجال لكل الأفضل فيك." },
-    { time: 163.0, en: "Thank you.", ar: "شكرًا لك." },
-  ],
-  },
-  {
     id: "ht2-gift",
     title: "A Growing Family · Hotel Transylvania 2",
     kind: 'movie',
