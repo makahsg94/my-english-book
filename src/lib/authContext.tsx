@@ -7,6 +7,7 @@ import { pullAll } from './sync'
 
 interface AuthContextValue {
   user: string | null
+  ready: boolean
   login: (username: string, password: string) => Promise<AuthResult>
   register: (username: string, password: string) => Promise<AuthResult>
   logout: () => void
@@ -14,6 +15,7 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue>({
   user: null,
+  ready: true,
   login: async () => ({ ok: false }),
   register: async () => ({ ok: false }),
   logout: () => {},
@@ -21,18 +23,29 @@ const AuthContext = createContext<AuthContextValue>({
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<string | null>(() => currentUser())
+  const [ready, setReady] = useState(() => getSupabase() === null)
 
   useEffect(() => {
     const sb = getSupabase()
-    if (!sb) return undefined
+    if (!sb) {
+      setReady(true)
+      return undefined
+    }
     const { data } = sb.auth.onAuthStateChange((_event, session) => {
       const username = session?.user ? currentUsername(session.user) : null
       setUser(username)
       if (username) void pullAll()
       window.dispatchEvent(new CustomEvent('sb:synced'))
     })
-    void initSupabase()
-    return () => data.subscription.unsubscribe()
+    const timer = window.setTimeout(() => setReady(true), 2000)
+    void initSupabase().finally(() => {
+      setReady(true)
+      setUser(currentUser())
+    })
+    return () => {
+      window.clearTimeout(timer)
+      data.subscription.unsubscribe()
+    }
   }, [])
 
   const login = useCallback(async (username: string, password: string) => {
@@ -52,7 +65,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null)
   }, [])
 
-  return <AuthContext.Provider value={{ user, login, register, logout }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, ready, login, register, logout }}>{children}</AuthContext.Provider>
+  )
 }
 
 export function useAuth() {

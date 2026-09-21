@@ -18,7 +18,6 @@ import AccountPage, { AccountGate } from './pages/AccountPage'
 import AdminPage from './pages/AdminPage'
 import { Link } from 'react-router-dom'
 import { IconHome } from './components/Icons'
-import { getSupabase, sessionSettled } from './lib/supabase'
 
 function NotFound() {
   return (
@@ -56,11 +55,9 @@ function BootSplash() {
 }
 
 function Gate() {
-  const { user } = useAuth()
+  const { user, ready } = useAuth()
   if (!user) {
-    if (getSupabase() !== null && !sessionSettled()) {
-      return <BootSplash />
-    }
+    if (!ready) return <BootSplash />
     return <AccountGate />
   }
   return (
