@@ -6,12 +6,14 @@ import {
   adminStudents,
   adminDeleteUser,
   adminRpcReady,
+  adminVisits,
   envAdminUsername,
   type AdminRow,
+  type AdminVisits,
 } from '../lib/admin'
 import { getSupabase } from '../lib/supabase'
 import { BOOK } from '../content/book'
-import { IconShield, IconHome, IconTrash, IconRefresh } from '../components/Icons'
+import { IconShield, IconHome, IconTrash, IconRefresh, IconClock, IconEye, IconFlame } from '../components/Icons'
 
 function Ar({ children }: { children: React.ReactNode }) {
   return <span dir="rtl" lang="ar">{children}</span>
@@ -77,6 +79,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false)
   const [notice, setNotice] = useState('')
   const [rpcReady, setRpcReady] = useState<boolean | null>(null)
+  const [visits, setVisits] = useState<AdminVisits | null>(null)
 
   const envName = envAdminUsername()
   const isEnvAdmin =
@@ -84,8 +87,9 @@ export default function AdminPage() {
 
   const refresh = async () => {
     setLoading(true)
-    const students = await adminStudents()
+    const [students, v] = await Promise.all([adminStudents(), adminVisits()])
     setRows(students)
+    setVisits(v)
     setLoading(false)
   }
 
@@ -99,8 +103,14 @@ export default function AdminPage() {
     void adminRpcReady().then((v) => {
       if (on) setRpcReady(v)
     })
+    const poll = window.setInterval(() => {
+      void adminVisits().then((v) => {
+        if (on && v !== null) setVisits(v)
+      })
+    }, 10_000)
     return () => {
       on = false
+      window.clearInterval(poll)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
@@ -210,7 +220,71 @@ export default function AdminPage() {
         </p>
       )}
 
-      <div className="flex items-center justify-end">
+      {getSupabase() !== null && visits === null && rpcReady === true && (
+        <p
+          dir="rtl"
+          lang="ar"
+          className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2.5 text-[13px] leading-relaxed text-amber-900 dark:border-amber-800 dark:bg-amber-950/50 dark:text-amber-300"
+        >
+          <Ar>عدادات الزيارات (النهارده / لايف / إجمالي الفتح) لسه متشغّلتش.
+          افتح Supabase Dashboard ← SQL Editor وشغّل ملف «visits.sql» الجديد
+          من مجلد supabase في المشروع.</Ar>
+        </p>
+      )}
+
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="grid w-full grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="flex items-center gap-2.5 rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-3.5 py-3 shadow-sm">
+            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300">
+              <IconShield size={18} />
+            </span>
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-faint)]">
+                <Ar>الطلاب</Ar>
+              </p>
+              <p className="text-xl font-extrabold leading-tight text-[var(--ink)]">{rows.length}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2.5 rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-3.5 py-3 shadow-sm">
+            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
+              <IconClock size={18} />
+            </span>
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-faint)]">
+                <Ar>النهارده</Ar>
+              </p>
+              <p className="text-xl font-extrabold leading-tight text-[var(--ink)]">
+                {visits ? visits.today : '—'}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2.5 rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-3.5 py-3 shadow-sm">
+            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-sky-50 text-sky-700 dark:bg-sky-950 dark:text-sky-300">
+              <IconEye size={18} />
+            </span>
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-faint)]">
+                <Ar>لايف دلوقتي</Ar>
+              </p>
+              <p className="text-xl font-extrabold leading-tight text-[var(--ink)]">
+                {visits ? visits.live : '—'}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2.5 rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-3.5 py-3 shadow-sm">
+            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300">
+              <IconFlame size={18} />
+            </span>
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-faint)]">
+                <Ar>إجمالي الفتح</Ar>
+              </p>
+              <p className="text-xl font-extrabold leading-tight text-[var(--ink)]">
+                {visits ? visits.total : '—'}
+              </p>
+            </div>
+          </div>
+        </div>
         <button
           type="button"
           onClick={() => void refresh()}

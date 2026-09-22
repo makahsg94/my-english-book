@@ -125,3 +125,24 @@ export async function adminDeleteUser(username: string): Promise<boolean> {
   removeLocalUser(target)
   return true
 }
+
+export interface AdminVisits {
+  today: number
+  live: number
+  total: number
+}
+
+/** إحصائيات الزيارات للأدمن — null لو Supabase أو RPC مش متوفر */
+export async function adminVisits(): Promise<AdminVisits | null> {
+  const sb = getSupabase()
+  if (!sb) return null
+  try {
+    const { data, error } = await sb.rpc('admin_visits')
+    if (error || !data || typeof data !== 'object') return null
+    const d = data as Record<string, unknown>
+    const num = (v: unknown) => (typeof v === 'number' ? v : 0)
+    return { today: num(d.today), live: num(d.live), total: num(d.total) }
+  } catch {
+    return null
+  }
+}
