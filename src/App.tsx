@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { ThemeProvider, ProgressProvider } from './lib/appContext'
 import { AuthProvider, useAuth } from './lib/authContext'
+import { recordOpen } from './lib/visits'
 import { ToastProvider } from './lib/toast'
 import { ConfettiHost } from './lib/confetti'
 import Layout from './components/Layout'
@@ -57,6 +58,9 @@ function BootSplash() {
 
 function Gate() {
   const { user, ready } = useAuth()
+  useEffect(() => {
+    if (ready) recordOpen()
+  }, [ready])
   if (!user) {
     if (!ready) return <BootSplash />
     return <AccountGate />
