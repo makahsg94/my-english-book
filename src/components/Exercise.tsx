@@ -72,8 +72,13 @@ export function Quiz({ exercise }: { exercise: Exercise }) {
         }
         case 'fill-blank': {
           total += 1
-          const guess = String(answered[q.id] ?? '').trim().toLowerCase()
-          if (guess && guess === q.answer.toLowerCase()) correct += 1
+          const guess = String(answered[q.id] ?? '')
+          const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '')
+          const ok =
+            guess.trim() !== '' &&
+            (norm(guess) === norm(q.answer) ||
+              (q.accept ?? []).some((a) => norm(guess) === norm(a)))
+          if (ok) correct += 1
           break
         }
         case 'matching': {
@@ -101,7 +106,8 @@ export function Quiz({ exercise }: { exercise: Exercise }) {
       return q.pairs.every((p) => sel[p.left] !== undefined)
     }
     if (q.kind === 'ordering') return (answered[q.id] as string[] | undefined)?.length === q.items.length
-    return answered[q.id] !== undefined && answered[q.id] !== ''
+    const a = answered[q.id]
+    return a !== undefined && (typeof a === 'string' ? a.trim() !== '' : true)
   })
 
   const check = () => {
@@ -335,7 +341,7 @@ function QuestionRow({
                 </button>
               )
             })}
-            {revealed || (checked && !sel) ? (
+            {revealed || (checked && sel !== undefined && sel !== question.correct) ? (
               <span className="self-center text-xs text-[var(--ink-faint)]">
                 Answer: {question.correct ? 'True' : 'False'}
               </span>
@@ -435,6 +441,11 @@ function QuestionRow({
                       value={chosenLeft ?? ''}
                       onChange={(e) => {
                         const next = { ...sel }
+                        for (const [k, v] of Object.entries(next)) {
+                          if (v === ri) delete next[k]
+                        }
+                        if (e.target.value || e.target.value === '') delete next['']
+                        if (next[e.target.value] !== undefined) delete next[e.target.value]
                         if (e.target.value) next[e.target.value] = ri
                         onAnswer(question.id, next)
                       }}
