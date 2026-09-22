@@ -1,9 +1,11 @@
 import { useEffect } from 'react'
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
-import { ThemeProvider, ProgressProvider } from './lib/appContext'
+import { ThemeProvider, ProgressProvider, useProgress } from './lib/appContext'
 import { AuthProvider, useAuth } from './lib/authContext'
 import { recordOpen } from './lib/visits'
-import { ToastProvider } from './lib/toast'
+import { ToastProvider, useToast } from './lib/toast'
+import { dailyReminder } from './lib/reminders'
+import { newInboxForBrowser } from './lib/messages'
 import { ConfettiHost } from './lib/confetti'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
@@ -58,9 +60,30 @@ function BootSplash() {
 
 function Gate() {
   const { user, ready } = useAuth()
+  const progress = useProgress()
+  const showToast = useToast()
   useEffect(() => {
     if (ready) recordOpen()
   }, [ready])
+  useEffect(() => {
+    if (!ready || !user) return
+    const t = window.setTimeout(() => {
+      const msg = dailyReminder(progress.state)
+      if (msg) showToast(msg)
+    }, 1600)
+    return () => window.clearTimeout(t)
+  }, [ready, user, progress.state, showToast])
+  useEffect(() => {
+    if (!ready || !user) return
+    const t = window.setTimeout(() => {
+      void newInboxForBrowser().then((msgs) => {
+        for (const m of msgs.slice(0, 2)) {
+          showToast({ title: user, body: m.body, tone: 'info' })
+        }
+      })
+    }, 2600)
+    return () => window.clearTimeout(t)
+  }, [ready, user, showToast])
   if (!user) {
     if (!ready) return <BootSplash />
     return <AccountGate />

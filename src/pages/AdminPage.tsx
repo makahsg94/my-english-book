@@ -12,7 +12,8 @@ import {
   type AdminVisits,
 } from '../lib/admin'
 import { getSupabase } from '../lib/supabase'
-import { IconShield, IconHome, IconTrash, IconRefresh, IconEye, IconFlame, IconClock } from '../components/Icons'
+import { adminSendMessage } from '../lib/messages'
+import { IconShield, IconHome, IconTrash, IconRefresh, IconEye, IconFlame, IconClock, IconChat } from '../components/Icons'
 
 /** عنصر عربي RTL مختصر */
 function Ar({ children }: { children: React.ReactNode }) {
@@ -127,6 +128,17 @@ export default function AdminPage() {
     } else {
       setNotice('حصلت مشكلة في مسح الطالب — جرّب تاني')
     }
+  }
+
+  const sendMessage = async (username: string) => {
+    const body = window.prompt(`ابعُت رسالة للطالب «${username}»`, '')
+    if (body === null || body.trim() === '') return
+    if (busy) return
+    setBusy(true)
+    setNotice('')
+    const ok = await adminSendMessage(username, body.trim())
+    setBusy(false)
+    setNotice(ok ? `اتبعتت الرسالة لـ «${username}» بنجاح` : 'مفيش طالب بالاسم ده أو حصلت مشكلة — جرّب تاني')
   }
 
   /* فحص الأدمن لسه شغال */
@@ -306,13 +318,14 @@ export default function AdminPage() {
                 <th className="px-3 py-2.5 font-bold"><Ar>الطالب</Ar></th>
                 <th className="px-3 py-2.5 font-bold"><Ar>التسجيل</Ar></th>
                 <th className="px-3 py-2.5 font-bold"><Ar>التقدّم</Ar></th>
+                <th className="px-3 py-2.5 text-center font-bold"><Ar>رسالة</Ar></th>
                 <th className="px-3 py-2.5 text-center font-bold"><Ar>مسح</Ar></th>
               </tr>
             </thead>
             <tbody>
               {rows.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="px-3 py-8 text-center text-sm text-[var(--ink-faint)]">
+                  <td colSpan={5} className="px-3 py-8 text-center text-sm text-[var(--ink-faint)]">
                     <Ar>لسه مفيش طلاب مسجلين.</Ar>
                   </td>
                 </tr>
@@ -351,6 +364,18 @@ export default function AdminPage() {
                       <span dir="rtl" lang="ar" className="mr-1.5">
                         · {lessons} دروس · {quizzes} كويز
                       </span>
+                    </td>
+                    <td className="px-3 py-2.5 text-center">
+                      <button
+                        type="button"
+                        disabled={busy}
+                        onClick={() => void sendMessage(username)}
+                        title={`رسالة إلى ${username}`}
+                        className="inline-flex items-center gap-1 rounded-lg border border-brand-200 px-2.5 py-1.5 text-[12px] font-bold text-brand-700 transition-colors hover:bg-brand-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-brand-800 dark:text-brand-300 dark:hover:bg-brand-950/40"
+                      >
+                        <IconChat size={13} />
+                        <Ar>رسالة</Ar>
+                      </button>
                     </td>
                     <td className="px-3 py-2.5 text-center">
                       <button
