@@ -54,21 +54,27 @@ function removeLocalUser(username: string) {
   }
 }
 
-/** هل الاسم الحالي هو الأدمن؟ (بيئة أو RPC admin_status) */
+/**
+ * هل الاسم الحالي هو الأدمن؟
+ * الأولوية دايمًا لـ RPC من السيرفر (admin_status بيبني على الـ user id الثابت).
+ * الفحص المحلي بالاسم بيبقى فولباك بس لما مفيش Supabase جوه (وضع الأوفلاين).
+ */
 export async function adminStatus(currentUsername: string | null): Promise<boolean> {
+  const sb = getSupabase()
+  if (sb) {
+    try {
+      const { data, error } = await sb.rpc('admin_status')
+      if (!error && data === true) return true
+      if (!error && data === false) return false
+    } catch {
+      /* fall back to local */
+    }
+  }
   const envName = envAdminUsername()
   if (envName && currentUsername && envName.toLowerCase() === currentUsername.toLowerCase()) {
     return true
   }
-  const sb = getSupabase()
-  if (!sb) return false
-  try {
-    const { data, error } = await sb.rpc('admin_status')
-    if (error || data === null || data === undefined) return false
-    return data === true
-  } catch {
-    return false
-  }
+  return false
 }
 
 /** قائمة الطلاب — RPC admin_data لو موجود، وإلا فولباك محلي */
