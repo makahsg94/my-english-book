@@ -523,51 +523,88 @@ function Ordering({
   revealed: boolean
 }) {
   const stable = useMemo(() => shuffle(question.items), [question.items])
-  const order = (answered[question.id] as string[] | undefined) ?? stable
-  const move = (i: number, dir: -1 | 1) => {
-    const j = i + dir
-    if (j < 0 || j >= order.length) return
+  const order = (answered[question.id] as string[] | undefined) ?? []
+  const usedCount = (s: string) => order.filter((x) => x === s).length
+  const totalCount = (s: string) => question.items.filter((x) => x === s).length
+  const remaining = stable.filter((item) => usedCount(item) < totalCount(item))
+  const addWord = (item: string) => onAnswer(question.id, [...order, item])
+  const removeWord = (i: number) => {
     const next = [...order]
-    const tmp = next[i]
-    next[i] = next[j]
-    next[j] = tmp
+    next.splice(i, 1)
     onAnswer(question.id, next)
   }
+  const reset = () => onAnswer(question.id, [])
+
   return (
     <div>
       <p className="mb-1 text-sm font-medium">{index + 1}. {question.title}</p>
-      {question.prompt && <p className="mb-2 text-xs text-[var(--ink-faint)]">{question.prompt}</p>}
-      <p className="mb-2 text-xs text-[var(--ink-faint)]">Use the arrows to put the steps in the correct order.</p>
-      <div className="space-y-1.5">
-        {order.map((item, i) => {
-          const correctPos = question.items[i] === item
-          const good = checked && correctPos
-          const bad = checked && !correctPos
-          return (
-            <div
-              key={`${item}-${i}`}
-              className={`flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm ${
-                good
-                  ? 'border-brand-600 bg-brand-50 text-brand-800 dark:bg-brand-950 dark:text-brand-200'
-                  : bad
-                    ? 'border-red-400 bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300'
-                    : revealed && correctPos
-                      ? 'border-brand-500 bg-brand-50/60 text-brand-800 dark:bg-brand-950 dark:text-brand-200'
-                      : 'border-[var(--line-strong)]'
-              }`}
+      <p className="mb-2 text-xs text-[var(--ink-faint)]">
+        Tap the words below in the correct order to build the sentence. Tap a word again to remove it.
+      </p>
+
+      {revealed && !checked ? (
+        <div className="mb-3 flex min-h-[44px] flex-wrap items-center gap-1.5 rounded-xl border border-dashed border-[var(--line-strong)] bg-[var(--surface)] p-2">
+          {question.items.map((item, i) => (
+            <span
+              key={`r-${item}-${i}`}
+              className="inline-flex items-center gap-1 rounded-lg border border-brand-500 bg-brand-50 px-2.5 py-1 text-sm text-brand-800 dark:bg-brand-950 dark:text-brand-200"
             >
-              <span className="w-5 text-xs font-semibold text-[var(--ink-faint)]">{i + 1}.</span>
-              <span className="flex-1">{item}</span>
-              {checked ? (correctPos ? <IconCheck size={14} /> : <IconCross size={14} />) : null}
-              <button type="button" onClick={() => move(i, -1)} aria-label="move up" className="px-1 text-[var(--ink-faint)] hover:text-[var(--ink)]">
-                {'\u2191'}
+              {item}
+            </span>
+          ))}
+        </div>
+      ) : order.length === 0 ? (
+        <div className="mb-3 flex min-h-[44px] items-center rounded-xl border border-dashed border-[var(--line-strong)] bg-[var(--surface)] px-3 text-sm text-[var(--ink-faint)]">
+          {'\u2191'} Build your sentence here
+        </div>
+      ) : (
+        <div className="mb-3 flex min-h-[44px] flex-wrap items-center gap-1.5 rounded-xl border border-dashed border-[var(--line-strong)] bg-[var(--surface)] p-2">
+          {order.map((item, i) => {
+            const correctPos = question.items[i] === item
+            const good = checked && correctPos
+            const bad = checked && !correctPos
+            return (
+              <button
+                key={`${item}-${i}`}
+                type="button"
+                onClick={() => !checked && removeWord(i)}
+                aria-label="remove word"
+                className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-sm transition-colors ${
+                  good
+                    ? 'border-brand-600 bg-brand-50 text-brand-800 dark:bg-brand-950 dark:text-brand-200'
+                    : bad
+                      ? 'border-red-400 bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300'
+                      : 'border-[var(--line-strong)] bg-[var(--surface)] text-[var(--ink)] hover:border-brand-400'
+                }`}
+              >
+                {item}
+                {!checked && <IconCross size={12} className="text-[var(--ink-faint)]" />}
               </button>
-              <button type="button" onClick={() => move(i, 1)} aria-label="move down" className="px-1 text-[var(--ink-faint)] hover:text-[var(--ink)]">
-                {'\u2193'}
-              </button>
-            </div>
-          )
-        })}
+            )
+          })}
+          <button
+            type="button"
+            onClick={reset}
+            aria-label="clear all words"
+            className="ml-auto rounded-lg border border-[var(--line-strong)] px-2 py-1 text-xs text-[var(--ink-faint)] transition-colors hover:border-brand-400 hover:text-[var(--ink)]"
+          >
+            Clear
+          </button>
+        </div>
+      )}
+
+      <div className="flex flex-wrap gap-1.5">
+        {remaining.map((item, i) => (
+          <button
+            key={`${item}-${i}`}
+            type="button"
+            onClick={() => !checked && addWord(item)}
+            className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-1.5 text-sm text-[var(--ink-soft)] transition-colors hover:border-brand-400 hover:bg-brand-50/30 hover:text-[var(--ink)] dark:hover:bg-brand-950/30 disabled:cursor-not-allowed disabled:opacity-40"
+            disabled={checked}
+          >
+            {item}
+          </button>
+        ))}
       </div>
     </div>
   )
