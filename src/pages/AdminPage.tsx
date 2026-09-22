@@ -103,8 +103,14 @@ export default function AdminPage() {
     void adminRpcReady().then((v) => {
       if (on) setRpcReady(v)
     })
+    const poll = window.setInterval(() => {
+      void adminVisits().then((v) => {
+        if (on && v !== null) setVisits(v)
+      })
+    }, 10_000)
     return () => {
       on = false
+      window.clearInterval(poll)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
