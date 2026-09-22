@@ -515,19 +515,53 @@ export const unit04: Unit = {
           exercise: {
             id: 'u4-4b-suffixes',
             title: 'Word building: suffixes',
-            kind: 'matching',
+            kind: 'mcq',
             instructions: 'Match each verb with its related noun (look at the text again to help you).',
             page: 49,
             verified: true,
             questions: [
               {
                 id: 'q1',
-                kind: 'matching',
-                pairs: [
-                  { left: 'invent', right: 'invention' },
-                  { left: 'employ', right: 'employer / employee' },
-                  { left: 'compete', right: 'competition' },
-                  { left: 'manage', right: 'manager' },
+                kind: 'mcq',
+                prompt: 'What is the noun form of "invent"?',
+                options: [
+                  { label: 'invention', correct: true },
+                  { label: 'employer / employee' },
+                  { label: 'competition' },
+                  { label: 'manager' },
+                ],
+              },
+              {
+                id: 'q2',
+                kind: 'mcq',
+                prompt: 'What is the noun form of "employ"?',
+                options: [
+                  { label: 'invention' },
+                  { label: 'employer / employee', correct: true },
+                  { label: 'competition' },
+                  { label: 'manager' },
+                ],
+              },
+              {
+                id: 'q3',
+                kind: 'mcq',
+                prompt: 'What is the noun form of "compete"?',
+                options: [
+                  { label: 'invention' },
+                  { label: 'employer / employee' },
+                  { label: 'competition', correct: true },
+                  { label: 'manager' },
+                ],
+              },
+              {
+                id: 'q4',
+                kind: 'mcq',
+                prompt: 'What is the noun form of "manage"?',
+                options: [
+                  { label: 'invention' },
+                  { label: 'employer / employee' },
+                  { label: 'competition' },
+                  { label: 'manager', correct: true },
                 ],
               },
             ],
