@@ -564,19 +564,40 @@ const lesson1C: Lesson = {
       type: 'exercise',
       exercise: {
         id: 'u1-1c-phrases',
-        title: 'Match the phrases with their uses',
-        kind: 'matching',
-        instructions: 'Match the sentences with their uses.',
+        title: 'What are these phrases for?',
+        kind: 'mcq',
+        instructions: 'Choose the correct use for each group of phrases.',
         page: 15,
         verified: true,
         questions: [
           {
             id: 'q1',
-            kind: 'matching',
-            pairs: [
-              { left: 'Nice talking to you. \u2022 I\u2019ve got to go.', right: 'ending a conversation' },
-              { left: 'Do you mind if I charge my phone here? \u2022 Help yourself. \u2022 What about you?', right: 'responding / keeping a conversation going' },
-              { left: 'Is anyone sitting here? \u2022 Nice to meet you.', right: 'starting a conversation' },
+            kind: 'mcq',
+            prompt: "Nice talking to you. \u2022 I\u2019ve got to go.",
+            options: [
+              { label: 'ending a conversation', correct: true },
+              { label: 'responding / keeping a conversation going', correct: false },
+              { label: 'starting a conversation', correct: false },
+            ],
+          },
+          {
+            id: 'q2',
+            kind: 'mcq',
+            prompt: 'Do you mind if I charge my phone here? \u2022 Help yourself. \u2022 What about you?',
+            options: [
+              { label: 'responding / keeping a conversation going', correct: true },
+              { label: 'starting a conversation', correct: false },
+              { label: 'ending a conversation', correct: false },
+            ],
+          },
+          {
+            id: 'q3',
+            kind: 'mcq',
+            prompt: 'Is anyone sitting here? \u2022 Nice to meet you.',
+            options: [
+              { label: 'starting a conversation', correct: true },
+              { label: 'ending a conversation', correct: false },
+              { label: 'responding / keeping a conversation going', correct: false },
             ],
           },
         ],
