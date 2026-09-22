@@ -72,31 +72,31 @@ export function dailyReminder(state: ProgressState): ToastOptions | null {
   if (done === 0) {
     toast = pick([
       {
-        title: 'First step is the easiest',
+        title: 'أول خطوة هي الأسهل',
         body: 'درس واحد بس النهارده وهتحس بفرق. يلا بينا',
         tone: 'info',
       },
       {
-        title: 'Welcome!',
+        title: 'أهلاً بيك في الكتاب',
         body: 'ابدأ من أي درس تحبه — أول خطوة في أقل من 10 دقايق',
         tone: 'success',
       },
     ])
   } else if (gap >= 3) {
     toast = {
-      title: 'We missed you',
+      title: 'وحشنا غيابك',
       body: `غبت عنّا ${Math.floor(gap)} يوم — مكانك محفوظ، كمّل من اللي وقفت عنده`,
       tone: 'info',
     }
   } else if (state.streak >= 3) {
     toast = pick([
       {
-        title: `Keep the streak alive \u2014 ${state.streak} days!`,
+        title: `الاستمرارية عايشة — ${state.streak} يوم!`,
         body: 'دقيقة واحدة كفاية تحافظ على الشعلة النهارده',
         tone: 'celebration',
       },
       {
-        title: 'On fire!',
+        title: 'حاجة نارية!',
         body: `${state.streak} يوم ورا بعض — متسبش السلسلة تنقطع`,
         tone: 'celebration',
       },
@@ -104,12 +104,12 @@ export function dailyReminder(state: ProgressState): ToastOptions | null {
   } else if (done < total) {
     toast = pick([
       {
-        title: 'You\u2019ve come a long way',
+        title: 'جِزت نص الطريق',
         body: `${done} من ${total} درس خلصتهم — كمّل الترين باقي`,
         tone: 'success',
       },
       {
-        title: restartTarget ? 'Keep it moving' : 'Small wins count',
+        title: restartTarget ? 'كمّل من اللي وقفت عنده' : 'الخطوات الصغيرة بتفرق',
         body: restartTarget
           ? 'هتنقذ عليه بدايتك، وهنكمّل من اللي فاضل'
           : 'درسين في اليوم = عادة بتكبر معايا',
@@ -118,7 +118,7 @@ export function dailyReminder(state: ProgressState): ToastOptions | null {
     ])
   } else {
     toast = {
-      title: 'Course complete \u2014 legend!',
+      title: 'خلصت الكتاب كله — فايتك!',
       body: 'خلصت الكتاب كله! جهز نفسك للجزء التاني 🎉',
       tone: 'celebration',
     }

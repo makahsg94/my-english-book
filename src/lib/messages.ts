@@ -1,6 +1,6 @@
-// Admin → student in-app messages. The admin writes a message for a specific
-// student; the student's app picks it up next time they open the site and
-// shows it as a toast. Stored in Supabase `messages` table via RPCs.
+// رسايل جوه التطبيق من الأدمن للطلاب. الأدمن بيكتب رسالة لطالب معين،
+// والطالب بيشوفها أول ما يفتح الموقع (كـ toast). متخزنة في جدول Supabase
+// `messages` والدوال اللي في supabase RPCs.
 
 import { getSupabase } from './supabase'
 
@@ -20,9 +20,7 @@ export interface InboxMessage {
 
 const SEEN_KEY = 'speakout-b1.seen-messages.v1'
 
-/**
- * قائمة الرسائل لكل الطلاب (للأدمن) — RPC admin_messages لو متوفر، وإلا مصفوفة فاضية.
- */
+/** قايمة رسائل كل الطلاب (للأدمن) — RPC admin_messages لو متوفر، وإلا مرمعة فاضية. */
 export async function adminMessages(): Promise<AdminMessage[]> {
   const sb = getSupabase()
   if (!sb) return []
@@ -35,7 +33,7 @@ export async function adminMessages(): Promise<AdminMessage[]> {
   }
 }
 
-/** الأدمن يبعت رسالة لطالب معين بالاسم — RPC admin_send_message */
+/** الأدمن يبعت رسالة لطالب بالاسم — RPC admin_send_message */
 export async function adminSendMessage(username: string, body: string): Promise<boolean> {
   const sb = getSupabase()
   if (!sb) return false
@@ -47,7 +45,7 @@ export async function adminSendMessage(username: string, body: string): Promise<
   }
 }
 
-/** الطالب بجيب رسايله الجديدة (اللي لسه مستلمهاش). */
+/** رسايل الطالب الجديدة (اللي لسه مش متشافه). */
 export async function fetchInbox(): Promise<InboxMessage[]> {
   const sb = getSupabase()
   if (!sb) return []
@@ -60,7 +58,7 @@ export async function fetchInbox(): Promise<InboxMessage[]> {
   }
 }
 
-/** نشوّف رسالة معينة مرة واحدة بس في المتصفح (نتجنب تكرار الظهور). */
+/** نشوف الرسالة مرة واحدة بس في المتصفح (متتكررش). */
 function seenIds(): Set<string> {
   try {
     const raw = localStorage.getItem(SEEN_KEY)
@@ -79,7 +77,7 @@ function markSeen(id: string) {
     seen.add(id)
     localStorage.setItem(SEEN_KEY, JSON.stringify([...seen]))
   } catch {
-    /* ignore */
+    /* متجاهله */
   }
 }
 
