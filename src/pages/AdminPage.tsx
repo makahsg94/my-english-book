@@ -212,7 +212,14 @@ export default function AdminPage() {
         </p>
       )}
 
-      <div className="flex items-center justify-end">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p
+          dir="rtl"
+          lang="ar"
+          className="inline-flex items-center gap-2 rounded-full border border-brand-300 bg-brand-50 px-3.5 py-1.5 text-[13px] font-bold text-brand-800 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-200"
+        >
+          عدد الطلاب المسجلين: <span className="text-base text-brand-700 dark:text-brand-300">{rows.length}</span>
+        </p>
         <button
           type="button"
           onClick={() => void refresh()}
