@@ -44,6 +44,7 @@ export const unit07: Unit = {
         {
           type: 'text',
           title: 'Be a better tourist',
+          titleAr: 'كن سائحاً أفضل',
           paragraphs: [
             'There are traffic jams at Machu Picchu, in Peru, and more than 30 million tourists visit the city of Venice every year. We all love travelling, but we have to accept that people also live in the places we visit. To make their lives easier, here are some tips you can follow.',
           ],
@@ -55,6 +56,7 @@ export const unit07: Unit = {
             title: 'Put the headings in the right places',
             kind: 'ordering',
             instructions: 'Read the article and place the headings in the correct order: See more than just the key sights; Try somewhere different; Say something!; Be respectful; Keep it clean; Time your trip carefully.',
+            instructionsAr: 'اقرأ المقال وضع العناوين في الترتيب الصحيح.',
             page: 80,
             verified: true,
             questions: [
@@ -77,6 +79,7 @@ export const unit07: Unit = {
         {
           type: 'text',
           title: 'The article: responsible tourism',
+          titleAr: 'المقال: السياحة المسؤولة',
           paragraphs: [
             'Why go to the same place as everyone else? Instead of going to the most popular festivals, you could try alternative destinations. For example, instead of going to Venice to see its famous carnival, you could try Annecy, in France, where they recreate the magic of the Venetian carnival, but without the crowds. If people tried going somewhere different, the main tourist destinations wouldn\u2019t be so busy.',
             'If possible, travel out of season, so that popular places don\u2019t become too crowded. If you plan a trip to Prague, why not spend a week there rather than just two days? Use the time to really get to know the city. When you visit Amsterdam, you can use a special app that sends notifications to your phone if part of the city is busier than usual. This way you can help avoid making long queues at museums.',
@@ -93,6 +96,7 @@ export const unit07: Unit = {
             title: 'The article: comprehension',
             kind: 'mcq',
             instructions: 'Answer the questions about the article.',
+            instructionsAr: 'أجب عن الأسئلة حول المقال.',
             page: 80,
             verified: true,
             questions: [
@@ -142,6 +146,7 @@ export const unit07: Unit = {
         {
           type: 'vocab',
           title: 'travel and tourism',
+          titleAr: 'السفر والسياحة',
           items: [
             { word: 'tradition / traditional', meaning: 'a custom passed on through generations', meaningAr: 'التقليد / تقليدي', example: 'It\u2019s a local tradition in Poland for people to throw water at each other on \u2018wet Monday\u2019.', exampleAr: 'إنه تقليد محلي في بولندا أن يرشّ الناس الماء على بعضهم في «الاثنين المبلل».' },
             { word: 'custom', meaning: 'usual behaviour in a place', meaningAr: 'العادة / التقليد', example: 'Family life is very important in Italian customs.', exampleAr: 'الحياة الأسرية مهمة جداً في العادات الإيطالية.' },
@@ -160,9 +165,13 @@ export const unit07: Unit = {
         {
           type: 'grammar',
           title: 'first and second conditionals',
+          titleAr: 'الجمل الشرطية من النوع الأول والثاني',
           explanation:
             'The first conditional describes a real, possible situation in the future. The second conditional describes a hypothetical or imaginary situation.',
+          explanationAr:
+            'تصف الجملة الشرطية من النوع الأول موقفاً حقيقياً ومحتملاً في المستقبل. وتصف الجملة الشرطية من النوع الثاني موقفاً افتراضياً أو متخيلاً.',
           rule: "First conditional: If + present simple + will (If you travel to somewhere new, you'll understand the culture better.) Second conditional: If + past simple + would (If everyone took their litter home with them, tourist destinations would be a lot cleaner.)",
+          ruleAr: "الجملة الشرطية الأولى: If + المضارع البسيط + will (If you travel to somewhere new, you'll understand the culture better.) الجملة الشرطية الثانية: If + الماضي البسيط + would (If everyone took their litter home with them, tourist destinations would be a lot cleaner.)",
           table: {
             headers: ['Conditional', 'Form', 'Use', 'Example'],
             rows: [
@@ -185,6 +194,7 @@ export const unit07: Unit = {
             title: 'First or second conditional',
             kind: 'mcq',
             instructions: 'Choose the correct verb form.',
+            instructionsAr: 'اختر صيغة الفعل الصحيحة.',
             page: 82,
             verified: true,
             questions: [
@@ -248,6 +258,7 @@ export const unit07: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: contractions',
+          titleAr: 'النطق: الاختصارات',
           tracks: au(['7.01'], 82),
         },
         {
@@ -275,6 +286,7 @@ export const unit07: Unit = {
             title: 'Quantifiers',
             kind: 'mcq',
             instructions: 'Complete the rules with the correct quantifiers.',
+            instructionsAr: 'أكمل القواعد بأدوات الكمية الصحيحة.',
             page: 83,
             verified: true,
             questions: [
@@ -334,6 +346,7 @@ export const unit07: Unit = {
         {
           type: 'text',
           title: 'Online comments about travel',
+          titleAr: 'تعليقات على الإنترنت عن السفر',
           paragraphs: [
             'Leah (Uganda): I\u2019d visited hardly any other countries until my twenties. Then I began to go on a lot of trips for work and now I\u2019ve visited five continents.',
             'Milena (USA): I haven\u2019t been to many places outside my own state. I don\u2019t have much time to travel because I work and study.',
@@ -345,11 +358,13 @@ export const unit07: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: emphasising quantity',
+          titleAr: 'النطق: التأكيد على الكمية',
           tracks: au(['7.02'], 83),
         },
         {
           type: 'text',
           title: 'Audiobook: moving to Brazil',
+          titleAr: 'كتاب صوتي: الانتقال إلى البرازيل',
           paragraphs: [
             'You are going to listen to part of an audiobook by an Englishman who moved to Brazil. In his first weeks, everything was surprising: he saw a mango tree in his garden, shops sold lots of fruits he\u2019d never heard of, and he explored the town and came across a few cafés.',
             'He describes the coffee in the cafés, the noises he hears, the people who accepted him, and what living by the sea means to him. He\u2019d expected to be lonely, but he became friends with some local people.',
@@ -358,6 +373,7 @@ export const unit07: Unit = {
         {
           type: 'audio',
           title: 'Listening: audiobook about Brazil',
+          titleAr: 'الاستماع: كتاب صوتي عن البرازيل',
           tracks: au(['7.03'], 84),
         },
         {
@@ -367,6 +383,7 @@ export const unit07: Unit = {
             title: 'New experiences: vocabulary',
             kind: 'mcq',
             instructions: 'Match each word/phrase with its meaning.',
+            instructionsAr: 'طابق كل كلمة أو عبارة مع معناها.',
             page: 84,
             verified: true,
             questions: [
@@ -454,6 +471,7 @@ export const unit07: Unit = {
         {
           type: 'vocab',
           title: 'the natural world',
+          titleAr: 'العالم الطبيعي',
           items: [
             { word: 'coast', meaningAr: 'الساحل', example: 'I walked along the coast every morning.', exampleAr: 'كنت أسير بمحاذاة الساحل كل صباح.' },
             { word: 'beach', meaningAr: 'الشاطئ', example: 'Those dogs on the beach were my friends.', exampleAr: 'تلك الكلاب على الشاطئ كانت أصدقائي.' },
@@ -468,6 +486,7 @@ export const unit07: Unit = {
         {
           type: 'text',
           title: 'Writing: a description of an experience',
+          titleAr: 'الكتابة: وصف تجربة',
           paragraphs: [
             'Zeinab writes to describe a cycling trip to Santiago de Compostela in the north of Spain. She mentions meeting people, new ways of doing things, interesting places to visit, the landscape, the food, the weather, local customs, problems, and what she expected before the trip.',
             'Useful phrases to describe feelings and reactions: It was + adjective (It was amazing.) We enjoyed + -ing (We enjoyed exploring.) We were + adjective + to (We were excited to come across beautiful little towns.) I found + noun + adjective (I found the history very interesting.) I\u2019d expected\u2026, but\u2026 (I\u2019d expected the cycling to be really difficult, but it wasn\u2019t too bad.)',
@@ -494,6 +513,7 @@ export const unit07: Unit = {
         {
           type: 'text',
           title: 'Top things to do in Shanghai',
+          titleAr: 'أفضل الأشياء للقيام بها في شنغهاي',
           paragraphs: [
             'Shanghai is China\u2019s largest and richest city. It\u2019s worth a visit to experience this vibrant, exciting and modern city. Here are the top three things you should do in Shanghai.',
             '1. Travel to the top of the famous Shanghai Tower, based in Shanghai\u2019s financial district. From the top of this huge tower you can see fantastic views of the city. This is a great place to enjoy a meal in one of many restaurants.',
@@ -504,6 +524,7 @@ export const unit07: Unit = {
         {
           type: 'vocab',
           title: 'describing places',
+          titleAr: 'وصف الأماكن',
           items: [
             { word: 'vibrant', meaning: 'full of energy and life', meaningAr: 'نابض بالحياة', example: "It's worth a visit to experience this vibrant, exciting and modern city.", exampleAr: 'يستحق الزيارة لتجربة هذه المدينة النابضة بالحياة والمثيرة والعصرية.' },
             { word: 'modern', meaningAr: 'عصري / حديث', example: 'The buildings are modern.', exampleAr: 'المباني عصرية.' },
@@ -524,6 +545,7 @@ export const unit07: Unit = {
             title: 'Describing places',
             kind: 'fill-blank',
             instructions: 'Choose the correct word to complete each sentence.',
+            instructionsAr: 'اختر الكلمة الصحيحة لإكمال كل جملة.',
             page: 86,
             verified: true,
             questions: [
@@ -576,11 +598,13 @@ export const unit07: Unit = {
         {
           type: 'audio',
           title: 'Listening: Mark\u2019s call to Sam (Shanghai recommendations)',
+          titleAr: 'الاستماع: مكالمة Mark مع Sam (توصيات عن شنغهاي)',
           tracks: au(['7.04', '7.05'], 87),
         },
         {
           type: 'vocab',
           title: 'make and respond to recommendations',
+          titleAr: 'تقديم التوصيات والرد عليها',
           items: [
             { word: 'There are a few things you absolutely have to see/do\u2026', meaning: 'strong recommendation', meaningAr: 'هناك بضعة أشياء يجب عليك تماماً رؤيتها أو فعلها…', response: 'a strong way to recommend', responseAr: 'طريقة قوية للتوصية' },
             { word: 'You must visit/try/see\u2026', meaning: 'strong recommendation', meaningAr: 'يجب أن تزور / تجرّب / ترى…', response: 'use must + verb', responseAr: 'استخدم must + الفعل' },
@@ -599,6 +623,7 @@ export const unit07: Unit = {
             title: 'Making recommendations',
             kind: 'fill-blank',
             instructions: 'Complete the phrases Sam uses to make recommendations.',
+            instructionsAr: 'أكمل العبارات التي يستخدمها Sam لتقديم التوصيات.',
             page: 87,
             verified: true,
             questions: [
@@ -664,6 +689,7 @@ export const unit07: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: sounding enthusiastic',
+          titleAr: 'النطق: التعبير عن الحماس',
           tracks: au(['7.06', '7.07'], 87),
         },
         {
@@ -686,6 +712,7 @@ export const unit07: Unit = {
         {
           type: 'text',
           title: 'BBC Street Interviews: Go solo?',
+          titleAr: 'BBC: مقابلات الشارع - هل تسافر وحدك؟',
           paragraphs: [
             'The speakers talk about the most amazing places they have visited: India, Syria, New Zealand, Iceland, Budapest, London and Mount Kilimanjaro. Then they are asked whether they prefer travelling by themselves or with other people.',
           ],
@@ -693,6 +720,7 @@ export const unit07: Unit = {
         {
           type: 'video',
           title: 'Watch and note the places',
+          titleAr: 'شاهد ودوّن الأماكن',
           videos: [
             {
               title: 'BBC Street Interviews: Go solo?',
@@ -708,6 +736,7 @@ export const unit07: Unit = {
             title: 'What the speakers say',
             kind: 'mcq',
             instructions: 'Choose the correct words to complete what the speakers say.',
+            instructionsAr: 'اختر الكلمات الصحيحة لإكمال ما يقوله المتحدثون.',
             page: 88,
             verified: true,
             questions: [
@@ -762,9 +791,13 @@ export const unit07: Unit = {
         {
           type: 'grammar',
           title: 'reflexive pronouns',
+          titleAr: 'ضمائر الانعكاس',
           explanation:
             'We use reflexive pronouns (myself, yourself, himself, herself, itself, ourselves, yourselves, themselves) when the object of a verb is the same person as the subject. The phrase by myself/yourself\u2026 means "alone".',
+          explanationAr:
+            'نستخدم ضمائر الانعكاس (myself و yourself و himself و herself و itself و ourselves و yourselves و themselves) عندما يكون مفعول الفعل هو نفس الفاعل. وتعني عبارة by myself / yourself... «وحدك».',
           rule: 'myself / yourself / himself / herself / itself / ourselves / yourselves / themselves. By + reflexive pronoun = alone: "Do you prefer travelling by yourself?"',
+          ruleAr: 'myself / yourself / himself / herself / itself / ourselves / yourselves / themselves. By + ضمير الانعكاس = وحدك: "Do you prefer travelling by yourself?"',
           table: {
             headers: ['Reflexive pronoun', 'Example'],
             rows: [
@@ -791,6 +824,7 @@ export const unit07: Unit = {
             title: 'Reflexive pronouns',
             kind: 'fill-blank',
             instructions: 'Complete the sentences with the correct reflexive pronouns. Add by where necessary.',
+            instructionsAr: 'أكمل الجمل بضمائر الانعكاس الصحيحة. أضف by عندما يكون ذلك ضرورياً.',
             page: 90,
             verified: true,
             questions: [
@@ -836,6 +870,7 @@ export const unit07: Unit = {
         {
           type: 'text',
           title: 'Writing: an essay about why we travel',
+          titleAr: 'الكتابة: مقال عن لماذا نسافر',
           paragraphs: [
             'Model essay (Why travel?): The main reason to travel is that it can open our minds. We see new sights, meet new people and learn new languages. Things we always thought were "normal" aren\u2019t necessarily normal in other cultures. This applies to customs, architecture, food, even driving. It means that when we get home, we see things with fresh eyes.',
             'Sometimes people get stuck in a routine, doing the same things every day. When we travel, that routine often changes and sometimes we change too. We escape from everyday life and we learn about ourselves.',
@@ -858,6 +893,7 @@ export const unit07: Unit = {
         {
           type: 'text',
           title: 'Review what you have learned',
+          titleAr: 'راجع ما تعلمته',
           paragraphs: [
             'Complete the review exercises to practise the grammar and vocabulary of Unit 7: first and second conditionals, quantifiers, and reflexive pronouns.',
           ],
@@ -869,6 +905,7 @@ export const unit07: Unit = {
             title: 'First conditional sentences',
             kind: 'mcq',
             instructions: 'Match each if-clause with its result and write first conditional sentences.',
+            instructionsAr: 'طابق كل جملة شرطية مع نتيجتها، ثم اكتب جملاً شرطية من النوع الأول.',
             page: 90,
             verified: true,
             questions: [
@@ -942,6 +979,7 @@ export const unit07: Unit = {
             title: 'Choose the correct options',
             kind: 'mcq',
             instructions: 'Complete the text "The best job in the world?" with the correct options.',
+            instructionsAr: 'أكمل النص «The best job in the world?» بالخيارات الصحيحة.',
             page: 90,
             verified: true,
             questions: [
@@ -1011,6 +1049,7 @@ export const unit07: Unit = {
         {
           type: 'audio',
           title: 'Review listening',
+          titleAr: 'استماع المراجعة',
           tracks: au(['R7.01'], 90),
         },
         {

@@ -28,6 +28,7 @@ export const leadIn: Unit = {
         {
           type: 'text',
           title: 'Grammar: choose the correct word',
+          titleAr: 'القواعد: اختر الكلمة الصحيحة',
           paragraphs: [
             'Complete the sentences by choosing the correct word. They cover tenses you have met before \u2013 present simple, present continuous, present perfect, past simple and future plans \u2013 so it\u2019s a quick memory check.',
           ],
@@ -39,6 +40,7 @@ export const leadIn: Unit = {
             title: '1A Choose the correct word',
             kind: 'mcq',
             instructions: 'Choose the correct word to complete each sentence.',
+            instructionsAr: 'اختر الكلمة الصحيحة لإكمال كل جملة.',
             page: 6,
             verified: true,
             questions: [
@@ -128,12 +130,15 @@ export const leadIn: Unit = {
         {
           type: 'callout',
           title: 'Work in pairs',
+          titleAr: 'اعمل مع زميل',
           tone: 'tip',
           text: 'Check your answers together, then choose two questions to ask and answer with your partner.',
+          textAr: 'راجعوا إجاباتكم معاً، ثم اختاروا سؤالين لتطرحاهما وتجيبا عنهما مع زميلك.',
         },
         {
           type: 'text',
           title: 'Reading: What do you have in common with Yusuf?',
+          titleAr: 'القراءة: ماذا تشترك به مع يوسف؟',
           paragraphs: [
             "Hi, I\u2019m Yusuf. I\u2019m from Turkey, but at the moment I\u2019m living in London, which is an amazing city. I\u2019m going to stay here for six months so that I can improve my English. I love getting to know new cities, and I\u2019m really happy that I chose to come to London. I\u2019ve been to seven or eight fantastic museums and art galleries, and I also really like the parks.",
             'The best thing about London is that there are so many interesting things to do, especially for someone in their twenties, like me. The worst thing is the weather. I really hate cold weather. I arrived in January and it was freezing!',
@@ -146,6 +151,7 @@ export const leadIn: Unit = {
             title: '2B Find the structures in the text',
             kind: 'mcq',
             instructions: 'Read the text again and match each structure with an example from Yusuf\u2019s story.',
+            instructionsAr: 'أعد قراءة النص ثم طابق كل تركيب لغوي بمثال من قصة يوسف.',
             page: 6,
             verified: true,
             questions: [
@@ -275,6 +281,7 @@ export const leadIn: Unit = {
         {
           type: 'text',
           title: 'Pronunciation: vowel sounds',
+          titleAr: 'النطق: أصوات العلة',
           paragraphs: [
             'Find pairs of words in the box that have the same vowel sound, then listen and check: bar, boat, fight, heat, heart, mail, oil, put, queue, seen, show, shy, take, through, took, toy.',
           ],
@@ -286,6 +293,7 @@ export const leadIn: Unit = {
             title: '3A Same vowel sound',
             kind: 'mcq',
             instructions: 'Match the two words that share the same vowel sound.',
+            instructionsAr: 'طابق الكلمتين اللتين تشتركان في نفس صوت العلة.',
             page: 6,
             verified: true,
             questions: [
@@ -415,11 +423,13 @@ export const leadIn: Unit = {
         {
           type: 'audio',
           title: '3B Listen and check your answers',
+          titleAr: 'استمع وتحقق من إجاباتك',
           tracks: au(['L.01']),
         },
         {
           type: 'text',
           title: 'Common errors',
+          titleAr: 'الأخطاء الشائعة',
           paragraphs: [
             'There are eight sentences below, each with a common mistake. Correct them, then decide which kind of mistake each sentence contains.',
           ],
@@ -431,6 +441,7 @@ export const leadIn: Unit = {
             title: '4A Correct the mistakes',
             kind: 'mcq',
             instructions: 'Choose the correct version of each sentence.',
+            instructionsAr: 'اختر الصيغة الصحيحة لكل جملة.',
             page: 6,
             verified: true,
             questions: [
@@ -516,6 +527,7 @@ export const leadIn: Unit = {
             title: '4B What kind of mistake?',
             kind: 'mcq',
             instructions: 'Match each kind of mistake with the corrected sentence from Ex 4A.',
+            instructionsAr: 'طابق كل نوع من الأخطاء بالجملة المصححة من التمرين 4أ.',
             page: 6,
             verified: true,
             questions: [
@@ -645,6 +657,7 @@ export const leadIn: Unit = {
         {
           type: 'text',
           title: 'Vocabulary: common phrases',
+          titleAr: 'المفردات: العبارات الشائعة',
           paragraphs: [
             'Complete the common phrases with the verbs in the box: chat, do (x2), go, listen to, post, send, take, watch. Some verbs are used more than once.',
           ],
@@ -656,6 +669,7 @@ export const leadIn: Unit = {
             title: '5A Common phrases',
             kind: 'mcq',
             instructions: 'Complete each phrase with the correct verb.',
+            instructionsAr: 'أكمل كل عبارة بالفعل الصحيح.',
             page: 6,
             verified: true,
             needsReview: true,
@@ -770,6 +784,7 @@ export const leadIn: Unit = {
             title: '5B Work or free time?',
             kind: 'fill-blank',
             instructions: 'Write \u201cwork\u201d or \u201cfree time\u201d for each phrase.',
+            instructionsAr: 'اكتب "عمل" أو "وقت فراغ" لكل عبارة.',
             page: 6,
             verified: true,
             needsReview: true,
@@ -836,8 +851,10 @@ export const leadIn: Unit = {
         {
           type: 'callout',
           title: 'Talk about it',
+          titleAr: 'تحدث عن ذلك',
           tone: 'tip',
           text: 'Work in pairs. Can you add any more phrases to the table in Ex 5B? Which of these things do you do in a normal day?',
+          textAr: 'اعمل مع زميلك. هل يمكنك إضافة عبارات أخرى إلى الجدول في التمرين 5ب؟ وأيٌّ من هذه الأشياء تفعله في يومك العادي؟',
         },
         {
           type: 'pages',

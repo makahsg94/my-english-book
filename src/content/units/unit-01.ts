@@ -28,12 +28,15 @@ const lesson1A: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 1A',
+      titleAr: 'الدرس 1A',
       tone: 'info',
       text: "People and relationships \u2022 Who are you? You learn to talk about the groups of people in your life \u2013 teammates, colleagues, family and friends \u2013 and about the activities you do together.",
+      textAr: "العلاقات بين الناس \u2022 من أنت؟ تتعلم التحدث عن مجموعات الأشخاص في حياتك \u2013 رفاق الفريق والزملاء والعائلة والأصدقاء \u2013 وعن الأنشطة التي تفعلونها معاً.",
     },
     {
       type: 'vocab',
       title: 'people and relationships',
+      titleAr: 'الأشخاص والعلاقات',
       items: [
         { word: 'teammate', meaning: 'a person you play a sport with in the same team', meaningAr: 'زميل في الفريق', example: "I get on well with my teammates on the football team.", exampleAr: 'أنا على وفاق مع رفاق فريقي في فريق كرة القدم.' },
         { word: 'colleague', meaning: 'a person you work with', meaningAr: 'زميل في العمل', example: "I'm friendly with most of my colleagues.", exampleAr: 'أنا ودود مع معظم زملائي في العمل.' },
@@ -49,6 +52,7 @@ const lesson1A: Lesson = {
     {
       type: 'examples',
       title: 'phrases used to talk about relationships',
+      titleAr: 'عبارات تُستخدم للحديث عن العلاقات',
       items: [
         "have a good relationship with someone \u2192 I get on well with my teammates.",
         'be similar to a parent or relative \u2192 My daughter takes after my mother.',
@@ -59,6 +63,7 @@ const lesson1A: Lesson = {
     {
       type: 'vocab',
       title: 'personality adjectives',
+      titleAr: 'صفات الشخصية',
       items: [
         { word: 'funny', meaning: 'making you laugh', meaningAr: 'مضحك', example: "They're so funny, and great to be with.", exampleAr: 'إنهم مضحكون جداً ورائعون في التعامل.' },
         { word: 'kind', meaning: 'caring about other people', meaningAr: 'طيّب / لطيف', example: "She's such a kind and generous person.", exampleAr: 'إنها شخص طيّب وكريم جداً.' },
@@ -72,6 +77,7 @@ const lesson1A: Lesson = {
     {
       type: 'audio',
       title: 'Listening: three people talking about their lives',
+      titleAr: 'الاستماع: ثلاثة أشخاص يتحدثون عن حياتهم',
       tracks: au(['1.01']),
     },
     {
@@ -81,6 +87,7 @@ const lesson1A: Lesson = {
         title: 'Who talks about each idea?',
         kind: 'mcq',
         instructions: 'Listen to three people talking about their lives. Who talks about each idea?',
+        instructionsAr: 'استمع إلى ثلاثة أشخاص يتحدثون عن حياتهم. من يتحدث عن كل فكرة؟',
         page: 9,
         verified: true,
         questions: [
@@ -120,10 +127,15 @@ const lesson1A: Lesson = {
     {
       type: 'grammar',
       title: 'present simple and present continuous; state verbs; adverbs of frequency',
+      titleAr: 'المضارع البسيط والمضارع المستمر؛ أفعال الحالة؛ ظروف التكرار',
       explanation:
         "We use the present simple for facts and things that are always or usually true. We use the present continuous for things happening now or around now. Some verbs describe states (feelings, thoughts), not actions, and we don't usually use them in the continuous form.",
+      explanationAr:
+        'نستخدم المضارع البسيط للحقائق وللأشياء التي تكون صحيحة دائماً أو عادة. ونستخدم المضارع المستمر للأشياء التي تحدث الآن أو في هذه الفترة. بعض الأفعال تصف حالات (مشاعر وأفكار) وليست أفعالاً، ولا نستخدمها عادة في صيغة الاستمرار.',
       rule:
         "present simple: facts, habits and routines \u2192 We study during the day and then we usually cook together in the evening. present continuous: temporary situations happening around now \u2192 I'm living with a few of the people on my course at the moment. state verbs: like, love, want, need, know, prefer, remember \u2192 stay in the present simple. adverbs of frequency: always, usually, often, sometimes, hardly ever, never \u2013 before the main verb but after be.",
+      ruleAr:
+        'المضارع البسيط: الحقائق والعادات والأعمال الروتينية ← We study during the day and then we usually cook together in the evening. المضارع المستمر: مواقف مؤقتة تحدث الآن ← I\u2019m living with a few of the people on my course at the moment. أفعال الحالة: like, love, want, need, know, prefer, remember ← تبقى في المضارع البسيط. ظروف التكرار: always, usually, often, sometimes, hardly ever, never – تأتي قبل الفعل الرئيسي وبعد فعل be.',
       table: {
         headers: ['Tense', 'Use'],
         rows: [
@@ -148,6 +160,7 @@ const lesson1A: Lesson = {
         title: 'Present simple or present continuous?',
         kind: 'mcq',
         instructions: 'Choose the correct verb form.',
+        instructionsAr: 'اختر صيغة الفعل الصحيحة.',
         page: 9,
         verified: true,
         questions: [
@@ -197,6 +210,7 @@ const lesson1A: Lesson = {
     {
       type: 'audio',
       title: 'Pronunciation: connected speech \u2013 do you',
+      titleAr: 'النطق: الربط بين الكلمات – do you',
       tracks: au(['1.02', '1.03']),
     },
     {
@@ -206,6 +220,7 @@ const lesson1A: Lesson = {
         title: 'Connected speech: do you',
         kind: 'fill-blank',
         instructions: 'Listen and write the questions you hear. Practise saying them with a partner.',
+        instructionsAr: 'استمع واكتب الأسئلة التي تسمعها، ثم تمرّن على قولها مع زميلك.',
         page: 9,
         verified: true,
         questions: [
@@ -240,6 +255,7 @@ const lesson1A: Lesson = {
         title: 'Adverbs of frequency',
         kind: 'fill-blank',
         instructions: 'Complete the sentences with an adverb of frequency from the box: always, usually, often, sometimes, hardly ever, never.',
+        instructionsAr: 'أكمل الجمل بظرف تكرار من الصندوق: always, usually, often, sometimes, hardly ever, never.',
         page: 10,
         verified: true,
         questions: [
@@ -270,6 +286,7 @@ const lesson1A: Lesson = {
     {
       type: 'text',
       title: 'Writing: a personal profile',
+      titleAr: 'الكتابة: ملف شخصي',
       paragraphs: [
         "Write a personal profile like Matt's. Say who you are and what you do, describe your character and a passion or interest. Use linking phrases to connect ideas: because (reason), also, as well as, too (adding a similar idea) and for example (giving an example).",
       ],
@@ -305,12 +322,15 @@ const lesson1B: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 1B',
+      titleAr: 'الدرس 1B',
       tone: 'info',
       text: 'Good people \u2013 you read a news article about volunteers who help other people, learn vocabulary for jobs, and practise verb patterns (verb + -ing and verb + to + infinitive).',
+      textAr: 'ناس طيبون – تقرأ مقالاً إخبارياً عن متطوعين يساعدون الآخرين، وتتعلم مفردات عن الوظائف، وتتمرن على تراكيب الأفعال (verb + -ing و verb + to + المصدر).',
     },
     {
       type: 'vocab',
       title: 'jobs',
+      titleAr: 'الوظائف',
       items: [
         { word: 'chef', meaning: 'a person who cooks in a restaurant', meaningAr: 'طاهٍ (شيف)', example: 'A chef is responsible for planning the menu and creating new dishes.', exampleAr: 'الطاهي مسؤول عن تخطيط قائمة الطعام وابتكار أطباق جديدة.' },
         { word: 'musician', meaning: 'a person who plays music or sings', meaningAr: 'موسيقي', example: 'My brother is a musician.', exampleAr: 'أخي موسيقي.' },
@@ -326,6 +346,7 @@ const lesson1B: Lesson = {
     {
       type: 'audio',
       title: 'Listening: eight people talking about their jobs',
+      titleAr: 'الاستماع: ثمانية أشخاص يتحدثون عن وظائفهم',
       tracks: au(['1.04']),
     },
     {
@@ -335,6 +356,7 @@ const lesson1B: Lesson = {
         title: 'Match the speaker with the job',
         kind: 'mcq',
         instructions: 'Listen to eight people talking about their jobs and match the description with the job.',
+        instructionsAr: 'استمع إلى ثمانية أشخاص يتحدثون عن وظائفهم، ثم طابق الوصف مع الوظيفة.',
         page: 11,
         verified: true,
         questions: [
@@ -464,11 +486,13 @@ const lesson1B: Lesson = {
     {
       type: 'audio',
       title: 'Pronunciation: syllable stress',
+      titleAr: 'النطق: نبرة المقاطع',
       tracks: au(['1.05']),
     },
     {
       type: 'text',
       title: 'Reading: news stories about volunteer heroes',
+      titleAr: 'القراءة: قصص إخبارية عن أبطال متطوعين',
       paragraphs: [
         "Read the articles about three people who do unusual jobs and help their communities. They are described in the media as 'good people'. Complete the table with information from your text: who the person is and where they are, what their job is, what they do for other people, and why they do it.",
       ],
@@ -476,6 +500,7 @@ const lesson1B: Lesson = {
     {
       type: 'text',
       title: 'Vocab sheet: Food is Free',
+      titleAr: 'ورقة المفردات: Food is Free',
       paragraphs: [
         "Lou Ridsdale loves gardening. In a small space next to her home in Ballarat, Australia, she grows vegetables. One day she heard about a man in Los Angeles who grew food to share with the community. He belonged to an organisation called Food is Free. Ridsdale saw that she had more vegetables than she needed and decided to give them away, like the man in Los Angeles.",
         'In Ballarat, just 6.4 percent of people eat the recommended amount of vegetables. A lot of people in the city have low incomes and the city has many problems connected to what people eat: lack of affordable food and lack of education about healthy eating. Ridsdale wanted to change this.',
@@ -484,10 +509,15 @@ const lesson1B: Lesson = {
     {
       type: 'grammar',
       title: 'verb patterns',
+      titleAr: 'تراكيب الأفعال',
       explanation:
         "Some verbs are followed by the to + infinitive form, and other verbs are followed by the -ing form. We can also use the -ing form as the subject of a sentence and after prepositions.",
+      explanationAr:
+        'بعض الأفعال يتبعها صيغة to + المصدر، وأفعال أخرى يتبعها صيغة -ing. ويمكننا أيضاً استخدام صيغة -ing كفاعل للجملة وبعد حروف الجر.',
       rule:
         "verb + to + infinitive: decide, hope, need, want, agree, help, plan \u2192 After leaving school, I decided to do a plumbing course. verb + -ing: enjoy, finish, like, mind, spend time \u2192 Before studying to be a doctor, he worked as a volunteer. -ing form as subject: Working here is great! preposition + -ing form: She agreed to help before realising how hard it was.",
+      ruleAr:
+        'فعل + to + المصدر: decide, hope, need, want, agree, help, plan ← After leaving school, I decided to do a plumbing course. فعل + -ing: enjoy, finish, like, mind, spend time ← Before studying to be a doctor, he worked as a volunteer. صيغة -ing كفاعل: Working here is great! حرف جر + صيغة -ing: She agreed to help before realising how hard it was.',
       table: {
         headers: ['Pattern', 'Example'],
         rows: [
@@ -512,6 +542,7 @@ const lesson1B: Lesson = {
         title: 'Verb patterns',
         kind: 'mcq',
         instructions: 'Choose the correct form to complete the sentences.',
+        instructionsAr: 'اختر الصيغة الصحيحة لإكمال الجمل.',
         page: 12,
         verified: true,
         questions: [
@@ -571,6 +602,7 @@ const lesson1B: Lesson = {
     {
       type: 'text',
       title: 'Speaking: invent a news story',
+      titleAr: 'التحدث: ابتكر قصة إخبارية',
       paragraphs: [
         "Work in pairs. Choose one of the headlines and invent a news story. Answer the questions: Where and when did it happen? Who was involved? Why did they decide to do this? What difficulties did they have? How did people hear about the story? Use at least five phrases from the box: after + -ing form \u2022 agreed to \u2022 before + -ing form \u2022 decided to \u2022 helped to \u2022 needed to \u2022 realising \u2022 wanted to.",
       ],
@@ -606,12 +638,15 @@ const lesson1C: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 1C',
+      titleAr: 'الدرس 1C',
       tone: 'info',
       text: "Let's talk! \u2013 you learn how to start and end a conversation and keep it going. In Japan there are 'Happy to chat' benches where people invite strangers to sit and talk.",
+      textAr: 'دعنا نتحدث! – تتعلم كيف تبدأ محادثة وتنهيها وتستمر فيها. في اليابان توجد مقاعد «سعداء بالحديث» يدعو فيها الناس الغرباء للجلوس والتحدث.',
     },
     {
       type: 'vocab',
       title: 'conversation topics',
+      titleAr: 'موضوعات المحادثة',
       items: [
         { word: 'clothes and fashion', meaningAr: 'الملابس والأزياء', example: "That's a nice jacket. Where did you get it?", exampleAr: 'هذه سترة جميلة. من أين اشتريتها؟' },
         { word: 'food and eating out', meaningAr: 'الطعام وتناول الطعام خارج المنزل', example: 'Have you tried these pastries? They look delicious.', exampleAr: 'هل جرّبت هذه المعجّنات؟ تبدو لذيذة.' },
@@ -627,6 +662,7 @@ const lesson1C: Lesson = {
     {
       type: 'text',
       title: 'The benefits of talking to strangers',
+      titleAr: 'فوائد التحدث مع الغرباء',
       paragraphs: [
         'Most of us spend part of our day surrounded by strangers, perhaps when travelling to work, sitting in a park or a cafe or visiting the supermarket. We are together with other people, but nobody talks. However, research shows that starting up a conversation with a stranger can make you feel happier and enjoy your day more.',
         'When Allison Owen-Jones saw a man sitting alone on a bench in the park, she wanted to talk to him, but she felt uncomfortable because she wasn\u2019t sure he would want to chat. Then she had an idea: Happy to chat benches. She made a sign to put on park benches which said \u201cHappy to chat bench. Sit here if you don\u2019t mind someone stopping to say hello.\u201d The idea was a success. Now Happy to chat benches can be found in several countries including Canada, the USA, Australia, Switzerland and Ukraine.',
@@ -635,6 +671,7 @@ const lesson1C: Lesson = {
     {
       type: 'audio',
       title: 'Listening: three conversations',
+      titleAr: 'الاستماع: ثلاث محادثات',
       tracks: au(['1.06']),
     },
     {
@@ -644,6 +681,7 @@ const lesson1C: Lesson = {
         title: 'Three conversations: true or false',
         kind: 'true-false',
         instructions: 'Listen to the conversations and decide if the statements are true (T) or false (F).',
+        instructionsAr: 'استمع إلى المحادثات وقرّر إذا كانت العبارات صحيحة (T) أم خاطئة (F).',
         page: 14,
         verified: true,
         questions: [
@@ -659,6 +697,7 @@ const lesson1C: Lesson = {
     {
       type: 'examples',
       title: 'How to \u2026 start, keep going and end a conversation',
+      titleAr: 'كيف تبدأ محادثة وتستمر فيها وتنهيها',
       items: [
         'starting a conversation: Is anyone sitting here? \u2022 Do you know if there\u2019s a cafe near here? \u2022 Lovely day, isn\u2019t it? \u2022 Nice to meet you.',
         'responding / keeping a conversation going: What about you? \u2022 Do you mind if I charge my phone here? \u2022 Help yourself.',
@@ -673,6 +712,7 @@ const lesson1C: Lesson = {
         title: 'What are these phrases for?',
         kind: 'mcq',
         instructions: 'Choose the correct use for each group of phrases.',
+        instructionsAr: 'اختر الاستخدام الصحيح لكل مجموعة من العبارات.',
         page: 15,
         verified: true,
         questions: [
@@ -716,6 +756,7 @@ const lesson1C: Lesson = {
         title: 'Complete the conversations',
         kind: 'fill-blank',
         instructions: 'Complete the extracts from the conversations with the missing words.',
+        instructionsAr: 'أكمل المقتطفات من المحادثات بالكلمات الناقصة.',
         page: 15,
         verified: true,
         questions: [
@@ -753,11 +794,13 @@ const lesson1C: Lesson = {
     {
       type: 'audio',
       title: 'Pronunciation: rhythm and intonation',
+      titleAr: 'النطق: الإيقاع والتنغيم',
       tracks: au(['1.08', '1.09']),
     },
     {
       type: 'text',
       title: 'Speaking: Happy to chat benches',
+      titleAr: 'التحدث: مقاعد «سعداء بالحديث»',
       paragraphs: [
         'Work in pairs. Student A is sitting on a \u201cHappy to chat\u201d bench near the station; think about where you are and why. Student B sees someone sitting on a \u201cHappy to chat\u201d bench and decides to talk to them. Start a conversation and keep it going, then end it politely.',
         'Reflect: was it easy or difficult to start the conversation and keep it going? Why? Then work in a different pair and choose a different place for your \u201cHappy to chat\u201d bench.',
@@ -794,12 +837,15 @@ const lesson1D: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 1D',
+      titleAr: 'الدرس 1D',
       tone: 'info',
       text: 'Lifestyle \u2013 in the BBC Street Interviews people are asked: How would you describe your lifestyle? and Is there anything you would like to change about your lifestyle? Watch the video and note down the adjectives the speakers use.',
+      textAr: 'نمط الحياة – في مقابلات الشارع من بي بي سي يُسأل الناس: كيف تصف نمط حياتك؟ وهل هناك شيء تود تغييره في نمط حياتك؟ شاهد الفيديو ودوّن الصفات التي يستخدمها المتحدثون.',
     },
     {
       type: 'video',
-      title: 'BBC Street Interviews: lifestyle',
+title: 'BBC Street Interviews: lifestyle',
+      titleAr: 'مقابلات الشارع من بي بي سي: نمط الحياة',
       videos: [
         { title: 'BBC Street Interviews: lifestyle', file: 'SO3 B1 U1 BBC StreetInt.mp4', page: 16 },
       ],
@@ -811,6 +857,7 @@ const lesson1D: Lesson = {
         title: 'Who does the following things?',
         kind: 'mcq',
         instructions: 'Watch the first part of the interviews again. Who does the following things?',
+        instructionsAr: 'شاهد الجزء الأول من المقابلات مرة أخرى. من يفعل الأشياء التالية؟',
         page: 16,
         verified: true,
         questions: [
@@ -854,6 +901,7 @@ const lesson1D: Lesson = {
         title: 'Watch again: true or false',
         kind: 'true-false',
         instructions: 'Watch the second part of the interviews again. Are the statements true (T) or false (F)?',
+        instructionsAr: 'شاهد الجزء الثاني من المقابلات مرة أخرى. هل العبارات صحيحة (T) أم خاطئة (F)؟',
         page: 16,
         verified: true,
         questions: [
@@ -870,10 +918,15 @@ const lesson1D: Lesson = {
     {
       type: 'grammar',
       title: 'modifiers',
+      titleAr: 'الكلمات المعدِّلة (modifiers)',
       explanation:
         'We use modifiers before adjectives and adverbs to make the meaning stronger or weaker. We can also use a bit before a comparative to talk about a small change, and a lot for a big change.',
+      explanationAr:
+        'نستخدم الكلمات المعدِّلة قبل الصفات والأحوال لجعل المعنى أقوى أو أضعف. ويمكننا أيضاً استخدام a bit قبل صيغة المقارنة عند الحديث عن تغيير صغير، و a lot عند الحديث عن تغيير كبير.',
       rule:
         "weaker: quite / relatively / fairly + adjective \u2192 I would describe my lifestyle as quite normal. I guess my life is fairly comfortable. patterns: quite a \u2026 lifestyle / a bit more / a lot of.",
+      ruleAr:
+        'لجعل المعنى أضعف: quite / relatively / fairly + صفة ← I would describe my lifestyle as quite normal. I guess my life is fairly comfortable. الأنماط: quite a … lifestyle / a bit more / a lot of.',
       table: {
         headers: ['Form', 'Example'],
         rows: [
@@ -898,6 +951,7 @@ const lesson1D: Lesson = {
         title: 'Choose the correct modifier',
         kind: 'mcq',
         instructions: 'Choose the correct word to complete the sentences from the video.',
+        instructionsAr: 'اختر الكلمة الصحيحة لإكمال الجمل من الفيديو.',
         page: 16,
         verified: true,
         questions: [
@@ -947,6 +1001,7 @@ const lesson1D: Lesson = {
     {
       type: 'text',
       title: 'Speaking: an interview about lifestyle',
+      titleAr: 'التحدث: مقابلة عن نمط الحياة',
       paragraphs: [
         'Interview your partner to find out more about their lifestyle. Use the topics in the box (books, food, free time, friends/family, health, hobbies/interests, music, social media, sports, TV) and write six questions about their lifestyle now and things they would like to change.',
         'Use the key phrases: I think I\u2019m quite/relatively/fairly healthy because \u2026 My lifestyle is quite normal/alternative because \u2026 I spend quite a lot of time \u2026 I\u2019d like to \u2026 a bit more. Something I\u2019d like to do is travel more / work less / be a bit more healthy.',
@@ -955,6 +1010,7 @@ const lesson1D: Lesson = {
     {
       type: 'text',
       title: 'Writing: a blog post about a day in your life',
+      titleAr: 'الكتابة: تدوينة عن يوم في حياتك',
       paragraphs: [
         'Read Kim\u2019s blog post \u201cA day in my life\u201d (a games designer in London). In what ways is her lifestyle similar and different to yours? Then write a blog post about a day in your life. Use some modifiers and write about: what time you usually get up, what you do first in the morning, how you travel to work or college, what you have for lunch, and what you enjoy doing in the evenings.',
       ],
@@ -986,6 +1042,7 @@ const lesson1Review: Lesson = {
     {
       type: 'review',
       title: 'Unit 1 Review',
+      titleAr: 'مراجعة الوحدة 1',
       text: 'Complete the tasks to recycle the grammar and vocabulary from Unit 1: present simple and present continuous, state verbs, adverbs of frequency, verb patterns and modifiers.',
     },
     {
@@ -995,6 +1052,7 @@ const lesson1Review: Lesson = {
         title: 'Adverbs of frequency',
         kind: 'mcq',
         instructions: 'Match the questions with the answers.',
+        instructionsAr: 'طابق الأسئلة مع الإجابات.',
         page: 18,
         verified: true,
         questions: [
@@ -1086,6 +1144,7 @@ const lesson1Review: Lesson = {
         title: 'Complete the words',
         kind: 'fill-blank',
         instructions: 'Add the missing vowels to complete the words in the sentences.',
+        instructionsAr: 'أضف حروف العلة الناقصة لإكمال الكلمات في الجمل.',
         page: 18,
         verified: true,
         questions: [
@@ -1120,6 +1179,7 @@ const lesson1Review: Lesson = {
         title: 'Verb patterns',
         kind: 'true-false',
         instructions: 'Decide whether each pattern is complete and correct.',
+        instructionsAr: 'قرّر إذا كان كل تركيب صحيحاً وكاملاً.',
         page: 18,
         verified: true,
         questions: [
@@ -1138,6 +1198,7 @@ const lesson1Review: Lesson = {
         title: 'Modifiers',
         kind: 'fill-blank',
         instructions: 'Complete the sentences with the correct modifiers.',
+        instructionsAr: 'أكمل الجمل بالأدوات المعدِّلة الصحيحة (modifiers).',
         page: 18,
         verified: true,
         questions: [
@@ -1175,6 +1236,7 @@ const lesson1Review: Lesson = {
     {
       type: 'audio',
       title: 'Review listening: check your answers',
+      titleAr: 'الاستماع للمراجعة: تحقق من إجاباتك',
       tracks: au(['R1.01']),
     },
   ],

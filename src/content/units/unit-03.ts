@@ -28,12 +28,15 @@ const lesson3A: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 3A',
+      titleAr: 'الدرس 3أ',
       tone: 'info',
       text: 'Facts and figures \u2013 you take part in a general knowledge quiz, learn vocabulary for talking about knowledge, practise question forms and stress the important words in questions.',
+      textAr: 'حقائق وأرقام \u2013 تشارك في مسابقة معلومات عامة، وتتعلم مفردات للحديث عن المعرفة، وتتدرب على صيغ الأسئلة والتشديد على الكلمات المهمة في الأسئلة.',
     },
     {
       type: 'vocab',
       title: 'knowledge: verbs and nouns',
+      titleAr: 'المعرفة: أفعال وأسماء',
       items: [
         { word: 'note down', meaning: 'to write something to help you remember it', meaningAr: 'يدوّن / يكتب ملاحظة', example: 'I note down new information, and I use my notes to revise for exams.', exampleAr: 'أدوّن المعلومات الجديدة، وأستخدم ملاحظاتي للمراجعة للامتحانات.' },
         { word: 'revise', meaning: 'to prepare for a test by studying books and notes', meaningAr: 'يراجع (للاستعداد للامتحان)', example: 'I use my notes to revise for exams.', exampleAr: 'أستخدم ملاحظاتي للمراجعة للامتحانات.' },
@@ -51,6 +54,7 @@ const lesson3A: Lesson = {
     {
       type: 'audio',
       title: 'Listening: a general knowledge quiz',
+      titleAr: 'الاستماع: مسابقة معلومات عامة',
       tracks: au(['3.01', '3.02']),
     },
     {
@@ -60,6 +64,7 @@ const lesson3A: Lesson = {
         title: 'Quick quiz',
         kind: 'mcq',
         instructions: 'Read the general knowledge quiz and choose the correct answers.',
+        instructionsAr: 'اقرأ مسابقة المعلومات العامة واختر الإجابات الصحيحة.',
         page: 32,
         verified: true,
         questions: [
@@ -127,6 +132,7 @@ const lesson3A: Lesson = {
         title: 'The quiz discussion: true or false',
         kind: 'true-false',
         instructions: 'Listen to two friends discussing the quiz. Are the statements true (T) or false (F)?',
+        instructionsAr: 'استمع إلى صديقين يناقشان المسابقة. هل العبارات صحيحة (T) أم خاطئة (F)؟',
         page: 32,
         verified: true,
         questions: [
@@ -146,6 +152,7 @@ const lesson3A: Lesson = {
         title: 'Complete the phrases',
         kind: 'fill-blank',
         instructions: 'Choose the correct words to complete the phrases used in the discussion.',
+        instructionsAr: 'اختر الكلمات الصحيحة لإكمال العبارات المستخدمة في النقاش.',
         page: 32,
         verified: true,
         questions: [
@@ -183,10 +190,13 @@ const lesson3A: Lesson = {
     {
       type: 'grammar',
       title: 'question forms',
+      titleAr: 'صيغ الأسئلة',
       explanation:
         'We can ask about the subject of a sentence (Who/What + verb) or about the object (Who/What + auxiliary + subject + verb). We also use question words like why, when, where, how and which with auxiliary verbs.',
+      explanationAr: 'يمكننا أن نسأل عن فاعل الجملة (Who/What + فعل) أو عن المفعول (Who/What + فعل مساعد + فاعل + فعل). ونستخدم أيضاً كلمات السؤال مثل why وwhen وwhere وhow وwhich مع الأفعال المساعدة.',
       rule:
         "subject question: no auxiliary \u2192 Who wrote the Sherlock Holmes books? (Tim Berners-Lee invented the web. \u2192 Who invented the World Wide Web?) object question: auxiliary + subject \u2192 What did Tim Berners-Lee invent? (Tim Berners-Lee invented the web. \u2192 What did he invent?) preposition at the end: What do you know a lot about?",
+      ruleAr: 'سؤال عن الفاعل: بدون فعل مساعد \u2192 من كتب قصص شيرلوك هولمز؟ (اخترع تيم بيرنرز لي الشبكة. \u2192 من اخترع الشبكة العالمية؟) سؤال عن المفعول: فعل مساعد + فاعل \u2192 ماذا اخترع تيم بيرنرز لي؟ (اخترع تيم بيرنرز لي الشبكة. \u2192 ماذا اخترع؟) حرف جر في نهاية السؤال: ما الذي تعرف عنه الكثير؟',
       table: {
         headers: ['Form', 'Example'],
         rows: [
@@ -208,7 +218,8 @@ const lesson3A: Lesson = {
         id: 'u3-3a-grammar',
         title: 'Question forms',
         kind: 'mcq',
-        instructions: 'Choose the correct question.', 
+        instructions: 'Choose the correct question.',
+        instructionsAr: 'اختر السؤال الصحيح.', 
         page: 33,
         verified: true,
         questions: [
@@ -248,6 +259,7 @@ const lesson3A: Lesson = {
     {
       type: 'audio',
       title: 'Pronunciation: stressed words in questions',
+      titleAr: 'النطق: الكلمات المشددة في الأسئلة',
       tracks: au(['3.03', '3.04']),
     },
     {
@@ -257,6 +269,7 @@ const lesson3A: Lesson = {
         title: 'Stressed words in questions',
         kind: 'fill-blank',
         instructions: 'Listen and complete the questions with the missing words, then practise stressing the important words.',
+        instructionsAr: 'استمع وأكمل الأسئلة بالكلمات الناقصة، ثم تدرب على تشديد الكلمات المهمة.',
         page: 33,
         verified: true,
         questions: [
@@ -294,6 +307,7 @@ const lesson3A: Lesson = {
     {
       type: 'text',
       title: 'Writing: an email asking for information',
+      titleAr: 'الكتابة: بريد إلكتروني لطلب معلومات',
       paragraphs: [
         'Read the two emails. Compare the formal email (Dear Sir/Madam, \u2026 I am writing to express my interest in applying for a six-month internship) with the informal one (Hi Liz, \u2026 Can you send me some info about that French class?).',
         'A formal email uses long sentences, full forms (I am), polite phrases (Could you tell me \u2026?) and a formal sign-off (Yours faithfully). An informal email uses shorter sentences, contractions (I\u2019m), informal phrases (Can you send me \u2026? Thanks!) and a friendly sign-off (See you soon).',
@@ -331,12 +345,15 @@ const lesson3B: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 3B',
+      titleAr: 'الدرس 3ب',
       tone: 'info',
       text: 'Decisions \u2013 you read an article about how to make good decisions, learn vocabulary for talking about decisions, and use the present continuous, going to, might and will for future plans and intentions.',
+      textAr: 'القرارات \u2013 تقرأ مقالاً عن كيفية اتخاذ قرارات جيدة، وتتعلم مفردات للحديث عن القرارات، وتستخدم المضارع المستمر وgoing to وmight وwill للخطط والنوايا المستقبلية.',
     },
     {
       type: 'text',
       title: 'Reading: The art of making decisions',
+      titleAr: 'القراءة: فن اتخاذ القرارات',
       paragraphs: [
         'Our lives are full of decisions. There are small, day-to-day decisions like what clothes to wear or what to have for dinner, and bigger life-changing decisions that will affect our future, like where you choose to live, or what career you decide to have. If you find it hard to make up your mind, there are a few things that can help.',
         'Focus on the big issues. Some scientists studying the brain have seen that all decisions \u2013 big or small \u2013 use the same amount of energy. We get tired when we make decisions all day and this makes it difficult to focus on the important choices we need to make. When you take away the smaller decisions, you allow your brain to focus on the bigger problems. When Barack Obama was U.S. president, he chose to remove one decision from his daily life: what to wear. He always wore a blue or a grey suit with a white shirt. This \u201cuniform\u201d allowed him to focus his energy on the more important decisions he needed to make.',
@@ -348,6 +365,7 @@ const lesson3B: Lesson = {
     {
       type: 'vocab',
       title: 'decisions',
+      titleAr: 'القرارات',
       items: [
         { word: 'communicate', meaning: 'to share or exchange information, news or ideas', meaningAr: 'يتواصل / يتبادل المعلومات', example: 'Good teams communicate well.', exampleAr: 'الفرق الجيدة تتواصل جيداً.' },
       ],
@@ -360,6 +378,7 @@ const lesson3B: Lesson = {
         title: 'Decisions vocabulary',
         kind: 'mcq',
         instructions: 'Match the words and phrases about decisions with their meanings.',
+        instructionsAr: 'طابق الكلمات والعبارات المتعلقة بالقرارات مع معانيها.',
         page: 36,
         verified: true,
         questions: [
@@ -489,15 +508,19 @@ const lesson3B: Lesson = {
     {
       type: 'audio',
       title: 'Listening: two conversations about decisions',
+      titleAr: 'الاستماع: محادثتان حول القرارات',
       tracks: au(['3.05']),
     },
     {
       type: 'grammar',
       title: 'future plans and intentions',
+      titleAr: 'الخطط والنوايا المستقبلية',
       explanation:
         "We use different forms to talk about the future. The present continuous is for arrangements we have already made. Going to is for plans and intentions. Will is for a decision made at the time of speaking. Might is for a plan we are not sure about.",
+      explanationAr: 'نستخدم صيغاً مختلفة للحديث عن المستقبل. المضارع المستمر للترتيبات التي قمنا بها بالفعل. وgoing to للخطط والنوايا. وwill لقرار يُتخذ في لحظة التحدث. وmight لخطة لسنا متأكدين منها.',
       rule:
         "present continuous: a future arrangement \u2192 Next week we're looking at a house in a village. going to: future plans \u2192 They're going to travel around South America. will: a decision made at the time of speaking \u2192 We'll see if we can find somewhere nice, then we'll make our decision. might: a plan you are not sure about \u2192 I might get a job in a local restaurant.",
+      ruleAr: 'المضارع المستمر: ترتيب مستقبلي \u2192 الأسبوع المقبل سننظر في منزل في إحدى القرى. going to: خطط مستقبلية \u2192 سيسافرون حول أمريكا الجنوبية. will: قرار يُتخذ في لحظة التحدث \u2192 سنرى إن وجدنا مكاناً جميلاً، ثم سنتخذ قرارنا. might: خطة لست متأكداً منها \u2192 ربما أحصل على وظيفة في مطعم محلي.',
       table: {
         headers: ['Form', 'Use'],
         rows: [
@@ -522,6 +545,7 @@ const lesson3B: Lesson = {
         title: 'Future plans and intentions',
         kind: 'mcq',
         instructions: 'Choose the correct form to talk about the future.',
+        instructionsAr: 'اختر الصيغة الصحيحة للحديث عن المستقبل.',
         page: 36,
         verified: true,
         questions: [
@@ -571,6 +595,7 @@ const lesson3B: Lesson = {
     {
       type: 'audio',
       title: 'Pronunciation: weak forms of are you and going to',
+      titleAr: 'النطق: الصيغ النبرية لـ are you وgoing to',
       tracks: au(['3.06', '3.07']),
     },
     {
@@ -580,6 +605,7 @@ const lesson3B: Lesson = {
         title: 'Make questions from the prompts',
         kind: 'fill-blank',
         instructions: 'Make questions from the prompts, then listen and check.',
+        instructionsAr: 'كوّن أسئلة من التلميحات، ثم استمع وتحقق.',
         page: 36,
         verified: true,
         questions: [
@@ -624,6 +650,7 @@ const lesson3B: Lesson = {
     {
       type: 'text',
       title: 'Speaking: talk about future plans and intentions',
+      titleAr: 'التحدث: تحدث عن خططك ونواياك المستقبلية',
       paragraphs: [
         'Prepare to talk for one minute about one or two of the topics below: plans for this evening (what? who? where? food? entertainment?); plans for the weekend (sports? activities? social plans? family?); plans for your next holiday (where? when? why? how to travel? places to visit?); plans for the rest of the year (career? studies? courses? work?).',
         'Talk to other students about your plans and intentions and ask questions to find out more information.',
@@ -660,12 +687,15 @@ const lesson3C: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 3C',
+      titleAr: 'الدرس 3ج',
       tone: 'info',
       text: 'Can I ask you\u2026 ? \u2013 you learn to make polite inquiries using indirect questions, and vocabulary for facilities and places in a city. The topic is working and studying in Malta.',
+      textAr: 'هل يمكنني أن أسألك \u2026؟ \u2013 تتعلم كيف توجه استفسارات مهذبة باستخدام الأسئلة غير المباشرة، ومفردات عن المرافق والأماكن في المدينة. وموضوع الدرس هو العمل والدراسة في مالطا.',
     },
     {
       type: 'vocab',
       title: 'facilities',
+      titleAr: 'المرافق',
       items: [
         { word: 'facilities', meaning: 'the buildings, services and equipment provided for a purpose', meaningAr: 'المرافق', example: 'The university offers all the facilities you need.', exampleAr: 'توفّر الجامعة كل المرافق التي تحتاجها.' },
         { word: 'campus', meaning: 'the land and buildings of a university or college', meaningAr: 'الحرم الجامعي', example: 'If you are studying at the University of Malta, the campus also has a sports centre.', exampleAr: 'إذا كنت تدرس في جامعة مالطا، فالحرم الجامعي يحتوي أيضاً على مركز رياضي.' },
@@ -683,6 +713,7 @@ const lesson3C: Lesson = {
     {
       type: 'text',
       title: 'Reading: work and study abroad in Malta',
+      titleAr: 'القراءة: العمل والدراسة في الخارج في مالطا',
       paragraphs: [
         'Ninety percent of the population of Malta speak English, so this is a wonderful study or work abroad option for students who want to improve their English. You can register for a course at one of the many language schools on the island.',
         'EU citizens can work and study in Malta, but people coming from outside the EU need to apply for a work permit from the employment office. Many people find jobs in finance or tourism. There are several private universities in Malta. The University of Malta is the only public university. You can stay in university halls of residence or with home-stay families. Living in Malta is not too expensive \u2013 in fact, Malta is one of the cheapest places to study in Europe. Malta is a fantastic place to practise water sports, with beautiful beaches and warm weather for much of the year.',
@@ -691,6 +722,7 @@ const lesson3C: Lesson = {
     {
       type: 'audio',
       title: 'Listening: inquiries about working or studying in Malta',
+      titleAr: 'الاستماع: استفسارات عن العمل أو الدراسة في مالطا',
       tracks: au(['3.08']),
     },
     {
@@ -700,6 +732,7 @@ const lesson3C: Lesson = {
         title: 'The conversations: true or false',
         kind: 'true-false',
         instructions: 'Listen again and decide if the statements are true (T) or false (F).',
+        instructionsAr: 'استمع مرة أخرى وقرر هل العبارات صحيحة (T) أم خاطئة (F).',
         page: 39,
         verified: true,
         questions: [
@@ -715,10 +748,13 @@ const lesson3C: Lesson = {
     {
       type: 'grammar',
       title: 'indirect questions (polite inquiries)',
+      titleAr: 'الأسئلة غير المباشرة (استفسارات مهذبة)',
       explanation:
         'Indirect questions are more polite than direct questions. In an indirect question, the word order changes: the subject comes before the verb, and we often use Can you tell me\u2026?, Do you know\u2026?, I\u2019d like to know\u2026?, Could you tell me\u2026?',
+      explanationAr: 'الأسئلة غير المباشرة أكثر تهذيباً من الأسئلة المباشرة. في السؤال غير المباشر يتغير ترتيب الكلمات: يأتي الفاعل قبل الفعل، وكثيراً ما نستخدم Can you tell me\u2026؟ وDo you know\u2026؟ وI\u2019d like to know\u2026؟ وCould you tell me\u2026؟',
       rule:
         "word order: question word + subject + verb (no auxiliary after the question word) \u2192 Where is the swimming pool? \u2192 Can you tell me where the swimming pool is? (not: where is the swimming pool is) \u2192 direct: What time does the accommodation office close? \u2192 indirect: I'd like to know what time the accommodation office closes. yes/no questions use if/whether \u2192 Do I need a visa? \u2192 Do you know if I need a visa?",
+      ruleAr: 'ترتيب الكلمات: كلمة سؤال + فاعل + فعل (بدون فعل مساعد بعد كلمة السؤال) \u2192 أين المسبح؟ \u2192 هل يمكنك أن تخبرني أين المسبح؟ (وليس: أين هو المسبح هو) سؤال مباشر: متى يغلق مكتب السكن؟ \u2192 غير مباشر: أود أن أعرف متى يغلق مكتب السكن. أسئلة نعم/لا تستخدم if أو whether \u2192 هل أحتاج إلى تأشيرة؟ \u2192 هل تعرف إن كنت أحتاج إلى تأشيرة؟',
       table: {
         headers: ['Direct question', 'Indirect (polite) question'],
         rows: [
@@ -743,6 +779,7 @@ const lesson3C: Lesson = {
         title: 'Rewrite with indirect questions',
         kind: 'fill-blank',
         instructions: 'Rewrite the inquiries using indirect questions to make them more polite.',
+        instructionsAr: 'أعد كتابة الاستفسارات باستخدام أسئلة غير مباشرة لتكون أكثر تهذيباً.',
         page: 39,
         verified: true,
         questions: [
@@ -784,6 +821,7 @@ const lesson3C: Lesson = {
         title: 'Choose the correct indirect question',
         kind: 'mcq',
         instructions: 'Choose the correct indirect question form.',
+        instructionsAr: 'اختر صيغة السؤال غير المباشر الصحيحة.',
         page: 39,
         verified: true,
         questions: [
@@ -820,11 +858,13 @@ const lesson3C: Lesson = {
     {
       type: 'audio',
       title: 'Pronunciation: polite intonation',
+      titleAr: 'النطق: التنغيم المهذب',
       tracks: au(['3.10']),
     },
     {
       type: 'text',
       title: 'Speaking: roleplay at a language school',
+      titleAr: 'التحدث: تمثيل أدوار في مدرسة لغات',
       paragraphs: [
         'Roleplay. Student A: you want some information about language courses at Ello Language School. Use indirect questions to make polite inquiries: Can you tell me how many hours I will study a day? Can you tell me if I can miss lessons? Would I receive a certificate at the end of the course? Is there a study area on campus? Can I borrow books from the library? Is there free Wi-Fi? Can you tell me where to go shopping near the school?',
         'Student B: you work at a sports centre. Answer your partner\u2019s inquiries. The sports centre is in the town square, opposite the theatre, next to the taxi rank. Anybody can use the facilities \u2013 you don\u2019t need to be a member. Prices for the gym: \u00a310 per hour. Swimming pool open 6 a.m.\u20138 p.m. Gym open 6 a.m.\u201310 p.m.',
@@ -861,12 +901,15 @@ const lesson3D: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 3D',
+      titleAr: 'الدرس 3د',
       tone: 'info',
       text: 'What matters most? \u2013 in the BBC Street Interviews people are asked: What things are important in your life? and What things aren\u2019t important in your life?',
+      textAr: 'ما الأهم؟ \u2013 في مقابلتنا في الشارع من بي بي سي يُسأل الناس: ما الأشياء المهمة في حياتك؟ وما الأشياء غير المهمة في حياتك؟',
     },
     {
       type: 'video',
       title: 'BBC Street Interviews: what matters most?',
+      titleAr: 'مقابلات بي بي سي في الشارع: ما الأهم؟',
       videos: [
         { title: 'BBC Street Interviews: what matters most?', file: 'SO3 B1 U3 BBC StreetInt.mp4', page: 40 },
       ],
@@ -878,6 +921,7 @@ const lesson3D: Lesson = {
         title: 'Watch: which ideas do the speakers mention?',
         kind: 'mcq',
         instructions: 'Watch the video and match each speaker with the ideas they mention as important.',
+        instructionsAr: 'شاهد الفيديو وطابق كل متحدث مع الأفكار التي يذكرها على أنها مهمة.',
         page: 40,
         verified: true,
         questions: [
@@ -935,6 +979,7 @@ const lesson3D: Lesson = {
         title: 'Watch again: complete the sentences',
         kind: 'fill-blank',
         instructions: 'Complete the things that the speakers say are or aren\u2019t important to them. Watch the second part of the video again and check.',
+        instructionsAr: 'أكمل الأشياء التي يقول المتحدثون إنها مهمة أو غير مهمة بالنسبة لهم. شاهد الجزء الثاني من الفيديو مرة أخرى وتحقق.',
         page: 40,
         verified: true,
         questions: [
@@ -972,10 +1017,13 @@ const lesson3D: Lesson = {
     {
       type: 'grammar',
       title: 'phrasal verbs',
+      titleAr: 'الأفعال المركبة',
       explanation:
         'A phrasal verb is a verb + a small word (particle) with a special meaning. In some phrasal verbs, the object can go between the verb and the particle, or after the particle.',
+      explanationAr: 'الفعل المركب هو فعل + كلمة صغيرة (أداة) بمعنى خاص. في بعض الأفعال المركبة يمكن أن يأتي المفعول بين الفعل والأداة، أو بعد الأداة.',
       rule:
         "separable phrasal verbs: I put on a song. = I put a song on. Inseparable phrasal verbs: My friends and I look out for each other. (not: look for each other out) phrasal verbs from the video: put on (a song), look out for (each other).",
+      ruleAr: 'أفعال مركبة قابلة للفصل: شغّلت أغنية = شغّلت أغنية (I put on a song = I put a song on). أفعال مركبة غير قابلة للفصل: نعتني أنا وأصدقائي ببعضنا (My friends and I look out for each other، وليس look for each other out). أفعال مركبة من الفيديو: put on (أغنية) وlook out for (بعضنا البعض).',
       table: {
         headers: ['Phrasal verb', 'Meaning'],
         rows: [
@@ -999,6 +1047,7 @@ const lesson3D: Lesson = {
         title: 'Position of the object',
         kind: 'true-false',
         instructions: 'Decide whether the two sentences are both correct.',
+        instructionsAr: 'قرر هل الجملتان كلتاهما صحيحتان.',
         page: 40,
         verified: true,
         questions: [
@@ -1016,6 +1065,7 @@ const lesson3D: Lesson = {
         title: 'Key phrases for talking about what matters',
         kind: 'fill-blank',
         instructions: 'Complete the key phrases in your own words so they are true for you.',
+        instructionsAr: 'أكمل العبارات الرئيسية بكلماتك الخاصة لتكون صحيحة بالنسبة لك.',
         page: 41,
         verified: true,
         questions: [
@@ -1053,6 +1103,7 @@ const lesson3D: Lesson = {
     {
       type: 'text',
       title: 'Writing: an online forum comment',
+      titleAr: 'الكتابة: تعليق على منتدى إلكتروني',
       paragraphs: [
         'Read the example comment (Alex, Maine, USA): \u201cThe things that are important in my life are spending relaxed time at home and making delicious food. I\u2019m very interested in cooking and I like to experiment with new dishes. I started cooking as a teenager and I still love it twenty years later. It\u2019s a very creative hobby and it\u2019s fun to try different types of food. I\u2019m not really into shopping in big supermarkets, so I try to buy local ingredients from the farms and street markets near where I live. I cook at least once a day.\u201d',
         'Write a comment about an activity that is important in your life. Write about: what the activity is; why you enjoy it and why it is important to you; when you first became interested in it; how much time you spend doing it.',
@@ -1085,6 +1136,7 @@ const lesson3Review: Lesson = {
     {
       type: 'review',
       title: 'Unit 3 Review',
+      titleAr: 'مراجعة الوحدة الثالثة',
       text: 'Complete the tasks to recycle the grammar and vocabulary from Unit 3: question forms, future plans and intentions, phrasal verbs, and knowledge and decisions vocabulary.',
     },
     {
@@ -1094,6 +1146,7 @@ const lesson3Review: Lesson = {
         title: 'Correct the questions',
         kind: 'true-false',
         instructions: 'Correct the mistakes in the questions. One of the questions is correct.',
+        instructionsAr: 'صحح الأخطاء في الأسئلة. أحد الأسئلة صحيح.',
         page: 42,
         verified: true,
         questions: [
@@ -1112,6 +1165,7 @@ const lesson3Review: Lesson = {
         title: 'Future plans and intentions',
         kind: 'mcq',
         instructions: 'Match the questions with the answers.',
+        instructionsAr: 'طابق الأسئلة مع الأجوبة.',
         page: 42,
         verified: true,
         questions: [
@@ -1185,6 +1239,7 @@ const lesson3Review: Lesson = {
         title: 'Phrasal verbs: word order',
         kind: 'true-false',
         instructions: 'Read the paragraph and decide if the different word order of the phrasal verbs is correct.',
+        instructionsAr: 'اقرأ الفقرة وقرر هل ترتيب الكلمات المختلف للأفعال المركبة صحيح؟',
         page: 42,
         verified: true,
         questions: [
@@ -1205,6 +1260,7 @@ const lesson3Review: Lesson = {
         title: 'Tips for language students',
         kind: 'fill-blank',
         instructions: 'Complete the advice with the words in the box: consider, knowledge, library, mind, note, revise.',
+        instructionsAr: 'أكمل النصائح بالكلمات الموجودة في الصندوق: consider, knowledge, library, mind, note, revise.',
         page: 42,
         verified: true,
         questions: [
@@ -1242,6 +1298,7 @@ const lesson3Review: Lesson = {
     {
       type: 'audio',
       title: 'Review listening: check your answers',
+      titleAr: 'استماع المراجعة: تحقق من إجاباتك',
       tracks: au(['R3.01']),
     },
   ],

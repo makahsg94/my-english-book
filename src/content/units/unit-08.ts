@@ -44,6 +44,7 @@ export const unit08: Unit = {
         {
           type: 'text',
           title: 'Living the dream',
+          titleAr: 'يعيش الحلم',
           paragraphs: [
             'Gregoire Kengen is a film-maker and photographer from Belgium. Gregoire travels around in his van (named Henri!), films his experiences and uploads the videos to YouTube. His YouTube channel, gregsway, has over 200,000 subscribers.',
             'One reason why Gregoire is popular is that he\u2019s very practical and creative. For example, he turned his van into a mobile studio, added new parts and installed electricity. His van was made in 1990, and he sometimes has to repair things that go wrong or replace old parts. He always finds a way!',
@@ -54,6 +55,7 @@ export const unit08: Unit = {
         {
           type: 'vocab',
           title: 'practical abilities; abilities: phrasal verbs',
+          titleAr: 'مهارات عملية؛ القدرات: أفعال مركبة',
           items: [
             { word: 'repair', meaning: 'fix something broken', meaningAr: 'يُصلح', example: 'He sometimes has to repair things that go wrong.', exampleAr: 'يضطر أحياناً لإصلاح الأشياء التي تتعطل.' },
             { word: 'replace', meaning: 'buy something new because the old one doesn\u2019t work', meaningAr: 'يستبدل', example: 'He replaced the old parts of his van.', exampleAr: 'استبدل الأجزاء القديمة من شاحنته.' },
@@ -75,6 +77,7 @@ export const unit08: Unit = {
             title: 'Phrasal verbs for abilities',
             kind: 'fill-blank',
             instructions: 'Complete the sentences with the correct verb.',
+            instructionsAr: 'أكمل الجمل بالفعل الصحيح.',
             page: 92,
             verified: true,
             questions: [
@@ -140,9 +143,14 @@ export const unit08: Unit = {
         {
           type: 'grammar',
           title: 'can, could, be able to',
+          titleAr: 'القدرة: can، could، be able to',
           explanation:
             'We use can / can\u2019t for ability in the present, and could / couldn\u2019t for general ability in the past. Be able to is used for all tenses and for specific past achievements.',
+          explanationAr:
+            'نستخدم can و can\u2019t للتعبير عن القدرة في الحاضر، و could و couldn\u2019t للتعبير عن قدرة عامة في الماضي. ونستخدم be able to مع جميع الأزمنة، وكذلك عند الحديث عن إنجاز محدد ناجح في الماضي.',
           rule: "Present: can / can't / am able to. Past: could / couldn't for general ability; was/were able to for specific successful actions. Be able to works with other tenses: 'I'm able to install a washing machine.'",
+          ruleAr:
+            'في الحاضر: can / can\u2019t / am able to. في الماضي: could / couldn\u2019t للقدرة العامة، و was/were able to للأعمال الناجحة المحددة. ويعمل be able to مع الأزمنة الأخرى، مثل: "I\u2019m able to install a washing machine."',
           table: {
             headers: ['Form', 'Use', 'Example'],
             rows: [
@@ -169,6 +177,7 @@ export const unit08: Unit = {
             title: 'Present or past ability',
             kind: 'mcq',
             instructions: 'Choose the correct form.',
+            instructionsAr: 'اختر الصيغة الصحيحة.',
             page: 93,
             verified: true,
             questions: [
@@ -218,16 +227,19 @@ export const unit08: Unit = {
         {
           type: 'audio',
           title: 'Listening: how people use practical skills',
+          titleAr: 'استماع: كيف يستخدم الناس مهارات عملية',
           tracks: au(['8.01'], 93),
         },
         {
           type: 'audio',
           title: 'Pronunciation: weak forms of can, could and be able to',
+          titleAr: 'النطق: الأشكال الضعيفة لكلمات can و could و be able to',
           tracks: au(['8.02'], 93),
         },
         {
           type: 'text',
           title: 'Writing: an anecdote about learning a skill',
+          titleAr: 'كتابة: قصة قصيرة عن تعلّم مهارة',
           paragraphs: [
             'Model text (Marta Freire Alves): "I could swim almost before I could walk. My parents were keen surfers and we lived next to the beach. I was able to surf when I was five and I got my first surfboard at the age of six."',
             'When she was twelve, she learnt how to repair surfboards because she and her friends couldn\u2019t replace their old boards with new ones. Her mother showed her what to do. After a few months, she could do it alone. These days she can still repair old surfboards, and young surfers bring their broken boards to her because she\u2019s the only one who\u2019s able to fix them!',
@@ -255,6 +267,7 @@ export const unit08: Unit = {
         {
           type: 'vocab',
           title: 'video collocations',
+          titleAr: 'الكلمات المصاحبة للفيديو',
           items: [
             { word: 'clip', meaning: 'a short piece from a longer video', meaningAr: 'مقطع', example: 'A video clip is a short piece from a longer video.', exampleAr: 'مقطع الفيديو هو جزء قصير من فيديو أطول.' },
             { word: 'share', meaning: 'send a video to other people on social media', meaningAr: 'يشارك', example: 'If you share a video, other people can watch it too.', exampleAr: 'إذا شاركت فيديو، يمكن للآخرين مشاهدته أيضاً.' },
@@ -274,6 +287,7 @@ export const unit08: Unit = {
             title: 'Video collocations',
             kind: 'fill-blank',
             instructions: 'Complete the sentences with the correct word.',
+            instructionsAr: 'أكمل الجمل بالكلمة الصحيحة.',
             page: 95,
             verified: true,
             questions: [
@@ -306,6 +320,7 @@ export const unit08: Unit = {
         {
           type: 'text',
           title: 'Watch, like, share',
+          titleAr: 'شاهد، أُعجب بـ، شارك',
           paragraphs: [
             'Video is everywhere. We watch, like, share and make videos more than ever before. Every minute, hundreds of hours of video are uploaded to YouTube. Video has changed how we entertain ourselves, how we communicate, how we share information and how we learn.',
             'Learning: we absorb information more quickly from videos than from reading texts. Videos are naturally appealing, because our brains are programmed to notice movement, so we pay attention more easily. We remember information we watch in videos for longer. Video is being used more and more in education. People watch instructional how-to videos to do all kinds of things: improve their cooking skills, learn new languages, learn musical instruments or do their make-up. Vlogs are popular, too, where people film themselves doing everyday tasks like cleaning, cooking and shopping. Study-with-me videos show people silently studying. When students watch these videos, they feel more motivated to stay focused.',
@@ -316,14 +331,20 @@ export const unit08: Unit = {
         {
           type: 'audio',
           title: 'Listening: people talking about videos',
+          titleAr: 'استماع: أشخاص يتحدثون عن الفيديوهات',
           tracks: au(['8.03'], 95),
         },
         {
           type: 'grammar',
           title: 'active and passive',
+          titleAr: 'المبني للمعلوم والمبني للمجهول',
           explanation:
             'In the active voice, the subject does the action: "People share the videos." In the passive voice, the important information is the action or the thing affected, not who did it.',
+          explanationAr:
+            'في الجملة المعلومة، الفاعل هو الذي يقوم بالفعل، مثل: "People share the videos." أما في الجملة المجهولة، فالمهم هو الفعل أو الشيء الذي تأثر به، وليس من قام بالفعل.',
           rule: 'Passive: be + past participle. Present: is/are + past participle ("Hundreds of hours of video are uploaded."). Past: was/were + past participle ("Journalists were sent somewhere to report."). We use the passive when it \u2019s not important or not known who does or did the action.',
+          ruleAr:
+            'الجملة المجهولة: be + اسم المفعول (past participle). في الحاضر: is/are + اسم المفعول، مثل: "Hundreds of hours of video are uploaded." وفي الماضي: was/were + اسم المفعول، مثل: "Journalists were sent somewhere to report." ونستخدم الجملة المجهولة عندما لا يكون مهماً أو معروفاً من قام بالفعل.',
           table: {
             headers: ['Active', 'Passive'],
             rows: [
@@ -348,6 +369,7 @@ export const unit08: Unit = {
             title: 'Active and passive',
             kind: 'fill-blank',
             instructions: 'Complete the sentences with the correct active or passive form of the verb in brackets.',
+            instructionsAr: 'أكمل الجمل بالصيغة الصحيحة (المعلوم أو المجهول) للفعل الموجود بين القوسين.',
             page: 102,
             verified: true,
             questions: [
@@ -393,6 +415,7 @@ export const unit08: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: emphasising important information',
+          titleAr: 'النطق: إبراز المعلومة المهمة',
           tracks: au(['8.04', '8.05'], 97),
         },
         {
@@ -416,6 +439,7 @@ export const unit08: Unit = {
         {
           type: 'text',
           title: 'Do you suffer from Computer Stress Syndrome?',
+          titleAr: 'هل تعاني من متلازمة إجهاد الكمبيوتر؟',
           paragraphs: [
             'It could be the one thing that stresses us out more than anything else in our work life - technical problems. Your phone isn\u2019t working and you can\u2019t download any apps. You finish writing an essay or a report and then realise you\u2019ve just deleted the files by mistake, and lost everything. Or maybe the photocopier is out of order just when you need to copy an important document. Your computer keeps crashing in the middle of a meeting or you can\u2019t open a file or attachment on your laptop. Perhaps you\u2019ve forgotten your password, or you have a slow internet connection. On top of all this, you find the printer is broken. You call the technical department but after waiting for twenty minutes to speak to a real person, you get cut off.',
             'All these technical problems contribute to Computer Stress Syndrome, something many of us suffer from. When the technology works, it\u2019s great. When it fails, it\u2019s a nightmare.',
@@ -424,6 +448,7 @@ export const unit08: Unit = {
         {
           type: 'vocab',
           title: 'technical problems',
+          titleAr: 'مشاكل تقنية',
           items: [
             { word: 'crash', meaning: 'stop working suddenly (of a computer)', meaningAr: 'يتوقف فجأة / ينهار', example: 'My computer keeps crashing in the middle of a meeting.', exampleAr: 'حاسوبي يستمر في الانهيار في منتصف الاجتماع.' },
             { word: 'out of order', meaning: 'not working (of a machine)', meaningAr: 'معطّل', example: 'The photocopier is out of order.', exampleAr: 'آلة التصوير معطّلة.' },
@@ -444,6 +469,7 @@ export const unit08: Unit = {
             title: 'Technical problems',
             kind: 'fill-blank',
             instructions: 'Complete the sentences about some more technical problems with the correct form of the words in bold.',
+            instructionsAr: 'أكمل الجمل عن بعض المشاكل التقنية الإضافية بالصيغة الصحيحة للكلمات المكتوبة بالخط العريض.',
             page: 98,
             verified: true,
             questions: [
@@ -509,6 +535,7 @@ export const unit08: Unit = {
         {
           type: 'audio',
           title: 'Listening: someone describes a problem',
+          titleAr: 'استماع: شخص يصف مشكلة',
           tracks: au(['8.06'], 99),
         },
         {
@@ -518,6 +545,7 @@ export const unit08: Unit = {
             title: 'How to... describe a problem and make recommendations',
             kind: 'mcq',
             instructions: 'Choose the correct word to complete the phrases.',
+            instructionsAr: 'اختر الكلمة الصحيحة لإكمال العبارات.',
             page: 99,
             verified: true,
             questions: [
@@ -587,19 +615,26 @@ export const unit08: Unit = {
         {
           type: 'audio',
           title: 'Listening: check the phrases',
+          titleAr: 'استماع: تحقّق من العبارات',
           tracks: au(['8.07'], 99),
         },
         {
           type: 'audio',
           title: 'Pronunciation: contrastive stress',
+          titleAr: 'النطق: التشديد التقابلي',
           tracks: au(['8.08'], 99),
         },
         {
           type: 'grammar',
           title: 'How to... describe a problem and make recommendations',
+          titleAr: 'كيف... تصف مشكلة وتقدّم توصيات',
           explanation:
             'To describe a problem: There\u2019s a problem with... / The ... isn\u2019t working. / I can\u2019t ... / It won\u2019t ... / It keeps (crashing). / When/Every time I ... , it ... / I think it\u2019s (broken).',
+          explanationAr:
+            'لوصف مشكلة نستخدم عبارات مثل: There\u2019s a problem with... / The ... isn\u2019t working. / I can\u2019t ... / It won\u2019t ... / It keeps (crashing). / When/Every time I ... , it ... / I think it\u2019s (broken).',
           rule: 'To make recommendations: Have you tried + -ing ...? / Try + -ing ... / Have you checked ...? / Maybe you could ... + verb. To respond: Yes, I\u2019ll try that. / Yes, that works. / Yes, it\u2019s working now.',
+          ruleAr:
+            'لتقديم توصيات: Have you tried + -ing ...؟ / Try + -ing ... / Have you checked ...؟ / Maybe you could ... + فعل. للرد: Yes, I\u2019ll try that. / Yes, that works. / Yes, it\u2019s working now.',
           table: {
             headers: ['Describing a problem', 'Making a recommendation', 'Solving the problem'],
             rows: [
@@ -640,6 +675,7 @@ export const unit08: Unit = {
         {
           type: 'text',
           title: 'Wendy: a gifted learner',
+          titleAr: 'ويندي: متعلّمة موهوبة',
           paragraphs: [
             'Wendy started learning languages at age two and she can now speak lots of them. She spends 60 minutes each week talking to her teachers, and she has picked up thousands of new words.',
             'Languages are easy for Wendy because she started early and she never stops. Watching a video clip about Wendy and other gifted language learners shows how the brain \u2019s ability to learn languages develops.',
@@ -648,9 +684,14 @@ export const unit08: Unit = {
         {
           type: 'grammar',
           title: '-ing form',
+          titleAr: 'صيغة -ing',
           explanation:
             "Some verbs are followed by the -ing form of another verb: I started learning them. She spends an hour every week talking to different people.",
+          explanationAr:
+            'بعض الأفعال يتبعها صيغة -ing من فعل آخر، مثل: I started learning them. She spends an hour every week talking to different people.',
           rule: 'Verbs followed by -ing: enjoy, hate, imagine, like, love, practise, recommend, remember, spend time, start, stop, suggest, try, etc. Example: I like learning languages.',
+          ruleAr:
+            'الأفعال التي يتبعها صيغة -ing: enjoy, hate, imagine, like, love, practise, recommend, remember, spend time, start, stop, suggest, try، وغيرها. مثال: I like learning languages.',
           table: {
             headers: ['Verb + -ing', 'Example'],
             rows: [
@@ -678,6 +719,7 @@ export const unit08: Unit = {
             title: '-ing form',
             kind: 'fill-blank',
             instructions: 'Find five mistakes and correct them. (Write the corrected phrase.)',
+            instructionsAr: 'ابحث عن خمسة أخطاء وصحّحها. (اكتب العبارة المصححة).',
             page: 102,
             verified: true,
             questions: [
@@ -722,11 +764,13 @@ export const unit08: Unit = {
         {
           type: 'audio',
           title: 'Listening: learning Arabic',
+          titleAr: 'استماع: تعلّم اللغة العربية',
           tracks: au(['8.09'], 101),
         },
         {
           type: 'text',
           title: 'Language learning forum',
+          titleAr: 'منتدى تعلّم اللغات',
           paragraphs: [
             'Sandra wrote: "I\u2019m moving to France for work next year. Does anyone have any tips for learning a new language quickly?\"',
             'Divya replied: "Personally, I enjoy studying with other people more than by myself, so I recommend going to a class and using a grammar book. You need to know the basics, which you can get from a book, but you also have to practise speaking the language.\"',
@@ -740,6 +784,7 @@ export const unit08: Unit = {
             title: 'Write a response to Sandra\u2019s comment',
             kind: 'mcq',
             instructions: 'Choose the best way to write a forum comment about language learning.',
+            instructionsAr: 'اختر أفضل طريقة لكتابة تعليق في المنتدى عن تعلّم اللغات.',
             page: 101,
             verified: true,
             questions: [
@@ -780,6 +825,7 @@ export const unit08: Unit = {
             title: 'Revision: can, could, be able to',
             kind: 'mcq',
             instructions: 'Choose the correct words to complete the sentences.',
+            instructionsAr: 'اختر الكلمات الصحيحة لإكمال الجمل.',
             page: 102,
             verified: true,
             questions: [
@@ -823,6 +869,7 @@ export const unit08: Unit = {
             title: 'Revision: active and passive',
             kind: 'fill-blank',
             instructions: 'Complete the sentences with the correct active or passive form of the verb in brackets.',
+            instructionsAr: 'أكمل الجمل بالصيغة الصحيحة (المعلوم أو المجهول) للفعل الموجود بين القوسين.',
             page: 102,
             verified: true,
             questions: [
@@ -850,6 +897,7 @@ export const unit08: Unit = {
             title: 'Revision: vocabulary',
             kind: 'fill-blank',
             instructions: 'Complete the sentences with the words and phrases in the box.',
+            instructionsAr: 'أكمل الجمل بالكلمات والعبارات الموجودة في الصندوق.',
             page: 102,
             verified: true,
             questions: [
@@ -936,6 +984,7 @@ export const unit08: Unit = {
             title: '6A Match the sentence halves',
             kind: 'mcq',
             instructions: 'Match the two parts of each sentence.',
+            instructionsAr: 'طابق جزأي كل جملة.',
             page: 103,
             verified: true,
             questions: [
@@ -1023,12 +1072,16 @@ export const unit08: Unit = {
         {
           type: 'callout',
           title: '6B Talk about it',
+          titleAr: '6ب: تحدّث عن ذلك',
           tone: 'tip',
           text: 'Which of the sentences in Ex 6A are true for you? Tell your partner and give reasons. For example: I never comment on videos online. I don\u2019t like the idea of sharing my personal data with strangers.',
+          textAr:
+            'أي من الجمل في التمرين 6A صحيحة بالنسبة لك؟ أخبر زميلك واذكر الأسباب. على سبيل المثال: لا أعلّق أبداً على فيديوهات على الإنترنت، وأنا لا أحبّ فكرة مشاركة بياناتي الشخصية مع الغرباء.',
         },
         {
           type: 'text',
           title: 'Reading: How YouTube changed my life',
+          titleAr: 'قراءة: كيف غيّر يوتيوب حياتي',
           paragraphs: [
             'When I posted my first videos on YouTube, I never thought I would be able to make so many friends. I was studying in London, and I couldn\u2019t meet many people. I had a lot of free time, so I spent a few afternoons making some short videos and uploading them to YouTube. I tried a few different types of video. I started with instructional videos about how to do well at the video games I was playing. In the first few weeks, hundreds of people liked and commented on the videos. Lots of viewers also shared the videos with their friends. At first, I had a few hundred followers, but after six months I had thousands. It was amazing. I had to learn how to make my videos better, by editing them and adding music. Now, I\u2019m doing a course in video game design.',
           ],
@@ -1040,6 +1093,7 @@ export const unit08: Unit = {
             title: '9A Choose the correct option',
             kind: 'mcq',
             instructions: 'Choose the correct option (A\u2013C) to complete the text.',
+            instructionsAr: 'اختر الخيار الصحيح (أ–ج) لإكمال النص.',
             page: 103,
             verified: false,
             needsReview: true,
@@ -1130,8 +1184,10 @@ export const unit08: Unit = {
         {
           type: 'callout',
           title: 'Discuss',
+          titleAr: 'ناقش',
           tone: 'tip',
           text: 'Work in pairs and discuss the questions. Do you know anyone who uploads videos online? What sorts of videos do they post? Do they have a lot of followers?',
+          textAr: 'اعملوا في أزواج وناقشوا الأسئلة. هل تعرف شخصاً يرفع فيديوهات على الإنترنت؟ ما أنواع الفيديوهات التي ينشرها؟ هل لديه عدد كبير من المتابعين؟',
         },
         {
           type: 'exercise',
@@ -1140,6 +1196,7 @@ export const unit08: Unit = {
             title: '7A Complete the conversations',
             kind: 'fill-blank',
             instructions: 'Complete the conversations with one word in each gap.',
+            instructionsAr: 'أكمل المحادثات بكلمة واحدة في كل فراغ.',
             page: 103,
             verified: true,
             questions: [
@@ -1178,8 +1235,10 @@ export const unit08: Unit = {
         {
           type: 'callout',
           title: 'Talk about it',
+          titleAr: 'تحدث عن ذلك',
           tone: 'tip',
           text: 'Work in pairs and discuss. Which of the problems in Ex 7A are the most annoying?',
+          textAr: 'اعملوا في أزواج وناقشوا. أي مشكلة من المشاكل في التمرين 7A هي الأكثر إزعاجاً؟',
         },
         {
           type: 'exercise',
@@ -1188,6 +1247,7 @@ export const unit08: Unit = {
             title: '8A Replace the words in bold with phrasal verbs',
             kind: 'fill-blank',
             instructions: 'Replace the words in bold with the phrasal verbs from the box: look after, pick up, get on well with, come up with, work out, take up.',
+            instructionsAr: 'استبدل الكلمات المكتوبة بالخط العريض بالأفعال المركّبة الموجودة في الصندوق: look after, pick up, get on well with, come up with, work out, take up.',
             page: 103,
             verified: true,
             questions: [
@@ -1240,8 +1300,10 @@ export const unit08: Unit = {
         {
           type: 'callout',
           title: '8B Guess about your partner',
+          titleAr: '8ب: خمّن عن زميلك',
           tone: 'tip',
           text: 'Work with a partner. Guess if the sentences in Ex 8A are true for your partner. Use the phrasal verbs from the box. For example: I don\u2019t think sentence 1 is true. I think you look after your things \u2013 you are always tidy.',
+          textAr: 'اعمل مع زميلك. خمّن ما إذا كانت الجمل في التمرين 8A صحيحة بالنسبة لزميلك. استخدم الأفعال المركّبة من الصندوق. على سبيل المثال: لا أعتقد أن الجملة الأولى صحيحة، وأعتقد أنك تعتني بأشياءك لأنك دائماً مرتب.',
         },
         {
           type: 'pages',

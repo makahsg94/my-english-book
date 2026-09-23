@@ -40,6 +40,7 @@ export const finalReview: Unit = {
         {
           type: 'text',
           title: 'How to use this review',
+          titleAr: 'كيفية استخدام هذه المراجعة',
           paragraphs: [
             'Each exercise below covers the grammar focus of one unit, in book order. If you get something wrong, the explanation points you back to the unit where the point was introduced.',
           ],
@@ -48,7 +49,9 @@ export const finalReview: Unit = {
           type: 'callout',
           tone: 'tip',
           title: 'The grammar of the book in one line',
+          titleAr: 'قواعد الكتاب في سطر واحد',
           text: 'Units 1-2: present and narrative tenses. Unit 3: questions and future plans. Unit 4: modals and superlatives. Unit 5: relative clauses and reported speech. Unit 6: used to and comparison. Unit 7: conditionals. Unit 8: ability and the passive.',
+          textAr: 'الوحدتان 1-2: صيغ المضارع وأزمنة السرد. الوحدة 3: الأسئلة وخطط المستقبل. الوحدة 4: الأفعال الناقصة وصيغ التفضيل. الوحدة 5: صلات الموصول والكلام المنقول. الوحدة 6: used to والمقارنة. الوحدة 7: الجمل الشرطية. الوحدة 8: القدرة والمبني للمجهول.',
         },
         {
           type: 'exercise',
@@ -57,6 +60,7 @@ export const finalReview: Unit = {
             title: 'Unit 1: present simple and present continuous',
             kind: 'mcq',
             instructions: 'Choose the correct verb forms.',
+            instructionsAr: 'اختر الصيغ الصحيحة للأفعال.',
             page: 175,
             verified: true,
             questions: [
@@ -110,6 +114,7 @@ export const finalReview: Unit = {
             title: 'Unit 2: past simple, past continuous and present perfect',
             kind: 'mcq',
             instructions: 'Choose the correct verb form.',
+            instructionsAr: 'اختر الصيغة الصحيحة للفعل.',
             page: 175,
             verified: true,
             questions: [
@@ -163,6 +168,7 @@ export const finalReview: Unit = {
             title: 'Unit 3: question forms and future plans',
             kind: 'mcq',
             instructions: 'Choose the correct form to complete each sentence.',
+            instructionsAr: 'اختر الصيغة الصحيحة لإكمال كل جملة.',
             page: 176,
             verified: true,
             questions: [
@@ -216,6 +222,7 @@ export const finalReview: Unit = {
             title: 'Unit 4: modals, articles and present perfect superlatives',
             kind: 'mcq',
             instructions: 'Choose the correct word or phrase.',
+            instructionsAr: 'اختر الكلمة أو العبارة الصحيحة.',
             page: 176,
             verified: true,
             questions: [
@@ -269,6 +276,7 @@ export const finalReview: Unit = {
             title: 'Unit 5: relative clauses, reported speech and predictions',
             kind: 'mcq',
             instructions: 'Choose the correct option.',
+            instructionsAr: 'اختر الخيار الصحيح.',
             page: 177,
             verified: true,
             questions: [
@@ -322,6 +330,7 @@ export const finalReview: Unit = {
             title: 'Unit 6: used to, comparison and for / since / yet',
             kind: 'mcq',
             instructions: 'Choose the correct option.',
+            instructionsAr: 'اختر الخيار الصحيح.',
             page: 177,
             verified: true,
             questions: [
@@ -375,6 +384,7 @@ export const finalReview: Unit = {
             title: 'Unit 7: conditionals and reflexive pronouns',
             kind: 'mcq',
             instructions: 'Choose the correct option.',
+            instructionsAr: 'اختر الخيار الصحيح.',
             page: 178,
             verified: true,
             questions: [
@@ -428,6 +438,7 @@ export const finalReview: Unit = {
             title: 'Unit 8: can / could / be able to, passive and -ing',
             kind: 'mcq',
             instructions: 'Choose the correct option.',
+            instructionsAr: 'اختر الخيار الصحيح.',
             page: 178,
             verified: true,
             questions: [
@@ -493,6 +504,7 @@ export const finalReview: Unit = {
         {
           type: 'text',
           title: 'Words from every unit',
+          titleAr: 'كلمات من كل وحدة',
           paragraphs: [
             'Match each word with its meaning. The words come from the vocabulary we met in Units 1-8, so anything you are unsure about can be found again in the unit where it first appeared.',
           ],
@@ -504,6 +516,7 @@ export const finalReview: Unit = {
             title: 'Unit 1: people and personality',
             kind: 'mcq',
             instructions: 'Match each word with its meaning.',
+            instructionsAr: 'طابق كل كلمة مع معناها.',
             page: 179,
             verified: true,
             questions: [
@@ -595,6 +608,7 @@ export const finalReview: Unit = {
             title: 'Unit 2: feelings with -ed and -ing',
             kind: 'mcq',
             instructions: 'Match each word with its meaning.',
+            instructionsAr: 'طابق كل كلمة مع معناها.',
             page: 179,
             verified: true,
             questions: [
@@ -686,6 +700,7 @@ export const finalReview: Unit = {
             title: 'Unit 3: learning and decisions',
             kind: 'mcq',
             instructions: 'Match each word with its meaning.',
+            instructionsAr: 'طابق كل كلمة مع معناها.',
             page: 180,
             verified: true,
             questions: [
@@ -777,6 +792,7 @@ export const finalReview: Unit = {
             title: 'Unit 4: success and technology',
             kind: 'mcq',
             instructions: 'Match each word with its meaning.',
+            instructionsAr: 'طابق كل كلمة مع معناها.',
             page: 180,
             verified: true,
             questions: [
@@ -868,6 +884,7 @@ export const finalReview: Unit = {
             title: 'Unit 5: news and social issues',
             kind: 'mcq',
             instructions: 'Match each word with its meaning.',
+            instructionsAr: 'طابق كل كلمة مع معناها.',
             page: 181,
             verified: true,
             questions: [
@@ -959,6 +976,7 @@ export const finalReview: Unit = {
             title: 'Unit 6: the arts and extreme adjectives',
             kind: 'mcq',
             instructions: 'Match each word with its meaning.',
+            instructionsAr: 'طابق كل كلمة مع معناها.',
             page: 181,
             verified: true,
             questions: [
@@ -1050,6 +1068,7 @@ export const finalReview: Unit = {
             title: 'Unit 7: travel and describing places',
             kind: 'mcq',
             instructions: 'Match each word with its meaning.',
+            instructionsAr: 'طابق كل كلمة مع معناها.',
             page: 182,
             verified: true,
             questions: [
@@ -1141,6 +1160,7 @@ export const finalReview: Unit = {
             title: 'Unit 8: skills and technology problems',
             kind: 'mcq',
             instructions: 'Match each word with its meaning.',
+            instructionsAr: 'طابق كل كلمة مع معناها.',
             page: 182,
             verified: true,
             questions: [

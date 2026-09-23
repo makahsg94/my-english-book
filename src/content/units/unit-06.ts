@@ -44,6 +44,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'Two Pablos, one century',
+          titleAr: 'بابلو و بابلو: قرن واحد',
           paragraphs: [
             'Both were called Pablo, both were from Spain, both produced incredible work, both spent years abroad and both died in 1973. In the arts, Pablo Picasso and Pablo Casals are world-famous.',
             'Picasso worked in many different styles and produced thousands of works of art about different subjects, and created some of the most famous images of the twentieth century. Casals was a great performer, whose recordings continue to influence musicians today. Both lived very long lives, but their work will live even longer.',
@@ -52,6 +53,7 @@ export const unit06: Unit = {
         {
           type: 'vocab',
           title: 'the arts',
+          titleAr: 'الفنون',
           items: [
             { word: 'musician', meaning: 'someone who is paid to play a musical instrument', meaningAr: 'موسيقي' },
             { word: 'the arts', meaning: 'music, writing, art, literature, film, etc.', meaningAr: 'الفنون' },
@@ -69,6 +71,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'The 3 a.m. genius',
+          titleAr: 'العبقري في الثالثة فجراً',
           paragraphs: [
             "Picasso's mother said that her son's first word was piz, a short form of lapiz, the Spanish word for a pencil. The boy's father was an artist. From the age of five, Picasso drew everything he saw. He used to draw at school, at home, in restaurants, even in bed. He painted his first painting when he was seven and kept it for the rest of his life. He produced nearly 50,000 works.",
             'In 1904, Picasso moved from Spain to Paris. He was twenty-three years old and so poor that he had to burn some of his paintings to keep warm. He used to pay his bills by giving people drawings instead of money. It was in Paris that Picasso became a great artist.',
@@ -78,6 +81,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'Ninety years of music',
+          titleAr: 'تسعون عاماً من الموسيقى',
           paragraphs: [
             'Pablo Casals was one of Spain\u2019s greatest musicians. His father was a music teacher and as a baby, Casals used to listen to his father playing the piano. By the age of six, Casals played the piano and the violin. One day, he saw someone performing on a cello. He immediately fell in love with the instrument, stopped playing the violin and the piano, and became a cello player.',
             'From the age of thirteen, he used to start the day with a walk in nature. After this, he used to practise playing the same notes again and again, all before breakfast! On one visit to a second-hand music store, he found a sheet of cello music by Bach. It changed his life.',
@@ -87,9 +91,13 @@ export const unit06: Unit = {
         {
           type: 'grammar',
           title: 'used to',
+          titleAr: 'used to - العادات والحالات في الماضي',
           explanation:
             'We use used to + verb to talk about a regular habit or a state in the past that is no longer true.',
+          explanationAr:
+            'نستخدم used to + الفعل للحديث عن عادة منتظمة أو حالة في الماضي لم تعد صحيحة الآن.',
           rule: "used to + infinitive for habits and states in the past: 'He used to draw at school.' Didn't use to + infinitive for negatives: 'I didn't use to like vegetables.' Compare with a single past event: 'He painted his first painting when he was seven.'",
+          ruleAr: "استخدمنا used to + verb للتحدث عن عادة/حالة في الماضي لم تعد صحيحة الآن، مثل: He used to draw at school. وللنفي: didn’t use to + verb (I didn’t use to like vegetables). قارن مع حدث واحد محدد في الماضي: He painted his first painting when he was seven.",
           table: {
             headers: ['Form', 'Example'],
             rows: [
@@ -113,6 +121,7 @@ export const unit06: Unit = {
             title: 'used to or past simple',
             kind: 'mcq',
             instructions: 'Choose the correct form.',
+            instructionsAr: 'اختر الصيغة الصحيحة.',
             page: 70,
             verified: true,
             questions: [
@@ -158,6 +167,7 @@ export const unit06: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: used to',
+          titleAr: 'النطق: used to',
           tracks: au(['6.01'], 70),
         },
         {
@@ -181,6 +191,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'The paperclip challenge',
+          titleAr: 'تحدي مشبك الورق',
           paragraphs: [
             'Try this test to see how creative you are. Look at the paperclip. What do you think it could be used for? Write down as many ideas as possible. You have one minute.',
           ],
@@ -188,6 +199,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'What is creativity?',
+          titleAr: 'ما هو الإبداع؟',
           paragraphs: [
             "When we think about creativity we often think of the world's most talented artists - people like Frida Kahlo, Einstein or Mozart. But you don't have to have more talent than everyone else to create something new and exciting. All you need is a little imagination and a bit of free time.",
             "You might not be very artistic, or even interested in art, but maybe you're a skilful and imaginative cook and enjoy creating new and original recipes. Or you could be someone who has brilliant ideas for solving problems at work. Maybe you show your creativity using your photographic abilities.",
@@ -197,6 +209,7 @@ export const unit06: Unit = {
         {
           type: 'vocab',
           title: 'creativity: word building',
+          titleAr: 'الإبداع: بناء الكلمات',
           items: [
             { word: 'imagine / imagination / imaginative', meaning: 'verb / noun / adjective', meaningAr: 'يتخيّل / الخيال / خيالي' },
             { word: 'create / creativity / creative', meaning: 'verb / noun / adjective', meaningAr: 'يبتكر / الإبداع / مبدع' },
@@ -209,11 +222,13 @@ export const unit06: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: word stress in word families',
+          titleAr: 'النطق: نبرة الكلمات في عائلات الكلمات',
           tracks: au(['6.02'], 71),
         },
         {
           type: 'audio',
           title: 'Listening: people talking about creativity',
+          titleAr: 'الاستماع: أشخاص يتحدثون عن الإبداع',
           tracks: au(['6.03', '6.04'], 72),
         },
         {
@@ -223,6 +238,7 @@ export const unit06: Unit = {
             title: 'Who says what?',
             kind: 'mcq',
             instructions: 'Listen to four people (Roza, Fabio, Joshua, Meera). Match each idea with the person who mentions it.',
+            instructionsAr: 'استمع إلى أربعة أشخاص (Roza و Fabio و Joshua و Meera). طابق كل فكرة مع الشخص الذي يذكرها.',
             page: 72,
             verified: true,
             questions: [
@@ -276,9 +292,13 @@ export const unit06: Unit = {
         {
           type: 'grammar',
           title: 'comparatives and superlatives',
+          titleAr: 'صيغ المقارنة والتفضيل',
           explanation:
             'We use comparatives to compare two things and superlatives to say something is the best, biggest, most important, etc.',
+          explanationAr:
+            'نستخدم صيغة المقارنة للمقارنة بين شيئين، وصيغة التفضيل للقول إن شيئاً هو الأفضل أو الأكبر أو الأهم...',
           rule: "Short adjectives/adverbs: add -er/-est (hard, harder, the hardest). Longer adjectives or -ly adverbs: use more / the most (more carefully, the most important). Irregular: good/well - better - the best; far - further/farther - the furthest/farthest. We can also use (not) as + adjective + as to make comparisons.",
+          ruleAr: "الصفات والظروف القصيرة: أضف -er / -est (hard, harder, the hardest). الصفات الأطول أو الظروف المنتهية بـ -ly: استخدم more / the most (more carefully, the most important). الشواذ: good/well - better - the best; far - further/farther - the furthest/farthest. يمكننا أيضاً استخدام (not) as + الصفة + as للمقارنة.",
           table: {
             headers: ['Form', 'Comparative', 'Superlative', 'Example'],
             rows: [
@@ -304,6 +324,7 @@ export const unit06: Unit = {
             title: 'Comparatives and superlatives',
             kind: 'mcq',
             instructions: 'Choose the correct option.',
+            instructionsAr: 'اختر الخيار الصحيح.',
             page: 72,
             verified: true,
             questions: [
@@ -363,6 +384,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'Writing: a review',
+          titleAr: 'الكتابة: مراجعة (تقييم)',
           paragraphs: [
             'Model review (Nannarella, Rome): the best restaurant the writer has ever been to. Positive points: it\u2019s located near a busy square; talented musicians play while you eat; an imaginative menu based on traditional Italian food but with new, original ideas; delicious carbonara and lasagne; the tastiest tiramisu ever eaten; friendly, relaxed atmosphere; not as expensive as similar restaurants. Negative point: we had to eat quite quickly because we were in a hurry.',
             'Linking words: although, while (contrast), because (reason), unless (condition), because of (reason).\nExamples: "Although a lot of the dishes are traditional, they all have something special." "If you come at lunchtime, make sure you book a table, unless you don\u2019t mind waiting."',
@@ -375,6 +397,7 @@ export const unit06: Unit = {
             title: 'Linking words: join the ideas',
             kind: 'mcq',
             instructions: 'Match each linking word with the idea it connects.',
+            instructionsAr: 'طابق كل كلمة ربط مع الفكرة التي تربطها.',
             page: 73,
             verified: true,
             questions: [
@@ -432,6 +455,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'Public art - love it or hate it?',
+          titleAr: 'الفن العام: تحبه أم تكرهه؟',
           paragraphs: [
             'From the art we see painted on the walls of our cities to the huge sculptures we might find outside a museum, public art is everywhere. In the past, public art often meant statues of historical figures. These days, all kinds of fantastic art has moved outside art galleries, where it has more space and a bigger audience.',
             'Public art is for everyone. It\u2019s free and you don\u2019t need to buy a ticket. It can also help to create a city\u2019s identity. For example, Louise Bourgeois\u2019s Maman, a sculpture of a giant spider outside the Guggenheim Museum, has become a symbol of Bilbao, Spain. Anthony Gormley\u2019s outstanding sculpture The Angel of the North is similarly popular with visitors to the north of England.',
@@ -441,6 +465,7 @@ export const unit06: Unit = {
         {
           type: 'vocab',
           title: 'extreme adjectives',
+          titleAr: 'الصفات القوية (المتطرفة)',
           items: [
             { word: 'good', meaning: 'normal adjective', meaningAr: 'جيد (صفة عادية)', example: "We can say 'very good'. We can't say 'very fantastic'.", exampleAr: "يمكننا أن نقول 'very good'، ولا يمكننا أن نقول 'very fantastic'." },
             { word: 'fantastic', meaning: 'extreme adjective', meaningAr: 'رائع (صفة قوية)', example: "We can say 'absolutely fantastic'. We can't say 'absolutely good'.", exampleAr: "يمكننا أن نقول 'absolutely fantastic'، ولا يمكننا أن نقول 'absolutely good'." },
@@ -455,8 +480,10 @@ export const unit06: Unit = {
         {
           type: 'callout',
           title: 'Note',
+          titleAr: 'ملاحظة',
           tone: 'note',
           text: 'We use very with normal adjectives to make them stronger. We use absolutely with extreme adjectives to make them stronger. Extreme adjectives have a stronger meaning than normal adjectives.',
+          textAr: 'نستخدم very مع الصفات العادية لتقويتها، و absolutely مع الصفات القوية لتقويتها. الصفات القوية معناها أقوى من الصفات العادية.',
         },
         {
           type: 'exercise',
@@ -465,6 +492,7 @@ export const unit06: Unit = {
             title: 'Extreme adjectives',
             kind: 'mcq',
             instructions: 'Match each normal adjective with its extreme equivalent.',
+            instructionsAr: 'طابق كل صفة عادية مع صفتها القوية المقابلة.',
             page: 74,
             verified: true,
             questions: [
@@ -572,11 +600,13 @@ export const unit06: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: intonation for expressing opinions',
+          titleAr: 'النطق: التنغيم للتعبير عن الآراء',
           tracks: au(['6.05', '6.06'], 75),
         },
         {
           type: 'vocab',
           title: 'Ask for and give opinions and reasons',
+          titleAr: 'اطلب الآراء وعبّر عنها مع الأسباب',
           items: [
             { word: 'asking for an opinion', meaning: 'How about you? / What makes you say that? / What do/did you think of\u2026?', meaningAr: 'وأنت؟ / ما الذي يجعلك تقول ذلك؟ / ما رأيك في…؟', response: 'What do you think about it?', responseAr: 'ما رأيك في الأمر؟' },
             { word: 'giving an opinion', meaning: 'Forme,\u2026 / In my view,\u2026 / I think\u2026 / I would say\u2026', meaningAr: 'بالنسبة لي… / في رأيي… / أعتقد… / أودّ أن أقول…', response: 'In my view, it\u2019s a really new and exciting design.', responseAr: 'في رأيي، إنه تصميم جديد ومثير حقاً.' },
@@ -592,6 +622,7 @@ export const unit06: Unit = {
             title: 'Opinions and reasons',
             kind: 'mcq',
             instructions: 'Choose the correct phrase.',
+            instructionsAr: 'اختر العبارة الصحيحة.',
             page: 75,
             verified: true,
             questions: [
@@ -668,6 +699,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'BBC Programme: An artist at work',
+          titleAr: 'BBC: برنامج - فنّان أثناء العمل',
           paragraphs: [
             'Yinka Shonibare is one of the UK\u2019s top contemporary artists. He became famous in the 1990s and since then he has produced a unique body of work, which is often colourful and humorous. He is influenced by his Nigerian origins and his work often uses colourful African fabrics. This film shows Yinka creating a figure called Balloon Man, and talking about his life and career.',
           ],
@@ -675,6 +707,7 @@ export const unit06: Unit = {
         {
           type: 'video',
           title: 'Watch and order the stages',
+          titleAr: 'شاهد ورتّب المراحل',
           videos: [
             {
               title: 'BBC Programme: An artist at work',
@@ -690,6 +723,7 @@ export const unit06: Unit = {
             title: 'Number the stages in order',
             kind: 'ordering',
             instructions: 'Watch the video. Number the stages for creating one of Yinka\u2019s works in order.',
+            instructionsAr: 'شاهد الفيديو. رقّم مراحل إنشاء أحد أعمال Yinka بالترتيب.',
             page: 76,
             verified: true,
             questions: [
@@ -712,9 +746,13 @@ export const unit06: Unit = {
         {
           type: 'grammar',
           title: 'present perfect + for, since and yet',
+          titleAr: 'المضارع التام مع for و since و yet',
           explanation:
             'We use the present perfect with for, since and yet to talk about something that started in the past and is still true now.',
+          explanationAr:
+            'نستخدم المضارع التام مع for و since و yet للحديث عن شيء بدأ في الماضي وما زال صحيحاً حتى الآن.',
           rule: 'for = a period of time (for more than ten years). since = a particular time in the past (since the start of his career). yet = \u2018at any time up to now\u2019, used with negatives to emphasise that something hasn\u2019t happened but we expect it to happen soon.',
+          ruleAr: 'for = مدة من الزمن (for more than ten years). since = وقت معين في الماضي (since the start of his career). yet = «في أي وقت حتى الآن»، تُستخدم مع النفي للتأكيد على أن شيئاً لم يحدث بعد لكننا نتوقع حدوثه قريباً.',
           table: {
             headers: ['Word', 'Use', 'Example'],
             rows: [
@@ -737,6 +775,7 @@ export const unit06: Unit = {
             title: 'for, since or yet',
             kind: 'mcq',
             instructions: 'Choose the correct word.',
+            instructionsAr: 'اختر الكلمة الصحيحة.',
             page: 78,
             verified: true,
             questions: [
@@ -806,11 +845,13 @@ export const unit06: Unit = {
         {
           type: 'audio',
           title: 'Listening: nominating a creative genius',
+          titleAr: 'الاستماع: ترشيح عبقري مبدع',
           tracks: au(['6.07'], 77),
         },
         {
           type: 'text',
           title: 'Writing: a nomination for an award',
+          titleAr: 'الكتابة: ترشيح شخص لجائزة',
           paragraphs: [
             'The MacArthur Fellowship offers creative individuals prize money to help them continue their creative work. It can be anyone who is pushing the boundaries of creativity within their field.',
             'Model nomination: "I would like to propose my friend Marco Santini for the creative genius award because Marco is the most creative pasta chef I know. He can cook all different types of pasta dishes using whatever ingredients he has in the kitchen. He has always made his own pasta since his grandmother taught him when he was a child. He has also invented his own new recipes. I think Marco deserves the award as he is definitely the most creative person I know."',
@@ -832,6 +873,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'Review what you have learned',
+          titleAr: 'راجع ما تعلمته',
           paragraphs: [
             'Complete the review exercises to practise the grammar and vocabulary of Unit 6: used to, comparatives and superlatives, and the present perfect with for, since and yet.',
           ],
@@ -843,6 +885,7 @@ export const unit06: Unit = {
             title: 'Correct the mistakes',
             kind: 'mcq',
             instructions: 'Choose the correct form to fix each mistake.',
+            instructionsAr: 'اختر الصيغة الصحيحة لتصحيح كل خطأ.',
             page: 78,
             verified: true,
             questions: [
@@ -902,6 +945,7 @@ export const unit06: Unit = {
         {
           type: 'audio',
           title: 'Review listening',
+          titleAr: 'استماع المراجعة',
           tracks: au(['R6.01'], 78),
         },
         {

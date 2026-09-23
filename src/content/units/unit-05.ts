@@ -44,6 +44,7 @@ export const unit05: Unit = {
         {
           type: 'text',
           title: 'The news that travels fast',
+          titleAr: 'الأخبار التي تنتشر بسرعة',
           paragraphs: [
             'Christopher Blair, who lives on the U.S. East Coast, is one of the world\u2019s most creative news writers. He isn\u2019t a journalist who writes articles for a newspaper. He writes news stories which are not true. He invents them and publishes them online.',
             'He writes about anything: politics, a famous athlete or someone who has been in the news recently. First, he writes a headline which will get attention. Then, he adds a few details and before long, he has written a blog post, which is about 200 words long. Sometimes he gets thousands of views in just minutes.',
@@ -53,6 +54,7 @@ export const unit05: Unit = {
         {
           type: 'vocab',
           title: 'news and social media',
+          titleAr: 'الأخبار ووسائل التواصل الاجتماعي',
           items: [
             { word: 'publish', meaning: 'make a story available for other people to read, in print or online', meaningAr: 'ينشر' },
             { word: 'journalist', meaning: 'someone who writes about the news for a newspaper, radio, TV, etc.', meaningAr: 'صحفي' },
@@ -73,6 +75,7 @@ export const unit05: Unit = {
             title: '5A Vocabulary',
             kind: 'fill-blank',
             instructions: 'Complete the sentences with the correct form of a word from Lesson 5A.',
+            instructionsAr: 'أكمل الجمل بالصيغة الصحيحة لكلمة من الدرس 5A.',
             page: 57,
             verified: true,
             questions: [
@@ -121,6 +124,7 @@ export const unit05: Unit = {
             title: 'The article: True or False?',
             kind: 'true-false',
             instructions: 'Read the article again. Are the statements True (T) or False (F)?',
+            instructionsAr: 'اقرأ المقال مرة أخرى. هل العبارات صحيحة (T) أم خاطئة (F)؟',
             page: 56,
             verified: true,
             questions: [
@@ -172,9 +176,13 @@ export const unit05: Unit = {
         {
           type: 'grammar',
           title: 'relative clauses',
+          titleAr: 'جمل الوصل (الموصولة)',
           explanation:
             'Relative clauses give extra information about a person, thing, place or time. They start with a relative pronoun: who (people), which (things), where (places), when (times) and whose (possession).',
+          explanationAr:
+            'تعطي جمل الوصل معلومات إضافية عن شخص أو شيء أو مكان أو وقت. تبدأ بضمير موصول: who (للأشخاص) و which (للأشياء) و where (للأماكن) و when (للأوقات) و whose (للملكية).',
           rule: 'who = people, which = things, where = places, when = times, whose = possession. That can replace who or which in defining relative clauses.',
+          ruleAr: 'who = الأشخاص، which = الأشياء، where = الأماكن، when = الأوقات، whose = الملكية. يمكن أن تحل that محل who أو which في جمل الوصل المحددة.',
           table: {
             headers: ['Relative pronoun', 'Use', 'Example'],
             rows: [
@@ -199,6 +207,7 @@ export const unit05: Unit = {
             title: 'Relative clauses',
             kind: 'fill-blank',
             instructions: 'Complete the sentences with who, which, when, where or whose.',
+            instructionsAr: 'أكمل الجمل بـ who أو which أو when أو where أو whose.',
             page: 58,
             verified: true,
             questions: [
@@ -243,11 +252,13 @@ export const unit05: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: wh-',
+          titleAr: 'النطق: wh-',
           tracks: au(['5.01', '5.02'], 58),
         },
         {
           type: 'text',
           title: 'Three news stories to retell',
+          titleAr: 'ثلاث أخبار لإعادة سردها',
           paragraphs: [
             'Reading 1: "WHALE LANDS IN FARMER\u2019S FIELD" - A 30,000 kg whale landed in a farmer\u2019s field in Arkadelphia, 482 km off the coast of Louisiana. The whale, which was picked up by the powerful winds of Hurricane Delta, was 15 m long.',
             'Reading 2: "SPIDERBITE!" - Three brothers from La Paz, Bolivia, were taken to hospital after being bitten by a black widow spider. The boys, who were aged eight, ten and twelve, let the spider bite them because they wanted to develop superpowers.',
@@ -275,6 +286,7 @@ export const unit05: Unit = {
         {
           type: 'text',
           title: 'In the news',
+          titleAr: 'في الأخبار',
           paragraphs: [
             'High levels of pollution found in cities: scientists report that there is increasing pollution in many cities around the world. It is thought that the increasing number of cars in cities is to blame.',
             'Schoolchildren remove waste from a beach to protect the environment: over a hundred children spent the day collecting plastic, tin cans and paper cups from a beach in Cornwall, UK.',
@@ -287,6 +299,7 @@ export const unit05: Unit = {
         {
           type: 'vocab',
           title: 'social issues; the environment',
+          titleAr: 'قضايا اجتماعية؛ البيئة',
           items: [
             { word: 'pollution', meaning: 'the amount of dirt or unwanted objects in the environment', meaningAr: 'التلوّث' },
             { word: 'level', meaning: 'the amount or number of something', meaningAr: 'المستوى / المقدار', example: 'Levels of pollution means the amount of dirt or unwanted objects in the environment.', exampleAr: 'مستويات التلوّث تعني مقدار الأوساخ أو المواد غير المرغوبة في البيئة.' },
@@ -304,11 +317,13 @@ export const unit05: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: silent letters',
+          titleAr: 'النطق: الحروف الصامتة',
           tracks: au(['5.03'], 59),
         },
         {
           type: 'text',
           title: 'Podcast: Young people in the news',
+          titleAr: 'بودكاست: الشباب في الأخبار',
           paragraphs: [
             'Yash Gupta: as a high school student he collected glasses and started a charity to donate them to students who couldn\u2019t afford them. His charity has helped thousands of people.',
             'Melati and Isabel Wijsen: they started a campaign against plastic bags in Bali when they were teenagers. Because of their campaign, in 2019 Bali banned single-use plastic bags.',
@@ -318,14 +333,19 @@ export const unit05: Unit = {
         {
           type: 'audio',
           title: 'Podcast: listen and answer',
+          titleAr: 'بودكاست: استمع وأجب',
           tracks: au(['5.04'], 60),
         },
         {
           type: 'grammar',
           title: 'reported speech',
+          titleAr: 'الكلام المنقول',
           explanation:
             'When we report what someone said, we usually move the tense back one step (backshift) and change pronouns and other words.',
+          explanationAr:
+            'عندما ننقل ما قاله شخص ما، نُرجّع الزمن خطوة إلى الوراء ونغيّر الضمائر والكلمات الأخرى.',
           rule: "present → past: 'He is a genius' → his friends said that he was a genius. present perfect → past perfect: 'It has changed my life' → it had changed his life. will → would: 'Bali will ban single-use plastic bags' → the governor said that Bali would ban single-use plastic bags.",
+          ruleAr: 'المضارع → الماضي: "He is a genius" → قال أصدقاؤه إنه كان عبقرياً. المضارع التام → الماضي التام: "It has changed my life" → غيّر حياته. will → would: "Bali will ban single-use plastic bags" → قال الحاكم إن بالي ستحظر الأكياس البلاستيكية ذات الاستعمال الواحد.',
           table: {
             headers: ['Direct speech', 'Reported speech'],
             rows: [
@@ -348,6 +368,7 @@ export const unit05: Unit = {
             title: 'Reported speech',
             kind: 'fill-blank',
             instructions: 'Read the direct speech, then complete the reported speech.',
+            instructionsAr: 'اقرأ الكلام المباشر، ثم أكمل الكلام المنقول.',
             page: 66,
             verified: true,
             questions: [
@@ -386,6 +407,7 @@ export const unit05: Unit = {
         {
           type: 'text',
           title: 'Writing: an online comment',
+          titleAr: 'الكتابة: تعليق على الإنترنت',
           paragraphs: [
             'A local newspaper reports a problem: Bawlyn Beach has become polluted. In July and August there are a lot of parties, and there aren\u2019t enough rubbish bins on the beach. People leave a lot of plastic, cans and other rubbish.',
             'A reader (Nellie Abberly, Vice Principal) responds with solutions: organise groups of young people to do clean-up projects; ask the local government for more rubbish bins; start a recycling project, for example collecting plastic from the beach.',
@@ -413,6 +435,7 @@ export const unit05: Unit = {
         {
           type: 'vocab',
           title: 'events and occasions',
+          titleAr: 'الأحداث والمناسبات',
           items: [
             { word: 'pass your exams/driving test', meaning: 'succeed in a test', meaningAr: 'ينجح في الامتحانات/اختبار القيادة', example: 'I passed my driving test.', exampleAr: 'نجحت في اختبار القيادة.' },
             { word: 'fail your exams/driving test', meaning: 'not succeed in a test', meaningAr: 'يرسب في الامتحانات/اختبار القيادة', example: 'I failed my accountancy exams for the third time.', exampleAr: 'رسبت في امتحانات المحاسبة للمرة الثالثة.' },
@@ -434,6 +457,7 @@ export const unit05: Unit = {
         {
           type: 'text',
           title: 'Good news and bad news',
+          titleAr: 'أخبار جيدة وأخبار سيئة',
           paragraphs: [
             'The best week ever! Elena says: "I can\u2019t believe it. I\u2019ve just moved into a really nice house, and I passed my driving test. Work\u2019s going really well. I got promoted, so I\u2019m now earning more money. My sister has had a baby, so now I\u2019m an aunt. I also posted a video online of me singing with my band and it got over 2,000 likes!"',
             'What about Tomas? "I\u2019m having a terrible week! I failed my accountancy exams for the third time. I\u2019m now worried I might lose my job. I broke my phone. I had an argument with a friend and now he isn\u2019t speaking to me. And I\u2019ve got my driving test tomorrow - I\u2019ll probably fail!"',
@@ -446,6 +470,7 @@ export const unit05: Unit = {
             title: 'How to\u2026 give and respond to personal news',
             kind: 'mcq',
             instructions: 'Choose the correct phrase.',
+            instructionsAr: 'اختر العبارة الصحيحة.',
             page: 63,
             verified: true,
             questions: [
@@ -515,13 +540,16 @@ export const unit05: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: intonation to exaggerate feelings',
+          titleAr: 'النطق: التنغيم للمبالغة في المشاعر',
           tracks: au(['5.05', '5.06', '5.07'], 63),
         },
         {
           type: 'callout',
           title: 'Note',
+          titleAr: 'ملاحظة',
           tone: 'tip',
           text: 'When we respond to news, we can exaggerate our feelings by stressing the vowel sounds and making them longer: "Wow, that\u2019s awesome!" The speakers in the audio use intonation to exaggerate their feelings.',
+          textAr: 'عندما نرد على الأخبار، يمكننا المبالغة في مشاعرنا بالتشديد على أصوات الحروف وإطالتها: «واو، هذا رائع!» يستخدم المتحدثون في المقطع الصوتي التنغيم للمبالغة في مشاعرهم.',
         },
         {
           type: 'pages',
@@ -543,6 +571,7 @@ export const unit05: Unit = {
         {
           type: 'text',
           title: 'BBC Street Interviews: The future of news',
+          titleAr: 'BBC: مقابلات الشارع - مستقبل الأخبار',
           paragraphs: [
             'The speakers talk about the types of news that interest them: celebrities, crime, culture, international news, local news, music, politics, sport and technology.',
             'Watch the video and tick the types of news that are mentioned. Then watch the second part and make notes on the predictions the speakers make about news in the future.',
@@ -551,6 +580,7 @@ export const unit05: Unit = {
         {
           type: 'video',
           title: 'BBC Street Interviews: The future of news',
+          titleAr: 'BBC: مقابلات الشارع - مستقبل الأخبار',
           videos: [
             {
               title: 'BBC Street Interviews: The future of news',
@@ -566,6 +596,7 @@ export const unit05: Unit = {
             title: 'Predictions from the interviews',
             kind: 'mcq',
             instructions: 'Choose the correct word to complete the summary for each speaker.',
+            instructionsAr: 'اختر الكلمة الصحيحة لإكمال الملخص لكل متحدث.',
             page: 64,
             verified: true,
             questions: [
@@ -638,9 +669,13 @@ export const unit05: Unit = {
         {
           type: 'grammar',
           title: 'will, might and be going to for predictions',
+          titleAr: 'will و might و be going to للتنبؤات',
           explanation:
             'We use will, might and be going to to talk about the future. Will shows strong certainty, might shows possibility, and be going to often shows a prediction based on present evidence or definite intention.',
+          explanationAr:
+            'نستخدم will و might و be going to للحديث عن المستقبل. تدل will على يقين قوي، وتدل might على احتمال، وكثيراً ما تدل be going to على توقع مبني على دليل حاضر أو نية مؤكدة.',
           rule: "will + verb = certain: 'I think print media will disappear.' might + verb = possible: 'I think it might be hard to distinguish real news from fake news.' be going to + verb = strong prediction: 'I definitely think that celebrities are going to be more prominent.'",
+          ruleAr: "will + الفعل = مؤكد: 'I think print media will disappear.' might + الفعل = محتمل: 'I think it might be hard to distinguish real news from fake news.' be going to + الفعل = توقع قوي: 'I definitely think that celebrities are going to be more prominent.'",
           table: {
             headers: ['Modal', 'Strength of prediction', 'Example'],
             rows: [
@@ -665,6 +700,7 @@ export const unit05: Unit = {
             title: 'will, might or be going to',
             kind: 'mcq',
             instructions: 'Complete the sentences from the interviews with the correct words.',
+            instructionsAr: 'أكمل الجمل من المقابلات بالكلمات الصحيحة.',
             page: 65,
             verified: true,
             questions: [
@@ -704,6 +740,7 @@ export const unit05: Unit = {
         {
           type: 'text',
           title: 'Writing: a webpage about a news app',
+          titleAr: 'الكتابة: صفحة ويب عن تطبيق أخبار',
           paragraphs: [
             'Read about the Happy News app. It brings you the best good news stories from around the world every day. "We will bring you wonderful stories about people from all around the world who are doing amazing things. We won\u2019t publish stories about disasters and political problems. By sharing these kinds of stories, we might start to make the world a better place."',
             'Write a webpage for your own news app. Include a description of the app, what it will include and won\u2019t include, and why people should subscribe.',
@@ -725,6 +762,7 @@ export const unit05: Unit = {
         {
           type: 'text',
           title: 'Review what you have learned',
+          titleAr: 'راجع ما تعلمته',
           paragraphs: [
             'Complete the review exercises to practise the grammar and vocabulary of Unit 5: relative clauses, reported speech, and will, might and be going to for predictions.',
           ],
@@ -736,6 +774,7 @@ export const unit05: Unit = {
             title: 'Choose the correct words',
             kind: 'mcq',
             instructions: 'Choose the correct words to complete the definitions.',
+            instructionsAr: 'اختر الكلمات الصحيحة لإكمال التعريفات.',
             page: 66,
             verified: true,
             questions: [
@@ -809,6 +848,7 @@ export const unit05: Unit = {
             title: 'Put the words in order',
             kind: 'ordering',
             instructions: 'Put the words in order to make sentences about the future.',
+            instructionsAr: 'رتّب الكلمات بالترتيب الصحيح لتكوين جمل عن المستقبل.',
             page: 66,
             verified: true,
             questions: [
@@ -842,6 +882,7 @@ export const unit05: Unit = {
         {
           type: 'audio',
           title: 'Review listening',
+          titleAr: 'استماع المراجعة',
           tracks: au(['R5.01'], 66),
         },
         {

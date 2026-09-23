@@ -28,12 +28,15 @@ const lesson2A: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 2A',
+      titleAr: 'الدرس 2أ',
       tone: 'info',
       text: 'What happened? \u2013 you learn to use narrative tenses (past simple, past continuous and past perfect) to tell stories and anecdotes, and adjectives with -ed and -ing to describe feelings.',
+      textAr: 'ماذا حدث؟ \u2013 تتعلم استخدام أزمنة السرد (الماضي البسيط والماضي المستمر والماضي التام) لسرد القصص والطرائف، وصفات المنتهية بـ -ed و-ing لوصف المشاعر.',
     },
     {
       type: 'vocab',
       title: 'adjectives for feelings; -ed/-ing adjectives',
+      titleAr: 'صفات المشاعر؛ الصفات المنتهية بـ -ed/-ing',
       items: [
         { word: 'bored', meaning: 'feeling unhappy because something is not interesting', meaningAr: 'يشعر بالملل', example: 'We were bored, so we went into the garage.', exampleAr: 'كنا نشعر بالملل، فدخلنا المرآب.' },
         { word: 'exciting', meaning: 'making you feel excited', meaningAr: 'مثير', example: 'We were really excited when we found all dad\u2019s paints.', exampleAr: 'كنا متحمسين جداً عندما وجدنا كل ألوان أبي.' },
@@ -49,6 +52,7 @@ const lesson2A: Lesson = {
     {
       type: 'text',
       title: 'Reading: a story about a painting surprise',
+      titleAr: 'القراءة: قصة مفاجأة الرسم',
       paragraphs: [
         'Read the story and choose the best final sentence for it. This happened when my sister and I were three and four years old. It was the summer holidays and my granddad was looking after us. We were bored, so we went into the garage and were really excited when we found all dad\u2019s paints. We decided to surprise him by painting the house while he was at work.',
         'We managed to paint a big area of wall blue before my granddad noticed. I think he found it a bit embarrassing that he wasn\u2019t watching us carefully enough. He said to us, \u201cYour dad is going to be really annoyed!\u201d My sister and I were frightened, but when dad came home, all he said was, \u201cI\u2019m surprised you chose blue. I thought you two preferred red.\u201d Now I look back, it\u2019s amazing that he was so calm. He was probably disappointed with us, but he didn\u2019t show it.',
@@ -57,6 +61,7 @@ const lesson2A: Lesson = {
     {
       type: 'audio',
       title: 'Listening: a story about two friends in India',
+      titleAr: 'الاستماع: قصة صديقتين في الهند',
       tracks: au(['2.01']),
     },
     {
@@ -66,6 +71,7 @@ const lesson2A: Lesson = {
         title: 'The story of Beth and Jane',
         kind: 'true-false',
         instructions: 'Listen to the story about two friends travelling in India, then answer the questions about the events.',
+        instructionsAr: 'استمع إلى قصة صديقتين تسافران في الهند، ثم أجب عن الأسئلة المتعلقة بالأحداث.',
         page: 21,
         verified: true,
         questions: [
@@ -105,10 +111,13 @@ const lesson2A: Lesson = {
     {
       type: 'grammar',
       title: 'narrative tenses',
+      titleAr: 'أزمنة السرد',
       explanation:
         'When we tell a story, we use the past continuous to set the scene (background information), the past simple for the main events, and the past perfect to talk about an earlier event.',
+      explanationAr: 'عندما نسرد قصة، نستخدم الماضي المستمر لتهيئة المشهد (المعلومات الخلفية)، والماضي البسيط للأحداث الرئيسية، والماضي التام للتحدث عن حدث أقدم.',
       rule:
         "past continuous: background information \u2192 They were sleeping on the floor. past simple: the main events \u2192 Suddenly, the train stopped in the middle of nowhere. past perfect: had + past participle for an earlier event \u2192 Jane woke up on the railway track. She had fallen off the train.",
+      ruleAr: 'الماضي المستمر: للمعلومات الخلفية \u2192 كانوا ينامون على الأرض. الماضي البسيط: للأحداث الرئيسية \u2192 فجأة توقف القطار في مكان مقطوع. الماضي التام: had + التصريف الماضي للحدث الأسبق \u2192 استيقظت جين على سكة القطار، وكانت قد سقطت منه.',
       table: {
         headers: ['Tense', 'Use'],
         rows: [
@@ -131,6 +140,7 @@ const lesson2A: Lesson = {
         title: 'Narrative tenses',
         kind: 'mcq',
         instructions: 'Choose the correct verb form to complete the sentences.',
+        instructionsAr: 'اختر صيغة الفعل الصحيحة لإكمال الجمل.',
         page: 21,
         verified: true,
         questions: [
@@ -170,11 +180,13 @@ const lesson2A: Lesson = {
     {
       type: 'audio',
       title: 'Pronunciation: weak forms of was, were and had',
+      titleAr: 'النطق: الصيغ النبرية لـ was وwere وhad',
       tracks: au(['2.02', '2.03']),
     },
     {
       type: 'text',
       title: 'Speaking: tell an anecdote',
+      titleAr: 'التحدث: اروِ قصة خفيفة',
       paragraphs: [
         'You are going to tell your partner an anecdote about a personal memory. Choose one of the situations below, or your own idea: you visited an amazing place; you went to a fun event (a sports or music event, or a party); you saw or met someone famous or interesting; something unusual happened to you; something went wrong (you lost or forgot something).',
         'Plan your anecdote. Answer: When was it? Where were you? Who were you with? What happened? How did you feel? What happened in the end? Then tell your anecdotes in groups, adding as much detail as you can.',
@@ -183,6 +195,7 @@ const lesson2A: Lesson = {
     {
       type: 'text',
       title: 'Writing: a personal story',
+      titleAr: 'الكتابة: قصة شخصية',
       paragraphs: [
         'Read the story \u201cLeft on an island off Okinawa\u201d about what happened to Rob, then complete it with the linking phrases: after that, as soon as, at first, by the time, in the end, one day, while. Then write your own story using narrative tenses and some of the linking phrases.',
         'Linking phrases and their meanings: while (two actions happening at the same time); in the end (something that happens at the end of the story); as soon as (immediately after another action); after that (the action that happens next); by the time (an action that happened previously); one day (sets the scene at the beginning); at first (the action at the beginning).',
@@ -219,12 +232,15 @@ const lesson2B: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 2B',
+      titleAr: 'الدرس 2ب',
       tone: 'info',
       text: 'Storytelling \u2013 you read an article about how stories have changed from cave paintings to video games, and talk about films, books and TV shows using the past simple and the present perfect.',
+      textAr: 'سرد القصص \u2013 تقرأ مقالاً عن كيف تغيرت القصص من رسومات الكهوف إلى ألعاب الفيديو، وتتحدث عن الأفلام والكتب والبرامج التلفزيونية باستخدام الماضي البسيط والمضارع التام.',
     },
     {
       type: 'vocab',
       title: 'story words',
+      titleAr: 'مفردات القصة',
       items: [
         { word: 'hero', meaning: 'the main person in a story', meaningAr: 'البطل', example: 'The hero of the film saves the town.', exampleAr: 'بطل الفيلم ينقذ البلدة.' },
         { word: 'characters', meaning: 'the people in a story', meaningAr: 'الشخصيات', example: 'The characters in this book are very realistic.', exampleAr: 'شخصيات هذا الكتاب واقعية جداً.' },
@@ -240,6 +256,7 @@ const lesson2B: Lesson = {
     {
       type: 'audio',
       title: 'Listening: what makes a good story?',
+      titleAr: 'الاستماع: ما الذي يجعل القصة جيدة؟',
       tracks: au(['2.04']),
     },
     {
@@ -249,6 +266,7 @@ const lesson2B: Lesson = {
         title: 'Story words: match the meanings',
         kind: 'mcq',
         instructions: 'Match the story words with their meanings.',
+        instructionsAr: 'طابق مفردات القصة مع معانيها.',
         page: 23,
         verified: true,
         questions: [
@@ -382,6 +400,7 @@ const lesson2B: Lesson = {
         title: 'Guess the film',
         kind: 'mcq',
         instructions: 'Match the 10-word summaries with the famous films.',
+        instructionsAr: 'طابق الملخصات المكوّنة من عشر كلمات مع الأفلام الشهيرة.',
         page: 23,
         verified: true,
         questions: [
@@ -451,6 +470,7 @@ const lesson2B: Lesson = {
     {
       type: 'text',
       title: 'Reading: The lives of stories',
+      titleAr: 'القراءة: حياة القصص',
       paragraphs: [
         'Stories have always been important, but the ways we tell them have changed through time. Before the development of writing, people told their stories aloud. Then writing and books came along and changed all that. Now, with virtual reality and gaming technology, stories are more interactive than before. The players help to create the story. They choose names for their heroes, and decide where characters go, what they do and how they interact with other characters.',
         'Storytelling is as old as language. Stories are everywhere and in every culture. India, China and Mexico all have their own version of the fairytale Cinderella. People in the Middle East have told the story of Little Red Riding Hood for a thousand years. Australian First Nation people tell stories about how the first people sang the world into existence.',
@@ -464,6 +484,7 @@ const lesson2B: Lesson = {
         title: 'Reading: true or false',
         kind: 'true-false',
         instructions: 'Read the article again and decide if these ideas are mentioned (true) or not (false).',
+        instructionsAr: 'أعد قراءة المقال وقرر هل هذه الأفكار مذكورة فيه (صحيح) أم لا (خاطئ).',
         page: 25,
         verified: true,
         questions: [
@@ -480,10 +501,13 @@ const lesson2B: Lesson = {
     {
       type: 'grammar',
       title: 'past simple and present perfect',
+      titleAr: 'الماضي البسيط والمضارع التام',
       explanation:
         "The past simple describes an event that started and finished at a specific time in the past. The present perfect describes something that started in the past and continues, or is still important, now.",
+      explanationAr: 'يصف الماضي البسيط حدثاً بدأ وانتهى في وقت محدد في الماضي. ويصف المضارع التام شيئاً بدأ في الماضي وما زال مستمراً، أو ما يزال مهماً، حتى الآن.',
       rule:
         "past simple: an event that started and finished at a specific time in the past \u2192 In December 2019, researchers in Indonesia found a cave with paintings. present perfect: something that started in the past and continues, or is still important, now \u2192 People in the Middle East have told the story of Little Red Riding Hood for a thousand years. New technologies have brought exciting new ways to tell stories.",
+      ruleAr: 'الماضي البسيط: حدث بدأ وانتهى في وقت محدد في الماضي \u2192 في ديسمبر 2019، وجد الباحثون في إندونيسيا كهفاً يحتوي على رسومات. المضارع التام: شيء بدأ في الماضي وما زال مستمراً أو مهماً الآن \u2192 يروي الناس في الشرق الأوسط قصة ذات الرداء الأحمر منذ ألف عام. وقد جلبت التقنيات الجديدة طرقاً مثيرة لسرد القصص.',
       table: {
         headers: ['Tense', 'Use'],
         rows: [
@@ -506,6 +530,7 @@ const lesson2B: Lesson = {
         title: 'Past simple or present perfect?',
         kind: 'mcq',
         instructions: 'Choose the correct verb form.',
+        instructionsAr: 'اختر صيغة الفعل الصحيحة.',
         page: 24,
         verified: true,
         questions: [
@@ -545,11 +570,13 @@ const lesson2B: Lesson = {
     {
       type: 'audio',
       title: 'Pronunciation: contracted have in the present perfect',
+      titleAr: 'النطق: have المخففة في المضارع التام',
       tracks: au(['2.05']),
     },
     {
       type: 'text',
       title: 'Speaking: find someone who \u2026',
+      titleAr: 'التحدث: ابحث عن شخص \u2026',
       paragraphs: [
         'Move around the classroom. Ask your classmates questions and find a name to add to each activity in the table: has watched a really frightening horror film; has been to the cinema recently; has seen every episode of a TV show; has read more than fifty books; has played a lot of different video games; has read or seen a play by William Shakespeare; has acted in a film, TV show or play; has met a famous writer, actor or YouTuber. Ask more questions and add extra information.',
       ],
@@ -585,12 +612,15 @@ const lesson2C: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 2C',
+      titleAr: 'الدرس 2ج',
       tone: 'info',
       text: 'A likely story! \u2013 you learn to apologise and give reasons. An excuse (n) is a reason given or invented to explain why you did something wrong.',
+      textAr: 'قصة محتملة! \u2013 تتعلم كيف تعتذر وتعطي أسباباً. العذر (اسم) هو سبب يُعطى أو يُختلق لشرح سبب فعل شيء خاطئ.',
     },
     {
       type: 'vocab',
       title: 'collocations with get and make',
+      titleAr: 'التوافقيات اللفظية مع get وmake',
       items: [
         { word: 'get off', meaning: 'to leave a bus or train', meaningAr: 'ينزل من (الحافلة أو القطار)', example: 'I got off at the wrong bus stop!', exampleAr: 'نزلت في موقف الحافلة الخطأ!' },
         { word: 'get lost', meaning: 'to not know where you are', meaningAr: 'يتوه / يضيع الطريق', example: 'Sorry I\u2019m late \u2013 I got lost!', exampleAr: 'آسف على التأخير – لقد تهتُ!' },
@@ -609,6 +639,7 @@ const lesson2C: Lesson = {
         title: 'Collocations with get and make',
         kind: 'mcq',
         instructions: 'Match the collocations with their meanings.',
+        instructionsAr: 'طابق التوافقيات اللفظية مع معانيها.',
         page: 26,
         verified: true,
         questions: [
@@ -738,6 +769,7 @@ const lesson2C: Lesson = {
     {
       type: 'text',
       title: 'That\u2019s a bad excuse!',
+      titleAr: 'هذا عذر سيئ!',
       paragraphs: [
         'Read the worst excuses people give for being late: \u201cMy dog\u2019s unwell\u201d (don\u2019t say your pet is ill when everyone knows you don\u2019t have one). \u201cI fell asleep, so I missed the bus\u201d (no good when your boss knows you drive to work). \u201cI thought it was Saturday today\u201d (do you want your colleagues to think you don\u2019t know what day it is?). \u201cI fell over and broke my toe\u201d (this is OK, but you need to make a plan to get back to work). \u201cI was held up in a traffic jam, so I drove a different way, but then I got lost.\u201d And finally, \u201cI spilled my breakfast and it made a mess on my shirt, and I don\u2019t have a clean one.\u201d',
         'Our advice: if you can\u2019t think of a good excuse, don\u2019t even make the call to the office!',
@@ -746,6 +778,7 @@ const lesson2C: Lesson = {
     {
       type: 'audio',
       title: 'Listening: six conversations with problems',
+      titleAr: 'الاستماع: ست محادثات فيها مشكلات',
       tracks: au(['2.06']),
     },
     {
@@ -755,6 +788,7 @@ id: 'u2-2c-listening',
         title: 'Listen and match the problem',
         kind: 'mcq',
         instructions: 'Listen to the conversations and match each conversation with the problem.',
+        instructionsAr: 'استمع إلى المحادثات وطابق كل محادثة مع المشكلة.',
         page: 27,
         verified: true,
         questions: [
@@ -842,11 +876,13 @@ id: 'u2-2c-listening',
     {
       type: 'audio',
       title: 'Listening: check your answers',
+      titleAr: 'الاستماع: تحقق من إجاباتك',
       tracks: au(['2.07']),
     },
     {
       type: 'examples',
       title: 'How to \u2026 apologise and give reasons',
+      titleAr: 'كيف تعتذر وتعطي أسباباً؟',
       items: [
         'saying sorry: Sorry I\u2019m late. / Sorry to keep you waiting. / I apologise.',
         'giving a reason: There was a \u2026 delay / problem with \u2026 My train/flight was delayed/cancelled. I got the date/day/time/address wrong. The traffic was terrible. I made a mistake.',
@@ -862,6 +898,7 @@ id: 'u2-2c-listening',
         title: 'Complete the conversations',
         kind: 'fill-blank',
         instructions: 'Choose the correct words to complete the conversations.',
+        instructionsAr: 'اختر الكلمات الصحيحة لإكمال المحادثات.',
         page: 27,
         verified: true,
         questions: [
@@ -906,6 +943,7 @@ id: 'u2-2c-listening',
     {
       type: 'audio',
       title: 'Pronunciation: intonation for apologising',
+      titleAr: 'النطق: التنغيم عند الاعتذار',
       tracks: au(['2.08']),
     },
     {
@@ -915,6 +953,7 @@ id: 'u2-2c-listening',
         title: 'Intonation for apologising',
         kind: 'mcq',
         instructions: 'Listen to four apologies and choose the correct answer about the intonation.',
+        instructionsAr: 'استمع إلى أربعة اعتذارات واختر الإجابة الصحيحة المتعلقة بالتنغيم.',
         page: 27,
         verified: true,
         questions: [
@@ -934,6 +973,7 @@ id: 'u2-2c-listening',
     {
       type: 'text',
       title: 'Speaking: roleplay',
+      titleAr: 'التحدث: تمثيل أدوار',
       paragraphs: [
         'Roleplay two situations. Student A: 1) You missed a work meeting \u2013 apologise, accept responsibility and give a reason, and explain how you will take action. 2) You made a plan to have dinner with a friend at a restaurant; the friend is very late \u2013 accept your friend\u2019s apology, check they are OK, and ask if they still want to eat.',
         'Student B: read the situations on page 148.',
@@ -970,12 +1010,15 @@ const lesson2D: Lesson = {
     {
       type: 'callout',
       title: 'Lesson 2D',
+      titleAr: 'الدرس 2د',
       tone: 'info',
       text: 'The story of a place \u2013 a BBC documentary about Matera in southern Italy, famous for its caves. Watch the video and learn about how the town has changed.',
+      textAr: 'قصة مكان \u2013 وثائقي بي بي سي عن مدينة ماتيرا في جنوب إيطاليا، المشهورة بكهوفها. شاهد الفيديو وتعرف على كيف تغيرت المدينة.',
     },
     {
       type: 'video',
       title: 'BBC Programme: Mediterranean with Simon Reeve',
+      titleAr: 'برنامج بي بي سي: البحر المتوسط مع سيمون ريف',
       videos: [
         { title: 'BBC Programme: the story of a place', file: 'SO3 B1 U2 BBC Programmes.mp4', page: 28 },
       ],
@@ -983,6 +1026,7 @@ const lesson2D: Lesson = {
     {
       type: 'text',
       title: 'Programme information',
+      titleAr: 'معلومات عن البرنامج',
       paragraphs: [
         'Simon Reeve goes on an extraordinary journey around the Mediterranean, an area that attracts about a third of the world\u2019s tourism with its beautiful beaches and fascinating historical sights. Simon travels around the Mediterranean trying to uncover the everyday reality and the history behind what tourists see. In this programme Simon visits the town of Matera, in southern Italy, where he learns about the history of its famous caves.',
       ],
@@ -994,6 +1038,7 @@ const lesson2D: Lesson = {
         title: 'Watch: number the topics',
         kind: 'ordering',
         instructions: 'Watch the BBC video clip and number the topics in the order they are mentioned.',
+        instructionsAr: 'شاهد مقطع فيديو بي بي سي ورتب المواضيع بالأرقام حسب ترتيب ذكرها.',
         questions: [
           {
             id: 'q1',
@@ -1011,6 +1056,7 @@ const lesson2D: Lesson = {
         title: 'Watch again: complete the summary',
         kind: 'fill-blank',
         instructions: 'Complete the summary of the video with one or two words in each gap.',
+        instructionsAr: 'أكمل ملخص الفيديو بكلمة أو كلمتين في كل فراغ.',
         page: 28,
         verified: true,
         questions: [
@@ -1052,6 +1098,7 @@ const lesson2D: Lesson = {
         title: 'Watch again: true or false',
         kind: 'true-false',
         instructions: 'Watch the video again and decide if the statements are true (T) or false (F).',
+        instructionsAr: 'شاهد الفيديو مرة أخرى وقرر هل العبارات صحيحة (T) أم خاطئة (F).',
         page: 28,
         verified: true,
         questions: [
@@ -1066,10 +1113,13 @@ const lesson2D: Lesson = {
     {
       type: 'grammar',
       title: 'prepositions of time',
+      titleAr: 'حروف الجر للزمن',
       explanation:
         'We use before, until and during to talk about time in a narrative about a place or situation.',
+      explanationAr: 'نستخدم before وuntil وduring للحديث عن الزمن في سرد يخص مكاناً أو موقفاً.',
       rule:
         "until: the situation continues up to that time \u2192 The old way of life continued in Matera until the Italian government moved people out of the caves. before: earlier than that time \u2192 Before they moved into modern homes, families shared the caves with their animals. during: at the same time as a period \u2192 The changes happened during the 1950s.",
+      ruleAr: 'until: يستمر الموقف حتى ذلك الوقت \u2192 استمرت طريقة الحياة القديمة في ماتيرا حتى نقلت الحكومة الإيطالية الناس من الكهوف. before: قبل ذلك الوقت \u2192 قبل أن ينتقلوا إلى منازل حديثة، كانت العائلات تشارك الكهوف مع حيواناتها. during: في الوقت نفسه من فترة معينة \u2192 حدثت التغييرات أثناء خمسينيات القرن الماضي.',
       table: {
         headers: ['Preposition', 'Use'],
         rows: [
@@ -1088,6 +1138,7 @@ const lesson2D: Lesson = {
     {
       type: 'text',
       title: 'Speaking: the story of a place',
+      titleAr: 'التحدث: قصة مكان',
       paragraphs: [
         'Plan to talk about a place that is special to you (or a famous place in your country). Make some notes about the place in the past and now. Work in groups and take turns to tell the story of your place. Use the key phrases: When I first visited \u2026 it was \u2026 \u2026 is well known/famous for its \u2026 The city has changed a lot. Before \u2026 it was \u2026 Nowadays, \u2026 It has a wonderful atmosphere / a fantastic history / great food / amazing art galleries \u2026 The city has a lot to offer. You can explore/enjoy/visit \u2026 I really recommend it.',
       ],
@@ -1095,6 +1146,7 @@ const lesson2D: Lesson = {
     {
       type: 'text',
       title: 'Writing: a review of a place',
+      titleAr: 'الكتابة: تقييم لمكان',
       paragraphs: [
         'Read the review of Cornwall and notice how it describes the place in the past and now. Then write a review of a place you know. Write about: when you first went there, what it was like then, how it has changed, what it is like now, and who you would recommend it for and why.',
         'Cornwall: \u201cI first went to Cornwall on a family holiday when I was a child. At that time, the villages were very small and the beaches were usually empty. Historically, the area was known for its fishing. Nowadays, Cornwall is one of the most popular tourist destinations in the UK, and it\u2019s becoming more popular every year. I really recommend it for families or for anybody who enjoys exploring beautiful coastlines.\u201d',
@@ -1127,6 +1179,7 @@ const lesson2Review: Lesson = {
     {
       type: 'review',
       title: 'Unit 2 Review',
+      titleAr: 'مراجعة الوحدة الثانية',
       text: 'Complete the tasks to recycle the grammar and vocabulary from Unit 2: narrative tenses, past simple and present perfect, prepositions of time, and collocations with get and make.',
     },
     {
@@ -1136,6 +1189,7 @@ const lesson2Review: Lesson = {
         title: 'Narrative tenses',
         kind: 'fill-blank',
         instructions: 'Complete the story with the correct form of the verbs in brackets.',
+        instructionsAr: 'أكمل القصة بالصيغة الصحيحة للأفعال بين الأقواس.',
         page: 30,
         verified: true,
         questions: [
@@ -1170,6 +1224,7 @@ const lesson2Review: Lesson = {
         title: 'Types of film',
         kind: 'fill-blank',
         instructions: 'Complete the sentences by choosing the correct words from the options.',
+        instructionsAr: 'أكمل الجمل باختيار الكلمات الصحيحة من الخيارات.',
         page: 30,
         verified: true,
         questions: [
@@ -1204,6 +1259,7 @@ const lesson2Review: Lesson = {
         title: 'Prepositions of time',
         kind: 'true-false',
         instructions: 'Correct one or two mistakes in each sentence.',
+        instructionsAr: 'صحح خطأً أو خطأين في كل جملة.',
         page: 30,
         verified: true,
         questions: [
@@ -1222,6 +1278,7 @@ const lesson2Review: Lesson = {
         title: 'How would you feel?',
         kind: 'mcq',
         instructions: 'How would you feel in these situations? Choose the best adjective.',
+        instructionsAr: 'كيف ستشعر في هذه المواقف؟ اختر أفضل صفة.',
         page: 31,
         verified: true,
         questions: [
@@ -1271,6 +1328,7 @@ const lesson2Review: Lesson = {
     {
       type: 'audio',
       title: 'Review listening: check your answers',
+      titleAr: 'استماع المراجعة: تحقق من إجاباتك',
       tracks: au(['R2.01']),
     },
   ],

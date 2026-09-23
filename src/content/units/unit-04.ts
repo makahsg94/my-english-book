@@ -44,6 +44,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'How competitive are you?',
+          titleAr: 'ما مدى حبّك للمنافسة؟',
           paragraphs: [
             'Do you always try to win? Do a questionnaire to find out. For each question, choose one answer which reflects your ideas.',
             'When I know that a task will be difficult, I try to forget about it and wait as long as possible before starting. Or I am very strict with myself and start the task as soon as possible. Or I think about it and prepare carefully before I start.',
@@ -54,6 +55,7 @@ export const unit04: Unit = {
         {
           type: 'vocab',
           title: 'success',
+          titleAr: 'النجاح',
           items: [
             { word: 'talented', meaning: 'naturally good at something', meaningAr: 'موهوب', example: "She's a really talented dancer - she's so good!", exampleAr: 'إنها راقصة موهوبة حقاً - إنها بارعة جداً!' },
             { word: 'strict (with yourself)', meaning: 'demanding that rules are followed', meaningAr: 'صارم / متشدّد (مع نفسك)', example: 'He needs to be strict about when he starts work.', exampleAr: 'يحتاج أن يكون صارماً بشأن وقت بدئه للعمل.' },
@@ -74,6 +76,7 @@ export const unit04: Unit = {
             title: '4A Vocabulary',
             kind: 'fill-blank',
             instructions: 'Complete the sentences with the correct word from Lesson 4A.',
+            instructionsAr: 'أكمل الجمل بالكلمة الصحيحة من الدرس 4A.',
             page: 44,
             verified: true,
             questions: [
@@ -125,6 +128,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Podcast: Rules for success',
+          titleAr: 'بودكاست: قواعد النجاح',
           paragraphs: [
             'We all have dreams - to play international football, become a senior manager in a company or write a best-selling book. Only a few people achieve their dreams. What do these winners share, and what can we learn from them?',
             'Track 4.01: listen to the podcast and number the main points in the order you hear them: work harder than other people; be friendly to the people you meet; decide what you want to achieve; take action \u2013 don\u2019t wait before you start; don\u2019t stop when you experience problems; relax and enjoy time off work.',
@@ -133,6 +137,7 @@ export const unit04: Unit = {
         {
           type: 'audio',
           title: 'Podcast and pronunciation',
+          titleAr: 'البودكاست والنطق',
           tracks: au(['4.01', '4.02'], 45),
         },
         {
@@ -142,6 +147,7 @@ export const unit04: Unit = {
             title: 'Podcast: True or False?',
             kind: 'true-false',
             instructions: 'Are the statements True (T) or False (F)? Listen to the podcast again and check.',
+            instructionsAr: 'هل العبارات صحيحة (T) أم خاطئة (F)؟ استمع إلى البودكاست مرة أخرى وتحقق.',
             page: 45,
             verified: true,
             questions: [
@@ -187,9 +193,13 @@ export const unit04: Unit = {
         {
           type: 'grammar',
           title: 'modals for rules and advice',
+          titleAr: 'الأفعال الناقصة للقواعد والنصائح',
           explanation:
             'Modal verbs change the meaning of the verb that follows. Some modals say something is necessary, some say it is not necessary, and some give advice.',
+          explanationAr:
+            'الأفعال الناقصة تغيّر معنى الفعل الذي يليها. بعضها يدل على أن شيئاً ضروري، وبعضها يدل على أنه غير ضروري، وبعضها يعطي نصيحة.',
           rule: "c = it is necessary. Have to / need to / must. a = it's a good idea: should. b = this isn't necessary: don't have to / needn't. d = don't do this, it isn't allowed or advised: mustn't.",
+          ruleAr: "c = شيء ضروري. Have to / need to / must. a = فكرة جيدة: should. b = هذا ليس ضرورياً: don't have to / needn't. d = لا تفعل هذا، غير مسموح به أو يُنصح به: mustn't.",
           table: {
             headers: ['Modal', 'Meaning', 'Example'],
             rows: [
@@ -214,6 +224,7 @@ export const unit04: Unit = {
             title: 'Rules for success',
             kind: 'mcq',
             instructions: 'Choose the correct modal verb.',
+            instructionsAr: 'اختر الفعل الناقص الصحيح.',
             page: 45,
             verified: true,
             questions: [
@@ -283,6 +294,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Writing: an email/letter giving advice',
+          titleAr: 'كتابة: رسالة إلكترونية / رسالة لتقديم النصائح',
           paragraphs: [
             'Read the email from Marilyn to her friend Sara, who wants to change careers. The problem is that Sara hates working in an office. Marilyn gives advice: work out what you really want to do, do your research, try work experience or voluntary work, and think carefully before making a big change.',
             'Useful phrases for giving advice: you need to\u2026, try to think about\u2026, why not try\u2026, how about doing\u2026, make sure you\u2026, don\u2019t be afraid of\u2026, take the first small step.',
@@ -310,6 +322,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'First to fly',
+          titleAr: 'أول من طار',
           paragraphs: [
             'Who made the first flight? Books about the history of flight often say it was the Wright brothers, but some people believe it was an inventor called Alberto Santos Dumont.',
             'On December 17, 1903, Orville and Wilbur Wright succeeded in getting their plane into the air for twelve seconds. Three years later, on October 23, 1906, Santos Dumont also flew. The Brazilian\u2019s flight was watched by hundreds of people as well as experts from the Aéro-Club de France.',
@@ -319,9 +332,13 @@ export const unit04: Unit = {
         {
           type: 'grammar',
           title: 'articles',
+          titleAr: 'أدوات التعريف',
           explanation:
             'Articles tell the listener or reader if we are talking about something new, something already known, or things in general.',
+          explanationAr:
+            'أدوات التعريف تفيد المستمع أو القارئ هل نتحدث عن شيء جديد، أم شيء معروف، أم عن أشياء بشكل عام.',
           rule: "We use a/an the first time something is mentioned (new information) and with jobs. We use the when we know which person or thing we are talking about, and with superlatives. We use no article when we talk generally about people and things, and with most names of places.",
+          ruleAr: 'نستخدم a/an عند ذكر الشيء لأول مرة (معلومة جديدة) ومع المهن. نستخدم the عندما نعرف الشخص أو الشيء الذي نتحدث عنه، ومع صيغ التفضيل. لا نستخدم أداة عندما نتحدث عن الناس والأشياء بشكل عام، ومع معظم أسماء الأماكن.',
           table: {
             headers: ['Article', 'Use', 'Example'],
             rows: [
@@ -344,6 +361,7 @@ export const unit04: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: the',
+          titleAr: 'النطق: أداة the',
           tracks: au(['4.03'], 47),
         },
         {
@@ -353,6 +371,7 @@ export const unit04: Unit = {
             title: 'Articles: the joke',
             kind: 'fill-blank',
             instructions: 'Complete the joke by adding a / an, the or nothing (-).',
+            instructionsAr: 'أكمل النكتة بإضافة a / an أو the أو لا شيء (-).',
             page: 54,
             verified: true,
             questions: [
@@ -391,6 +410,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Famous Tech Firsts',
+          titleAr: 'أول إنجازات التكنولوجيا الشهيرة',
           paragraphs: [
             '1839 - Frenchman Louis Daguerre invented the camera. But Robert Cornelius made changes to the invention and in 1839 tried an experiment using his own image. To take the picture, he sat still for fifteen minutes. The result was the very first selfie.',
             '1958 - William Higinbotham and Robert Dvorak created the world\u2019s first video game. It was a version of tennis. They developed the game to show to visitors at the Brookhaven National Laboratory, where they worked. Many years later, a similar game called Pong became famous.',
@@ -409,6 +429,7 @@ export const unit04: Unit = {
             title: 'When was the first\u2026?',
             kind: 'mcq',
             instructions: 'Choose the correct date for each technology first.',
+            instructionsAr: 'اختر التاريخ الصحيح لكل إنجاز تكنولوجي أول.',
             page: 48,
             verified: true,
             questions: [
@@ -498,6 +519,7 @@ export const unit04: Unit = {
         {
           type: 'vocab',
           title: 'technology collocations; word building: suffixes',
+          titleAr: 'تراكيب التكنولوجيا؛ بناء الكلمات: اللواحق',
           items: [
             { word: 'create a webpage', meaningAr: 'ينشئ صفحة ويب', example: 'Tim Berners-Lee showed how to create webpages.', exampleAr: 'أوضح تيم بيرنرز-لي كيفية إنشاء صفحات الويب.' },
             { word: 'send / receive a text', meaningAr: 'يرسل / يستقبل رسالة نصية', example: 'Didn\u2019t you receive all my texts?', exampleAr: 'ألم تستقبل كل رسائلي النصية؟' },
@@ -517,6 +539,7 @@ export const unit04: Unit = {
             title: 'Word building: suffixes',
             kind: 'mcq',
             instructions: 'Match each verb with its related noun (look at the text again to help you).',
+            instructionsAr: 'طابق كل فعل مع الاسم المرتبط به (أعد النظر إلى النص لمساعدتك).',
             page: 49,
             verified: true,
             questions: [
@@ -588,6 +611,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Is it a sport?',
+          titleAr: 'هل هي رياضة؟',
           paragraphs: [
             'Can we call board games like chess a sport? If you are really good at computer games and take part in e-sports competitions, are you a sportsperson? Some people would call these activities games rather than sports, but not everyone agrees.',
             "What makes a sport? First, it's an activity that requires physical skill and fitness. Secondly, it has a set of rules. And lastly, you can play it competitively, so there's a result, along with a winner and loser. Chess and e-sports certainly have rules and are competitive. What do you think? What about bowling, dance and fishing? Are they sports, or just hobbies?",
@@ -596,6 +620,7 @@ export const unit04: Unit = {
         {
           type: 'vocab',
           title: 'sports and games',
+          titleAr: 'الرياضات والألعاب',
           items: [
             { word: 'take part in', meaning: 'participate in', meaningAr: 'يشارك في', example: 'Do you take part in any sports?', exampleAr: 'هل تشارك في أي رياضة؟' },
             { word: 'support a team', meaning: 'want a team to win', meaningAr: 'يشجّع فريقاً', example: 'I support Manchester United.', exampleAr: 'أنا أشجّع مانشستر يونايتد.' },
@@ -609,6 +634,7 @@ export const unit04: Unit = {
         {
           type: 'audio',
           title: 'How to play floorball',
+          titleAr: 'كيف تلعب الفلوربول',
           tracks: au(['4.04'], 51),
         },
         {
@@ -618,6 +644,7 @@ export const unit04: Unit = {
             title: 'Floorball: True or False?',
             kind: 'true-false',
             instructions: 'Listen to a game called floorball and decide if the statements are True (T) or False (F).',
+            instructionsAr: 'استمع إلى لعبة اسمها فلوربول وحدّد هل العبارات صحيحة (T) أم خاطئة (F).',
             page: 51,
             verified: true,
             questions: [
@@ -663,14 +690,19 @@ export const unit04: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: can and can\u2019t',
+          titleAr: 'النطق: can و can\u2019t',
           tracks: au(['4.05'], 51),
         },
         {
           type: 'grammar',
           title: 'How to\u2026 explain rules and procedures',
+          titleAr: 'كيف نشرح القواعد والإجراءات',
           explanation:
             'When we explain rules and procedures, we present the information in a clear sequence with a clear structure, starting with more general information and then adding more details.',
+          explanationAr:
+            'عندما نشرح القواعد والإجراءات، نقدم المعلومات في تسلسل واضح وبنية واضحة، نبدأ بمعلومات عامة ثم نضيف تفاصيل أكثر.',
           rule: "Start with the aim: The aim of the game is to\u2026 Then say how it is organised: There are (six players). It is played on a field. Then the procedure: To start with\u2026 Then / Next\u2026 After that\u2026 . Then the rules: You score (shooting the ball into the goal). You can\u2026 You have to / must\u2026 You can't / mustn't\u2026 It lasts (one hour).",
+          ruleAr: 'ابدأ بالهدف: The aim of the game is to\u2026 ثم قل كيف تُنظَّم اللعبة: There are (six players). It is played on a field. ثم الإجراء: To start with\u2026 Then / Next\u2026 After that\u2026 ثم القواعد: You score (shooting the ball into the goal). You can\u2026 You have to / must\u2026 You can\u2019t / mustn\u2019t\u2026 وتستمر اللعبة: It lasts (one hour).',
           table: {
             headers: ['Information', 'Language'],
             rows: [
@@ -694,6 +726,7 @@ export const unit04: Unit = {
             title: 'Rules and procedures',
             kind: 'fill-blank',
             instructions: 'Complete the phrases using the words in the box (can\u2019t, first, lasts, by, aim).',
+            instructionsAr: 'أكمل العبارات باستخدام الكلمات الموجودة في الصندوق (can\u2019t، first، lasts، by، aim).',
             page: 51,
             verified: true,
             questions: [
@@ -756,6 +789,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'BBC Programmes: Top Gear: Nepal',
+          titleAr: 'برامج BBC: توب جير: نيبال',
           paragraphs: [
             'Top Gear is the BBC\u2019s international award-winning television series about cars. On the show, the three presenters compare and test-drive cars, and organise all kinds of crazy races.',
             'In this episode, the presenters are in Kathmandu, the capital of Nepal. They are racing to get to a city called Lo Manthang, but it\u2019s a difficult drive with lots of traffic, mountains and rivers to cross!',
@@ -764,6 +798,7 @@ export const unit04: Unit = {
         {
           type: 'video',
           title: 'Watch and order the events',
+          titleAr: 'شاهد ورتّب الأحداث',
           videos: [
             {
               title: 'BBC Programmes: Top Gear: Nepal',
@@ -779,6 +814,7 @@ export const unit04: Unit = {
             title: 'Number the events in order',
             kind: 'ordering',
             instructions: 'Watch the video and put the presenters\u2019 actions in the correct order.',
+            instructionsAr: 'شاهد الفيديو وضع تصرفات المقدمين بالترتيب الصحيح.',
             page: 52,
             verified: true,
             questions: [
@@ -806,6 +842,7 @@ export const unit04: Unit = {
             title: 'Watch again: True or False?',
             kind: 'true-false',
             instructions: 'Are the statements True (T) or False (F)? Watch again and check.',
+            instructionsAr: 'هل العبارات صحيحة (T) أم خاطئة (F)؟ شاهد مرة أخرى وتحقق.',
             page: 52,
             verified: true,
             questions: [
@@ -851,9 +888,13 @@ export const unit04: Unit = {
         {
           type: 'grammar',
           title: 'present perfect + superlative',
+          titleAr: 'المضارع التام + صيغة التفضيل',
           explanation:
             'We can use the present perfect + the superlative form of an adjective to talk about an experience related to our whole life.',
+          explanationAr:
+            'يمكننا استخدام المضارع التام + صيغة التفضيل للصفة للحديث عن تجربة لها علاقة بحياتنا كلها.',
           rule: "Subject + has/have + the superlative adjective + I've ever + past participle. Example: 'This is the worst\u2026 I've ever seen!'",
+          ruleAr: 'الفاعل + has/have + صيغة التفضيل للصفة + I\u2019ve ever + التصريف الثالث. مثال: "This is the worst\u2026 I\u2019ve ever seen!" أي: هذا أسوأ ما رأيته في حياتي!',
           table: {
             headers: ['Pattern', 'Example'],
             rows: [
@@ -876,6 +917,7 @@ export const unit04: Unit = {
             title: 'The present perfect + superlative',
             kind: 'fill-blank',
             instructions: 'Complete the sentences with the correct form of the words in brackets. Use the present perfect and a superlative.',
+            instructionsAr: 'أكمل الجمل بالصيغة الصحيحة للكلمات بين الأقواس. استخدم المضارع التام وصيغة التفضيل.',
             page: 54,
             verified: true,
             questions: [
@@ -920,6 +962,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Talk about a memorable journey',
+          titleAr: 'تحدث عن رحلة لا تُنسى',
           paragraphs: [
             'Listen to someone talking about a memorable journey and answer the questions: Where did she go, and who with? How did they travel? What did they see? Why did they have to stay in a town for a few days?',
           ],
@@ -927,11 +970,13 @@ export const unit04: Unit = {
         {
           type: 'audio',
           title: 'Listening: a memorable journey',
+          titleAr: 'استماع: رحلة لا تُنسى',
           tracks: au(['4.06'], 53),
         },
         {
           type: 'vocab',
           title: 'Key phrases: a memorable journey',
+          titleAr: 'عبارات أساسية: رحلة لا تُنسى',
           items: [
             { word: '', meaning: '', example: "The most memorable journey I've ever been on was\u2026", exampleAr: 'أكثر رحلة لا تُنسى سافرت فيها كانت…' },
             { word: '', meaning: '', example: "It was my first time\u2026", exampleAr: 'كانت أول مرة لي…' },
@@ -944,6 +989,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Writing: a travel writing competition entry',
+          titleAr: 'كتابة: مشاركة في مسابقة كتابة عن السفر',
           paragraphs: [
             'Tell us about a difficult journey. Where were you going? Who with? What happened and why was it difficult? What happened in the end? We accept stories about all kinds of journeys: road trips, train trips, car journeys, hikes, flights, etc. The winner wins an all-expenses trip to a Caribbean island!',
             'Model answer: Car trouble in the Big Easy. "The most difficult car ride I\u2019ve ever had was in my friend Ricky\u2019s 1959 Buick Roadmaster in New Orleans." Ricky and the writer were trying to find a jazz club, got lost, ran out of gas, and never found the club - but they did find a great restaurant which sold the best seafood sandwiches ever.',
@@ -965,6 +1011,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Review what you have learned',
+          titleAr: 'راجع ما تعلمته',
           paragraphs: [
             'Complete the review exercises to practise the grammar and vocabulary of Unit 4: modals for rules and advice (six tips for how to live a happier life), articles (the joke about the penguins), and the present perfect + superlative.',
           ],
@@ -976,6 +1023,7 @@ export const unit04: Unit = {
             title: 'Six tips for a happier life',
             kind: 'mcq',
             instructions: 'Choose the correct words to complete the tips.',
+            instructionsAr: 'اختر الكلمات الصحيحة لإكمال النصائح.',
             page: 54,
             verified: true,
             questions: [
@@ -1045,6 +1093,7 @@ export const unit04: Unit = {
         {
           type: 'audio',
           title: 'Review listenings',
+          titleAr: 'استماعات المراجعة',
           tracks: au(['R4.01', 'R4.02'], 54),
         },
         {

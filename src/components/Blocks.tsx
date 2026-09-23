@@ -5,7 +5,6 @@ import { AudioPlayer } from './Media'
 import { VideoCard } from './VideoCard'
 import { PageFigure } from './PageFigure'
 import EchoLab from './EchoLab'
-import { ACCENTS, sayWord, useSpeech } from '../lib/speech'
 import {
   IconChevronRight,
   IconChat,
@@ -17,6 +16,7 @@ import {
   IconVolume,
 } from './Icons'
 import { Link } from 'react-router-dom'
+import { ACCENTS, sayWord, useSpeech } from '../lib/speech'
 
 function BankLink({ page }: { page: number }) {
   return (
@@ -105,11 +105,13 @@ function splitSentences(text: string): string[] {
 function ReadingPanel({
   id,
   title,
+  titleAr,
   paragraphs,
   total,
 }: {
   id: string
   title: string
+  titleAr?: string
   paragraphs: string[]
   total: number
 }) {
@@ -190,6 +192,11 @@ function ReadingPanel({
               Reading
             </SectionLabel>
             <h2 className="display mt-2.5 text-2xl tracking-tight sm:text-[1.7rem]">{title}</h2>
+            {titleAr && (
+              <p dir="rtl" lang="ar" className="ar text-base font-bold text-brand-700 dark:text-brand-300">
+                {titleAr}
+              </p>
+            )}
           </div>
           <div className="flex shrink-0 flex-wrap items-center gap-2">
             {supported && (
@@ -265,6 +272,7 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
                   key={i}
                   id={id}
                   title={block.title ?? 'Reading passage'}
+                  titleAr={block.titleAr}
                   paragraphs={paras}
                   total={total}
                 />
@@ -277,6 +285,11 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
                     <h2 className="display mb-1 mt-8 text-2xl tracking-tight">
                       {block.title}
                     </h2>
+                    {block.titleAr && (
+                      <p dir="rtl" lang="ar" className="ar mb-1 text-base font-bold text-brand-700 dark:text-brand-300">
+                        {block.titleAr}
+                      </p>
+                    )}
                     <Rule />
                   </>
                 )}
@@ -300,7 +313,17 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
                     {block.title}
                   </p>
                 )}
+                {block.titleAr && (
+                  <p dir="rtl" lang="ar" className="ar mb-1.5 text-sm font-bold text-brand-700 dark:text-brand-300">
+                    {block.titleAr}
+                  </p>
+                )}
                 <p className="text-[15px] leading-relaxed">{block.text}</p>
+                {block.textAr && (
+                  <p dir="rtl" lang="ar" className="ar mt-1.5 text-[14px] leading-relaxed text-[var(--ink-soft)]">
+                    {block.textAr}
+                  </p>
+                )}
               </aside>
             )
 
@@ -319,11 +342,21 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
                     <IconSpark size={15} />
                   </span>
                   <h2 className="text-sm font-bold uppercase tracking-wide text-brand-800 dark:text-brand-200">{block.title}</h2>
+                  {block.titleAr && (
+                    <p dir="rtl" lang="ar" className="ar text-sm font-bold text-brand-700 dark:text-brand-300">
+                      {block.titleAr}
+                    </p>
+                  )}
                 </header>
 
                 <div className="space-y-4 p-4 sm:p-5">
                   {block.explanation && (
                     <p className="text-[15px] leading-relaxed text-[var(--ink-soft)]">{block.explanation}</p>
+                  )}
+                  {block.explanationAr && (
+                    <p dir="rtl" lang="ar" className="ar text-[15px] leading-relaxed text-[var(--ink-soft)]">
+                      {block.explanationAr}
+                    </p>
                   )}
 
                   {block.rule && (
@@ -333,6 +366,11 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
                         The pattern
                       </p>
                       <RuleChips rule={block.rule} />
+                      {block.ruleAr && (
+                        <p dir="rtl" lang="ar" className="ar mt-1.5 text-[13.5px] leading-relaxed text-brand-800 dark:text-brand-200">
+                          {block.ruleAr}
+                        </p>
+                      )}
                     </div>
                   )}
 
@@ -401,6 +439,11 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
                     </SectionLabel>
                   </div>
                 )}
+                {block.titleAr && (
+                  <p dir="rtl" lang="ar" className="ar mb-2 text-sm font-bold text-brand-700 dark:text-brand-300">
+                    {block.titleAr}
+                  </p>
+                )}
                 <ul className="space-y-1">
                   {block.items.map((ex, j) => (
                     <li
@@ -442,6 +485,11 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
                     </SectionLabel>
                   </div>
                 )}
+                {block.titleAr && (
+                  <p dir="rtl" lang="ar" className="ar mb-2 text-sm font-bold text-brand-700 dark:text-brand-300">
+                    {block.titleAr}
+                  </p>
+                )}
                 <div className="grid gap-3">
                   {block.videos.map((v, j) => (
                     <VideoCard key={j} video={v} />
@@ -474,6 +522,11 @@ export default function Blocks({ blocks }: { blocks: ContentBlock[] }) {
                       {block.title}
                     </SectionLabel>
                   </div>
+                )}
+                {block.titleAr && (
+                  <p dir="rtl" lang="ar" className="ar mb-2 text-sm font-bold text-brand-700 dark:text-brand-300">
+                    {block.titleAr}
+                  </p>
                 )}
                 <p className="text-[15px] leading-relaxed">{block.text}</p>
               </section>
@@ -521,6 +574,11 @@ function VocabSection({
           <span className="h-6 w-1 rounded-full bg-gradient-to-b from-accent-500 to-brand-500" />
           {block.title}
         </h2>
+        {block.titleAr && (
+          <span dir="rtl" lang="ar" className="ar text-sm font-bold text-brand-700 dark:text-brand-300">
+            {block.titleAr}
+          </span>
+        )}
         <span className="inline-flex items-center gap-0.5 rounded-full border border-[var(--line)] bg-[var(--surface)] p-1">
           <IconVolume size={13} className="mx-1 shrink-0 text-[var(--ink-faint)]" />
           {ACCENTS.map((a) => {
