@@ -40,6 +40,7 @@ export const unit01: Unit = {
         {
           type: 'text',
           title: 'Talk about work and study',
+          titleAr: 'تحدث عن العمل والدراسة',
           paragraphs: [
             'You meet people at a party or online and you want to introduce yourself and get to know people: where you live, what your job is, what you like. In this lesson you learn the language you need to ask and answer questions about work and study.',
           ],
@@ -47,14 +48,19 @@ export const unit01: Unit = {
         {
           type: 'audio',
           title: 'Conversations in a café',
+          titleAr: 'محادثات في مقهى',
           tracks: au(['1.01']),
         },
         {
           type: 'grammar',
           title: 'present simple: I, you, we, they',
+          titleAr: 'المضارع البسيط: I, you, we, they',
           explanation:
             'We use the present simple to talk about things that are always or generally true, and for habits and routines.',
+          explanationAr:
+            'نستخدم المضارع البسيط للحديث عن أشياء صحيحة دائماً أو بشكل عام، وعن العادات والروتين اليومي.',
           rule: 'Positive: subject + verb. Negative: subject + do not / don\u2019t + verb. Questions: Do + subject + verb? Wh-word + do + subject + verb?',
+          ruleAr: 'الإثبات: الفاعل + الفعل. النفي: الفاعل + do not / don\u2019t + الفعل. السؤال: Do + الفاعل + الفعل؟ أدوات الاستفهام + do + الفاعل + الفعل؟',
           table: {
             headers: ['Form', 'Examples'],
             rows: [
@@ -72,6 +78,7 @@ export const unit01: Unit = {
         {
           type: 'vocab',
           title: 'jobs and studies',
+          titleAr: 'الوظائف والدراسة',
           items: [
             { word: 'driver', meaningAr: 'سائق', example: 'a train driver, a bus driver, a taxi driver', exampleAr: 'سائق قطار، سائق أتوبيس، سائق تاكسي' },
             { word: 'player', meaningAr: 'لاعب', example: 'a football player, a basketball player, a tennis player', exampleAr: 'لاعب كرة قدم، لاعب كرة سلة، لاعب تنس' },
@@ -88,6 +95,7 @@ export const unit01: Unit = {
             title: 'Put the words in the correct order',
             kind: 'ordering',
             instructions: 'Make questions with the present simple. The first one is done for you.',
+            instructionsAr: 'كوّن أسئلة باستخدام المضارع البسيط. السؤال الأول محلول لك.',
             page: 98,
             verified: true,
             questions: [
@@ -154,12 +162,15 @@ export const unit01: Unit = {
         {
           type: 'callout',
           title: 'Speaking task',
+          titleAr: 'مهمة التحدث',
           tone: 'tip',
           text: 'Work in groups. One student chooses a famous person; the others ask yes/no questions to guess who it is: "Are you a man?" – "Yes, I am." – "Do you come from ...?" – "No, I don\u2019t."',
+          textAr: 'اعملوا في مجموعات. يختار أحد الطلاب شخصاً مشهوراً، ويطرح الباقون أسئلة بنعم/لا ليخمّنوا من هو: "هل أنت رجل؟" – "نعم، أنا كذلك." – "هل أتيت من ...؟" – "لا، لم آتِ من هناك."',
         },
         {
           type: 'audio',
           title: 'Lead-in: everyday objects, colours, nationalities, days and numbers',
+          titleAr: 'تمهيد: الأشياء اليومية، الألوان، الجنسيات، الأيام والأرقام',
           tracks: au(['L.01', 'L.02']),
         },
         {
@@ -183,6 +194,7 @@ export const unit01: Unit = {
         {
           type: 'text',
           title: 'Describe people and their lives',
+          titleAr: 'صِف الأشخاص وحياتهم',
           paragraphs: [
             'Twin brothers Sam and Andy look the same, but their lives are very different. Read the article and practise describing people: what they do, where they live and what they like doing.',
           ],
@@ -190,6 +202,7 @@ export const unit01: Unit = {
         {
           type: 'vocab',
           title: 'common verb phrases',
+          titleAr: 'عبارات الأفعال الشائعة',
           items: [
             { word: 'get up', meaningAr: 'يستيقظ / ينهض', example: 'get up early / at 11 / late', exampleAr: 'يستيقظ مبكراً / في الساعة 11 / متأخراً' },
             { word: 'go', meaningAr: 'يذهب', example: 'go out a lot / to bed late / running', exampleAr: 'يخرج كثيراً / ينام متأخراً / يذهب للجري' },
@@ -204,6 +217,7 @@ export const unit01: Unit = {
         {
           type: 'text',
           title: 'Reading: Identical twins?',
+          titleAr: 'قراءة: توأمان متطابقان؟',
           paragraphs: [
             'Many brothers are very different from each other, but people think twins are exactly the same. In fact, my twin brother Sam and I are very different. It\u2019s hard to believe we come from the same family!',
             'Sam lives in a small village and he\u2019s an actor. He also teaches drama students at university, because he doesn\u2019t have a lot of money. My life is very different. I\u2019m the businessman in the family. I have a small tech start-up company. I work from home, from my flat near the city centre. I think his work is crazy – and he thinks mine is!',
@@ -218,6 +232,7 @@ export const unit01: Unit = {
             title: 'Are the statements True or False?',
             kind: 'true-false',
             instructions: 'Read the article again. Are the statements True (T) or False (F)?',
+            instructionsAr: 'اقرأ المقال مرة أخرى. هل العبارات صحيحة (T) أم خاطئة (F)؟',
             page: 10,
             verified: true,
             questions: [
@@ -232,9 +247,13 @@ export const unit01: Unit = {
         {
           type: 'grammar',
           title: 'present simple: he, she, it',
+          titleAr: 'المضارع البسيط: he, she, it',
           explanation:
             'For he, she and it we add -s (or -es, -ies) to the verb. For the negative we use does not / doesn\u2019t + infinitive.',
+          explanationAr:
+            'مع he و she و it نضيف -s (أو -es أو -ies) إلى الفعل. أما النفي فنستخدم does not / doesn\u2019t + المصدر.',
           rule: 'Positive: He/She/It + verb + -s. Negative: He/She/It + doesn\u2019t + verb. Questions: Does + he/she/it + verb?',
+          ruleAr: 'الإثبات: He/She/It + الفعل + -s. النفي: He/She/It + doesn\u2019t + الفعل. السؤال: Does + he/she/it + الفعل؟',
           table: {
             headers: ['Spelling rules', 'Example'],
             rows: [
@@ -257,6 +276,7 @@ export const unit01: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: third person -s',
+          titleAr: 'النطق: نهاية -s للغائب المفرد',
           tracks: [
             { label: '1B (provided track)', file: '/audio/014_SO3_A2_SB_1B_Audio_1_0X.mp3', note: 'The only Unit 1 lesson track included in this copy of the audio' },
             { label: '1.05', note: 'Track not included in this copy of the audio' },
@@ -284,6 +304,7 @@ export const unit01: Unit = {
         {
           type: 'text',
           title: 'Make plans to meet',
+          titleAr: 'ضع خططاً للقاء',
           paragraphs: [
             'When you arrange to meet a friend you suggest an activity, a time and a place. Learn the phrases for making suggestions and for answering them with interest.',
           ],
@@ -291,6 +312,7 @@ export const unit01: Unit = {
         {
           type: 'vocab',
           title: 'adjectives for feelings',
+          titleAr: 'صفات المشاعر',
           items: [
             { word: 'all right', meaningAr: 'بخير / لا بأس', example: 'I\u2019m all right, thanks.', exampleAr: 'أنا بخير، شكراً.' },
             { word: 'bored', meaningAr: 'يشعر بالملل', example: 'I\u2019m bored. Do you want to do something today?', exampleAr: 'أشعر بالملل. هل تريد أن نفعل شيئاً اليوم؟' },
@@ -305,6 +327,7 @@ export const unit01: Unit = {
         {
           type: 'text',
           title: 'A plan over text messages',
+          titleAr: 'خطة عبر الرسائل النصية',
           paragraphs: [
             'Lisa and Eva make plans by message: "I\u2019m bored. Do you want to do something today?" – "Sorry, I can\u2019t. Busy day at the restaurant. I feel really tired. What about tomorrow morning?" – "OK. Can we meet for a coffee? ... Let\u2019s try that new café near me, Coffee Club. ... How about ten?" – "Sure, that\u2019s fine. See you there."',
           ],
@@ -312,9 +335,13 @@ export const unit01: Unit = {
         {
           type: 'grammar',
           title: 'How to ... make suggestions',
+          titleAr: 'كيف تقدّم اقتراحات',
           explanation:
             'Use these phrases to make a suggestion: Let\u2019s + infinitive, Can we + infinitive, Would you like to + infinitive, How about / What about + noun or time.',
+          explanationAr:
+            'استخدم هذه العبارات لتقديم اقتراح: Let\u2019s + المصدر، Can we + المصدر، Would you like to + المصدر، How about / What about + اسم أو وقت.',
           rule: 'Respond positively with OK, Sure, Sure that\u2019s fine, Good idea, Perfect! or I\u2019d love to. Respond negatively with I\u2019m sorry, I can\u2019t or Sorry, I\u2019m busy then.',
+          ruleAr: 'نرد بالإيجاب بقول: OK أو Sure أو Sure that\u2019s fine أو Good idea أو Perfect! أو I\u2019d love to. ونرد بالنفي بقول: I\u2019m sorry, I can\u2019t أو Sorry, I\u2019m busy then.',
           table: {
             headers: ['Making a suggestion', 'Responding'],
             rows: [
@@ -340,6 +367,7 @@ export const unit01: Unit = {
             title: 'Complete the suggestions',
             kind: 'mcq',
             instructions: 'Choose the correct ending for each suggestion.',
+            instructionsAr: 'اختر النهاية الصحيحة لكل اقتراح.',
             page: 100,
             verified: true,
             questions: [
@@ -404,17 +432,21 @@ export const unit01: Unit = {
         {
           type: 'callout',
           title: 'Note: Do you like or Would you like?',
+          titleAr: 'ملاحظة: Do you like أم Would you like؟',
           tone: 'note',
           text: 'We use Do you like to ask about things that are always true: Do you like coffee? / Do you like playing tennis? We use Would you like to make a suggestion: Would you like a coffee? / Would you like to play tennis?',
+          textAr: 'نستخدم Do you like للأسئلة عن أشياء صحيحة دائماً: هل تحب القهوة؟ / هل تحب لعب التنس؟ ونستخدم Would you like لتقديم اقتراح: هل ترغب في فنجان قهوة؟ / هل ترغب في لعب التنس؟',
         },
         {
           type: 'audio',
           title: 'Some listenings for this lesson',
+          titleAr: 'بعض الاستماعات لهذا الدرس',
           tracks: au(['1.08', '1.09', '1.11']),
         },
         {
           type: 'video',
           title: 'BBC Street Interviews: describing yourself',
+          titleAr: 'مقابلات بي بي سي في الشارع: وصف نفسك',
           videos: [
             {
               title: 'BBC Street Interviews: how people describe themselves and their jobs',
@@ -426,6 +458,7 @@ export const unit01: Unit = {
         {
           type: 'vocab',
           title: 'time phrases',
+          titleAr: 'عبارات الوقت',
           items: [
             { word: 'today', meaningAr: 'اليوم', example: 'Do you want to do something today?', exampleAr: 'هل تريد أن نفعل شيئاً اليوم؟' },
             { word: 'tomorrow', meaningAr: 'غداً', example: 'What about tomorrow morning?', exampleAr: 'ما رأيك صباح الغد؟' },
@@ -456,6 +489,7 @@ export const unit01: Unit = {
         {
           type: 'text',
           title: 'Describe people in your life',
+          titleAr: 'صِف الأشخاص في حياتك',
           paragraphs: [
             'Introduce yourself, talk about your family and describe the five most important people in your life – who they are and how you know them.',
           ],
@@ -463,6 +497,7 @@ export const unit01: Unit = {
         {
           type: 'video',
           title: 'BBC Vlogs: Family and friends',
+          titleAr: 'مدونات بي بي سي: العائلة والأصدقاء',
           videos: [
             {
               title: 'BBC Vlogs: five people introduce themselves and their families',
@@ -475,9 +510,13 @@ export const unit01: Unit = {
         {
           type: 'grammar',
           title: "possessive 's, s'",
+          titleAr: 'الملكية: \u2019s لشخص واحد و s\u2019 لأكثر من شخص',
           explanation:
             "We use 's with a person to talk about family and possessions. We use 's with one person and s' with more than one person. With irregular plurals we use 's.",
+          explanationAr:
+            'نستخدم \u2019s مع شخص للحديث عن العائلة والممتلكات. نستخدم \u2019s مع شخص واحد و s\u2019 مع أكثر من شخص. أما مع الجموع الشاذة فنستخدم \u2019s.',
           rule: "one person → name + 's (my brother's wife) · two or more → name + s' (my parents' house) · irregular plural → +'s (the children's bedroom)",
+          ruleAr: 'شخص واحد ← الاسم + \u2019s (زوجة أخي) · شخصان أو أكثر ← الاسم + s\u2019 (منزل والديّ) · جمع شاذ ← +\u2019s (غرفة نوم الأطفال)',
           table: {
             headers: ['Rule', 'Example'],
             rows: [
@@ -497,6 +536,7 @@ export const unit01: Unit = {
             title: "Choose the correct words: 's or s'",
             kind: 'mcq',
             instructions: 'Choose the correct option in each sentence.',
+            instructionsAr: 'اختر الخيار الصحيح في كل جملة.',
             page: 101,
             verified: true,
             questions: [
@@ -560,6 +600,7 @@ export const unit01: Unit = {
         {
           type: 'vocab',
           title: 'Key phrases: talking about people',
+          titleAr: 'عبارات أساسية: التحدث عن الأشخاص',
           items: [
             { word: "Arielle's my sister / a good friend / my manager.", meaningAr: 'أرييل أختي / صديقة مقربة / مديرتي.', example: 'say who someone is to you', exampleAr: 'تقول من يكون الشخص بالنسبة لك' },
             { word: "Ellen is my brother's wife / a friend from work.", meaningAr: 'إيلين زوجة أخي / صديقة من العمل.', example: 'say how someone is connected', exampleAr: 'تقول كيف يرتبط الشخص بك' },
@@ -571,6 +612,7 @@ export const unit01: Unit = {
         {
           type: 'text',
           title: 'Writing: describe five people in your life',
+          titleAr: 'كتابة: صِف خمسة أشخاص في حياتك',
           paragraphs: [
             'Jasmine writes to her friend: "My parents\u2019 names are Patsy and Vince. They live about an hour from me. I have two sisters ... My sisters\u2019 names are Marcella and Greta. Greta\u2019s a lawyer and she isn\u2019t married. Marcella\u2019s a teacher. She teaches at the local school. She\u2019s married and has one child. Her husband\u2019s name is Marcel ... Their daughter\u2019s name is Sofia, and she\u2019s eight years old. We all meet every Sunday at our parents\u2019 house."',
             'In your own profile you can describe five people in your life, writing about topics such as names, jobs, where they live, married or single, ages and children.',
@@ -591,6 +633,7 @@ export const unit01: Unit = {
         {
           type: 'text',
           title: 'Review what you have learned',
+          titleAr: 'راجع ما تعلمته',
           paragraphs: [
             'Check your grammar and vocabulary from Unit 1: the present simple, making suggestions, possessive \u2019s, jobs and family words.',
           ],
@@ -602,6 +645,7 @@ export const unit01: Unit = {
             title: 'Correct the sentences',
             kind: 'mcq',
             instructions: 'Choose the word that completes each sentence correctly.',
+            instructionsAr: 'اختر الكلمة التي تُكمل كل جملة بشكل صحيح.',
             page: 16,
             verified: true,
             questions: [
@@ -715,6 +759,7 @@ export const unit01: Unit = {
             title: 'Vocabulary puzzle',
             kind: 'mcq',
             instructions: 'Choose the correct family or feeling word for each clue.',
+            instructionsAr: 'اختر الكلمة الصحيحة من كلمات العائلة أو المشاعر لكل دليل.',
             page: 16,
             verified: true,
             questions: [

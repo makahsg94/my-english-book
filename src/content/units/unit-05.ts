@@ -41,6 +41,7 @@ export const unit05: Unit = {
         {
           type: 'text',
           title: 'Talk about changes in life',
+          titleAr: 'تحدث عن التغيرات في الحياة',
           paragraphs: [
             'Sometimes life is the same from day to day, year to year, and then it changes. Read about Park Mak-rye, a South Korean YouTube star, and Solonei Rocha da Silva, a Brazilian marathon runner, and the big changes in their lives.',
           ],
@@ -48,9 +49,13 @@ export const unit05: Unit = {
         {
           type: 'grammar',
           title: 'past simple: regular verbs',
+          titleAr: 'الماضي البسيط: الأفعال المنتظمة',
           explanation:
             'To make the past simple we usually add -ed (or -d) to the infinitive. The form is the same for all persons.',
+          explanationAr:
+            'لتكوين الماضي البسيط نضيف عادةً -ed أو -d إلى المصدر، ويكون الشكل نفسه لجميع الضمائر.',
           rule: 'Positive: infinitive + -ed (worked, cooked, changed). Negative: did not / didn\u2019t + infinitive. Questions: Did + subject + infinitive?',
+          ruleAr: 'الإثبات: المصدر + -ed (worked, cooked, changed). النفي: did not/didn\u2019t + المصدر. الأسئلة: Did + الفاعل + المصدر؟',
           table: {
             headers: ['Rule', 'Example'],
             rows: [
@@ -75,6 +80,7 @@ export const unit05: Unit = {
             title: 'Complete the sentences',
             kind: 'fill-blank',
             instructions: 'Write the past simple form of the verb in brackets.',
+            instructionsAr: 'اكتب صيغة الماضي البسيط للفعل الموجود بين القوسين.',
             page: 49,
             verified: true,
             questions: [
@@ -90,11 +96,13 @@ export const unit05: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: -ed ending of regular verbs',
+          titleAr: 'النطق: نهاية -ed للأفعال المنتظمة',
           tracks: au(['5.01']),
         },
         {
           type: 'vocab',
           title: 'time phrases (2)',
+          titleAr: 'عبارات الوقت (2)',
           items: [
             { word: 'all', meaningAr: 'كل', example: 'all day / all week / all my life', exampleAr: 'طوال اليوم / طوال الأسبوع / طوال حياتي' },
             { word: 'from ... to', meaningAr: 'من ... إلى', example: 'from morning to night, from 2015 to 2020 (work)ed from 4 a.m. to 10 p.m.', exampleAr: 'من الصباح إلى الليل، من 2015 إلى 2020 (عملت) من الرابعة صباحاً حتى العاشرة مساءً' },
@@ -107,8 +115,10 @@ export const unit05: Unit = {
         {
           type: 'callout',
           title: 'Speaking',
+          titleAr: 'التحدث',
           tone: 'tip',
           text: 'Ask a partner the difference between "When did you last ...?" and "Do you often ...?" using phrases like listen to the news on the radio, post a photo on social media, play a board game, relax on a beach.',
+          textAr: 'اسأل زميلك عن الفرق بين "متى كانت آخر مرة ...؟" و"هل غالباً ...؟" باستخدام عبارات مثل الاستماع إلى الأخبار على الراديو، أو نشر صورة على وسائل التواصل الاجتماعي، أو لعب لعبة لوحية، أو الاسترخاء على الشاطئ.',
         },
         {
           type: 'pages',
@@ -130,7 +140,8 @@ export const unit05: Unit = {
       blocks: [
         {
           type: 'text',
-          title: 'What went wrong?',
+title: 'What went wrong?',
+          titleAr: 'ما الذي حدث من خطأ؟',
           paragraphs: [
             'Three parties, three problems! Listen to people talk about a wedding party, a 21st birthday party and a surprise leaving party – and what went wrong at each one.',
           ],
@@ -138,9 +149,13 @@ export const unit05: Unit = {
         {
           type: 'grammar',
           title: 'past simple: irregular verbs; wh- questions',
+          titleAr: 'الماضي البسيط: الأفعال الشاذة؛ أسئلة wh-',
           explanation:
             'Many common verbs are irregular in the past simple: go → went, have → had, leave → left, say → said, take → took, drive → drove, get → got, do → did.',
+          explanationAr:
+            'العديد من الأفعال الشائعة شاذة في الماضي البسيط: go ← went و have ← had و leave ← left و say ← said و take ← took و drive ← drove و get ← got و do ← did.',
           rule: 'Negative: did not / didn\u2019t + infinitive. Yes/no: Did + subject + infinitive? Wh-: question word + did + subject + verb? e.g. Why did the chef phone?',
+          ruleAr: 'النفي: did not/didn\u2019t + المصدر. السؤال بنعم/لا: Did + الفاعل + المصدر؟ أسئلة wh-: أداة الاستفهام + did + الفاعل + الفعل؟ مثال: Why did the chef phone؟',
           table: {
             headers: ['Verb', 'Past simple'],
             rows: [
@@ -164,6 +179,7 @@ export const unit05: Unit = {
         {
           type: 'audio',
           title: 'The three parties and irregular verbs',
+          titleAr: 'الحفلات الثلاث والأفعال الشاذة',
           tracks: au(['5.02', '5.03', '5.04']),
         },
         {
@@ -173,6 +189,7 @@ export const unit05: Unit = {
             title: 'Irregular past simple',
             kind: 'mcq',
             instructions: 'Match each verb with its past simple form.',
+            instructionsAr: 'طابِق كل فعل مع صيغة الماضي البسيط الخاص به.',
             page: 50,
             verified: true,
             questions: [
@@ -280,6 +297,7 @@ export const unit05: Unit = {
         {
           type: 'vocab',
           title: 'life events',
+          titleAr: 'أحداث الحياة',
           items: [
             { word: 'get a job / get married', meaningAr: 'يحصل على وظيفة / يتزوج', example: 'leave school, get a job, get married', exampleAr: 'يترك المدرسة، يحصل على وظيفة، يتزوج' },
             { word: 'learn to swim / to drive', meaningAr: 'يتعلّم السباحة / القيادة', example: 'I learnt to drive when I was nineteen.', exampleAr: 'تعلّمت القيادة عندما كان عمري تسعة عشر.' },
@@ -292,6 +310,7 @@ export const unit05: Unit = {
         {
           type: 'text',
           title: 'Writing: a mini-bio',
+          titleAr: 'الكتابة: سيرة ذاتية قصيرة',
           paragraphs: [
             'Write a short blog post about yourself. Start with when and where you were born and important events, and link ideas with after that, then and next. Example: "Hi, my name is Liam Morgan. ... I was born on 8 August 1993, in Des Moines, Iowa. My parents had a restaurant in the centre of town. I spent my childhood in that diner ..." See the Writing Bank, page 92.',
           ],
@@ -317,6 +336,7 @@ export const unit05: Unit = {
         {
           type: 'text',
           title: 'Apologise and make excuses',
+          titleAr: 'اعتذر وأعطِ أعذاراً',
           paragraphs: [
             'Everyone is late sometimes. Learn how to apologise, accept an apology and make (good!) excuses in an online world.',
           ],
@@ -328,6 +348,7 @@ export const unit05: Unit = {
             title: 'Make excuses',
             kind: 'mcq',
             instructions: 'Match the beginning of each excuse with its ending.',
+            instructionsAr: 'طابِق بداية كل عذر مع نهايته.',
             page: 52,
             verified: true,
             questions: [
@@ -457,8 +478,11 @@ export const unit05: Unit = {
         {
           type: 'grammar',
           title: 'How to ... apologise and make excuses',
+          titleAr: 'كيف ... نعتذر ونعطي أعذاراً',
           explanation:
             'Apologise with I\u2019m (really / so) sorry. Accept an apology with That\u2019s all right, It\u2019s OK or No problem.',
+          explanationAr:
+            'اعتذر باستخدام I\u2019m (really / so) sorry، وتقبّل الاعتذار باستخدام That\u2019s all right أو It\u2019s OK أو No problem.',
           table: {
             headers: ['Function', 'Say this'],
             rows: [
@@ -478,17 +502,21 @@ export const unit05: Unit = {
         {
           type: 'audio',
           title: 'Apologies and intonation for apologising',
+          titleAr: 'الاعتذارات ونبرة الصوت عند الاعتذار',
           tracks: au(['5.05', '5.06']),
         },
         {
           type: 'callout',
           title: 'Culture note',
+          titleAr: 'ملاحظة ثقافية',
           tone: 'note',
           text: 'In some countries it is very bad to be late for a business meeting or when meeting friends, and it is important to give the reason why you are late.',
+          textAr: 'في بعض البلدان يُعدّ التأخر عن اجتماع عمل أو عن لقاء الأصدقاء أمراً سيئاً للغاية، ومن المهم أن تذكر سبب تأخرك.',
         },
         {
           type: 'vocab',
           title: 'saying the time',
+          titleAr: 'قول الوقت (قراءة الساعة)',
           items: [
             { word: 'It\u2019s half past two.', meaning: '2:30', meaningAr: 'الساعة الثانية والنصف.' },
             { word: 'It\u2019s quarter past three.', meaning: '3:15', meaningAr: 'الساعة الثالثة والربع.' },
@@ -517,6 +545,7 @@ export const unit05: Unit = {
         {
           type: 'text',
           title: 'Talk about last weekend',
+          titleAr: 'تحدث عن عطلة نهاية الأسبوع الماضية',
           paragraphs: [
             'People in the street answer: "How was your weekend?" and "What did you do?" Use adjectives like nice, good, lovely, busy, boring and fun – and modifiers to say exactly how you feel.',
           ],
@@ -524,6 +553,7 @@ export const unit05: Unit = {
         {
           type: 'video',
 title: 'BBC Street Interviews: How was your weekend?',
+titleAr: 'مقابلات الشارع من بي بي سي: كيف كانت عطلتك؟',
             videos: [
               {
                 title: 'Street interviews: weekend activities',
@@ -541,9 +571,13 @@ title: 'BBC Street Interviews: How was your weekend?',
         {
           type: 'grammar',
           title: 'adjectives and modifiers',
+          titleAr: 'الصفات والكلمات المؤثرة (المُعدّلات)',
           explanation:
             'Use modifiers before adjectives to make them stronger or weaker: really, very (strong) · quite (medium) · a bit (weak). Too means "more than good".',
+          explanationAr:
+            'استخدم الكلمات المؤثرة قبل الصفات لتقويتها أو إضعافها: really و very (قوية)، quite (متوسطة)، a bit (ضعيفة). وتعني too "أكثر من الحد الجيد".',
           rule: 'modifier + adjective: My weekend was very nice. It was quite good. It was a bit crowded. It was too much.',
+          ruleAr: 'الكلمة المؤثرة + صفة: My weekend was very nice (كانت عطلتي جميلة جداً). It was quite good (كانت جيدة نسبياً). It was a bit crowded (كانت مزدحمة قليلاً). It was too much (كانت أكثر من اللازم).',
           table: {
             headers: ['Modifier', 'Strength', 'Example'],
             rows: [
@@ -568,6 +602,7 @@ title: 'BBC Street Interviews: How was your weekend?',
             title: 'Choose the correct sentence',
             kind: 'mcq',
             instructions: 'Which sentences are correct?',
+            instructionsAr: 'أي الجمل صحيحة؟',
             page: 54,
             verified: true,
             questions: [
@@ -607,6 +642,7 @@ title: 'BBC Street Interviews: How was your weekend?',
         {
           type: 'text',
           title: 'Writing: a recent weekend',
+          titleAr: 'الكتابة: عطلة نهاية أسبوع قريبة',
           paragraphs: [
             'Write an email to a friend about a recent weekend. Choose one key event and use modifier + adjective pairs. Example: "The place was a bit crowded and very loud. The band was really amazing."',
           ],
@@ -630,6 +666,7 @@ title: 'BBC Street Interviews: How was your weekend?',
             title: 'Choose the correct word',
             kind: 'mcq',
             instructions: 'Complete the story about a surprise party.',
+            instructionsAr: 'أكمل القصة عن حفلة مفاجئة.',
             page: 56,
             verified: true,
             questions: [
@@ -702,6 +739,7 @@ title: 'BBC Street Interviews: How was your weekend?',
         {
           type: 'audio',
           title: 'Review listening',
+          titleAr: 'الاستماع المراجعة',
           tracks: au(['R5.01']),
         },
         {

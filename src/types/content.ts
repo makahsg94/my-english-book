@@ -99,6 +99,8 @@ export interface Exercise {
   kind: ExerciseKind
   /** Instructions as printed in the book */
   instructions?: string
+  /** Arabic translation of the instructions, shown under the English text (for beginners) */
+  instructionsAr?: string
   questions: ExerciseQuestion[]
   /** printed book page the exercise comes from */
   page?: number
@@ -138,17 +140,23 @@ export type ContentBlock =
   | {
       type: 'text'
       title?: string
+      /** Arabic translation of the title, shown under it (for beginners) */
+      titleAr?: string
       paragraphs: string[]
     }
   | {
       type: 'callout'
       title?: string
+      titleAr?: string
       tone?: 'info' | 'tip' | 'note' | 'warning'
       text: string
+      /** Arabic translation of the callout text, shown under it (for beginners) */
+      textAr?: string
     }
   | {
       type: 'vocab'
       title?: string
+      titleAr?: string
       items: VocabItem[]
       /** e.g. "Vocabulary Bank page 130" */
       source?: string
@@ -156,8 +164,13 @@ export type ContentBlock =
   | {
       type: 'grammar'
       title?: string
+      titleAr?: string
       explanation?: string
+      /** Arabic translation of the explanation, shown under it (for beginners) */
+      explanationAr?: string
       rule?: string
+      /** Arabic translation of the rule, shown under it (for beginners) */
+      ruleAr?: string
       table?: { headers: string[]; rows: GrammarTableRow[] }
       examples?: string[]
       /** optional link to grammar bank book page */
@@ -166,6 +179,7 @@ export type ContentBlock =
   | {
       type: 'examples'
       title?: string
+      titleAr?: string
       items: string[]
     }
   | {
@@ -175,11 +189,13 @@ export type ContentBlock =
   | {
       type: 'audio'
       title?: string
+      titleAr?: string
       tracks: AudioTrack[]
     }
   | {
       type: 'video'
       title?: string
+      titleAr?: string
       videos: VideoRef[]
     }
   | {
@@ -189,6 +205,7 @@ export type ContentBlock =
   | {
       type: 'review'
       title?: string
+      titleAr?: string
       text: string
     }
 

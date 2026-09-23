@@ -145,6 +145,11 @@ export function Quiz({ exercise }: { exercise: Exercise }) {
         <div>
           <h3 className="text-base font-semibold">{exercise.title}</h3>
           {exercise.instructions && <p className="text-sm text-[var(--ink-soft)]">{exercise.instructions}</p>}
+          {exercise.instructionsAr && (
+            <p dir="rtl" lang="ar" className="ar mt-0.5 text-sm text-brand-700 dark:text-brand-300">
+              {exercise.instructionsAr}
+            </p>
+          )}
         </div>
         <div className="flex items-center gap-2">
           {exercise.page && (

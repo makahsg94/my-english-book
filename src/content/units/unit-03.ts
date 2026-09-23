@@ -41,6 +41,7 @@ export const unit03: Unit = {
         {
           type: 'text',
           title: 'Describe rooms and furniture',
+          titleAr: 'صِف الغرف والأثاث',
           paragraphs: [
             'Look at photos of an apartment in Edinburgh and describe the rooms: what is on the wall, in front of the window, behind the laptop, between the windows.',
           ],
@@ -48,6 +49,7 @@ export const unit03: Unit = {
         {
           type: 'vocab',
           title: 'rooms and furniture',
+          titleAr: 'الغرف والأثاث',
           items: [
             { word: 'living room / lounge', meaningAr: 'غرفة المعيشة / الصالة', example: 'TV, sofa, armchair, coffee table', exampleAr: 'تلفاز، أريكة، كرسي بذراعين، طاولة قهوة' },
             { word: 'kitchen', meaningAr: 'المطبخ', example: 'fridge, cooker, sink, worktop, cupboards', exampleAr: 'ثلاجة، موقد، حوض، سطح عمل، خزائن' },
@@ -61,14 +63,19 @@ export const unit03: Unit = {
         {
           type: 'audio',
           title: 'The owner describes her apartment',
+          titleAr: 'المالكة تصف شقتها',
           tracks: au(['3.01', '3.02']),
         },
         {
           type: 'grammar',
           title: 'this, that, these, those; here, there',
+          titleAr: 'this, that, these, those؛ here, there',
           explanation:
             'We use this and these for things that are near (here), and that and those for things that are further away (there). Using the right word makes your description clearer.',
+          explanationAr:
+            'نستخدم this و these للأشياء القريبة (هنا)، و that و those للأشياء الأبعد (هناك). استخدام الكلمة الصحيحة يجعل وصفك أوضح.',
           rule: 'this + singular (here) · these + plural (here) · that + singular (there) · those + plural (there)',
+          ruleAr: 'this + مفرد (قريب) · these + جمع (قريب) · that + مفرد (بعيد) · those + جمع (بعيد)',
           table: {
             headers: ['near (here)', 'far (there)'],
             rows: [
@@ -87,6 +94,7 @@ export const unit03: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: /ɪ/ and /iː/',
+          titleAr: 'النطق: الصوتان /ɪ/ و /iː/',
           tracks: au(['3.03']),
         },
         {
@@ -96,6 +104,7 @@ export const unit03: Unit = {
             title: 'this, that, these or those?',
             kind: 'mcq',
             instructions: 'Choose the correct demonstrative for each sentence.',
+            instructionsAr: 'اختر اسم الإشارة الصحيح لكل جملة.',
             page: 28,
             verified: true,
             questions: [
@@ -163,6 +172,7 @@ export const unit03: Unit = {
         {
           type: 'text',
           title: 'Talk about your belongings',
+          titleAr: 'تحدث عن متعلقاتك',
           paragraphs: [
             'Is it easy to find things in your bag, on your desk, in your bedroom? Read about clutter – the things you have but don\u2019t really need – and learn to talk about what you\u2019ve got.',
           ],
@@ -170,6 +180,7 @@ export const unit03: Unit = {
         {
           type: 'vocab',
           title: 'common adjectives (1)',
+          titleAr: 'الصفات الشائعة (1)',
           items: [
             { word: 'soft', opposite: 'hard', meaningAr: 'ناعم / طري', example: 'a soft, comfortable chair', exampleAr: 'كرسي ناعم ومريح' },
             { word: 'large / big', opposite: 'small', meaningAr: 'كبير / ضخم', example: "It's too large, and you haven't got any space.", exampleAr: 'إنه كبير جداً، وليس لديك أي مساحة.' },
@@ -182,9 +193,13 @@ export const unit03: Unit = {
         {
           type: 'grammar',
           title: 'have got',
+          titleAr: 'have got',
           explanation:
             'Have got and have mean the same thing. We often use have got in speaking and informal writing.',
+          explanationAr:
+            'Have got و have تعنيان الشيء نفسه. وكثيراً ما نستخدم have got في الكلام والكتابة غير الرسمية.',
           rule: "Positive: subject + have/has got. Negative: subject + haven't/hasn't got. Question: Have/Has + subject + got?",
+          ruleAr: "الإثبات: الفاعل + have/has got. النفي: الفاعل + haven't/hasn't got. السؤال: Have/Has + الفاعل + got؟",
           table: {
             headers: ['Form', 'Example'],
             rows: [
@@ -205,6 +220,7 @@ export const unit03: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: sentence stress',
+          titleAr: 'النطق: نبرة الجملة',
           tracks: au(['3.04']),
         },
         {
@@ -214,6 +230,7 @@ export const unit03: Unit = {
             title: 'have got',
             kind: 'mcq',
             instructions: 'Choose the correct form of have got.',
+            instructionsAr: 'اختر الصيغة الصحيحة من have got.',
             page: 31,
             verified: true,
             questions: [
@@ -262,8 +279,10 @@ export const unit03: Unit = {
         {
           type: 'callout',
           title: 'Speaking',
+          titleAr: 'التحدث',
           tone: 'tip',
           text: 'Choose ten objects that you both have at home and ask about them: "Have you got a guitar at home?" – "No, we haven\u2019t." Then choose five objects to keep and explain your reasons.',
+          textAr: 'اختارا عشرة أشياء لديكما في المنزل واسألا عنها: "هل لديكما جيتار في المنزل؟" – "لا، ليس لدينا." ثم اختارا خمسة أشياء للاحتفاظ بها واشرحا أسبابكما.',
         },
         {
           type: 'pages',
@@ -286,6 +305,7 @@ export const unit03: Unit = {
         {
           type: 'text',
           title: 'Make invitations and offers',
+          titleAr: 'قدّم دعوات وعروضاً',
           paragraphs: [
             'When you invite someone to your home or are a guest yourself, you use special phrases. Think about what makes a good guest: what you bring, when you arrive and how you take your leave.',
           ],
@@ -293,9 +313,13 @@ export const unit03: Unit = {
         {
           type: 'grammar',
           title: 'How to ... make invitations and offers',
+          titleAr: 'كيف تقدّم دعوات وعروضاً',
           explanation:
             'Use Would you like to + infinitive to make an invitation. Accept with I\u2019d love to; decline politely with I\u2019m sorry, I can\u2019t.',
+          explanationAr:
+            'استخدم Would you like to + المصدر لتقديم دعوة. واقبل بقول I\u2019d love to؛ واعتذر بأدب بقول I\u2019m sorry, I can\u2019t.',
           rule: 'Make offers with Can I ...?, Shall I ...? and Let me ... + verb.',
+          ruleAr: 'قدّم العروض بـ Can I ...؟ و Shall I ...؟ و Let me ... + الفعل.',
           table: {
             headers: ['Function', 'Phrase'],
             rows: [
@@ -318,6 +342,7 @@ export const unit03: Unit = {
         {
           type: 'vocab',
           title: 'social phrases',
+          titleAr: 'عبارات اجتماعية',
           items: [
             { word: "Sorry I'm late.", meaningAr: 'آسف لتأخري.', response: 'No problem.', responseAr: 'لا مشكلة.' },
             { word: 'Great to see you!', meaningAr: 'سعيد برؤيتك!', response: 'Thank you for a lovely evening!', responseAr: 'شكراً لك على أمسية رائعة!' },
@@ -329,13 +354,16 @@ export const unit03: Unit = {
         {
           type: 'audio',
           title: 'Conversations with Jason and rhythm practice',
+          titleAr: 'محادثات مع جايسون وتدريب على الإيقاع',
           tracks: au(['3.05', '3.06', '3.07', '3.08']),
         },
         {
           type: 'callout',
           title: 'Speaking task',
+          titleAr: 'مهمة التحدث',
           tone: 'tip',
           text: 'Write a short email to invite a new friend or colleague to your home for a meal, then roleplay: arriving, ending the meal and saying goodbye.',
+          textAr: 'اكتب بريداً إلكترونياً قصيراً لدعوة صديق أو زميل جديد إلى منزلك لتناول وجبة، ثم مثّل الأدوار: الوصول، إنهاء الوجبة والوداع.',
         },
         {
           type: 'pages',
@@ -357,6 +385,7 @@ export const unit03: Unit = {
         {
           type: 'text',
           title: 'Talk about your local area',
+          titleAr: 'تحدث عن منطقتك المحلية',
           paragraphs: [
             'People in the street describe their homes and neighbourhoods. Talk about your own area: the shops, cafés, parks, neighbours and traffic.',
           ],
@@ -364,6 +393,7 @@ export const unit03: Unit = {
         {
           type: 'video',
 title: 'BBC Street Interviews: Your neighbourhood',
+titleAr: 'مقابلات بي بي سي في الشارع: حيّك',
             videos: [
               {
                 title: 'Street interviews: homes and neighbourhoods',
@@ -381,9 +411,13 @@ title: 'BBC Street Interviews: Your neighbourhood',
         {
           type: 'grammar',
           title: 'there is, there are',
+          titleAr: 'there is, there are',
           explanation:
             'We use there + be to say something exists. Use There\u2019s / There is with singular and There are with plural.',
+          explanationAr:
+            'نستخدم there + be لنقول إن شيئاً ما موجود. نستخدم There\u2019s / There is مع المفرد و There are مع الجمع.',
           rule: "There's + singular (There's a park close by.) · There are + plural (There are lots of shops.) · Negative: There isn't / There aren't · Questions: Is there ...? / Are there ...?",
+          ruleAr: "There's + مفرد (توجد حديقة قريبة.) · There are + جمع (توجد متاجر كثيرة.) · النفي: There isn't / There aren't · الأسئلة: Is there ...؟ / Are there ...؟",
           table: {
             headers: ['Form', 'Example'],
             rows: [
@@ -403,6 +437,7 @@ title: 'BBC Street Interviews: Your neighbourhood',
         {
           type: 'text',
           title: 'Writing: an email about your local area',
+          titleAr: 'كتابة: بريد إلكتروني عن منطقتك المحلية',
           paragraphs: [
             'Tell a friend about your neighbourhood. Include what is close by, what the area is like and what you like about it. Example sentence: "There\u2019s a small food store close by and a big supermarket about ten minutes\u2019 walk away. It\u2019s a busy area. There\u2019s a lot of traffic."',
           ],
@@ -426,6 +461,7 @@ title: 'BBC Street Interviews: Your neighbourhood',
             title: 'Match the sentence halves',
             kind: 'mcq',
             instructions: 'Match the beginning and the end of each sentence.',
+            instructionsAr: 'طابق بداية كل جملة مع نهايتها.',
             page: 36,
             verified: true,
             questions: [
@@ -513,6 +549,7 @@ title: 'BBC Street Interviews: Your neighbourhood',
         {
           type: 'audio',
           title: 'Review listenings',
+          titleAr: 'استماعات المراجعة',
           tracks: au(['R3.01', 'R3.02', 'VB 3.01', 'VB 3.02']),
         },
         {

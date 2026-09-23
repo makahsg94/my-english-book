@@ -41,6 +41,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'Describe what is happening now',
+          titleAr: 'صِف ما يحدث الآن',
           paragraphs: [
             'Work friends Tom and Becky plan to meet. Listen to their phone conversations and describe what people are doing at this moment – and what they look like.',
           ],
@@ -48,9 +49,13 @@ export const unit06: Unit = {
         {
           type: 'grammar',
           title: 'present continuous',
+          titleAr: 'المضارع المستمر',
           explanation:
             'We use the present continuous for something that is happening now, at this moment.',
+          explanationAr:
+            'نستخدم المضارع المستمر للتعبير عن شيء يحدث الآن، في هذه اللحظة.',
           rule: 'subject + am/are/is + verb + -ing. Negative: subject + am not / isn\u2019t / aren\u2019t + -ing. Questions: Am/Are/Is + subject + -ing?',
+          ruleAr: 'الفاعل + am/are/is + الفعل + -ing. النفي: الفاعل + am not/isn\u2019t/aren\u2019t + -ing. الأسئلة: Am/Are/Is + الفاعل + -ing؟',
           table: {
             headers: ['Form', 'Example'],
             rows: [
@@ -69,6 +74,7 @@ export const unit06: Unit = {
         {
           type: 'audio',
           title: 'Phone conversations and the weak form of are',
+          titleAr: 'محادثات هاتفية وصيغة النطق الضعيفة لـ are',
           tracks: au(['6.01', '6.02', '6.03']),
         },
         {
@@ -78,6 +84,7 @@ export const unit06: Unit = {
             title: 'present continuous',
             kind: 'mcq',
             instructions: 'Choose the correct form.',
+            instructionsAr: 'اختر الصيغة الصحيحة.',
             page: 58,
             verified: true,
             questions: [
@@ -127,6 +134,7 @@ export const unit06: Unit = {
         {
           type: 'vocab',
           title: 'clothes and appearance',
+          titleAr: 'الملابس والمظهر',
           items: [
             { word: 'jumper, T-shirt, jacket, shirt, skirt, top, hat, jeans, trainers', meaning: 'items of clothing', meaningAr: 'ملابس: بلوفر، تيشيرت، جاكيت، قميص، جيبة، توب، قبعة، جينز، حذاء رياضي' },
             { word: 'tall / short', meaning: 'height', meaningAr: 'طويل / قصير' },
@@ -140,8 +148,10 @@ export const unit06: Unit = {
         {
           type: 'callout',
           title: 'Writing: a group photo',
+          titleAr: 'الكتابة: صورة جماعية',
           tone: 'tip',
           text: 'Describe a family or group photo in an email: who the people are and what they are wearing/doing. See the Writing Bank, page 93.',
+          textAr: 'صِف صورة عائلية أو جماعية في رسالة إلكترونية: من هم الأشخاص وماذا يرتدون أو يفعلون. انظر بنك الكتابة في الصفحة 93.',
         },
         {
           type: 'pages',
@@ -164,6 +174,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'Talk about transport',
+          titleAr: 'تحدث عن وسائل النقل',
           paragraphs: [
             'Three people found unusual ways to travel to work: a librarian rows a boat down a river, two sisters built a hovercraft, and a factory worker built his own plane!',
           ],
@@ -171,6 +182,7 @@ export const unit06: Unit = {
         {
           type: 'vocab',
           title: 'common adjectives (2)',
+          titleAr: 'صفات شائعة (2)',
           items: [
             { word: 'short', opposite: 'long', meaningAr: 'قصير', example: 'a short journey', exampleAr: 'رحلة قصيرة' },
             { word: 'dangerous', opposite: 'safe', meaningAr: 'خطير', example: 'a safe route', exampleAr: 'طريق آمن' },
@@ -185,6 +197,7 @@ export const unit06: Unit = {
         {
           type: 'vocab',
           title: 'transport collocations',
+          titleAr: 'تعبيرات وسائل النقل',
           items: [
             { word: 'go by car / train / bus / plane / boat / bike', meaningAr: 'يذهب بالسيارة / القطار / الأتوبيس / الطائرة / القارب / الدراجة', example: 'I usually go by train.', exampleAr: 'عادة أذهب بالقطار.' },
             { word: 'go on foot', meaningAr: 'يذهب سيراً على الأقدام', example: 'It\u2019s ten minutes on foot.', exampleAr: 'المسافة عشر دقائق سيراً على الأقدام.' },
@@ -197,9 +210,13 @@ export const unit06: Unit = {
         {
           type: 'grammar',
           title: 'comparative adjectives',
+          titleAr: 'الصفات المقارنة',
           explanation:
             'We use comparative adjectives to compare two things, often with than.',
+          explanationAr:
+            'نستخدم الصفات المقارنة للمقارنة بين شيئين، وغالباً مع than.',
           rule: 'Short adjectives (one syllable): add -er (slow → slower, short → shorter). Long adjectives (two syllables or more): use more + adjective (more beautiful, more dangerous). Irregular: good → better, bad → worse.',
+          ruleAr: 'الصفات القصيرة (مقطع واحد): أضف -er (slow ← slower، short ← shorter). الصفات الطويلة (مقطعان فأكثر): استخدم more + صفة (more beautiful، more dangerous). الشاذة: good ← better، bad ← worse.',
           table: {
             headers: ['Type', 'Comparative'],
             rows: [
@@ -220,6 +237,7 @@ export const unit06: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: comparing and sentence stress',
+          titleAr: 'النطق: المقارنة ونبرات الجملة',
           tracks: au(['6.04', '6.05']),
         },
         {
@@ -229,6 +247,7 @@ export const unit06: Unit = {
             title: 'Comparative form',
             kind: 'mcq',
             instructions: 'Choose the correct comparative adjective.',
+            instructionsAr: 'اختر الصفة المقارنة الصحيحة.',
             page: 61,
             verified: true,
             questions: [
@@ -306,6 +325,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'Give directions',
+          titleAr: 'أعطِ الاتجاهات',
           paragraphs: [
             'Explore Dublin on foot: from Millennium Bridge to the Molly Malone statue, and from Ha\u2019penny Bridge to Dublin Castle. Then follow a route on the map of Dublin.',
           ],
@@ -313,6 +333,7 @@ export const unit06: Unit = {
         {
           type: 'vocab',
           title: 'places and directions',
+          titleAr: 'الأماكن والاتجاهات',
           items: [
             { word: 'pedestrian bridge', meaning: 'a bridge for people on foot', meaningAr: 'جسر للمشاة' },
             { word: 'crossroads', meaning: 'where two roads cross', meaningAr: 'تقاطع طرق' },
@@ -327,8 +348,11 @@ export const unit06: Unit = {
         {
           type: 'grammar',
           title: 'How to ... give directions',
+          titleAr: 'كيف ... نعطي الاتجاهات',
           explanation:
             'Give directions step by step: walk/go + direction + place, then turn left/right, go straight on, cross or go past a place.',
+          explanationAr:
+            'أعطِ الاتجاهات خطوة بخطوة: امشِ أو اذهب + اتجاه + مكان، ثم انعطف يساراً أو يميناً، وامشِ باستقامة، واعبر أو مرّ بجانب مكان.',
           table: {
             headers: ['Step', 'Phrase'],
             rows: [
@@ -355,13 +379,16 @@ export const unit06: Unit = {
         {
           type: 'audio',
           title: 'Asking for directions and stress to correct information',
+          titleAr: 'السؤال عن الاتجاهات ونبرة تصحيح المعلومة',
           tracks: au(['6.06', '6.07', '6.08']),
         },
         {
           type: 'callout',
           title: 'Pronunciation note',
+          titleAr: 'ملاحظة النطق',
           tone: 'note',
           text: 'When you correct information, stress the correct word: A: "Grafton Bridge." B: "Actually no, it\u2019s Grattan Bridge."',
+          textAr: 'عند تصحيح معلومة، نبر على الكلمة الصحيحة: أ: "Grafton Bridge". ب: "في الحقيقة لا، إنها Grattan Bridge".',
         },
         {
           type: 'pages',
@@ -383,6 +410,7 @@ export const unit06: Unit = {
         {
           type: 'text',
           title: 'An unusual experience',
+          titleAr: 'تجربة غير عادية',
           paragraphs: [
             'Cities are growing bigger and bigger, and animals are moving into the cities, where there is more food and safer places for their families. Follow the journey of a group of penguins from the ocean to their homes near Cape Town.',
           ],
@@ -390,6 +418,7 @@ export const unit06: Unit = {
         {
           type: 'video',
 title: 'BBC Programmes: Cities: nature\u2019s new wild',
+titleAr: 'برامج بي بي سي: المدن: برية الطبيعة الجديدة',
             videos: [
               {
                 title: 'Documentary clip: penguins in the city',
@@ -407,6 +436,7 @@ title: 'BBC Programmes: Cities: nature\u2019s new wild',
         {
           type: 'vocab',
           title: 'prepositions and adverbs of movement',
+          titleAr: 'حروف الجر وظروف الحركة',
           items: [
             { word: 'out of', meaning: 'from inside to outside (walk out of my building)', meaningAr: 'خارج من (من الداخل إلى الخارج)' },
             { word: 'into', meaning: 'from outside to inside (go into a house)', meaningAr: 'إلى داخل (من الخارج إلى الداخل)' },
@@ -423,11 +453,13 @@ title: 'BBC Programmes: Cities: nature\u2019s new wild',
         {
           type: 'audio',
           title: 'Jordan describes an unusual experience',
+          titleAr: 'جوردان يصف تجربة غير عادية',
           tracks: au(['6.09']),
         },
         {
           type: 'text',
           title: 'Reading: A City Story',
+          titleAr: 'القراءة: قصة مدينة',
           paragraphs: [
             'This happened last year, in my hometown. It was in the middle of the afternoon. I walked out of my building and got into my car. My car was in front of my building, so I didn\u2019t need to walk far. Suddenly I saw a big dog at the end of the road. It walked towards me, and when it was very close, I saw that it wasn\u2019t a dog \u2013 it was a wolf! A wolf in the city centre! I was safe inside my car, but I was very scared. I took out my phone and tried to video the wolf as it walked past my car. Usually there were people on the street, but at that moment there wasn\u2019t anybody. I watched the wolf for a minute. Then it turned the corner and was gone. It was just like in a dream. After that I always looked along the road before I left my apartment.',
           ],
@@ -435,8 +467,10 @@ title: 'BBC Programmes: Cities: nature\u2019s new wild',
         {
           type: 'callout',
           title: 'Writing: a city story',
+          titleAr: 'الكتابة: قصة مدينة',
           tone: 'tip',
           text: 'Write your own city story about an unusual experience. Use linking words (and, after that, because, but, so, then) and three prepositions or adverbs of movement.',
+          textAr: 'اكتب قصتك الخاصة عن المدينة وعن تجربة غير عادية، مستخدماً أدوات الربط (و، بعد ذلك، لأن، لكن، لذلك، ثم) وثلاثة من حروف الجر أو ظروف الحركة.',
         },
         {
           type: 'pages',
@@ -457,6 +491,7 @@ title: 'BBC Programmes: Cities: nature\u2019s new wild',
             title: 'Choose the correct option',
             kind: 'mcq',
             instructions: 'Complete the text about a zip line over the Angry River.',
+            instructionsAr: 'أكمل النص عن الحبل الانزلاقي فوق نهر أنغري.',
             page: 66,
             verified: true,
             questions: [
@@ -516,6 +551,7 @@ title: 'BBC Programmes: Cities: nature\u2019s new wild',
         {
           type: 'audio',
           title: 'Review listenings',
+          titleAr: 'استماعات المراجعة',
           tracks: au(['R6.01', 'R6.02']),
         },
         {

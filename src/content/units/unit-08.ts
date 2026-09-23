@@ -40,7 +40,8 @@ export const unit08: Unit = {
       blocks: [
         {
           type: 'text',
-          title: 'Trip advice',
+title: 'Trip advice',
+          titleAr: 'نصائح السفر',
           paragraphs: [
             'Read the travel discussions about a day trip to Sintra in Portugal: how to get there cheaply, what to see, and the best things to do near Lisbon. Then write your own advice using superlatives.',
           ],
@@ -48,6 +49,7 @@ export const unit08: Unit = {
         {
           type: 'vocab',
           title: 'describing places',
+          titleAr: 'وصف الأماكن',
           items: [
             { word: 'in the middle of nature', meaning: 'surrounded by nature', meaningAr: 'في قلب الطبيعة' },
             { word: 'coast', meaning: 'the land next to the sea', meaningAr: 'الساحل' },
@@ -62,9 +64,13 @@ export const unit08: Unit = {
         {
           type: 'grammar',
           title: 'superlative adjectives',
+          titleAr: 'صفات التفضيل (أعلى درجة)',
           explanation:
             'Use the + superlative to compare three or more things and say something is the highest, cheapest, most beautiful, etc.',
+          explanationAr:
+            'نستخدم the + صيغة التفضيل للمقارنة بين ثلاثة أشياء أو أكثر ولنقول إن شيئاً هو الأعلى أو الأرخص أو الأجمل، إلخ.',
           rule: 'short adjectives: the + -est (the cheapest, the highest, the nicest) · long adjectives: the most + adjective (the most beautiful, the most expensive) · irregular: good \u2192 the best, bad \u2192 the worst',
+          ruleAr: 'الصفات القصيرة: the + -est (the cheapest، the highest، the nicest). الصفات الطويلة: the most + صفة (the most beautiful، the most expensive). الشاذة: good ← the best، bad ← the worst',
           table: {
             headers: ['Form', 'Example from the travel discussions'],
             rows: [
@@ -87,6 +93,7 @@ export const unit08: Unit = {
             title: 'Complete the sentences with the superlative',
             kind: 'mcq',
             instructions: 'Choose the correct superlative form.',
+            instructionsAr: 'اختر صيغة التفضيل الصحيحة.',
             page: 79,
             verified: true,
             questions: [
@@ -136,13 +143,16 @@ export const unit08: Unit = {
         {
           type: 'audio',
           title: '-t in superlatives',
+          titleAr: 'صوت -t في صيغ التفضيل',
           tracks: au(['8.01']),
         },
         {
           type: 'callout',
           title: 'Speaking task',
+          titleAr: 'مهمة التحدث',
           tone: 'tip',
           text: 'Prepare five questions about a town you think is good to visit, using superlatives: "When is the best time to visit?", "What\u2019s the most interesting thing to do?", "Where\u2019s the best place to get a view?"',
+          textAr: 'حضّر خمسة أسئلة عن مدينة تظن أنها جميلة للزيارة، مستخدماً صيغ التفضيل: "متى أفضل وقت للزيارة؟"، "ما أكثر شيء ممتع تفعله؟"، "أين أفضل مكان لإطلالة؟"',
         },
         {
           type: 'pages',
@@ -165,6 +175,7 @@ export const unit08: Unit = {
         {
           type: 'text',
           title: 'A surprise holiday',
+          titleAr: 'عطلة مفاجئة',
           paragraphs: [
             'Read the advert: complete a questionnaire and "Surprise Travel" chooses the perfect holiday for you. One week before you leave, they send you the travel tickets and the name of the place.',
           ],
@@ -172,6 +183,7 @@ export const unit08: Unit = {
         {
           type: 'vocab',
           title: 'travel activities',
+          titleAr: 'أنشطة السفر',
           items: [
             { word: 'do a class', meaning: 'take part in a class (cooking, dance, language)', meaningAr: 'يحضر حصة / دورة' },
             { word: 'go on an organised tour', meaning: 'join a guided tour', meaningAr: 'يذهب في جولة منظّمة' },
@@ -186,9 +198,13 @@ export const unit08: Unit = {
         {
           type: 'grammar',
           title: 'be going to',
+          titleAr: 'be going to (ينوي أن / سوف + فعل)',
           explanation:
             'Use be going to + infinitive to talk about a future plan or intention.',
+          explanationAr:
+            'نستخدم be going to + مصدر للحديث عن خطة أو نية مستقبلية.',
           rule: 'subject + am/is/are (not) going to + infinitive',
+          ruleAr: 'الفاعل + am/is/are (not) going to + مصدر',
           table: {
             headers: ['Form', 'Example'],
             rows: [
@@ -211,6 +227,7 @@ export const unit08: Unit = {
             title: 'be going to',
             kind: 'mcq',
             instructions: 'Choose the correct form.',
+            instructionsAr: 'اختر الصيغة الصحيحة.',
             page: 81,
             verified: true,
             questions: [
@@ -260,6 +277,7 @@ export const unit08: Unit = {
         {
           type: 'audio',
           title: 'The surprise holiday radio programme and weak form of "to"',
+          titleAr: 'البرنامج الإذاعي عن العطلة المفاجئة وصيغة النطق الضعيفة لـ to',
           tracks: au(['8.02', '8.03', '8.04']),
         },
         {
@@ -282,7 +300,8 @@ export const unit08: Unit = {
       blocks: [
         {
           type: 'text',
-          title: 'At a hotel',
+title: 'At a hotel',
+          titleAr: 'في فندق',
           paragraphs: [
             'Read the funniest questions hotel guests asked receptionists last year: "How much is the free breakfast?", "The bath is too big. Can you change my room?", "Can I check out before I check in?"',
           ],
@@ -290,6 +309,7 @@ export const unit08: Unit = {
         {
           type: 'vocab',
           title: 'hotel language',
+          titleAr: 'لغة الفندق',
           items: [
             { word: 'book a room', meaning: 'reserve a room', meaningAr: 'يحجز غرفة' },
             { word: 'check in / check out', meaning: 'arrive / leave a hotel', meaningAr: 'تسجيل الوصول / المغادرة' },
@@ -306,8 +326,11 @@ export const unit08: Unit = {
         {
           type: 'grammar',
           title: 'How to ... make requests and offers in a hotel',
+          titleAr: 'كيف ... نطلب ونعرض المساعدة في فندق',
           explanation:
             'Make requests with can/could and offers with will/shall. The receptionist offers to do things for the guest.',
+          explanationAr:
+            'اطلب باستخدام can/could وقدّم المساعدة باستخدام will/shall، ويقوم موظف الاستقبال بعرض القيام بأشياء للضيف.',
           table: {
             headers: ['Situation', 'Language'],
             rows: [
@@ -328,6 +351,7 @@ export const unit08: Unit = {
         {
           type: 'audio',
           title: 'Hotel conversations and the contraction \u2019ll',
+          titleAr: 'محادثات في الفندق واختصار will على شكل \u2019ll',
           tracks: au(['8.05', '8.06', '8.07']),
         },
         {
@@ -337,6 +361,7 @@ export const unit08: Unit = {
             title: 'Requests and offers',
             kind: 'mcq',
             instructions: 'Choose the correct response.',
+            instructionsAr: 'اختر الرد الصحيح.',
             page: 83,
             verified: true,
             questions: [
@@ -402,14 +427,16 @@ export const unit08: Unit = {
       blocks: [
         {
           type: 'text',
-          title: 'Arctic Academy',
+title: 'Arctic Academy',
+          titleAr: 'أكاديمية القطب الشمالي',
           paragraphs: [
             'Craig Mathieson is an Arctic explorer. Every year he chooses ten teenagers from a Scottish school and takes them on a ten-day expedition to the Arctic. It is a life-changing experience, but it isn\u2019t easy for any of them. In this programme, one of the students, Kim, is having problems.',
           ],
         },
         {
           type: 'video',
-          title: 'BBC Documentary: Arctic Academy',
+title: 'BBC Documentary: Arctic Academy',
+          titleAr: 'فيلم وثائقي من بي بي سي: أكاديمية القطب الشمالي',
           videos: [
             {
               title: 'Ten teenagers, ten days, one Arctic expedition – and Kim is having problems.',
@@ -422,9 +449,13 @@ export const unit08: Unit = {
         {
           type: 'grammar',
           title: 'adverbs of manner',
+          titleAr: 'ظروف الكيفية (ظروف الطريقة)',
           explanation:
             'Adverbs of manner describe how something happens. We usually add -ly to the adjective, but some adverbs are irregular.',
+          explanationAr:
+            'ظروف الكيفية تصف كيف يحدث شيء ما. نضيف عادةً -ly إلى الصفة، لكن بعض الظروف شاذة.',
           rule: 'adjective + -ly: slow \u2192 slowly, careful \u2192 carefully · irregular: fast \u2192 fast, good \u2192 well · negative adverb: bad \u2192 badly',
+          ruleAr: 'صفة + -ly: slow ← slowly، careful ← carefully · شاذة: fast ← fast، good ← well · بمعنى سيئ: bad ← badly',
           table: {
             headers: ['Example from the lesson'],
             rows: [
@@ -445,11 +476,13 @@ export const unit08: Unit = {
         {
           type: 'audio',
           title: 'A walking holiday in New Zealand',
+          titleAr: 'عطلة مشي في نيوزيلندا',
           tracks: au(['8.08']),
         },
         {
           type: 'text',
           title: 'Writing: a trip',
+          titleAr: 'الكتابة: رحلة',
           paragraphs: [
             'Write about a trip in four paragraphs: the good things, then the problems and mistakes. Use adverbs of manner and linking words. Example: "A few years ago I went on a group holiday\u2026 The worst thing was the weather\u2026 In the end, I enjoyed the experience. I\u2019d love to do it again."',
           ],
@@ -473,6 +506,7 @@ export const unit08: Unit = {
             title: 'Choose the correct option',
             kind: 'mcq',
             instructions: 'Complete the story "Home away from home".',
+            instructionsAr: 'أكمل القصة "بيت بعيد عن الوطن".',
             page: 86,
             verified: true,
             questions: [
@@ -562,6 +596,7 @@ export const unit08: Unit = {
         {
           type: 'audio',
           title: 'Review listening',
+          titleAr: 'الاستماع المراجعة',
           tracks: au(['R8.01', 'R8.02']),
         },
         {
@@ -571,6 +606,7 @@ export const unit08: Unit = {
         {
           type: 'video',
           title: 'BBC Vlogs: travel',
+          titleAr: 'مدونات فيديو بي بي سي: السفر',
           videos: [
             {
               title: 'BBC Vlogs: travel',

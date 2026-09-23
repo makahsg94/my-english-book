@@ -27,6 +27,7 @@ export const leadIn: Unit = {
         {
           type: 'text',
           title: 'Put the words in groups',
+          titleAr: 'رتّب الكلمات في مجموعات',
           paragraphs: [
             'Sort words into everyday objects, colours, countries, numbers, days of the week and the alphabet. Then check your ideas in the Vocabulary Bank, pages 130\u2013132.',
           ],
@@ -34,6 +35,7 @@ export const leadIn: Unit = {
         {
           type: 'vocab',
           title: 'everyday objects',
+          titleAr: 'الأشياء اليومية',
           items: [
             { word: 'toothbrush', meaning: 'for cleaning your teeth', meaningAr: 'فرشاة أسنان' },
             { word: 'tissues', meaning: 'soft paper to wipe with', meaningAr: 'مناديل ورقية' },
@@ -51,6 +53,7 @@ export const leadIn: Unit = {
         {
           type: 'vocab',
           title: 'colours, countries and nationalities',
+          titleAr: 'الألوان، البلدان والجنسيات',
           items: [
             { word: 'red, yellow, blue, green, white, black, brown, orange, purple, pink', meaning: 'colours', meaningAr: 'أحمر، أصفر، أزرق، أخضر، أبيض، أسود، بني، برتقالي، بنفسجي، وردي' },
             { word: 'Brazilian, Scottish, Turkish, Polish, Chinese, Vietnamese, Portuguese, German, Greek, French', meaning: 'nationalities', meaningAr: 'البرازيلي، الاسكتلندي، التركي، البولندي، الصيني، الفيتنامي، البرتغالي، الألماني، اليوناني، الفرنسي' },
@@ -60,6 +63,7 @@ export const leadIn: Unit = {
         {
           type: 'vocab',
           title: 'the alphabet, days and numbers',
+          titleAr: 'الحروف الأبجدية، الأيام والأرقام',
           items: [
             { word: 'Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday', meaning: 'days of the week', meaningAr: 'الاثنين، الثلاثاء، الأربعاء، الخميس، الجمعة، السبت، الأحد' },
             { word: 'one \u2192 a hundred', meaning: 'numbers 1\u2013100, including eleven, fifteen, twenty, thirty, forty-four, seventy-two, ninety', meaningAr: 'من واحد إلى مئة (1 إلى 100)' },
@@ -69,8 +73,11 @@ export const leadIn: Unit = {
         {
           type: 'grammar',
           title: 'review: subject pronouns and be; object pronouns and possessive adjectives',
+          titleAr: 'مراجعة: ضمائر الفاعل وفعل يكون؛ ضمائر المفعول وصفات الملكية',
           explanation:
             'Review I/you/he/she/it/we/they with am/is/are, and me/you/him/her + my/your/his/her.',
+          explanationAr:
+            'راجع الضمائر I/you/he/she/it/we/they مع am/is/are، و me/you/him/her مع my/your/his/her.',
           table: {
             headers: ['Subject', 'Object', 'Possessive adjective'],
             rows: [
@@ -98,6 +105,7 @@ export const leadIn: Unit = {
             title: 'Question words',
             kind: 'mcq',
             instructions: 'Choose the correct question word.',
+            instructionsAr: 'اختر كلمة السؤال الصحيحة.',
             page: 6,
             verified: true,
             questions: [
@@ -165,6 +173,7 @@ export const leadIn: Unit = {
             title: 'Subject pronouns and possessive adjectives',
             kind: 'mcq',
             instructions: 'Complete each sentence with the correct word.',
+            instructionsAr: 'أكمل كل جملة بالكلمة الصحيحة.',
             page: 6,
             verified: true,
             questions: [
@@ -214,13 +223,16 @@ export const leadIn: Unit = {
         {
           type: 'audio',
           title: 'Listen and repeat',
+          titleAr: 'استمع وكرر',
           tracks: au(['L.01', 'L.02']),
         },
         {
           type: 'callout',
           title: 'Classroom language',
+          titleAr: 'لغة الصف',
           tone: 'tip',
           text: 'What does \u201csingular\u201d mean? How do you spell it? Sorry, could you say that again? Which page is it on? Thirty-five. – practice with your partner.',
+          textAr: 'ماذا تعني كلمة \u201csingular\u201d؟ كيف تتهجّى ذلك؟ آسف، هل يمكنك إعادة القول من فضلك؟ في أي صفحة؟ خمسة وثلاثون. – تدرب مع زميلك.',
         },
         {
           type: 'pages',

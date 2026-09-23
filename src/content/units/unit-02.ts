@@ -41,6 +41,7 @@ export const unit02: Unit = {
         {
           type: 'text',
           title: 'Talk about what you eat',
+          titleAr: 'تحدث عن ما تأكله',
           paragraphs: [
             'Name food and drink, talk about what you like and dislike, and say what you have at home. Learn to use countable and uncountable nouns with a, an, some and any.',
           ],
@@ -48,6 +49,7 @@ export const unit02: Unit = {
         {
           type: 'vocab',
           title: 'food and drink',
+          titleAr: 'الطعام والشراب',
           items: [
             { word: 'fruit', meaning: 'countable and uncountable', meaningAr: 'فاكهة', example: 'an apple, grapes, a lemon, tomatoes, an avocado', exampleAr: 'تفاحة، عنب، ليمون، طماطم، أفوكادو' },
             { word: 'vegetables', meaning: 'countable', meaningAr: 'خضروات', example: 'beans, broccoli', exampleAr: 'فاصولياء، بروكلي' },
@@ -60,14 +62,19 @@ export const unit02: Unit = {
         {
           type: 'audio',
           title: 'A podcast about favourite food',
+          titleAr: 'بودكاست عن الطعام المفضل',
           tracks: au(['2.01', '2.02']),
         },
         {
           type: 'grammar',
           title: 'countable and uncountable nouns; a, an, some, any',
+          titleAr: 'الأسماء المعدودة وغير المعدودة؛ a, an, some, any',
           explanation:
             'Countable nouns are things we can count; they can be singular or plural (a banana, two bananas). Uncountable nouns are things we cannot count in English and are not usually plural (water, rice, pasta).',
+          explanationAr:
+            'الأسماء المعدودة هي أشياء يمكننا عدّها؛ فتكون مفردة أو جمعاً (موزة، موزتان). أما غير المعدودة فهي أشياء لا يمكن عدّها في الإنجليزية ولا تُجمع عادةً (ماء، أرز، معكرونة).',
           rule: 'Use a or an with singular countable nouns. Use some with plural countable and with uncountable nouns (general amount). Use any in negative sentences and questions. Use a lot of for a big number or amount.',
+          ruleAr: 'استخدم a أو an مع الأسماء المعدودة المفردة. استخدم some مع المعدود الجمع وغير المعدود (كمية غير محددة). واستخدم any في الجمل المنفية والأسئلة. واستخدم a lot of للتعبير عن عدد أو كمية كبيرة.',
           table: {
             headers: ['Quantity', 'Use'],
             rows: [
@@ -88,6 +95,7 @@ export const unit02: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: the weak /ə/ sound in a, an, some',
+          titleAr: 'النطق: الصوت الضعيف /ə/ في a, an, some',
           tracks: au(['2.03', '2.04']),
         },
         {
@@ -97,6 +105,7 @@ export const unit02: Unit = {
             title: 'a, an, some or any?',
             kind: 'mcq',
             instructions: 'Choose the correct word to complete each sentence from the lesson.',
+            instructionsAr: 'اختر الكلمة الصحيحة لإكمال كل جملة من الدرس.',
             page: 19,
             verified: true,
             questions: [
@@ -156,8 +165,10 @@ export const unit02: Unit = {
         {
           type: 'callout',
           title: 'Writing: an online comment',
+          titleAr: 'كتابة: تعليق عبر الإنترنت',
           tone: 'tip',
           text: 'Write an online comment about your favourite comfort food. Use the linking words and, but and or. See the Writing Bank, page 89.',
+          textAr: 'اكتب تعليقاً عبر الإنترنت عن طعامك المفضل المريح. استخدم أدوات الربط and و but و or. راجع بنك الكتابة، الصفحة 89.',
         },
         {
           type: 'pages',
@@ -180,6 +191,7 @@ export const unit02: Unit = {
         {
           type: 'text',
           title: 'Talk about your lifestyle',
+          titleAr: 'تحدث عن نمط حياتك',
           paragraphs: [
             'Do a lifestyle quiz and then talk about your routines: how often you go online, see friends, exercise and meet new people.',
           ],
@@ -187,6 +199,7 @@ export const unit02: Unit = {
         {
           type: 'vocab',
           title: 'everyday activities',
+          titleAr: 'الأنشطة اليومية',
           items: [
             { word: 'check your messages / emails', meaningAr: 'يتفقد رسائلك / بريدك الإلكتروني', example: 'go online and check my messages', exampleAr: 'أتصل بالإنترنت وأتفقد رسائلي' },
             { word: 'get up early / late', meaningAr: 'يستيقظ مبكراً / متأخراً', example: 'I usually get up early and go running.', exampleAr: 'عادة أستيقظ مبكراً وأذهب للجري.' },
@@ -199,9 +212,13 @@ export const unit02: Unit = {
         {
           type: 'grammar',
           title: 'adverbs and phrases of frequency',
+          titleAr: 'ظروف وعبارات التكرار',
           explanation:
             'Use adverbs of frequency to say how often you do something: always (100%), usually, often, sometimes, hardly ever (10%), never (0%). They go before most verbs and after the verb be.',
+          explanationAr:
+            'استخدم ظروف التكرار لتقول كم مرة تفعل شيئاً: always (دائماً 100%)، usually (عادةً)، often (غالباً)، sometimes (أحياناً)، hardly ever (نادراً 10%)، never (أبداً 0%). وتأتي قبل معظم الأفعال وبعد فعل be.',
           rule: 'Frequency phrases go at the end of a sentence: every day, once a week, twice a month, three times a year.',
+          ruleAr: 'تأتي عبارات التكرار في نهاية الجملة: كل يوم، مرة في الأسبوع، مرتين في الشهر، ثلاث مرات في السنة.',
           table: {
             headers: ['Position', 'Example'],
             rows: [
@@ -225,6 +242,7 @@ export const unit02: Unit = {
             title: 'How often?',
             kind: 'mcq',
             instructions: 'Choose the correct adverb of frequency for each meaning (0% = never, 100% = always).',
+            instructionsAr: 'اختر ظرف التكرار الصحيح لكل معنى (0% = أبداً، 100% = دائماً).',
             page: 21,
             verified: true,
             questions: [
@@ -274,13 +292,16 @@ export const unit02: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: linking',
+          titleAr: 'النطق: الربط بين الكلمات',
           tracks: au(['2.05', '2.06']),
         },
         {
           type: 'callout',
           title: 'Speaking',
+          titleAr: 'التحدث',
           tone: 'tip',
           text: 'Put these things on a line from "not important" to "very important" for you: animals, coffee, family, food, friends, health, online life, shopping, sleep, sport, time alone, work. Then compare with a partner: "Sleep is very important to me."',
+          textAr: 'رتّب هذه الأشياء على خط من "غير مهم" إلى "مهم جداً" بالنسبة لك: الحيوانات، القهوة، العائلة، الطعام، الأصدقاء، الصحة، الحياة عبر الإنترنت، التسوق، النوم، الرياضة، وقت العزلة، العمل. ثم قارن مع زميلك: "النوم مهم جداً بالنسبة لي."',
         },
         {
           type: 'pages',
@@ -303,6 +324,7 @@ export const unit02: Unit = {
         {
           type: 'text',
           title: 'Order a meal in a restaurant',
+          titleAr: 'اطلب وجبة في مطعم',
           paragraphs: [
             'Read an article about people\u2019s food photos, learn the words for the parts of a meal and practise polite ways to order a meal in a restaurant.',
           ],
@@ -310,6 +332,7 @@ export const unit02: Unit = {
         {
           type: 'vocab',
           title: 'restaurant words',
+          titleAr: 'كلمات المطعم',
           items: [
             { word: 'starters', meaning: 'first course', meaningAr: 'المقبلات (الطبق الأول)' },
             { word: 'main courses', meaning: 'the biggest course of a meal', meaningAr: 'الأطباق الرئيسية' },
@@ -323,6 +346,7 @@ export const unit02: Unit = {
         {
           type: 'text',
           title: 'From the menu',
+          titleAr: 'من القائمة',
           paragraphs: [
             'Starters: soup of the day (V), deep fried mushrooms with a garlic dip (V), sushi platter, bruschetta with tomatoes and basil (V).',
             'Main courses: beefburger with chips, Thai green chicken curry with rice, salmon in a cream sauce, nut roast (V).',
@@ -334,9 +358,13 @@ export const unit02: Unit = {
         {
           type: 'grammar',
           title: 'How to ... order a meal in a restaurant',
+          titleAr: 'كيف تطلب وجبة في مطعم',
           explanation:
             'Use can, could and would like / I\u2019d like to make requests in a restaurant. Could is a little more polite than can.',
+          explanationAr:
+            'استخدم can و could و would like / I\u2019d like لتقديم الطلبات في المطعم. Could أكثر تهذيباً قليلاً من can.',
           rule: 'Use some for requests with plural and uncountable nouns (not any). Use the to order something on the menu. Answer requests with a phrase, not just yes/no.',
+          ruleAr: 'استخدم some للطلبات مع أسماء الجمع وغير المعدودة (وليس any). واستخدم the لطلب شيء محدد من القائمة. وأجب عن الطلبات بعبارة وليس فقط بنعم/لا.',
           table: {
             headers: ['When?', 'Useful phrase'],
             rows: [
@@ -363,6 +391,7 @@ export const unit02: Unit = {
             title: 'Choose the correct word(s)',
             kind: 'mcq',
             instructions: 'Complete each sentence the way a polite customer or waiter would say it.',
+            instructionsAr: 'أكمل كل جملة بالطريقة التي قد يقولها زبون أو نادل مهذب.',
             page: 104,
             verified: true,
             questions: [
@@ -426,13 +455,16 @@ export const unit02: Unit = {
         {
           type: 'audio',
           title: 'Listenings and intonation practice',
+          titleAr: 'استماعات وتدريب على التنغيم',
           tracks: au(['2.07', '2.08', '2.09', '2.10']),
         },
         {
           type: 'callout',
           title: 'Roleplay',
+          titleAr: 'تمثيل الأدوار',
           tone: 'tip',
           text: 'Prepare a menu from your town or country (three starters, main courses, side dishes and desserts) and roleplay a conversation in a restaurant – one student is the waiter, the others are customers.',
+          textAr: 'جهّز قائمة طعام من مدينتك أو بلدك (ثلاث مقبلات، أطباق رئيسية، أطباق جانبية وحلويات) ومثّل حواراً في مطعم: أحد الطلاب نادل والبقية زبائن.',
         },
         {
           type: 'pages',
@@ -454,6 +486,7 @@ export const unit02: Unit = {
         {
           type: 'text',
           title: 'A special event',
+          titleAr: 'مناسبة خاصة',
           paragraphs: [
             'Every year the people of Okanogan County in Washington State, USA have a fair to celebrate the end of summer. One of the big events is the Indian Relay Race, a tradition of American Indians. Each rider rides three different horses around the track. Watch or read about Oliver Pakootas and his family as they prepare for this important tradition.',
           ],
@@ -461,6 +494,7 @@ export const unit02: Unit = {
         {
           type: 'video',
 title: 'BBC Programmes: The Indian Relay',
+titleAr: 'برامج بي بي سي: سباق التتابع الهندي',
             videos: [
               {
                 title: 'Documentary clip: the Indian Relay Race',
@@ -478,9 +512,13 @@ title: 'BBC Programmes: The Indian Relay',
         {
           type: 'grammar',
           title: 'like, hate, love + -ing',
+          titleAr: 'like, hate, love + الفعل بصيغة -ing',
           explanation:
             'Use verb + -ing after love, like, enjoy, don\u2019t like and hate.',
+          explanationAr:
+            'استخدم الفعل + -ing بعد love و like و enjoy و don\u2019t like و hate.',
           rule: 'Spelling: most verbs add -ing (wait → waiting); verbs ending -e drop the e and add -ing (write → writing); verbs with consonant + vowel + consonant double the final consonant (run → running); verbs ending -y, -w or -x do not double (play → playing).',
+          ruleAr: 'قواعد الإملاء: معظم الأفعال نضيف إليها -ing (wait إلى waiting)؛ والأفعال المنتهية بـ -e تحذف e وتضيف -ing (write إلى writing)؛ والأفعال المكوّنة من ساكن + حرف علة + ساكن تضاعف الحرف الأخير (run إلى running)؛ والأفعال المنتهية بـ -y أو -w أو -x لا تضاعف (play إلى playing).',
           table: {
             headers: ['Verb + -ing', 'Example'],
             rows: [
@@ -505,6 +543,7 @@ title: 'BBC Programmes: The Indian Relay',
             title: 'Write the -ing form',
             kind: 'mcq',
             instructions: 'Match each verb with its -ing form.',
+            instructionsAr: 'طابق كل فعل مع صيغته بـ -ing.',
             page: 105,
             verified: true,
             questions: [
@@ -634,6 +673,7 @@ title: 'BBC Programmes: The Indian Relay',
         {
           type: 'text',
           title: 'Writing: describe an event',
+          titleAr: 'كتابة: صِف مناسبة',
           paragraphs: [
             'Think of a special event, e.g. a festival or a national holiday, and describe it in 80–100 words. Use phrases like: "Let me tell you about ...", "It happens in [place] in [month].", "The [event] lasts [number] days.", "My favourite thing is ...".',
             'Example: In Quebec we have a big festival every winter, the Quebec Winter Carnival. The city goes crazy! I love looking at the ice sculptures. The artists often make ice animals and buildings. I always watch the canoe race. My favourite thing is the evening parade.',
@@ -642,6 +682,7 @@ title: 'BBC Programmes: The Indian Relay',
         {
           type: 'audio',
           title: 'The Quebec Winter Carnival',
+          titleAr: 'كرنفال كيبيك الشتوي',
           tracks: au(['2.11']),
         },
         {
@@ -663,6 +704,7 @@ title: 'BBC Programmes: The Indian Relay',
             title: 'Countable or uncountable?',
             kind: 'mcq',
             instructions: 'Is each word countable (C) or uncountable (U)?',
+            instructionsAr: 'هل كل كلمة معدودة (C) أم غير معدودة (U)؟',
             page: 26,
             verified: true,
             questions: [
@@ -680,6 +722,7 @@ title: 'BBC Programmes: The Indian Relay',
         {
           type: 'audio',
           title: 'Review listenings',
+          titleAr: 'استماعات المراجعة',
           tracks: au(['R2.01', 'R2.02', 'VB 2.01']),
         },
         {

@@ -41,6 +41,7 @@ export const unit07: Unit = {
         {
           type: 'text',
           title: 'Talk about jobs',
+          titleAr: 'تحدث عن الوظائف',
           paragraphs: [
             'Is this the job for you? Read about a professional sleeper who tests beds for hotel companies, and a TV runner – "a waiter, a taxi driver and a secretary at the same time".',
           ],
@@ -48,9 +49,13 @@ export const unit07: Unit = {
         {
           type: 'grammar',
           title: 'articles: a, an, the, zero',
+          titleAr: 'أدوات التعريف: a و an و the و بدون أداة',
           explanation:
             'Use a/an before people\u2019s jobs and before singular nouns to mean one. Use the before a specific thing that we know about. Use zero article before plural nouns in general and in some fixed phrases.',
+          explanationAr:
+            'نستخدم a/an قبل مهن الناس وقبل الأسماء المفردة بمعنى "واحد". نستخدم the قبل الشيء المحدد الذي نعرفه. ولا نستخدم أداة قبل الأسماء الجمع بمعنى عام وفي بعض العبارات الثابتة.',
           rule: 'a/an + singular (a job, an idea) · the + specific (the company, the job for you) · zero article + plural general (beds, reports) and fixed phrases (at work, in bed, to school)',
+          ruleAr: 'a/an + اسم مفرد (a job، an idea) · the + شيء محدد (the company، the job for you) · بدون أداة + جمع بمعنى عام (beds، reports) وعبارات ثابتة (at work، in bed، to school)',
           table: {
             headers: ['Rule', 'Example'],
             rows: [
@@ -74,6 +79,7 @@ export const unit07: Unit = {
             title: 'a, an, the or nothing?',
             kind: 'mcq',
             instructions: 'Choose the correct article for each sentence.',
+            instructionsAr: 'اختر أداة التعريف الصحيحة لكل جملة.',
             page: 68,
             verified: true,
             questions: [
@@ -132,11 +138,13 @@ export const unit07: Unit = {
         {
           type: 'audio',
           title: 'Weak forms: a, an, the',
+          titleAr: 'الصيغ الضعيفة: a و an و the',
           tracks: au(['7.01', '7.02']),
         },
         {
           type: 'vocab',
           title: 'skills and qualities',
+          titleAr: 'المهارات والصفات',
           items: [
             { word: 'be relaxed', meaning: 'stay calm', meaningAr: 'أن تكون هادئاً ومسترخياً' },
             { word: 'work well with people', meaning: 'good team behaviour', meaningAr: 'أن تعمل جيداً مع الناس (سلوك فريق جيد)' },
@@ -151,8 +159,10 @@ export const unit07: Unit = {
         {
           type: 'callout',
           title: 'Speaking task',
+          titleAr: 'مهمة التحدث',
           tone: 'tip',
           text: 'Choose four jobs and write two interview questions for each one, using phrases such as: "Are you good with people?", "Can you work long hours?"',
+          textAr: 'اختر أربع وظائف واكتب سؤالَي مقابلة لكل واحدة، باستخدام عبارات مثل: "هل تجيد التعامل مع الناس؟"، "هل تستطيع العمل ساعات طويلة؟"',
         },
         {
           type: 'pages',
@@ -174,7 +184,8 @@ export const unit07: Unit = {
       blocks: [
         {
           type: 'text',
-          title: 'An extra day',
+title: 'An extra day',
+          titleAr: 'يوم إضافي',
           paragraphs: [
             'Imagine you have an extra day free each week. What would you like to do? Listen to people talk about how they spend their extra day – volunteering, cleaning and helping others.',
           ],
@@ -182,6 +193,7 @@ export const unit07: Unit = {
         {
           type: 'vocab',
           title: 'phrasal verbs',
+          titleAr: 'الأفعال المركبة',
           items: [
             { word: 'look after', meaningAr: 'يعتني بـ', example: 'look after the elephants / someone\u2019s pet', exampleAr: 'يعتني بالفيلة / بحيوان أليف لشخص ما' },
             { word: 'give up', meaningAr: 'يتخلى عن / يستقيل من', example: 'give up your job', exampleAr: 'يتخلى عن وظيفتك' },
@@ -198,6 +210,7 @@ export const unit07: Unit = {
             title: 'Match the phrasal verbs',
             kind: 'mcq',
             instructions: 'Match each phrasal verb with the phrase that goes with it.',
+            instructionsAr: 'طابِق كل فعل مركّب مع العبارة التي تناسبه.',
             page: 70,
             verified: true,
             questions: [
@@ -285,9 +298,13 @@ export const unit07: Unit = {
         {
           type: 'grammar',
           title: 'present simple and present continuous',
+          titleAr: 'المضارع البسيط والمضارع المستمر',
           explanation:
             'Use the present simple for habits, routines and things that are always true. Use the present continuous for things happening now.',
+          explanationAr:
+            'نستخدم المضارع البسيط للعادات والروتين والأشياء الصحيحة دائماً. ونستخدم المضارع المستمر للأشياء التي تحدث الآن.',
           rule: 'present simple: I work for a bank. · present continuous: I\u2019m working outside today. · Compare: He works at the weekend (habit) / Today he\u2019s helping Jim (now).',
+          ruleAr: 'المضارع البسيط: I work for a bank (أعمل في بنك). المضارع المستمر: I\u2019m working outside today (أعمل في الخارج اليوم). قارن: He works at the weekend (عادة) / Today he\u2019s helping Jim (الآن).',
           table: {
             headers: ['Use', 'Example'],
             rows: [
@@ -305,13 +322,16 @@ export const unit07: Unit = {
         {
           type: 'audio',
           title: 'The extra day podcast and connected speech',
+          titleAr: 'بودكاست اليوم الإضافي والكلام المتصل',
           tracks: au(['7.03', '7.04', '7.05']),
         },
         {
           type: 'callout',
           title: 'Volunteer jobs',
+          titleAr: 'أعمال التطوع',
           tone: 'tip',
           text: 'Give us just ONE day a week! Match the statements with the volunteer jobs: plant trees (important after forest fires), train a sports team (good for people who are good at sports), teach children to read (good with young children).',
+          textAr: 'أعطنا يوماً واحداً فقط في الأسبوع! طابِق العبارات مع الأعمال التطوعية: زراعة الأشجار (مهمة بعد حرائق الغابات)، تدريب فريق رياضي (مناسبة لمن يجيدون الرياضة)، تعليم الأطفال القراءة (مناسبة لمن يجيدون التعامل مع الأطفال).',
         },
         {
           type: 'pages',
@@ -334,6 +354,7 @@ export const unit07: Unit = {
         {
           type: 'text',
           title: 'Phone for information',
+          titleAr: 'اتصل للحصول على معلومات',
           paragraphs: [
             'Call a leisure centre to ask about the spa, swimming classes and opening times. Learn the language you need on the phone – and how to sound friendly.',
           ],
@@ -341,6 +362,7 @@ export const unit07: Unit = {
         {
           type: 'vocab',
           title: 'phoning',
+          titleAr: 'الاتصال الهاتفي',
           items: [
             { word: 'call / phone / ring', meaning: 'the same meaning', meaningAr: 'يتصل / يهاتف (نفس المعنى)' },
             { word: 'mobile / smartphone / landline', meaning: 'phones you can use', meaningAr: 'محمول / هاتف ذكي / هاتف أرضي' },
@@ -354,8 +376,11 @@ export const unit07: Unit = {
         {
           type: 'grammar',
           title: 'How to ... phone for information',
+          titleAr: 'كيف ... نتصل للحصول على معلومات',
           explanation:
             'Start the call with Hello, this is ... / How can I help you? Use Sorry, could you hold on a minute? to ask the caller to wait. End with Thank you for calling.',
+          explanationAr:
+            'ابدأ المكالمة بعبارة Hello, this is ... أو How can I help you؟ واستخدم Sorry, could you hold on a minute؟ لطلب الانتظار من المتصل، وانهِ المكالمة بعبارة Thank you for calling.',
           table: {
             headers: ['Part of the call', 'Say this'],
             rows: [
@@ -379,6 +404,7 @@ export const unit07: Unit = {
         {
           type: 'audio',
           title: 'The automated message and phone conversations',
+          titleAr: 'الرسالة الآلية والمحادثات الهاتفية',
           tracks: au(['7.06', '7.07', '7.08', '7.09', '7.10']),
         },
         {
@@ -388,6 +414,7 @@ export const unit07: Unit = {
             title: 'Phoning vocabulary',
             kind: 'mcq',
             instructions: 'Choose the correct word.',
+            instructionsAr: 'اختر الكلمة الصحيحة.',
             page: 72,
             verified: true,
             questions: [
@@ -454,6 +481,7 @@ export const unit07: Unit = {
         {
           type: 'text',
           title: 'Do a survey about skills',
+          titleAr: 'أجرِ استبياناً عن المهارات',
           paragraphs: [
             'Ask people what skills they have and what skills they would like to learn. Use verbs like would like, want, plan, need and love with the to infinitive.',
           ],
@@ -461,6 +489,7 @@ export const unit07: Unit = {
         {
           type: 'video',
 title: 'BBC Vlogs: what do you do?',
+titleAr: 'مدونات فيديو بي بي سي: ماذا تعمل؟',
             videos: [
               {
                 title: 'People answer: "What do you do?" and "What skills would you like to learn?"',
@@ -478,8 +507,11 @@ title: 'BBC Vlogs: what do you do?',
         {
           type: 'grammar',
           title: 'verbs and to infinitive',
+          titleAr: 'الأفعال والمصدر بـ to',
           explanation:
             "After would like, would love, want, plan, need, hope and choose we use the to infinitive (to + verb).",
+          explanationAr:
+            'بعد would like و would love و want و plan و need و hope و choose نستخدم المصدر بـ to (to + فعل).',
           table: {
             headers: ['Verb + to infinitive', 'Example'],
             rows: [
@@ -504,6 +536,7 @@ title: 'BBC Vlogs: what do you do?',
             title: 'Verb or to infinitive?',
             kind: 'mcq',
             instructions: 'Choose the correct form to complete each sentence.',
+            instructionsAr: 'اختر الصيغة الصحيحة لإكمال كل جملة.',
             page: 74,
             verified: true,
             questions: [
@@ -553,6 +586,7 @@ title: 'BBC Vlogs: what do you do?',
         {
           type: 'text',
           title: 'Writing: a survey summary',
+          titleAr: 'الكتابة: ملخص استبيان',
           paragraphs: [
             'Ask six people "What skills do you have and what would you like to learn?" and summarise the answers: the question, the answers and a comment about the answers. Example: "Two people can sing and they often act in the local theatre. One person would love to learn to dance the tango!"',
           ],
@@ -576,6 +610,7 @@ title: 'BBC Vlogs: what do you do?',
             title: 'Choose the correct option',
             kind: 'mcq',
             instructions: 'Complete the story "From computers to pizzas".',
+            instructionsAr: 'أكمل القصة "من الحواسيب إلى البيتزا".',
             page: 76,
             verified: true,
             questions: [
@@ -645,6 +680,7 @@ title: 'BBC Vlogs: what do you do?',
         {
           type: 'audio',
           title: 'Review listening',
+          titleAr: 'الاستماع المراجعة',
           tracks: au(['R7.01']),
         },
         {

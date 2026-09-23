@@ -41,6 +41,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Talk about the past',
+          titleAr: 'تحدث عن الماضي',
           paragraphs: [
             "Do a quiz about the 2010s (twenty-tens): the first Instagram photo, TIME magazine's Person of the Year, the most expensive football transfer and the bestselling album of the decade.",
           ],
@@ -48,9 +49,13 @@ export const unit04: Unit = {
         {
           type: 'grammar',
           title: 'past simple of be: was, were',
+          titleAr: 'الماضي البسيط لفعل be: was, were',
           explanation:
             'We use was and were to talk about the past. Was is for I / he / she / it; were is for you / we / they.',
+          explanationAr:
+            'نستخدم was و were للحديث عن الماضي. Was تأتي مع I / he / she / it؛ أما were فمع you / we / they.',
           rule: "Positive: I/he/she/it was, you/we/they were. Negative: wasn't / weren't. Question: Was ...? / Were ...? Short answers: Yes, I was. / No, I wasn't.",
+          ruleAr: "الإثبات: I/he/she/it was، و you/we/they were. النفي: wasn't / weren't. السؤال: Was ...؟ / Were ...؟ الأجوبة المختصرة: Yes, I was. / No, I wasn't.",
           table: {
             headers: ['Form', 'Example'],
             rows: [
@@ -74,6 +79,7 @@ export const unit04: Unit = {
             title: 'was or were',
             kind: 'mcq',
             instructions: 'Choose the correct form of be.',
+            instructionsAr: 'اختر الصيغة الصحيحة من فعل be.',
             page: 38,
             verified: true,
             questions: [
@@ -119,11 +125,13 @@ export const unit04: Unit = {
         {
           type: 'audio',
           title: 'A podcast about the 2010s and pronunciation',
+          titleAr: 'بودكاست عن العقد 2010 والنطق',
           tracks: au(['4.01', '4.02']),
         },
         {
           type: 'vocab',
           title: 'time phrases (1) and dates',
+          titleAr: 'عبارات الوقت (1) والتواريخ',
           items: [
             { word: 'in', meaningAr: 'في (للمرة/الشهر/الفصل)', example: 'in 2012, in July, in the summer, in the morning/afternoon/evening', exampleAr: 'في 2012، في يوليو، في الصيف، في الصباح/بعد الظهر/المساء' },
             { word: 'on', meaningAr: 'في (لأيام الأسبوع/التواريخ)', example: 'on Friday, on Saturday, on 4 May, on 10 June', exampleAr: 'يوم الجمعة، يوم السبت، في 4 مايو، في 10 يونيو' },
@@ -141,6 +149,7 @@ export const unit04: Unit = {
             title: 'Saying dates',
             kind: 'mcq',
             instructions: 'Match each written date with the way we say it.',
+            instructionsAr: 'طابق كل تاريخ مكتوب مع طريقة نطقه.',
             page: 39,
             verified: true,
             questions: [
@@ -194,6 +203,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Writing: a special time',
+          titleAr: 'كتابة: وقت خاص',
           paragraphs: [
             'Write about a special time for you – a day, week, month or year. Say when it was, where you were, who was with you and what made it special. Example: "My special time was a holiday seven years ago, in the summer. I was 28. I was with my family in southern Turkey for a week."',
           ],
@@ -219,16 +229,21 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Numbers are everywhere',
+          titleAr: 'الأرقام في كل مكان',
           paragraphs: [
             'Read an article full of surprising facts: we check our phones 96 times a day, a bath uses about 100 litres of water, and Americans eat 350 slices of pizza per second.',
           ],
         },
         {
-          type: 'grammar',
+type: 'grammar',
           title: 'how much, how many; how + adjective',
+          titleAr: 'how much, how many؛ how + صفة',
           explanation:
-            "Use How much + uncountable noun and How many + plural countable noun. With an adjective use How far (distance), How long (time/size), How big (size), How often (frequency).",
+            'Use How much + uncountable noun and How many + plural countable noun. With an adjective use How far (distance), How long (time/size), How big (size), How often (frequency).',
+          explanationAr:
+            'استخدم How much + اسم غير معدود، و How many + اسم معدود في الجمع. ومع الصفة استخدم How far (للمسافة)، How long (للوقت أو الحجم)، How big (لقياس الحجم)، How often (للتكرار).',
           rule: "How much + uncountable (How much water ...?) · How many + plural (How many slices ...?) · How far / How long / How big / How often + present simple",
+          ruleAr: 'How much + غير معدود (كم من الماء ...؟) · How many + جمع (كم شريحة ...؟) · How far / How long / How big / How often + المضارع البسيط',
           table: {
             headers: ['Question word', 'Use', 'Example'],
             rows: [
@@ -256,6 +271,7 @@ export const unit04: Unit = {
             title: 'how much, how many or how + adjective',
             kind: 'mcq',
             instructions: 'Choose the correct question word.',
+            instructionsAr: 'اختر أداة الاستفهام الصحيحة.',
             page: 41,
             verified: true,
             questions: [
@@ -315,6 +331,7 @@ export const unit04: Unit = {
         {
           type: 'vocab',
           title: 'amounts and numbers',
+          titleAr: 'الكميات والأرقام',
           items: [
             { word: 'nearly a hundred', meaning: 'about 98', meaningAr: 'ما يقرب من مئة' },
             { word: 'just over a hundred', meaning: 'about 102', meaningAr: 'أكثر قليلاً من مئة' },
@@ -332,6 +349,7 @@ export const unit04: Unit = {
             title: 'Match the numbers',
             kind: 'mcq',
             instructions: 'Match each number with the phrase that describes it.',
+            instructionsAr: 'طابق كل رقم مع العبارة التي تصفه.',
             page: 40,
             verified: true,
             questions: [
@@ -423,6 +441,7 @@ export const unit04: Unit = {
             title: 'Write the numbers in English',
             kind: 'fill-blank',
             instructions: 'Type each number in English words, e.g. 96 \u2192 ninety-six.',
+            instructionsAr: 'اكتب كل رقم بالكلمات الإنجليزية، مثال: 96 \u2192 ninety-six.',
             page: 40,
             verified: true,
             questions: [
@@ -479,13 +498,16 @@ export const unit04: Unit = {
         {
           type: 'audio',
           title: 'Pronunciation: intonation to check understanding',
+          titleAr: 'النطق: التنغيم للتأكد من الفهم',
           tracks: au(['4.03']),
         },
         {
           type: 'callout',
           title: 'Note',
+          titleAr: 'ملاحظة',
           tone: 'note',
           text: 'When you don\u2019t understand or don\u2019t hear a number, check with a short question: "Sorry, how many?" Use falling intonation.',
+          textAr: 'عندما لا تفهم رقماً أو لا تسمعه جيداً، تأكد بسؤال قصير: "آسف، كم؟" واستخدم نبرة هابطة.',
         },
         {
           type: 'pages',
@@ -508,6 +530,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Get help in shops',
+          titleAr: 'اطلب المساعدة في المتاجر',
           paragraphs: [
             "Louise is in Amsterdam for a conference but her suitcase is in Paris. Read her messages and work out which shops she needs to visit before her talk at 9 a.m.",
           ],
@@ -515,9 +538,13 @@ export const unit04: Unit = {
         {
           type: 'grammar',
           title: 'How to ... get help in shops',
+          titleAr: 'كيف تطلب المساعدة في المتاجر',
           explanation:
             'Use polite questions with Can I / Could I and Excuse me to ask for help and information in shops.',
+          explanationAr:
+            'استخدم أسئلة مهذبة مع Can I / Could I و Excuse me لطلب المساعدة والمعلومات في المتاجر.',
           rule: 'Excuse me + Could you ...? · Can I / Could I ...? · How much is it? · Can I pay by phone/card? · Could I have a receipt?',
+          ruleAr: 'Excuse me + Could you ...؟ · Can I / Could I ...؟ · How much is it؟ (كم ثمنها؟) · Can I pay by phone/card؟ (هل يمكنني الدفع بالهاتف أو بالبطاقة؟) · Could I have a receipt؟ (هل يمكنني الحصول على إيصال؟)',
           table: {
             headers: ['You want to ...', 'Say this'],
             rows: [
@@ -542,6 +569,7 @@ export const unit04: Unit = {
         {
           type: 'vocab',
           title: 'shops and shopping',
+          titleAr: 'المتاجر والتسوق',
           items: [
             { word: 'bakery', meaning: 'bread and cakes', meaningAr: 'مخبز' },
             { word: 'bookshop', meaning: 'books', meaningAr: 'مكتبة لبيع الكتب' },
@@ -559,6 +587,7 @@ export const unit04: Unit = {
         {
           type: 'audio',
           title: 'Louise goes shopping and linking practice',
+          titleAr: 'لويز تتسوق وتدريب على الربط',
           tracks: au(['4.04', '4.05', '4.06', '4.07']),
         },
         {
@@ -568,6 +597,7 @@ export const unit04: Unit = {
             title: 'In the shop',
             kind: 'mcq',
             instructions: 'Choose the correct phrase for each situation.',
+            instructionsAr: 'اختر العبارة الصحيحة لكل موقف.',
             page: 42,
             verified: true,
             questions: [
@@ -621,6 +651,7 @@ export const unit04: Unit = {
         {
           type: 'video',
           title: 'BBC Programmes: Sakura time',
+          titleAr: 'برامج بي بي سي: موسم زهر الكرز (ساكورا)',
           videos: [
             {
               title: 'Documentary clip: the cherry blossom season',
@@ -646,6 +677,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'A good time to visit',
+          titleAr: 'وقت مناسب للزيارة',
           paragraphs: [
             'Japan has four seasons, and many people\u2019s favourite season is spring. In spring the blossoms open on one million cherry trees. The Japanese call these blossoms \u2018sakura\u2019. At sakura time, a pink wave of colour travels from south to north and people come out to celebrate.',
           ],
@@ -653,6 +685,7 @@ export const unit04: Unit = {
         {
           type: 'video',
           title: 'BBC Vlogs: everyday life and numbers',
+          titleAr: 'مدونات بي بي سي: الحياة اليومية والأرقام',
           videos: [
             {
               title: 'BBC Vlogs: everyday life and numbers',
@@ -664,9 +697,13 @@ export const unit04: Unit = {
         {
           type: 'grammar',
           title: 'should, shouldn\u2019t; imperatives',
+          titleAr: 'should, shouldn\u2019t؛ صيغة الأمر',
           explanation:
             'Use should + verb for something that is necessary or a good idea, and shouldn\u2019t + verb for something that is a bad idea. Use the imperative (the base form) for instructions.',
+          explanationAr:
+            'استخدم should + الفعل لأمر ضروري أو فكرة جيدة، و shouldn\u2019t + الفعل لأمر ليس فكرة جيدة. واستخدم صيغة الأمر (الفعل المجرد) للتعليمات.',
           rule: 'You should + verb (advice) · you shouldn\u2019t + verb (warning) · base verb (instruction): Go out early!',
+          ruleAr: 'You should + الفعل (نصيحة) · you shouldn\u2019t + الفعل (تحذير) · الفعل المجرد (تعليمات): اخرج مبكراً!',
           table: {
             headers: ['Use', 'Pattern', 'Example'],
             rows: [
@@ -686,6 +723,7 @@ export const unit04: Unit = {
         {
           type: 'vocab',
           title: 'weather and seasons',
+          titleAr: 'الطقس والفصول',
           items: [
             { word: 'seasons', meaning: 'spring, summer, autumn, winter', meaningAr: 'الفصول' },
             { word: 'sunny', meaning: 'sunshine, not cloudy', meaningAr: 'مشمس' },
@@ -701,6 +739,7 @@ export const unit04: Unit = {
         {
           type: 'audio',
           title: 'A good time to visit Lake Balaton',
+          titleAr: 'وقت مناسب لزيارة بحيرة بالاتون',
           tracks: au(['4.08']),
         },
         {
@@ -710,6 +749,7 @@ export const unit04: Unit = {
             title: 'Put the words in order',
             kind: 'ordering',
             instructions: 'Make questions with How and should.',
+            instructionsAr: 'كوّن أسئلة باستخدام How و should.',
             page: 46,
             verified: true,
             questions: [
@@ -762,6 +802,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Writing: the best time to visit',
+          titleAr: 'كتابة: أفضل وقت للزيارة',
           paragraphs: [
             'Reply to an email asking when to visit your city or region. Say the best time to come, some good things to do and what clothes to bring. Example: "In the south of Chile, many people think the best time is summer. But I think you should come in autumn, maybe in April. There aren\u2019t so many tourists at that time. You should bring warm clothes."',
           ],
@@ -781,6 +822,7 @@ export const unit04: Unit = {
         {
           type: 'text',
           title: 'Review what you have learned',
+          titleAr: 'راجع ما تعلمته',
           paragraphs: [
             'You can find extra practice in the lesson pages: questions with How and should, were/was forms and dates. Review the podcasts and the conversations in the unit listenings.',
           ],
@@ -792,6 +834,7 @@ export const unit04: Unit = {
             title: 'Choose the correct word',
             kind: 'mcq',
             instructions: 'Complete the text about memorising facts.',
+            instructionsAr: 'أكمل النص عن حفظ الحقائق.',
             page: 46,
             verified: true,
             questions: [
@@ -837,6 +880,7 @@ export const unit04: Unit = {
         {
           type: 'audio',
           title: 'Review listenings',
+          titleAr: 'استماعات المراجعة',
           tracks: au(['R4.01', 'R4.02', 'R4.03']),
         },
         {
