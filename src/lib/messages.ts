@@ -45,6 +45,18 @@ export async function adminSendMessage(username: string, body: string): Promise<
   }
 }
 
+/** الأدمن يبعت رسالة لكل الطلاب مرة واحدة — RPC admin_send_to_all */
+export async function adminSendToAll(body: string): Promise<boolean> {
+  const sb = getSupabase()
+  if (!sb) return false
+  try {
+    const { error } = await sb.rpc('admin_send_to_all', { p_body: body })
+    return !error
+  } catch {
+    return false
+  }
+}
+
 /** رسايل الطالب الجديدة (اللي لسه مش متشافه). */
 export async function fetchInbox(): Promise<InboxMessage[]> {
   const sb = getSupabase()

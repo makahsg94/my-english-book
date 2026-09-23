@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../lib/authContext'
 import {
@@ -12,7 +12,7 @@ import {
   type AdminVisits,
 } from '../lib/admin'
 import { getSupabase } from '../lib/supabase'
-import { adminSendMessage } from '../lib/messages'
+import { adminSendMessage, adminSendToAll } from '../lib/messages'
 import { IconShield, IconHome, IconTrash, IconRefresh, IconEye, IconFlame, IconClock, IconChat } from '../components/Icons'
 
 /** عنصر عربي RTL مختصر */
@@ -81,6 +81,9 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false)
   const [notice, setNotice] = useState('')
   const [rpcReady, setRpcReady] = useState<boolean | null>(null)
+  const [recipient, setRecipient] = useState('') // '' = الكل، أو اسم طالب
+  const [body, setBody] = useState('')
+  const composeRef = useRef<HTMLDivElement>(null)
 
   const envName = envAdminUsername()
   const isEnvAdmin =
@@ -130,15 +133,34 @@ export default function AdminPage() {
     }
   }
 
-  const sendMessage = async (username: string) => {
-    const body = window.prompt(`ابعُت رسالة للطالب «${username}»`, '')
-    if (body === null || body.trim() === '') return
-    if (busy) return
+  const sendComposed = async () => {
+    const bodyText = body.trim()
+    if (!bodyText || busy) return
     setBusy(true)
     setNotice('')
-    const ok = await adminSendMessage(username, body.trim())
+    let ok = false
+    if (recipient === '') {
+      ok = await adminSendToAll(bodyText)
+    } else {
+      ok = await adminSendMessage(recipient, bodyText)
+    }
     setBusy(false)
-    setNotice(ok ? `اتبعتت الرسالة لـ «${username}» بنجاح` : 'مفيش طالب بالاسم ده أو حصلت مشكلة — جرّب تاني')
+    if (ok) {
+      setBody('')
+      setNotice(
+        recipient === ''
+          ? 'اتبعتت الرسالة لكل الطلاب بنجاح'
+          : `اتبعتت الرسالة لـ «${recipient}» بنجاح`,
+      )
+    } else {
+      setNotice('مفيش طالب بالاسم ده أو حصلت مشكلة — جرّب تاني')
+    }
+  }
+
+  const focusCompose = (username: string) => {
+    setRecipient(username)
+    setNotice('')
+    composeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
   /* فحص الأدمن لسه شغال */
@@ -310,6 +332,60 @@ export default function AdminPage() {
         </button>
       </div>
 
+      <div ref={composeRef} className="scroll-mt-24 overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] shadow-sm">
+        <div className="flex items-center justify-between gap-3 border-b border-[var(--line)] bg-[var(--line)]/50 px-4 py-2.5">
+          <span className="inline-flex items-center gap-2 text-sm font-bold text-[var(--ink)]">
+            <span className="grid size-7 place-items-center rounded-lg bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300">
+              <IconChat size={15} />
+            </span>
+            <Ar>إرسال رسالة</Ar>
+          </span>
+          <label className="flex items-center gap-2 text-[12px] font-bold text-[var(--ink-faint)]">
+            <Ar>المستلم</Ar>
+            <select
+              value={recipient}
+              onChange={(e) => setRecipient(e.target.value)}
+              dir="rtl"
+              className="rounded-lg border border-[var(--line-strong)] bg-[var(--bg)] px-3 py-1.5 text-[13px] font-semibold text-[var(--ink)] outline-none"
+            >
+              <option value="">الكل (جميع الطلاب)</option>
+              {rows.map((row) =>
+                row.username ? (
+                  <option key={row.user_id ?? row.username} value={row.username}>
+                    {row.username}
+                  </option>
+                ) : null,
+              )}
+            </select>
+          </label>
+        </div>
+        <div className="p-4">
+          <textarea
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            rows={2}
+            placeholder="اكتب نص الرسالة هنا..."
+            className="w-full resize-none rounded-xl border border-[var(--line-strong)] bg-[var(--bg)] px-3.5 py-2.5 text-sm text-[var(--ink)] outline-none placeholder:text-[var(--ink-faint)] focus:border-brand-400"
+          />
+          <div className="mt-3 flex items-center gap-2">
+            <button
+              type="button"
+              disabled={busy || !body.trim()}
+              onClick={() => void sendComposed()}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-[13px] font-bold text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <IconChat size={14} />
+              <Ar>إرسال</Ar>
+            </button>
+            {busy && (
+              <span className="text-[12px] text-[var(--ink-faint)]">
+                <Ar>بيتبعت...</Ar>
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+
       <div className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-[13px]">
@@ -369,8 +445,8 @@ export default function AdminPage() {
                       <button
                         type="button"
                         disabled={busy}
-                        onClick={() => void sendMessage(username)}
-                        title={`رسالة إلى ${username}`}
+                        onClick={() => focusCompose(username)}
+                        title={`ابعُت رسالة إلى ${username}`}
                         className="inline-flex items-center gap-1 rounded-lg border border-brand-200 px-2.5 py-1.5 text-[12px] font-bold text-brand-700 transition-colors hover:bg-brand-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-brand-800 dark:text-brand-300 dark:hover:bg-brand-950/40"
                       >
                         <IconChat size={13} />

@@ -38,6 +38,26 @@ as $$
   limit 200;
 $$;
 
+-- الأدمن يبعت رسالة لكل الطلاب مرة واحدة (بث عام)
+create or replace function public.admin_send_to_all(p_body text)
+returns boolean
+language plpgsql
+security definer
+as $$
+begin
+  if not public.is_admin() then
+    return false;
+  end if;
+  if p_body is null or btrim(p_body) = '' then
+    return false;
+  end if;
+  insert into public.messages (user_id, body)
+  select id, p_body
+  from auth.users;
+  return true;
+end;
+$$;
+
 -- الأدمن يبعت رسالة لطالب معين بالاسم
 create or replace function public.admin_send_message(p_username text, p_body text)
 returns boolean
@@ -98,5 +118,6 @@ $$;
 
 grant execute on function public.admin_messages() to authenticated;
 grant execute on function public.admin_send_message(text, text) to authenticated;
+grant execute on function public.admin_send_to_all(text) to authenticated;
 grant execute on function public.my_inbox() to authenticated;
 grant execute on function public.mark_messages_read() to authenticated;
