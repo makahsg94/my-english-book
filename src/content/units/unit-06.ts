@@ -70,6 +70,9 @@ export const unit06: Unit = {
             'Are you listening?',
           ],
           bankPage: 118,
+          videos: [
+            { id: '0djfJqWhnpY', title: 'How to Use the Present Continuous - English Verb Tenses Grammar Lesson' },
+          ],
         },
         {
           type: 'audio',
@@ -233,6 +236,10 @@ export const unit06: Unit = {
             'Much slower than the zip line!',
           ],
           bankPage: 119,
+          videos: [
+            { id: 'wC5GPzMb9BE', title: 'How to Use Adjectives in English - English Grammar Course' },
+            { id: 'UlNuPWiyK9Y', title: 'Adjectives and Adverbs in English - 5 Levels of Difficulty' },
+          ],
         },
         {
           type: 'audio',
@@ -375,6 +382,10 @@ export const unit06: Unit = {
             'Cross the square and the statue is in front of you.',
           ],
           bankPage: 120,
+          videos: [
+            { id: 'By94mMolWUI', title: 'How to Use To, In, and At - Prepositions in English Grammar' },
+            { id: 'SDO8mP45hr8', title: 'Should You Use TO or FOR? - 5 Levels of English Grammar' },
+          ],
         },
         {
           type: 'audio',

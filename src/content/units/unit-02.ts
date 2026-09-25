@@ -91,6 +91,10 @@ export const unit02: Unit = {
             'Can you see any lamb?',
           ],
           bankPage: 102,
+          videos: [
+            { id: 'JWUtR8d6wwA', title: 'Uncountable Nouns - English Grammar Lesson' },
+            { id: '4ZufR8iYL7w', title: 'Articles in English - 5 Levels of Difficulty' },
+          ],
         },
         {
           type: 'audio',
@@ -234,6 +238,10 @@ export const unit02: Unit = {
             'Yes, I\u2019m always online.',
           ],
           bankPage: 103,
+          videos: [
+            { id: 'jXtHCBgbks0', title: 'Adverbs in English - Learn All About English Adverbs' },
+            { id: 'UlNuPWiyK9Y', title: 'Adjectives and Adverbs in English - 5 Levels of Difficulty' },
+          ],
         },
         {
           type: 'exercise',
@@ -383,6 +391,9 @@ export const unit02: Unit = {
             'Could we have the bill, please?',
           ],
           bankPage: 104,
+          videos: [
+            { id: '4ZufR8iYL7w', title: 'Articles in English - 5 Levels of Difficulty' },
+          ],
         },
         {
           type: 'exercise',
@@ -535,6 +546,10 @@ titleAr: 'برامج بي بي سي: سباق التتابع الهندي',
             'We enjoy being together.',
           ],
           bankPage: 105,
+          videos: [
+            { id: '0djfJqWhnpY', title: 'How to Use the Present Continuous - English Verb Tenses Grammar Lesson' },
+            { id: '6Dna4Tl_YlA', title: '9 Parts of Speech in English - English Grammar Lesson' },
+          ],
         },
         {
           type: 'exercise',

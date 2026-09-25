@@ -71,6 +71,10 @@ export const unit07: Unit = {
             'at work, in bed, to school',
           ],
           bankPage: 122,
+          videos: [
+            { id: '4ZufR8iYL7w', title: 'Articles in English - 5 Levels of Difficulty' },
+            { id: 'r49hrj4cK5U', title: 'How to Use The - Articles in English Grammar' },
+          ],
         },
         {
           type: 'exercise',
@@ -318,6 +322,11 @@ title: 'An extra day',
             'He doesn\u2019t live near here. (always)',
           ],
           bankPage: 123,
+          videos: [
+            { id: '7dvV6oPbRxE', title: 'Present Simple and Present Continuous Tenses - 5 Levels of Difficulty' },
+            { id: 'uFpEp83Vh3k', title: 'Present Simple Verb Form in English - English Verb Tenses' },
+            { id: '0djfJqWhnpY', title: 'How to Use the Present Continuous - English Verb Tenses Grammar Lesson' },
+          ],
         },
         {
           type: 'audio',
@@ -400,6 +409,9 @@ title: 'An extra day',
             'Thank you for calling.',
           ],
           bankPage: 124,
+          videos: [
+            { id: 'FMGxeChtYLc', title: 'English Modal Verbs - May, Might, Could, Can - Talking About Possibilities' },
+          ],
         },
         {
           type: 'audio',
@@ -528,6 +540,9 @@ titleAr: 'مدونات فيديو بي بي سي: ماذا تعمل؟',
             'I plan to use English for work.',
           ],
           bankPage: 125,
+          videos: [
+            { id: '6Dna4Tl_YlA', title: '9 Parts of Speech in English - English Grammar Lesson' },
+          ],
         },
         {
           type: 'exercise',

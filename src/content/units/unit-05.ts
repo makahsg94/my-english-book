@@ -72,6 +72,10 @@ export const unit05: Unit = {
             'Yura posted her grandmother\u2019s holiday video on YouTube.',
           ],
           bankPage: 114,
+          videos: [
+            { id: 'rZS5qlCGCIY', title: 'How to Talk About the Past in English' },
+            { id: 'hk4MjcRdTgc', title: 'English Verb Tenses Guide - Learn About Simple, Perfect, and Continuous Tenses' },
+          ],
         },
         {
           type: 'exercise',
@@ -175,6 +179,10 @@ title: 'What went wrong?',
             'Who did Jack invite?',
           ],
           bankPage: 115,
+          videos: [
+            { id: 'rZS5qlCGCIY', title: 'How to Talk About the Past in English' },
+            { id: 'PLC-_TXsrXA', title: 'How to Use Do in English - 5 Levels of English Grammar' },
+          ],
         },
         {
           type: 'audio',
@@ -498,6 +506,10 @@ title: 'What went wrong?',
             'No problem.',
           ],
           bankPage: 116,
+          videos: [
+            { id: '929jxBdtUSM', title: 'How to Use To Be in English - Using Be in English Grammar Lesson' },
+            { id: 'rrSl1bQcnoI', title: 'Using the Verb Be - 5 Levels of English Grammar' },
+          ],
         },
         {
           type: 'audio',
@@ -594,6 +606,10 @@ titleAr: 'مقابلات الشارع من بي بي سي: كيف كانت عط�
             'The band was really amazing.',
           ],
           bankPage: 117,
+          videos: [
+            { id: 'UlNuPWiyK9Y', title: 'Adjectives and Adverbs in English - 5 Levels of Difficulty' },
+            { id: 'wC5GPzMb9BE', title: 'How to Use Adjectives in English - English Grammar Course' },
+          ],
         },
         {
           type: 'exercise',

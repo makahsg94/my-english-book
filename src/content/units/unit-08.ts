@@ -85,6 +85,10 @@ title: 'Trip advice',
             'It\u2019s the busiest road in the area.',
           ],
           bankPage: 126,
+          videos: [
+            { id: 'wC5GPzMb9BE', title: 'How to Use Adjectives in English - English Grammar Course' },
+            { id: 'UlNuPWiyK9Y', title: 'Adjectives and Adverbs in English - 5 Levels of Difficulty' },
+          ],
         },
         {
           type: 'exercise',
@@ -219,6 +223,9 @@ title: 'Trip advice',
             'We\u2019re not going to change our plans.',
           ],
           bankPage: 127,
+          videos: [
+            { id: '0anZBvnj6LM', title: 'Future in English - How to Talk about the Future' },
+          ],
         },
         {
           type: 'exercise',
@@ -347,6 +354,10 @@ title: 'At a hotel',
             'R: Would you like to put your passport in the safe here? \u2013 G: Thanks, that\u2019s very kind of you.',
           ],
           bankPage: 128,
+          videos: [
+            { id: 'FMGxeChtYLc', title: 'English Modal Verbs - May, Might, Could, Can - Talking About Possibilities' },
+            { id: 'WlT8fR9aWkY', title: 'How to Use Will, Would and Might - English Modal Verbs Lesson' },
+          ],
         },
         {
           type: 'audio',
@@ -472,6 +483,10 @@ title: 'BBC Documentary: Arctic Academy',
             'Do your sightseeing slowly.',
           ],
           bankPage: 129,
+          videos: [
+            { id: 'jXtHCBgbks0', title: 'Adverbs in English - Learn All About English Adverbs' },
+            { id: 'UlNuPWiyK9Y', title: 'Adjectives and Adverbs in English - 5 Levels of Difficulty' },
+          ],
         },
         {
           type: 'audio',

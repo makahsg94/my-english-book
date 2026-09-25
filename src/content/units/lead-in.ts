@@ -97,6 +97,11 @@ export const leadIn: Unit = {
             'That\u2019s my phone. It\u2019s expensive.',
           ],
           bankPage: 96,
+          videos: [
+            { id: '929jxBdtUSM', title: 'How to Use To Be in English - Using Be in English Grammar Lesson' },
+            { id: 'rrSl1bQcnoI', title: 'Using the Verb Be - 5 Levels of English Grammar' },
+            { id: '6Dna4Tl_YlA', title: '9 Parts of Speech in English - English Grammar Lesson' },
+          ],
         },
         {
           type: 'exercise',

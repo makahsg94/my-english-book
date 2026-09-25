@@ -74,6 +74,11 @@ export const unit01: Unit = {
           },
           examples: ['What\u2019s your favourite café?', 'Do you have a minute?', 'How do you know each other?'],
           bankPage: 98,
+          videos: [
+            { id: 'uFpEp83Vh3k', title: 'Present Simple Verb Form in English - English Verb Tenses' },
+            { id: 'PLC-_TXsrXA', title: 'How to Use Do in English - 5 Levels of English Grammar' },
+            { id: '7dvV6oPbRxE', title: 'Present Simple and Present Continuous Tenses - 5 Levels of Difficulty' },
+          ],
         },
         {
           type: 'vocab',
@@ -272,6 +277,10 @@ export const unit01: Unit = {
             'Does she work? – Yes, she does.',
           ],
           bankPage: 99,
+          videos: [
+            { id: 'uFpEp83Vh3k', title: 'Present Simple Verb Form in English - English Verb Tenses' },
+            { id: 'PLC-_TXsrXA', title: 'How to Use Do in English - 5 Levels of English Grammar' },
+          ],
         },
         {
           type: 'audio',
@@ -359,6 +368,11 @@ export const unit01: Unit = {
             'Sure, that\u2019s fine. See you there.',
           ],
           bankPage: 100,
+          videos: [
+            { id: 'FMGxeChtYLc', title: 'English Modal Verbs - May, Might, Could, Can - Talking About Possibilities' },
+            { id: 'WlT8fR9aWkY', title: 'How to Use Will, Would and Might - English Modal Verbs Lesson' },
+            { id: '6Dna4Tl_YlA', title: '9 Parts of Speech in English - English Grammar Lesson' },
+          ],
         },
         {
           type: 'exercise',
@@ -528,6 +542,10 @@ export const unit01: Unit = {
           },
           examples: ["My sister's name is Sarah and she lives in Hamburg.", "My parents' house is near here.", 'This car isn\u2019t mine. It\u2019s my parents\u2019.'],
           bankPage: 101,
+          videos: [
+            { id: '6Dna4Tl_YlA', title: '9 Parts of Speech in English - English Grammar Lesson' },
+            { id: 'r49hrj4cK5U', title: 'How to Use The - Articles in English Grammar' },
+          ],
         },
         {
           type: 'exercise',

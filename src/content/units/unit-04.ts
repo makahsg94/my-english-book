@@ -71,6 +71,10 @@ export const unit04: Unit = {
             'It got 53 million \u2018likes\u2019 for an egg.',
           ],
           bankPage: 110,
+          videos: [
+            { id: 'rrSl1bQcnoI', title: 'Using the Verb Be - 5 Levels of English Grammar' },
+            { id: 'rZS5qlCGCIY', title: 'How to Talk About the Past in English' },
+          ],
         },
         {
           type: 'exercise',
@@ -263,6 +267,10 @@ type: 'grammar',
             'How often do you check your phone?',
           ],
           bankPage: 111,
+          videos: [
+            { id: 'JWUtR8d6wwA', title: 'Uncountable Nouns - English Grammar Lesson' },
+            { id: '6Dna4Tl_YlA', title: '9 Parts of Speech in English - English Grammar Lesson' },
+          ],
         },
         {
           type: 'exercise',
@@ -565,6 +573,9 @@ type: 'grammar',
             'How much is it? / Can I pay by card?',
           ],
           bankPage: 112,
+          videos: [
+            { id: 'FMGxeChtYLc', title: 'English Modal Verbs - May, Might, Could, Can - Talking About Possibilities' },
+          ],
         },
         {
           type: 'vocab',
@@ -719,6 +730,11 @@ type: 'grammar',
             'Go out early and find a good place to sit.',
           ],
           bankPage: 113,
+          videos: [
+            { id: 'fMBHNI2Tyq8', title: 'How to Use Should, Ought to, Supposed to and Had Better - English Modal Verbs Lesson' },
+            { id: 'zBbu0yksFjk', title: 'How to Use Should in English - English Modal Verbs' },
+            { id: 'POFfLs0Uaio', title: 'Modal Verbs - How to Use Must, Have to and Should - English Grammar Lesson' },
+          ],
         },
         {
           type: 'vocab',

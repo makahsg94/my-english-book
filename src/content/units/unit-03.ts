@@ -90,6 +90,10 @@ export const unit03: Unit = {
             'That desk over there is where I work.',
           ],
           bankPage: 106,
+          videos: [
+            { id: '6Dna4Tl_YlA', title: '9 Parts of Speech in English - English Grammar Lesson' },
+            { id: '4ZufR8iYL7w', title: 'Articles in English - 5 Levels of Difficulty' },
+          ],
         },
         {
           type: 'audio',
@@ -216,6 +220,9 @@ export const unit03: Unit = {
             'Choose a time of day when you\u2019ve got a lot of energy.',
           ],
           bankPage: 107,
+          videos: [
+            { id: 'Y7_ZeX_g608', title: 'How to Use Have and Get in English - Improve English Grammar' },
+          ],
         },
         {
           type: 'audio',
@@ -338,6 +345,9 @@ export const unit03: Unit = {
             'Let me get your drink.',
           ],
           bankPage: 108,
+          videos: [
+            { id: 'FMGxeChtYLc', title: 'English Modal Verbs - May, Might, Could, Can - Talking About Possibilities' },
+          ],
         },
         {
           type: 'vocab',
@@ -433,6 +443,10 @@ titleAr: 'مقابلات بي بي سي في الشارع: حيّك',
             "There isn't very much noise.",
           ],
           bankPage: 109,
+          videos: [
+            { id: 'rrSl1bQcnoI', title: 'Using the Verb Be - 5 Levels of English Grammar' },
+            { id: '929jxBdtUSM', title: 'How to Use To Be in English - Using Be in English Grammar Lesson' },
+          ],
         },
         {
           type: 'text',
